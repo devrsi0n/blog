@@ -1,21 +1,21 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import github from '../img/github-icon.svg'
-import logo from '../img/logo.svg'
+import React from 'react';
+import { Link } from 'gatsby';
+import github from '../img/github-icon.svg';
+import logo from '../img/logo.png';
 
 const Navbar = () => (
   <nav className="navbar is-transparent">
     <div className="container">
       <div className="navbar-brand">
         <Link to="/" className="navbar-item" title="Logo">
-          <img src={logo} alt="Kaldi" style={{ width: '88px' }} />
+          <img src={logo} alt="logo" />
         </Link>
       </div>
       <div className="navbar-start">
         <Link className="navbar-item" to="/about">
-          About
+          关于
         </Link>
-        <Link className="navbar-item" to="/products">
+        {/* <Link className="navbar-item" to="/products">
           Products
         </Link>
         <Link className="navbar-item" to="/contact">
@@ -23,12 +23,15 @@ const Navbar = () => (
         </Link>
         <Link className="navbar-item" to="/contact/examples">
           Form Examples
-        </Link>
+        </Link> */}
+        {/* <Link className="navbar-item" to="/blog">
+          博客
+        </Link> */}
       </div>
       <div className="navbar-end">
         <a
           className="navbar-item"
-          href="https://github.com/AustinGreen/gatsby-netlify-cms-boilerplate"
+          href="https://github.com/devrsi0n"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -39,6 +42,6 @@ const Navbar = () => (
       </div>
     </div>
   </nav>
-)
+);
 
-export default Navbar
+export default Navbar;

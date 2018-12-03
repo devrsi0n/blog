@@ -4,7 +4,8 @@
   "rules": {
     "react/jsx-wrap-multilines": "off",
     "react/jsx-one-expression-per-line": "off",
+    "react/forbid-prop-types": "off",
     "no-restricted-syntax": "off",
-    "react/forbid-prop-types": "off"
+    "no-console": "off"
   }
 }

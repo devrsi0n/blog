@@ -3,46 +3,44 @@ import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/Layout';
 
-export default class IndexPage extends React.Component {
-  render() {
-    const { data } = this.props;
-    const { edges: posts } = data.allMarkdownRemark;
+export default function IndexPage(props) {
+  const { data } = props;
+  const { edges: posts } = data.allMarkdownRemark;
 
-    return (
-      <Layout>
-        <section className="section">
-          <div className="container">
-            <div className="content">
-              <h1 className="has-text-weight-bold is-size-2">最新博客</h1>
-            </div>
-            {posts.map(({ node: post }) => (
-              <div
-                className="content"
-                style={{ border: '1px solid #333', padding: '2em 4em' }}
-                key={post.id}
-              >
-                <p>
-                  <Link className="has-text-primary" to={post.fields.slug}>
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> &bull; </span>
-                  <small>{post.frontmatter.date}</small>
-                </p>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button is-small" to={post.fields.slug}>
-                    继续阅读
-                  </Link>
-                </p>
-              </div>
-            ))}
+  return (
+    <Layout>
+      <section className="section">
+        <div className="container">
+          <div className="content">
+            <h1 className="has-text-weight-bold is-size-2">最新博客</h1>
           </div>
-        </section>
-      </Layout>
-    );
-  }
+          {posts.map(({ node: post }) => (
+            <div
+              className="content"
+              style={{ border: '1px solid #333', padding: '2em 4em' }}
+              key={post.id}
+            >
+              <p>
+                <Link className="has-text-primary" to={post.fields.slug}>
+                  {post.frontmatter.title}
+                </Link>
+                <span> &bull; </span>
+                <small>{post.frontmatter.date}</small>
+              </p>
+              <p>
+                {post.excerpt}
+                <br />
+                <br />
+                <Link className="button is-small" to={post.fields.slug}>
+                  继续阅读
+                </Link>
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </Layout>
+  );
 }
 
 IndexPage.propTypes = {
@@ -50,7 +48,7 @@ IndexPage.propTypes = {
     allMarkdownRemark: PropTypes.shape({
       edges: PropTypes.array,
     }),
-  }),
+  }).isRequired,
 };
 
 export const pageQuery = graphql`

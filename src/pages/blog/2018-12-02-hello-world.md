@@ -9,3 +9,11 @@ tags:
 ---
 
 Hello, world! 来自程序员 devrsi0n 的第一篇博客。
+
+```javascript
+import React from 'react';
+
+export default Hello() {
+  return <p>Hello, world!</p>;
+}
+```

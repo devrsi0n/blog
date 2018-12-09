@@ -20,7 +20,7 @@ export default function IndexPage(props) {
               style={{
                 border: '1px solid #aaa',
                 padding: '2em 4em',
-                borderRadius: '4px',
+                borderRadius: '6px',
               }}
               key={post.id}
             >

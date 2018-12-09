@@ -33,7 +33,7 @@ function Footer() {
   return (
     <Wrapper>
       <p>
-        <span>@{year}</span>
+        <span>Copyright © {year}</span>
         <Name>Devrsi0n</Name>
       </p>
       <Link

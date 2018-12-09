@@ -16,9 +16,7 @@ function TagRoute(props) {
   const { tag } = props.pageContext;
   const { title } = props.data.site.siteMetadata;
   const { totalCount } = props.data.allMarkdownRemark;
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? '' : 's'
-  } tagged with “${tag}”`;
+  const tagHeader = `找到${totalCount}篇文章带有标签 “${tag}”`;
 
   return (
     <Layout>
@@ -33,7 +31,7 @@ function TagRoute(props) {
               <h3 className="title is-size-4 is-bold-light">{tagHeader}</h3>
               <ul className="taglist">{postLinks}</ul>
               <p>
-                <Link to="/tags/">Browse all tags</Link>
+                <Link to="/tags/">浏览所有标签</Link>
               </p>
             </div>
           </div>

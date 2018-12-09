@@ -8,7 +8,7 @@ tags:
   - First
 ---
 
-Hello, world! 来自程序员 devrsi0n 的第一篇博客。
+Hello, world! 来自程序员 Devrsi0n 的第一篇博客。
 
 ```javascript
 import React from 'react';

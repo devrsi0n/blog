@@ -17,7 +17,11 @@ export default function IndexPage(props) {
           {posts.map(({ node: post }) => (
             <div
               className="content"
-              style={{ border: '1px solid #333', padding: '2em 4em' }}
+              style={{
+                border: '1px solid #aaa',
+                padding: '2em 4em',
+                borderRadius: '4px',
+              }}
               key={post.id}
             >
               <p>

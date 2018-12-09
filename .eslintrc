@@ -5,6 +5,7 @@
     "react/jsx-wrap-multilines": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/forbid-prop-types": "off",
+    "react/no-unescaped-entities": "off",
     "no-restricted-syntax": "off",
     "no-console": "off"
   }

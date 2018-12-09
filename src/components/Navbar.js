@@ -1,47 +1,44 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import github from '../img/github-icon.svg';
-import logo from '../img/icons/128.jpg';
+import styled from 'styled-components';
 
-const Navbar = () => (
-  <nav className="navbar is-transparent">
-    <div className="container">
-      <div className="navbar-brand">
-        <Link to="/" className="navbar-item" title="Logo">
-          <img src={logo} alt="logo" />
-        </Link>
-      </div>
-      <div className="navbar-start">
-        <Link className="navbar-item" to="/about">
-          关于
-        </Link>
-        {/* <Link className="navbar-item" to="/products">
-          Products
-        </Link>
-        <Link className="navbar-item" to="/contact">
-          Contact
-        </Link>
-        <Link className="navbar-item" to="/contact/examples">
-          Form Examples
-        </Link> */}
-        {/* <Link className="navbar-item" to="/blog">
-          博客
-        </Link> */}
-      </div>
-      <div className="navbar-end">
-        <a
-          className="navbar-item"
-          href="https://github.com/devrsi0n"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="icon">
-            <img src={github} alt="Github" />
-          </span>
-        </a>
-      </div>
-    </div>
-  </nav>
+const Wrapper = styled.nav`
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  box-shadow: 0 0 10px rgba(10, 10, 10, 0.16);
+  transition: background 0.5s;
+  padding: 1vw 10vw;
+`;
+
+const Brand = styled.a`
+  color: #000;
+  background: transparent;
+`;
+const BrandName = styled.span`
+  background: #000;
+  border-radius: 3px;
+  color: #fff;
+  padding: 1px 5px 2px;
+`;
+
+const NavbarLink = styled(Link)`
+  width: 6vw;
+`;
+
+const NavbarStart = styled.div`
+  margin-left: 4vw;
+`;
+
+export default () => (
+  <Wrapper>
+    <Brand href="/">
+      <BrandName>Devrsi0n</BrandName>
+      <span>'s Blog</span>
+    </Brand>
+    <NavbarStart>
+      <NavbarLink to="/about">关于</NavbarLink>
+    </NavbarStart>
+  </Wrapper>
 );
-
-export default Navbar;

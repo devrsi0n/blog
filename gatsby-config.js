@@ -1,11 +1,16 @@
 module.exports = {
   siteMetadata: {
-    title: "devrsi0n's blog",
-    description: "devrsi0n's personal blog",
+    title: "Devrsi0n's blog",
+    description: "Devrsi0n's personal blog",
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sass',
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
@@ -124,7 +129,6 @@ module.exports = {
         // cookieDomain: 'devrsi0n.me',
       },
     },
-    'gatsby-plugin-purgecss', // must be after other CSS plugins
     'gatsby-plugin-netlify', // make sure to keep it last in the array
   ],
 };

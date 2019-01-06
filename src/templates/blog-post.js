@@ -1,110 +1,131 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { kebabCase } from 'lodash';
-import Helmet from 'react-helmet';
-import { graphql, Link } from 'gatsby';
+import pt from 'prop-types';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
+
+import Bio from '../components/Bio';
 import Layout from '../components/Layout';
-import Content, { HTMLContent } from '../components/Content';
+import SEO from '../components/SEO';
+import Comment from '../components/Comment';
+import { formatReadingTime } from '../utils/helpers';
+import { sansSerifFontFamily, rhythm, scale } from '../utils/typography';
+import { colorDark } from '../utils/theme-variable';
 
-export const BlogPostTemplate = ({
-  content,
-  contentComponent,
-  description,
-  tags,
-  title,
-  helmet,
-}) => {
-  const PostContent = contentComponent || Content;
+const GITHUB_USERNAME = 'devrsi0n';
+const GITHUB_REPO_NAME = 'blog';
 
-  return (
-    <section className="section">
-      {helmet || ''}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
-            <p>{description}</p>
-            <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
-                <h4>标签</h4>
-                <ul className="taglist">
-                  {tags.map(tag => (
-                    <li key={`${tag}tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+class BlogPostTemplate extends React.Component {
+  static propTypes = {
+    data: pt.shape({
+      markdownRemark: pt.object.isRequired,
+    }).isRequired,
+    pageContext: pt.object.isRequired,
+    location: pt.object.isRequired,
+  };
 
-BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  /* eslint-disable react/forbid-prop-types */
-  helmet: PropTypes.object,
-  tags: PropTypes.arrayOf(PropTypes.string),
-};
+  render() {
+    const post = this.props.data.markdownRemark;
+    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    const { previous, next, slug } = this.props.pageContext;
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(
+      /\//g,
+      ''
+    )}.md`;
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <SEO
+          title={post.frontmatter.title}
+          description={post.frontmatter.spoiler}
+          slug={post.fields.slug}
+        />
+        <h1>{post.frontmatter.title}</h1>
+        <p
+          style={{
+            ...scale(-1 / 5),
+            display: 'block',
+            marginBottom: rhythm(1),
+            marginTop: rhythm(-0.5),
+            fontSize: '0.85rem',
+          }}
+        >
+          {post.frontmatter.date}
+          {` • ${formatReadingTime(post.timeToRead)}`}
+        </p>
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <p>
+          <a href={editUrl} target="_blank" rel="noopener noreferrer">
+            在 GitHub 上编辑本文
+          </a>
+        </p>
+        <h3
+          style={{
+            marginTop: rhythm(0.25),
+          }}
+        >
+          <Link
+            style={{
+              fontFamily: sansSerifFontFamily,
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: colorDark,
+            }}
+            to="/"
+          >
+            Devrsi0n
+          </Link>
+        </h3>
+        <Bio />
+        <ul
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            listStyle: 'none',
+            padding: 0,
+          }}
+        >
+          <li>
+            {previous && (
+              <Link to={previous.fields.slug} rel="prev">
+                ← {previous.frontmatter.title}
+              </Link>
+            )}
+          </li>
+          <li>
+            {next && (
+              <Link to={next.fields.slug} rel="next">
+                {next.frontmatter.title} →
+              </Link>
+            )}
+          </li>
+        </ul>
+        <Comment />
+      </Layout>
+    );
+  }
+}
 
-BlogPostTemplate.defaultProps = {
-  contentComponent: Content,
-  tags: [],
-  helmet: null,
-};
-
-const BlogPost = ({ data }) => {
-  const { markdownRemark: post } = data;
-
-  return (
-    <Layout>
-      <BlogPostTemplate
-        content={post.html}
-        contentComponent={HTMLContent}
-        description={post.frontmatter.description}
-        helmet={
-          <Helmet titleTemplate="%s | Blog">
-            <title>{`${post.frontmatter.title}`}</title>
-            <meta
-              name="description"
-              content={`${post.frontmatter.description}`}
-            />
-          </Helmet>
-        }
-        tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
-      />
-    </Layout>
-  );
-};
-
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }).isRequired,
-};
-
-export default BlogPost;
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostByID($id: String!) {
-    markdownRemark(id: { eq: $id }) {
+  query BlogPostBySlug($slug: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      timeToRead
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
         title
-        description
-        tags
+        date(formatString: "YYYY MM DD")
+        spoiler
+      }
+      fields {
+        slug
       }
     }
   }

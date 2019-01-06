@@ -1,77 +1,77 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
+
+import Bio from '../components/Bio';
 import Layout from '../components/Layout';
+import SEO from '../components/SEO';
+import Footer from '../components/Footer';
+import { formatReadingTime } from '../utils/helpers';
+import { rhythm } from '../utils/typography';
 
-export default function IndexPage(props) {
-  const { data } = props;
-  const { edges: posts } = data.allMarkdownRemark;
+class BlogIndex extends React.Component {
+  render() {
+    const siteTitle = get(this, 'props.data.site.siteMetadata.title');
+    // const siteDescription = get(
+    //   this,
+    //   'props.data.site.siteMetadata.description'
+    // );
+    const posts = get(this, 'props.data.allMarkdownRemark.edges');
 
-  return (
-    <Layout>
-      <section className="section">
-        <div className="container">
-          <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">最新博客</h1>
-          </div>
-          {posts.map(({ node: post }) => (
-            <div
-              className="content"
-              style={{
-                border: '1px solid #aaa',
-                padding: '2em 4em',
-                borderRadius: '6px',
-              }}
-              key={post.id}
-            >
-              <p>
-                <Link className="has-text-primary" to={post.fields.slug}>
-                  {post.frontmatter.title}
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <SEO />
+        <Bio />
+        {posts.map(({ node }) => {
+          const title = get(node, 'frontmatter.title') || node.fields.slug;
+          return (
+            <div key={node.fields.slug}>
+              <h3
+                style={{
+                  marginBottom: rhythm(1 / 4),
+                }}
+              >
+                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                  {title}
                 </Link>
-                <span> &bull; </span>
-                <small>{post.frontmatter.date}</small>
-              </p>
-              <p>
-                {post.excerpt}
-                <br />
-                <br />
-                <Link className="button is-small" to={post.fields.slug}>
-                  继续阅读
-                </Link>
-              </p>
+              </h3>
+              <small style={{ fontSize: '0.85rem' }}>
+                {node.frontmatter.date}
+                {` • ${formatReadingTime(node.timeToRead)}`}
+              </small>
+              <p
+                dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
+              />
             </div>
-          ))}
-        </div>
-      </section>
-    </Layout>
-  );
+          );
+        })}
+        <Footer />
+      </Layout>
+    );
+  }
 }
 
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  }).isRequired,
-};
+export default BlogIndex;
 
 export const pageQuery = graphql`
-  query IndexQuery {
-    allMarkdownRemark(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: { frontmatter: { templateKey: { eq: "blog-post" } } }
-    ) {
+  query {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          excerpt(pruneLength: 400)
-          id
           fields {
             slug
           }
+          timeToRead
           frontmatter {
+            date(formatString: "YYYY MM DD")
             title
-            templateKey
-            date(formatString: "MMMM DD, YYYY")
+            spoiler
           }
         }
       }

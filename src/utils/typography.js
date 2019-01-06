@@ -1,116 +1,78 @@
 import Typography from 'typography';
-import gray from 'gray-percentage';
-import { MOBILE_MEDIA_QUERY } from 'typography-breakpoint-constants';
+import Wordpress2016 from 'typography-theme-wordpress-2016';
+import { colorPrimary } from './theme-variable';
 
-const cnFirstfontFamily = [
-  'Helvetica',
-  'Tahoma',
-  'Arial',
-  'STXihei',
-  '华文细黑',
-  'Microsoft YaHei',
-  '微软雅黑',
-  'SimSun',
-  '宋体',
-  'Heiti',
-  '黑体',
+import 'typeface-montserrat';
+import 'typeface-merriweather';
+
+// <无衬线字体>
+export const sansSerifFontFamily = [
+  // 西文
+  'Montserrat',
+
+  // `"Helvetica Neue"`, // <mac/无衬线>, 优于 Helvetica
+  // `Helvetica`, // <mac/无衬线>
+  // 'Tahoma', // <win/无衬线>, 好于 Arial
+  // 'Arial', // <win/无衬线>
+
+  // 中文
+  `"PingFang SC"`, // 苹方, <mac>
+  `"Hiragino Sans GB"`, // 冬青黑体, <mac>
+  `"Microsoft YaHei"`, // 微软雅黑, win
+  '"Heiti SC"', // 黑体-简, win
+  '"WenQuanYi Micro Hei"', // 文泉驿微米黑，<Linux>
+
+  // fallback
   'sans-serif',
-];
+].join(', ');
 
-const theme = {
-  title: 'Wordpress Theme 2016',
-  baseFontSize: '16px',
-  baseLineHeight: 1.75,
-  scaleRatio: 5 / 2,
-  // googleFonts: [
-  // {
-  //   name: 'Montserrat',
-  //   styles: ['700'],
-  // },
-  // {
-  //   name: 'Merriweather',
-  //   styles: ['400', '400i', '700', '700i', '900', '900i'],
-  // },
-  // ],
-  headerFontFamily: cnFirstfontFamily,
-  bodyFontFamily: cnFirstfontFamily,
-  bodyColor: 'hsla(0,0%,0%,0.9)',
-  headerWeight: 900,
-  bodyWeight: 400,
-  boldWeight: 700,
-  overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
-    h1: {
-      fontFamily: cnFirstfontFamily.join(','),
-    },
-    blockquote: {
-      ...scale(1 / 5),
-      color: gray(41),
-      fontStyle: 'italic',
-      paddingLeft: rhythm(13 / 16),
-      marginLeft: rhythm(-1),
-      borderLeft: `${rhythm(3 / 16)} solid ${gray(10)}`,
-    },
-    'blockquote > :last-child': {
-      marginBottom: 0,
-    },
-    'blockquote cite': {
-      ...adjustFontSizeTo(options.baseFontSize),
-      color: options.bodyColor,
-      fontWeight: options.bodyWeight,
-    },
-    'blockquote cite:before': {
-      content: '"â€” "',
-    },
-    ul: {
-      listStyle: 'disc',
-    },
-    'ul,ol': {
-      marginLeft: 0,
-    },
-    [MOBILE_MEDIA_QUERY]: {
-      'ul,ol': {
-        marginLeft: rhythm(1),
-      },
-      blockquote: {
-        marginLeft: rhythm(-3 / 4),
-        marginRight: 0,
-        paddingLeft: rhythm(9 / 16),
-      },
-    },
-    'h1,h2,h3,h4,h5,h6': {
-      marginTop: rhythm(2),
-    },
-    h4: {
-      letterSpacing: '0.140625em',
-      textTransform: 'uppercase',
-    },
-    h6: {
-      fontStyle: 'italic',
-    },
-    a: {
-      // boxShadow: '0 1px 0 0 currentColor',
-      color: '#0288d1',
-      textDecoration: 'none',
-    },
-    'a:hover,a:active': {
-      boxShadow: 'none',
-    },
-    'mark,ins': {
-      background: '#007acc',
-      color: 'white',
-      padding: `${rhythm(1 / 16)} ${rhythm(1 / 8)}`,
-      textDecoration: 'none',
-    },
-    'p code': {
-      fontSize: '1.1rem',
-    },
-    'a.gatsby-resp-image-link': {
-      boxShadow: 'none',
-    },
-  }),
-};
+export const serifFontFamily = [
+  // 西文
+  'Merriweather',
+  'Georgia',
 
-const typography = new Typography(theme);
+  // 中文
+  `"Source Han Serif SC"`, // 思源宋体
+  'STSong', // 华文宋体, mac
+  'SimSun', // 中易宋体, win
+  `"AR PL Sungti"`, // 文鼎简报宋, linux
+
+  // fallback
+  'serif',
+].join(', ');
+
+Wordpress2016.overrideThemeStyles = () => ({
+  body: {
+    fontFamily: sansSerifFontFamily,
+  },
+  'p,a,span,label,small': {
+    fontFamily: serifFontFamily,
+    'text-rendering': 'optimizeLegibility',
+  },
+  'h1,h2,h3,h4,h5,h6': {
+    fontFamily: sansSerifFontFamily,
+    'text-rendering': 'optimizeLegibility',
+  },
+  a: {
+    color: colorPrimary,
+  },
+  'a.gatsby-resp-image-link': {
+    boxShadow: 'none',
+  },
+  'a.anchor': {
+    boxShadow: 'none',
+  },
+  'p code': {
+    fontSize: '1.1rem',
+  },
+  'li code': {
+    fontSize: '1rem',
+  },
+});
+
+delete Wordpress2016.googleFonts;
+
+const typography = new Typography(Wordpress2016);
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {

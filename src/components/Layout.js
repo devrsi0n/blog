@@ -1,51 +1,81 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import { StaticQuery, graphql } from 'gatsby';
+import pt from 'prop-types';
+import { Link } from 'gatsby';
+import { colorDark } from '../utils/theme-variable';
 
-import Navbar from './Navbar';
-import Footer from './Footer';
+import { sansSerifFontFamily, rhythm, scale } from '../utils/typography';
 
-const Wrapper = styled.div`
-  padding: 0 10vw;
-`;
+class Layout extends React.Component {
+  static propTypes = {
+    location: pt.object.isRequired,
+    title: pt.string.isRequired,
+    children: pt.node.isRequired,
+  };
 
-const TemplateWrapper = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query HeadingQuery {
-        site {
-          siteMetadata {
-            title
-            description
-          }
-        }
-      }
-    `}
-    render={data => (
-      <div>
-        <Helmet>
-          <html lang="zh-CN" />
-          <title>{data.site.siteMetadata.title}</title>
-          <meta
-            name="description"
-            content={data.site.siteMetadata.description}
-          />
-          <style>{'body {background-color: #f8f8f8;}'}</style>
-        </Helmet>
-        <Navbar />
-        <Wrapper>
-          {children}
-          <Footer />
-        </Wrapper>
+  render() {
+    const { location, title, children } = this.props;
+    // eslint-disable-next-line no-undef
+    const rootPath = `${__PATH_PREFIX__}/`;
+    let header;
+
+    if (location.pathname === rootPath) {
+      header = (
+        <h1
+          style={{
+            ...scale(1.0),
+            marginBottom: rhythm(1.5),
+            marginTop: 0,
+          }}
+        >
+          <Link
+            style={{
+              fontFamily: sansSerifFontFamily,
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
+            to="/"
+          >
+            {title}
+          </Link>
+        </h1>
+      );
+    } else {
+      header = (
+        <h3
+          style={{
+            marginTop: 0,
+            marginBottom: rhythm(-1),
+          }}
+        >
+          <Link
+            style={{
+              fontFamily: sansSerifFontFamily,
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: colorDark,
+            }}
+            to="/"
+          >
+            {title}
+          </Link>
+        </h3>
+      );
+    }
+    return (
+      <div
+        style={{
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          maxWidth: rhythm(24),
+          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+        }}
+      >
+        {header}
+        {children}
       </div>
-    )}
-  />
-);
+    );
+  }
+}
 
-TemplateWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default TemplateWrapper;
+export default Layout;

@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
-import Gitalk from 'gitalk';
 import './gitalk.scss';
+
+// import Gitalk from 'Gitalk';
+// TODO: Report issue
+const isBrowser = typeof window !== 'undefined';
+const Gitalk = isBrowser ? require('gitalk') : undefined;
 
 export default class Comment extends PureComponent {
   componentDidMount = () => {

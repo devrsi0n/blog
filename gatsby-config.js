@@ -1,3 +1,5 @@
+const analyze = process.env.ANALYZE;
+
 module.exports = {
   siteMetadata: {
     title: 'Devrsi0n',
@@ -20,8 +22,8 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `src/assets/img/icons`,
-        name: 'images',
+        path: `src/posts`,
+        name: 'posts',
       },
     },
     {
@@ -57,7 +59,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: `'UA-108341680-2`,
+        trackingId: `UA-108341680-2`,
       },
     },
     `gatsby-plugin-feed`,
@@ -81,5 +83,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-sass`,
-  ],
+    analyze && {
+      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
+      options: {
+        analyzerPort: 3001,
+        production: true,
+      },
+    },
+  ].filter(Boolean),
 };

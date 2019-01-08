@@ -2,9 +2,6 @@ import Typography from 'typography';
 import Wordpress2016 from 'typography-theme-wordpress-2016';
 import { colorPrimary } from './theme-variable';
 
-import 'typeface-montserrat';
-import 'typeface-merriweather';
-
 // <无衬线字体>
 export const sansSerifFontFamily = [
   // 西文

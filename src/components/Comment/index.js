@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import md5 from 'md5';
 import './gitalk.scss';
 
 // import Gitalk from 'Gitalk';
@@ -21,7 +22,7 @@ export default class Comment extends PureComponent {
       owner: 'devrsi0n',
       admin: ['devrsi0n'],
       // Ensure uniqueness and length less than 50
-      id: window.location.pathname,
+      id: md5(window.location.pathname),
       // Facebook-like distraction free mode
       distractionFreeMode: false,
     });

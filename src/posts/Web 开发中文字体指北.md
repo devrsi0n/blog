@@ -38,6 +38,8 @@ Serif 强调一个 word，而非单一的字母，反之 Sans-Serif 则强调个
 
 在小字体的场合，通常 Sans-Serif 比 Serif 更清晰。
 
+> 未完待续
+
 ## 参考文章
 
 - [中文字体新手指南](http://fuxiaopang.cn/the-complete-beginners-guide-to-chinese-fonts/)

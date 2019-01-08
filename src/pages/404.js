@@ -1,24 +1,60 @@
 import React from 'react';
+import pt from 'prop-types';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
+
 import Layout from '../components/Layout';
+import './404.scss';
 
 class NotFoundPage extends React.Component {
+  static propTypes = {
+    location: pt.object.isRequired,
+  };
+
   render() {
+    const title = get(this, 'props.data.site.siteMetadata.title');
     return (
-      <Layout location={this.props.location}>
-        <h1>Not Found</h1>
-        <p>I haven’t written this post yet. Will you help me write it?</p>
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/6IJB0aD8gSA"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen
-        />
-        <p>Too doo doo doo doo doo doo doo</p>
+      <Layout location={this.props.location} title={title}>
+        <div className="code-area">
+          <span style={{ color: '#777', fontStyle: 'italic' }}>
+            {'// 404, 你来到了未知领域.'}
+          </span>
+          <br />
+          <span>
+            <span style={{ color: '#d65562' }}>if </span>(
+            <span style={{ color: '#4ca8ef' }}>!</span>
+            <span style={{ fontStyle: 'italic', color: '#bdbdbd' }}>found</span>
+            ){' {'}
+          </span>
+          <br />
+          <span>
+            <span style={{ paddingLeft: '15px', color: '#2796ec' }}>
+              <i style={{ width: '10px', display: 'inline-block' }} />
+              throw
+            </span>
+            <span>
+              (<span style={{ color: '#a6a61f' }}>"(╯°□°)╯︵ ┻━┻"</span>);
+            </span>
+            <span style={{ display: 'block' }}>{'}'}</span>
+            <br />
+            <span style={{ color: '#777', fontStyle: 'italic' }}>
+              {'//'} <Link to="/">回到首页!</Link>
+            </span>
+          </span>
+        </div>
       </Layout>
     );
   }
 }
 
 export default NotFoundPage;
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`;

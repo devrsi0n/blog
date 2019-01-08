@@ -1,4 +1,5 @@
 import React from 'react';
+import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 
@@ -10,6 +11,10 @@ import { formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
 
 class BlogIndex extends React.Component {
+  static propTypes = {
+    location: pt.object.isRequired,
+  };
+
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title');
     // const siteDescription = get(
@@ -31,7 +36,10 @@ class BlogIndex extends React.Component {
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                <Link
+                  style={{ boxShadow: 'none' }}
+                  to={`posts/${node.fields.slug}`}
+                >
                   {title}
                 </Link>
               </h3>
@@ -69,7 +77,10 @@ export const pageQuery = graphql`
           }
           timeToRead
           frontmatter {
-            date(formatString: "YYYY MM DD")
+            date(
+              formatString: "YYYY MM DD"
+              # locale: "zh-cn"
+            )
             title
             spoiler
           }

@@ -58,7 +58,8 @@
     "lint": "npm run eslint && npm run prettier",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix src/",
-    "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}"
+    "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
+    "now-build": "npm run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",

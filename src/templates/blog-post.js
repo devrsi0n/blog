@@ -7,7 +7,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Comment from '../components/Comment';
-import { formatReadingTime } from '../utils/helpers';
+import { formatReadingTime, setLastPost } from '../utils/helpers';
 import { sansSerifFontFamily, rhythm, scale } from '../utils/typography';
 import { colorDark } from '../utils/theme-variable';
 
@@ -23,11 +23,17 @@ class BlogPostTemplate extends React.Component {
     location: pt.object.isRequired,
   };
 
+  componentWillUnmount = () => {
+    setLastPost({
+      link: this.props.location.pathname,
+    });
+  };
+
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const { previous, next, slug } = this.props.pageContext;
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/posts/${slug.replace(
       /\//g,
       ''
     )}.md`;

@@ -38,7 +38,7 @@ class BlogIndex extends React.Component {
               >
                 <Link
                   style={{ boxShadow: 'none' }}
-                  to={`posts/${node.fields.slug}`}
+                  to={`posts${node.fields.slug}`}
                 >
                   {title}
                 </Link>

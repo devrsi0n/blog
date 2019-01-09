@@ -10,12 +10,9 @@ export default class Comment extends PureComponent {
     location: pt.object.isRequired,
   };
 
-  componentDidMount = () => {
-    const isDev = process.env.NODE_ENV === 'development';
-    const clientID = isDev ? 'a7afcc581cd18cca5ef2' : 'cc70cad9028465007126';
-    const clientSecret = isDev
-      ? '5f3e41eead6331f218cc15bac947fb7baad59161'
-      : '2faa230cc447c47d00cc46d9b1dc6984355ad068';
+  componentDidMount() {
+    const clientID = 'cc70cad9028465007126';
+    const clientSecret = '2faa230cc447c47d00cc46d9b1dc6984355ad068';
 
     const gitalk = new Gitalk({
       clientID,
@@ -30,7 +27,7 @@ export default class Comment extends PureComponent {
     });
 
     gitalk.render('gitalk-container');
-  };
+  }
 
   render() {
     return <div id="gitalk-container" />;

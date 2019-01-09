@@ -23,11 +23,11 @@ class BlogPostTemplate extends React.Component {
     location: pt.object.isRequired,
   };
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     setLastPost({
       link: this.props.location.pathname,
     });
-  };
+  }
 
   render() {
     const { location } = this.props;

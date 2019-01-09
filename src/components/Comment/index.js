@@ -15,7 +15,7 @@ export default class Comment extends PureComponent {
     const clientID = isDev ? 'a7afcc581cd18cca5ef2' : 'cc70cad9028465007126';
     const clientSecret = isDev
       ? '5f3e41eead6331f218cc15bac947fb7baad59161'
-      : process.env.GATSBY_CLIENT_SECRET;
+      : '2faa230cc447c47d00cc46d9b1dc6984355ad068';
 
     const gitalk = new Gitalk({
       clientID,

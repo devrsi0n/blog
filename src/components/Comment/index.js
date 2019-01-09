@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
+import pt from 'prop-types';
 import md5 from 'md5';
+import Gitalk from 'gitalk';
+
 import './gitalk.scss';
 
-// import Gitalk from 'Gitalk';
-// TODO: Report issue
-const isBrowser = typeof window !== 'undefined';
-const Gitalk = isBrowser ? require('gitalk') : undefined;
-
 export default class Comment extends PureComponent {
+  static propTypes = {
+    location: pt.object.isRequired,
+  };
+
   componentDidMount = () => {
     const isDev = process.env.NODE_ENV === 'development';
     const clientID = isDev ? 'a7afcc581cd18cca5ef2' : 'cc70cad9028465007126';
@@ -22,7 +24,7 @@ export default class Comment extends PureComponent {
       owner: 'devrsi0n',
       admin: ['devrsi0n'],
       // Ensure uniqueness and length less than 50
-      id: md5(window.location.pathname),
+      id: md5(this.props.location.pathname),
       // Facebook-like distraction free mode
       distractionFreeMode: false,
     });

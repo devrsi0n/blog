@@ -7,14 +7,25 @@ export function formatReadingTime(minutes) {
 }
 
 const LAST_POST = 'LAST_POST';
+const defaultPos = { link: '/', scrollHeight: 0 };
 
 export function getLastPost() {
-  return JSON.parse(window.localStorage.getItem(LAST_POST));
+  try {
+    const pos = JSON.parse(window.localStorage.getItem(LAST_POST));
+    if (!pos || !pos.link) {
+      return defaultPos;
+    }
+    return pos;
+  } catch (error) {
+    return defaultPos;
+  }
 }
 
 export function setLastPost({ link = '/', scrollHeight = 0 }) {
-  window.localStorage.setItem(
-    LAST_POST,
-    JSON.stringify({ link, scrollHeight })
-  );
+  if (typeof window !== `undefined`) {
+    window.localStorage.setItem(
+      LAST_POST,
+      JSON.stringify({ link, scrollHeight })
+    );
+  }
 }

@@ -5,9 +5,12 @@ import { getLastPost } from '../utils/helpers';
 
 // Redirecting for Gitalk login
 class Posts extends React.Component {
-  render() {
+  componentDidMount() {
     const { link } = getLastPost();
     navigate(link);
+  }
+
+  render() {
     return (
       <div>
         <p>Redirecting...</p>

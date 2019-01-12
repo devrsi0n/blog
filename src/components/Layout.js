@@ -3,7 +3,7 @@ import pt from 'prop-types';
 import { Link } from 'gatsby';
 import { colorDark } from '../utils/theme-variable';
 
-import { sansSerifFontFamily, rhythm, scale } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -29,7 +29,6 @@ class Layout extends React.Component {
         >
           <Link
             style={{
-              fontFamily: sansSerifFontFamily,
               boxShadow: 'none',
               textDecoration: 'none',
               color: 'inherit',
@@ -50,7 +49,6 @@ class Layout extends React.Component {
         >
           <Link
             style={{
-              fontFamily: sansSerifFontFamily,
               boxShadow: 'none',
               textDecoration: 'none',
               color: colorDark,

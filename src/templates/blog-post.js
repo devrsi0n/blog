@@ -8,7 +8,7 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Comment from '../components/Comment';
 import { formatReadingTime, setLastPost } from '../utils/helpers';
-import { sansSerifFontFamily, rhythm, scale } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 import { colorDark } from '../utils/theme-variable';
 
 const GITHUB_USERNAME = 'devrsi0n';
@@ -71,7 +71,6 @@ class BlogPostTemplate extends React.Component {
         >
           <Link
             style={{
-              fontFamily: sansSerifFontFamily,
               boxShadow: 'none',
               textDecoration: 'none',
               color: colorDark,

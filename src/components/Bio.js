@@ -23,7 +23,9 @@ class Bio extends React.Component {
           }}
         />
         <p style={{ maxWidth: 310 }}>
-          <a href="https://mobile.twitter.com/devrsi0n">Devrsi0n</a>
+          <a href="https://weibo.com/qianmofeiyu" rel="noopener noreferrer">
+            Devrsi0n
+          </a>
           &nbsp;的个人博客.
           <br />
           软件手艺人.

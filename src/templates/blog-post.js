@@ -35,7 +35,7 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const { previous, next, slug } = this.props.pageContext;
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/posts/${slug.replace(
-      /\//g,
+      /\/$/g,
       ''
     )}.md`;
     return (

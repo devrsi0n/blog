@@ -4,7 +4,11 @@ date: '2019-01-05'
 spoiler: Web 开发需要了解的字体知识都在这儿了
 ---
 
-不知道你注意没有，选择一套精心设计过的字体能极大地提升产品的视觉感受。然而不像拉丁语系翻来覆去就那么一点西文字符，常见的字体就 100+ KB，而中文字体要包含常用汉字动辄 10+ MB 的体积（比如，著名的 [思源黑体](https://github.com/adobe-fonts/source-han-sans/tree/release) 光常规字重就高达 23 MB）实在不适合内嵌到 Web。
+![](./images/font.png)
+
+> 头图来自[思源宋体](https://source.typekit.com/source-han-serif/cn/)
+
+作为一名前端工程师，经常在还原设计师视觉稿时忽略字体，其实选择一套精心设计过的字体能极大地提升产品的视觉感受。今天就从这个很容易被忽略的细节入手，Web 开发需要了解的字体相关知识都梳理一遍。然而不像拉丁语系翻来覆去就那么一点西文字符，常见的字体就 100+ KB，而中文字体要包含常用汉字动辄 10+ MB 的体积（比如，著名的 [思源黑体](https://github.com/adobe-fonts/source-han-sans/tree/release) 光常规字重就高达 23 MB）实在不适合内嵌到 Web。
 
 所以常见的做法都是选择操作系统自带的字体。一般放多套字体按顺序渲染，若第一个字体操作系统已安装即可渲染，未安装则尝试渲染第二个字体，以此类推直至所有字体尝试渲染都失败的话就回退（fallback）到浏览器默认字体。
 
@@ -81,6 +85,14 @@ PingFang 是 mac 系统自 OS X EL Capitan(10.11)自带的字体，字体清晰�
 ![](./images/hiragino.png)
 
 苹方虽好，但是在较新的 mac 系统(10.11)才自带，冬青黑体是 Mac OS X Snow Leopard(10.6) 自带字体，加上这款字体可以兼容更多的 mac 系统。
+
+### Windows
+
+#### Microsoft YaHei 微软雅黑
+
+![](./images/msyh.jpg)
+
+微软雅黑是从 Windows Vista 一起发布的字体，字形饱满，字间留白很少，在小字号下也能清晰可辨。
 
 ## Serif 衬线字体
 

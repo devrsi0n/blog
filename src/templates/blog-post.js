@@ -61,62 +61,61 @@ class BlogPostTemplate extends React.Component {
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         <div className="content-wrap">
-          <div
-            dangerouslySetInnerHTML={{ __html: post.html }}
-            className="content"
-          />
+          <div className="content">
+            <div dangerouslySetInnerHTML={{ __html: post.html }} />
+            <p>
+              <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                在 GitHub 上编辑本文
+              </a>
+            </p>
+            <h3
+              style={{
+                marginTop: rhythm(0.25),
+              }}
+            >
+              <Link
+                style={{
+                  boxShadow: 'none',
+                  textDecoration: 'none',
+                  color: colorDark,
+                }}
+                to="/"
+              >
+                Devrsi0n
+              </Link>
+            </h3>
+            <Bio />
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                listStyle: 'none',
+                padding: 0,
+              }}
+            >
+              <li>
+                {previous && (
+                  <Link to={previous.fields.slug} rel="prev">
+                    ← {previous.frontmatter.title}
+                  </Link>
+                )}
+              </li>
+              <li>
+                {next && (
+                  <Link to={next.fields.slug} rel="next">
+                    {next.frontmatter.title} →
+                  </Link>
+                )}
+              </li>
+            </ul>
+            <Comment location={location} />
+          </div>
           <div
             dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
             className="toc"
           />
         </div>
-        <p>
-          <a href={editUrl} target="_blank" rel="noopener noreferrer">
-            在 GitHub 上编辑本文
-          </a>
-        </p>
-        <h3
-          style={{
-            marginTop: rhythm(0.25),
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: colorDark,
-            }}
-            to="/"
-          >
-            Devrsi0n
-          </Link>
-        </h3>
-        <Bio />
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-        <Comment location={location} />
       </Layout>
     );
   }

@@ -4,17 +4,18 @@
     justify-content: center;
     flex-direction: row;
   }
+
   & .content {
-    width: 100%;
+    width: 90%;
   }
   & .toc {
     position: fixed;
     right: 0;
-    width: 18%;
     font-size: 14px;
+    padding-right: 40px;
   }
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 1439px) {
     & .toc {
       display: none;
     }

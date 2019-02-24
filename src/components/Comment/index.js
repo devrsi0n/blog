@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import pt from 'prop-types';
 import md5 from 'md5';
-import Gitalk from '@devrsi0n/gitalk/dist/gitalk-component';
+import Gitalk from 'gitalk/dist/gitalk-component';
 
 import './gitalk.scss';
 

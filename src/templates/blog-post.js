@@ -10,6 +10,7 @@ import Comment from '../components/Comment';
 import { formatReadingTime, setLastPost } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import { colorDark } from '../utils/theme-variable';
+import './blog-post.scss';
 
 const GITHUB_USERNAME = 'devrsi0n';
 const GITHUB_REPO_NAME = 'blog';
@@ -34,12 +35,13 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const { previous, next, slug } = this.props.pageContext;
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/posts/${slug.replace(
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/contents/${slug.replace(
       /\/$/g,
       ''
     )}.md`;
+
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location} title={siteTitle} className="blog-post">
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.spoiler}
@@ -58,7 +60,16 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.date}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="content-wrap">
+          <div
+            dangerouslySetInnerHTML={{ __html: post.html }}
+            className="content"
+          />
+          <div
+            dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
+            className="toc"
+          />
+        </div>
         <p>
           <a href={editUrl} target="_blank" rel="noopener noreferrer">
             在 GitHub 上编辑本文
@@ -124,6 +135,7 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      tableOfContents
       timeToRead
       frontmatter {
         title

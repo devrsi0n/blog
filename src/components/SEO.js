@@ -27,7 +27,7 @@ function SEO({ meta, image, title, description, slug }) {
         const { siteMetadata } = data.site;
         const metaDescription = description || siteMetadata.description;
         const metaImage = image ? `${siteMetadata.siteUrl}/${image}` : null;
-        const url = `${siteMetadata.siteUrl}/posts${slug}`;
+        const url = `${siteMetadata.siteUrl}/${slug}`;
         return (
           <Helmet
             htmlAttributes={{ lang: 'zh-cmn-Hans' }}

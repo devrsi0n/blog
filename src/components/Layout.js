@@ -10,10 +10,15 @@ class Layout extends React.Component {
     location: pt.object.isRequired,
     title: pt.string.isRequired,
     children: pt.node.isRequired,
+    className: pt.string,
+  };
+
+  static defaultProps = {
+    className: '',
   };
 
   render() {
-    const { location, title, children } = this.props;
+    const { location, title, children, className } = this.props;
     // eslint-disable-next-line no-undef
     const rootPath = `${__PATH_PREFIX__}/`;
     let header;
@@ -68,6 +73,7 @@ class Layout extends React.Component {
           maxWidth: rhythm(34),
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
+        {...{ className }}
       >
         {header}
         {children}

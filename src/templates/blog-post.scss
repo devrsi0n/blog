@@ -1,0 +1,22 @@
+.blog-post {
+  & .content-wrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  & .content {
+    width: 100%;
+  }
+  & .toc {
+    position: fixed;
+    right: 0;
+    width: 18%;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    & .toc {
+      display: none;
+    }
+  }
+}

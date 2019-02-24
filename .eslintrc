@@ -9,6 +9,12 @@
     "react/no-unescaped-entities": "off",
     "import/prefer-default-export": "off",
     "no-restricted-syntax": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "comma-dangle": [
+      "warn",
+      {
+        "functions": "never"
+      }
+    ]
   }
 }

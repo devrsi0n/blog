@@ -139,6 +139,12 @@ pre[data-line] {
   border-left: 0.25em solid #ffa7c4;
 }
 
+.line-numbers-rows {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 0.5em;
+}
+
 .gatsby-highlight {
   margin-bottom: 1.75rem;
   border-radius: 5px;

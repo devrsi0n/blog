@@ -76,13 +76,13 @@ Sans-Serif 字体清晰可辨，一般操作系统默认字体也是 Sans-Serif�
 
 #### PingFang 苹方
 
-![](./images/pingfang.jpg)
+![pingfang](./images/pingfang.jpg)
 
 PingFang 是 mac 系统自 OS X EL Capitan(10.11)自带的字体，字体清晰锐利。
 
 #### Hiragino Sans GB 冬青黑体
 
-![](./images/hiragino.png)
+![hiragino](./images/hiragino.png)
 
 苹方虽好，但是在较新的 mac 系统(10.11)才自带，冬青黑体是 Mac OS X Snow Leopard(10.6) 自带字体，加上这款字体可以兼容更多的 mac 系统。
 
@@ -90,9 +90,17 @@ PingFang 是 mac 系统自 OS X EL Capitan(10.11)自带的字体，字体清晰�
 
 #### Microsoft YaHei 微软雅黑
 
-![](./images/msyh.jpg)
+![Microsoft YaHei](./images/msyh.jpg)
 
 微软雅黑是从 Windows Vista 一起发布的字体，字形饱满，字间留白很少，在小字号下也能清晰可辨。
+
+### Linux
+
+#### WenQuanYi Micro Hei
+
+![WenQuanYi Micro Hei](./images/wenquanyi-microhei.png)
+
+文泉驿微米黑是 Linux 上较为常见的高质量中文非衬线字体。
 
 ## Serif 衬线字体
 
@@ -112,7 +120,17 @@ Mac 上的 Songti SC/TC 和 STSong 两款都是常州华文公司制作的「华
 
 ![](./images/simsun.png)
 
-> 未完待续
+### Linux
+
+#### AR PL Sungti 文鼎简报宋
+
+![AR PL Sungti](./images/ar-pl-sungti.png)
+
+AR PL Sungti 文鼎简报宋是 Linux 上为数不多的高质量衬线字体。
+
+## End
+
+以上就是 Web 开发中系统自带的一些高质量的字体选择，如果你有更好的字体推荐，欢迎下方留言。:)
 
 ## 参考文章
 

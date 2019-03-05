@@ -30,6 +30,22 @@
       margin-bottom: 0;
       margin-top: 0;
     }
+
+    ul {
+      list-style-type: square;
+    }
+
+    ul ul {
+      list-style-type: disc;
+    }
+
+    ul ul ul {
+      list-style-type: circle;
+    }
+
+    ul ul ul ul {
+      list-style-type: decimal;
+    }
   }
 
   @media screen and (max-width: 1439px) {

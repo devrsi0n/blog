@@ -22,7 +22,7 @@ export function getLastPost() {
 }
 
 export function setLastPost({ link = '/', scrollHeight = 0 }) {
-  if (typeof window !== `undefined`) {
+  if (typeof window !== 'undefined') {
     window.localStorage.setItem(
       LAST_POST,
       JSON.stringify({ link, scrollHeight })

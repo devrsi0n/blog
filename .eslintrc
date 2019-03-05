@@ -2,19 +2,16 @@
   "root": true,
   "extends": "@devrsi0n/eslint-config-react",
   "rules": {
+    "class-methods-use-this": "off",
     "react/prefer-stateless-function": "off",
-    "react/jsx-wrap-multilines": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/forbid-prop-types": "off",
     "react/no-unescaped-entities": "off",
+    "react/no-danger": "off",
     "import/prefer-default-export": "off",
     "no-restricted-syntax": "off",
     "no-console": "off",
-    "comma-dangle": [
-      "warn",
-      {
-        "functions": "never"
-      }
-    ]
+    "comma-dangle": "off",
+    "object-curly-newline": "off"
   }
 }

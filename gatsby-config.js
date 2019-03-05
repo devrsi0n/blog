@@ -13,33 +13,33 @@ module.exports = {
   pathPrefix: '/',
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        path: `src/pages`,
+        path: 'src/pages',
         name: 'pages',
       },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `contents`,
+        path: 'contents',
         name: 'posts',
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 590,
             },
           },
           {
-            resolve: `gatsby-remark-responsive-iframe`,
+            resolve: 'gatsby-remark-responsive-iframe',
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
+              wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
           'gatsby-remark-autolink-headers',
@@ -55,35 +55,35 @@ module.exports = {
         ],
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: `UA-108341680-2`,
+        trackingId: 'UA-108341680-2',
       },
     },
-    `gatsby-plugin-feed`,
+    'gatsby-plugin-feed',
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: `devrsi0n`,
-        short_name: `devrsi0n`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#03a9f4`,
-        display: `minimal-ui`,
-        icon: `src/assets/img/icons/default.jpg`,
+        name: 'devrsi0n',
+        short_name: 'devrsi0n',
+        start_url: '/',
+        background_color: '#ffffff',
+        theme_color: '#03a9f4',
+        display: 'minimal-ui',
+        icon: 'src/assets/img/icons/default.jpg',
       },
     },
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/utils/typography',
       },
     },
-    `gatsby-plugin-sass`,
+    'gatsby-plugin-sass',
     analyze && {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {

@@ -1,4 +1,5 @@
 const analyze = process.env.ANALYZE;
+const isEnvDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   siteMetadata: {
@@ -22,10 +23,19 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: 'contents',
+        path: 'contents/posts',
         name: 'posts',
       },
     },
+    isEnvDev
+      ? {
+          resolve: 'gatsby-source-filesystem',
+          options: {
+            path: 'contents/drafts',
+            name: 'drafts',
+          },
+        }
+      : undefined,
     {
       resolve: 'gatsby-transformer-remark',
       options: {

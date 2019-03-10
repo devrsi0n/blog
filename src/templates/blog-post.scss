@@ -1,7 +1,7 @@
 .blog-post {
   & .content-wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
   }
 
@@ -13,19 +13,22 @@
     background: #ffffff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     width: 50vw;
-    padding: 1rem;
+    padding: 0 2rem;
     margin: 1rem;
     border-radius: 5px;
   }
 
   & .toc {
     width: 20vw;
-    position: fixed;
-    right: 0;
-    top: 4.5rem;
-    font-size: 14px;
     padding-right: 40px;
-    line-height: 1.35;
+
+    .toc-list {
+      line-height: 1.35;
+      position: fixed;
+      right: 5rem;
+      top: 10rem;
+      font-size: 14px;
+    }
 
     li {
       margin-bottom: 0;
@@ -58,8 +61,8 @@
   }
 
   @media screen and (max-width: 1439px) {
-    & .toc {
-      visibility: hidden;
+    & .toc-list {
+      display: none;
     }
   }
 }

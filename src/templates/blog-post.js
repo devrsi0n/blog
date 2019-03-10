@@ -41,7 +41,12 @@ class BlogPostTemplate extends React.Component {
     )}.md`;
 
     return (
-      <Layout location={location} title={siteTitle} className="blog-post">
+      <Layout
+        location={location}
+        title={siteTitle}
+        className="blog-post"
+        style={{ maxWidth: '100vw' }}
+      >
         <div className="content-wrap">
           <div className="sidebar" />
           <div className="content">
@@ -112,10 +117,12 @@ class BlogPostTemplate extends React.Component {
             </ul>
             <Comment location={location} />
           </div>
-          <div
-            dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
-            className="toc"
-          />
+          <div className="toc">
+            <div
+              className="toc-list"
+              dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
+            />
+          </div>
         </div>
       </Layout>
     );

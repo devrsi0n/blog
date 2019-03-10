@@ -1,0 +1,31 @@
+.header-wrap {
+  display: flex;
+  flex-direction: row;
+
+  .header {
+    background: #f6f7f7;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+    z-index: 99;
+  }
+
+  .header-brand {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 60vw;
+  }
+
+  .header-brand-text {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+

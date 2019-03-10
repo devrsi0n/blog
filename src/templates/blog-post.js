@@ -42,26 +42,27 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout location={location} title={siteTitle} className="blog-post">
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.spoiler}
-          slug={post.fields.slug}
-        />
-        <h1>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: 'block',
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-0.5),
-            fontSize: '0.85rem',
-          }}
-        >
-          {post.frontmatter.date}
-          {` • ${formatReadingTime(post.timeToRead)}`}
-        </p>
         <div className="content-wrap">
+          <div className="sidebar" />
           <div className="content">
+            <SEO
+              title={post.frontmatter.title}
+              description={post.frontmatter.spoiler}
+              slug={post.fields.slug}
+            />
+            <h1>{post.frontmatter.title}</h1>
+            <p
+              style={{
+                ...scale(-1 / 5),
+                display: 'block',
+                marginBottom: rhythm(1),
+                marginTop: rhythm(-0.5),
+                fontSize: '0.85rem',
+              }}
+            >
+              {post.frontmatter.date}
+              {` • ${formatReadingTime(post.timeToRead)}`}
+            </p>
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
             <p>
               <a href={editUrl} target="_blank" rel="noopener noreferrer">

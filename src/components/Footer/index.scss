@@ -1,0 +1,35 @@
+$color: rgba(255, 255, 255, 0.9);
+
+.footer-wrap {
+  color: $color;
+  background: #cccccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35vw;
+
+    .footer-copyright {
+      margin-bottom: 0;
+    }
+  }
+
+  .footer-logo-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .footer-logo {
+      color: $color;
+      margin-right: 1.5rem;
+    }
+    .footer-logo:hover {
+      box-shadow: none;
+    }
+  }
+}

@@ -1,19 +1,28 @@
 .blog-post {
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-
   & .content-wrap {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
   }
 
-  & .content {
-    width: 90%;
+  & .sidebar {
+    width: 20vw;
   }
+
+  & .content {
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    width: 50vw;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+  }
+
   & .toc {
+    width: 20vw;
     position: fixed;
     right: 0;
+    top: 4.5rem;
     font-size: 14px;
     padding-right: 40px;
     line-height: 1.35;
@@ -50,7 +59,7 @@
 
   @media screen and (max-width: 1439px) {
     & .toc {
-      display: none;
+      visibility: hidden;
     }
   }
 }

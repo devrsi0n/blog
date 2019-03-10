@@ -23,19 +23,12 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: 'contents/posts',
+        path: 'contents',
+        ignore: isEnvDev ? undefined : ['**/contents/drafts/**/*.*'],
+        // ignore: ['**/contents/drafts/**/*.*'],
         name: 'posts',
       },
     },
-    isEnvDev
-      ? {
-          resolve: 'gatsby-source-filesystem',
-          options: {
-            path: 'contents/drafts',
-            name: 'drafts',
-          },
-        }
-      : undefined,
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -94,6 +87,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-sass',
+    'gatsby-plugin-react-svg',
     analyze && {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {

@@ -6,7 +6,6 @@ import get from 'lodash/get';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
 import './index.scss';
@@ -29,6 +28,9 @@ class BlogIndex extends React.Component {
         location={this.props.location}
         title={siteTitle}
         className="index"
+        style={{
+          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+        }}
       >
         <SEO />
         <Bio />
@@ -60,7 +62,6 @@ class BlogIndex extends React.Component {
             </div>
           );
         })}
-        <Footer />
       </Layout>
     );
   }

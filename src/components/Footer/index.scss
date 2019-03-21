@@ -2,11 +2,11 @@ $color: rgba(255, 255, 255, 0.9);
 
 .footer-wrap {
   color: $color;
-  background: #cccccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 6rem;
 
   .footer {
     display: flex;
@@ -23,6 +23,8 @@ $color: rgba(255, 255, 255, 0.9);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
+
     .footer-logo {
       color: $color;
       margin-right: 1.5rem;

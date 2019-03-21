@@ -4,85 +4,16 @@ import './index.scss';
 import Twitter from './twitter-logo.svg';
 import Github from './github-logo.svg';
 import Weibo from './weibo-logo.svg';
-
-const optimizedResize = (() => {
-  const callbacks = [];
-  let running = false;
-
-  // run the actual callbacks
-  function runCallbacks() {
-    callbacks.forEach(callback => {
-      console.log('runCallbacks');
-      callback();
-    });
-
-    running = false;
-  }
-
-  // fired on resize event
-  function resize() {
-    if (!running) {
-      running = true;
-
-      if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(runCallbacks);
-      } else {
-        setTimeout(runCallbacks, 66);
-      }
-    }
-  }
-
-  // adds callback to loop
-  function addCallback(callback) {
-    if (callback) {
-      callbacks.push(callback);
-    }
-  }
-
-  return {
-    // public method to add additional callback
-    add(callback) {
-      if (!callbacks.length) {
-        window.addEventListener('resize', resize);
-      }
-      addCallback(callback);
-    },
-  };
-})();
+import { colorDark } from '../../utils/theme-variable';
 
 class Footer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gap: 0,
-    };
-  }
-
-  componentDidMount() {
-    this.handleGapChange();
-    optimizedResize.add(this.handleGapChange);
-  }
-
-  handleGapChange = () => {
-    const viewportHeight = Math.max(
-      document.documentElement.clientHeight,
-      window.innerHeight || 0
-    );
-    const pageHeight = document.getElementById('___gatsby').clientHeight;
-    const gap = viewportHeight - pageHeight;
-    this.setState({
-      gap: Math.max(gap, 0),
-    });
-  };
-
   render() {
-    const { gap } = this.state;
     return (
       <footer
         className="footer-wrap"
         style={{
+          background: colorDark,
           padding: `${rhythm(5)} 0`,
-          marginTop: `calc(5rem + ${gap}px)`,
         }}
       >
         <div className="footer">

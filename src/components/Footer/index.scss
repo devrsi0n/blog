@@ -19,6 +19,12 @@ $color: rgba(255, 255, 255, 0.9);
     }
   }
 
+  @media (max-width: 700px) and (orientation: portrait) {
+    .footer {
+      width: 90vw;
+    }
+  }
+
   .footer-logo-group {
     display: flex;
     justify-content: space-between;
@@ -26,7 +32,7 @@ $color: rgba(255, 255, 255, 0.9);
     margin-top: 5px;
 
     .footer-logo {
-      color: $color;
+      color: #ffffff;
       margin-right: 1.5rem;
     }
     .footer-logo:hover {

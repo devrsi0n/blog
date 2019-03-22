@@ -23,6 +23,12 @@
     width: 60vw;
   }
 
+  @media (max-width: 700px) and (orientation: portrait) {
+    .header-brand {
+      width: 90vw;
+    }
+  }
+
   .header-brand-text {
     margin-top: 0;
     margin-bottom: 0;

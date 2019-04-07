@@ -1,7 +1,7 @@
 import React from 'react';
 import { navigate } from 'gatsby';
 
-import { getLastPost } from '../utils/helpers';
+import { getLastPost } from '../../utils/helpers';
 
 // Redirecting for Gitalk login
 class Posts extends React.Component {

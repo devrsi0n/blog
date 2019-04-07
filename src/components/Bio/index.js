@@ -1,7 +1,7 @@
 import React from 'react';
 
-import profilePic from '../assets/img/icons/default.jpg';
-import { rhythm } from '../utils/typography';
+import profilePic from '../../assets/img/icons/default.jpg';
+import { rhythm } from '../../utils/typography';
 
 class Bio extends React.Component {
   render() {

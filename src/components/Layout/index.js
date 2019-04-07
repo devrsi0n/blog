@@ -1,8 +1,8 @@
 import React from 'react';
 import pt from 'prop-types';
-import { rhythm } from '../utils/typography';
-import Header from './Header';
-import Footer from './Footer';
+import { rhythm } from '../../utils/typography';
+import Header from '../Header';
+import Footer from '../Footer';
 
 class Layout extends React.Component {
   static propTypes = {

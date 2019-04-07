@@ -3,8 +3,8 @@ import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 
-import Layout from '../components/Layout';
-import './404.scss';
+import Layout from '../../components/Layout';
+import './index.scss';
 
 class NotFoundPage extends React.Component {
   static propTypes = {
@@ -13,8 +13,17 @@ class NotFoundPage extends React.Component {
 
   render() {
     const title = get(this, 'props.data.site.siteMetadata.title');
+    const layoutStyle = {
+      marginLeft: null,
+      marginRight: null,
+      maxWidth: null,
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '5rem',
+    };
+
     return (
-      <Layout location={this.props.location} title={title}>
+      <Layout location={this.props.location} title={title} style={layoutStyle}>
         <div className="code-area">
           <span style={{ color: '#777', fontStyle: 'italic' }}>
             {'// 404, 你来到了未知领域.'}

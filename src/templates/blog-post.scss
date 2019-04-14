@@ -65,15 +65,15 @@
     & .toc-list {
       display: none;
     }
+
+    & .content {
+      width: 90vw;
+    }
   }
 
   @media (max-width: 700px) and (orientation: portrait) {
     & .sidebar {
       display: none;
-    }
-
-    & .content {
-      width: 90vw;
     }
 
     & .toc {

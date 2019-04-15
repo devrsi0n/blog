@@ -18,8 +18,9 @@
 
   .header-brand {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
     width: 60vw;
   }
 
@@ -30,8 +31,11 @@
   }
 
   .header-brand-text {
+    // background-color: rgb(29, 29, 29);
     margin-top: 0;
     margin-bottom: 0;
+    width: auto;
+    // padding: 3px 6px 4px 3px;
   }
 }
 

@@ -3,6 +3,7 @@ import pt from 'prop-types';
 import { Link } from 'gatsby';
 import { rhythm } from '../../utils/typography';
 import { colorDark } from '../../utils/theme-variable';
+import TikTok from './TikTok';
 import './index.scss';
 
 export default function Header({ title }) {
@@ -11,7 +12,6 @@ export default function Header({ title }) {
     <header className="header-wrap">
       <Link
         style={{
-          textDecoration: 'none',
           color: colorDark,
         }}
         to="/"
@@ -23,7 +23,7 @@ export default function Header({ title }) {
             height: rhythm(rhythmFactor),
           }}
         >
-          <h3 className="header-brand-text">{title}</h3>
+          <TikTok className="header-brand-text">{title}</TikTok>
         </div>
       </Link>
       <div style={{ height: rhythm(rhythmFactor) }} />

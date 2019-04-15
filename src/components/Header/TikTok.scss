@@ -1,0 +1,93 @@
+.douyin-style {
+  position: relative;
+}
+
+.douyin-style-font {
+  // font-weight: 700;
+  width:450px;
+  position: relative;
+/*   animation: debounce 1s steps(3) infinite; */
+  /** font style **/
+  // font-size: 50px;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 3px;
+  // font-family: 'Anton', sans-serif;
+}
+
+.douyin-style-font .douyin-style-title {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: inherit;
+}
+
+.douyin-style-font .douyin-style-title:before {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  color: #00f5e7;
+  opacity: .8;
+  z-index: 2;
+  content: attr(data-title);
+}
+
+.douyin-style-font .douyin-style-title span{
+  position: relative;
+  color: #FFF;
+  z-index: 3;
+  opacity: .9;
+}
+
+.douyin-style-font .douyin-style-title:after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  opacity: .8;
+  color: #ff0068;
+  z-index: 1;
+  content: attr(data-title);
+}
+
+.douyin-style-font.shake {
+  position: absolute;
+  z-index: 9;
+  left: var(--shake-offset);
+  height: var(--shake-height);
+  overflow: hidden;
+  background:rgb(29, 29, 29);
+  animation: shake-body 1s steps(4) infinite;
+  animation-delay: var(--shake-delay);
+}
+
+.douyin-style-font.shake .douyin-style-title {
+  animation: shake-content 1s steps(4) infinite;
+  animation-delay: var(--shake-delay);
+}
+
+@keyframes debounce {
+  0% {
+    margin-left: 2px;
+  }
+  0% {
+    margin-left: -4px;
+  }
+}
+
+@keyframes shake-body {
+  0%   {
+    top: 0;
+  }
+  100% {
+    top: 60px;
+  }
+}
+
+@keyframes shake-content {
+  0%   {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: -60px;
+  }
+}

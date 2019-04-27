@@ -3,7 +3,7 @@ import pt from 'prop-types';
 import { Link } from 'gatsby';
 import { rhythm } from '../../utils/typography';
 import { colorDark } from '../../utils/theme-variable';
-import TikTok from './TikTok';
+// import TikTok from './TikTok';
 import './index.scss';
 
 export default function Header({ title }) {
@@ -23,7 +23,8 @@ export default function Header({ title }) {
             height: rhythm(rhythmFactor),
           }}
         >
-          <TikTok className="header-brand-text">{title}</TikTok>
+          {/* <TikTok className="header-brand-text">{title}</TikTok> */}
+          <h3 className="header-brand-text">{title}</h3>
         </div>
       </Link>
       <div style={{ height: rhythm(rhythmFactor) }} />

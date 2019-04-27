@@ -14,7 +14,27 @@ spoiler: Web 开发需要了解的字体知识都在这儿了
 
 **注意**，一般把西文字体放在中文字体之前，因为中文字体自带了西文，但是效果一般不太好。
 
-比如下面这段 CSS 代码就是 GitHub 的字体样式。
+下面看下常见的大型 Web 网站的系统字体选择。
+
+- Wordpress
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+```
+
+- Medium
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+```
+
+- GitHub
 
 ```css
 body {
@@ -22,6 +42,23 @@ body {
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 }
 ```
+
+上面很多字体并不常见，下面表格列举了这些字体对应的设备/系统。
+
+| 字体                                   | 适配设备                                |
+| :------------------------------------- | :-------------------------------------- |
+| **-apple-system** (San Francisco)      | iOS Safari, macOS Safari, macOS Firefox |
+| **BlinkMacSystemFont** (San Francisco) | macOS Chrome                            |
+| **Segoe UI**                           | Windows                                 |
+| **Roboto**                             | Android, Chrome OS                      |
+| **Oxygen / Oxygen-Sans**               | KDE                                     |
+| **Fira Sans**                          | Firefox OS                              |
+|                                        |
+| **Droid Sans**                         | 旧版本 Android                          |
+|                                        |
+| **Ubuntu**                             | Ubuntu 系统                             |
+| **Cantarell**                          | GNOME                                   |
+| **Helvetica Neue**                     | 小于 10.11 版本的 macOS                 |
 
 字体一般分为衬线字体（Serif）和无衬线字体（Sans-Serif），它们有什么区别？
 
@@ -136,3 +173,4 @@ AR PL Sungti 文鼎简报宋是 Linux 上为数不多的高质量衬线字体。
 
 - [中文字体新手指南](http://fuxiaopang.cn/the-complete-beginners-guide-to-chinese-fonts/)
 - [维基百科-无衬线体](https://zh.wikipedia.org/zh-hans/%E6%97%A0%E8%A1%AC%E7%BA%BF%E4%BD%93)
+- [The new system font stack](https://bitsofco.de/the-new-system-font-stack/)

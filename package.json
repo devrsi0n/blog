@@ -30,7 +30,7 @@
     "gitalk": "^1.5.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
     "prismjs": "^1.16.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -38,7 +38,7 @@
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.19",
     "typography": "^0.16.19",
-    "typography-theme-pottery": "^0.0.7"
+    "typography-theme-pottery": "^0.0.8"
   },
   "keywords": [
     "gatsby",
@@ -48,18 +48,18 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
-    "start": "npm run dev",
+    "start": "yarn run dev",
     "clean": "rimraf .cache public",
-    "build": "npm run clean && gatsby build",
+    "build": "yarn run clean && gatsby build",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
     "analyze": "cross-env ANALYZE=true gatsby build",
-    "lint": "npm run eslint && npm run prettier",
+    "lint": "yarn run eslint && yarn run prettier",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix src/",
     "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
     "deploy": "gh-pages -r git@github.com:devrsi0n/devrsi0n.github.io.git -b master -d public",
-    "now-build": "npm run build"
+    "now-build": "yarn run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
@@ -67,7 +67,7 @@
     "@devrsi0n/eslint-config-react": "^0.2.3",
     "eslint": "^5.16.0",
     "gh-pages": "^2.0.1",
-    "husky": "^1.3.1",
+    "husky": "^2.1.0",
     "lint-staged": "^8.1.5",
     "prettier": "^1.17.0",
     "rimraf": "^2.6.3"
@@ -76,7 +76,7 @@
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "npm run build && npm run deploy"
+      "pre-push": "yarn run build && yarn run deploy"
     }
   },
   "lint-staged": {

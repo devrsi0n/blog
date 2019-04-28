@@ -1,5 +1,5 @@
 import Typography from 'typography';
-import potteryTheme from 'typography-theme-pottery';
+import potteryTheme from 'typography-theme-pottery/src';
 
 export const { sansSerifFontFamilies, serifFontFamilies } = potteryTheme;
 

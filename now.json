@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "devrsi0n.me",
+  "name": "devrsi0n.com",
   "builds": [
     {
       "src": "package.json",
@@ -8,6 +8,20 @@
       "config": {
         "distDir": "public"
       }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/public/static/(.*)",
+      "headers": { "cache-control": "public,max-age=31536000,immutable" }
+    },
+    {
+      "src": "^/(.*).(css|js)",
+      "headers": { "cache-control": "public,max-age=31536000,immutable" }
+    },
+    {
+      "src": "^/(.*).html",
+      "headers": { "cache-control": "public,max-age=0,must-revalidate" }
     }
   ]
 }

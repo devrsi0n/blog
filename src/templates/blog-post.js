@@ -9,6 +9,7 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Comment from '../components/Comment';
 import ALink from '../components/Link';
+import Button from '../components/Button';
 import { formatReadingTime, setLastPost } from '../utils/helpers';
 import { scale } from '../utils/typography';
 import './blog-post.scss';
@@ -73,13 +74,15 @@ class BlogPostTemplate extends React.Component {
               </p>
               <div dangerouslySetInnerHTML={{ __html: post.html }} />
               <p className="blog-post__edit-on-gb">
-                <ALink href={editUrl}>在 GitHub 上编辑本文</ALink>
+                <ALink href={editUrl} linkIcon>
+                  在 GitHub 上编辑本文
+                </ALink>
               </p>
               <Bio boxShadow="none" />
               <ul className="blog-post__nav">
                 <li>
                   {previous && (
-                    <button className="blog-post__nav-btn" type="button">
+                    <Button>
                       <Link
                         to={previous.fields.slug}
                         rel="prev"
@@ -87,12 +90,12 @@ class BlogPostTemplate extends React.Component {
                       >
                         ← {previous.frontmatter.title}
                       </Link>
-                    </button>
+                    </Button>
                   )}
                 </li>
                 <li>
                   {next && (
-                    <button className="blog-post__nav-btn" type="button">
+                    <Button>
                       <Link
                         to={next.fields.slug}
                         rel="next"
@@ -100,7 +103,7 @@ class BlogPostTemplate extends React.Component {
                       >
                         {next.frontmatter.title} →
                       </Link>
-                    </button>
+                    </Button>
                   )}
                 </li>
               </ul>

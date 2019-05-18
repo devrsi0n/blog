@@ -2,14 +2,15 @@ import React from 'react';
 import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
+import Img from 'gatsby-image';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Comment from '../components/Comment';
+import ALink from '../components/Link';
 import { formatReadingTime, setLastPost } from '../utils/helpers';
-import { rhythm, scale } from '../utils/typography';
-import { colorDark } from '../utils/theme-variable';
+import { scale } from '../utils/typography';
 import './blog-post.scss';
 
 const GITHUB_USERNAME = 'devrsi0n';
@@ -39,6 +40,7 @@ class BlogPostTemplate extends React.Component {
       /\/$/g,
       ''
     )}.md`;
+    const { title, spoiler, date, mainImage } = post.frontmatter;
 
     return (
       <Layout
@@ -47,82 +49,70 @@ class BlogPostTemplate extends React.Component {
         className="blog-post"
         style={{ maxWidth: '100vw' }}
       >
-        <div className="content-wrap">
-          <div className="sidebar" />
-          <div className="content">
-            <SEO
-              title={post.frontmatter.title}
-              description={post.frontmatter.spoiler}
-              slug={post.fields.slug}
-            />
-            <h1>{post.frontmatter.title}</h1>
-            <p
-              style={{
-                ...scale(-1 / 5),
-                display: 'block',
-                marginBottom: rhythm(1),
-                marginTop: rhythm(-0.5),
-                fontSize: '0.85rem',
-              }}
-            >
-              {post.frontmatter.date}
-              {` • ${formatReadingTime(post.timeToRead)}`}
-            </p>
-            <div dangerouslySetInnerHTML={{ __html: post.html }} />
-            <p>
-              <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                在 GitHub 上编辑本文
-              </a>
-            </p>
-            <h3
-              style={{
-                marginTop: rhythm(0.25),
-              }}
-            >
-              <Link
+        <SEO title={title} description={spoiler} slug={post.fields.slug} />
+        <div className="main-wrap">
+          <aside className="sidebar" />
+          <section className="main">
+            <figure className="blog-post__headline">
+              <Img
+                fluid={mainImage.childImageSharp.fluid}
+                alt="Main picture of post"
+              />
+              <figcaption className="blog-post__title">{title}</figcaption>
+              <div className="blog-post__headline-mask" />
+            </figure>
+            <section className="blog-post__content">
+              <p
                 style={{
-                  boxShadow: 'none',
-                  textDecoration: 'none',
-                  color: colorDark,
+                  ...scale(-1 / 5),
                 }}
-                to="/"
+                className="blog-post__time-info"
               >
-                Devrsi0n
-              </Link>
-            </h3>
-            <Bio />
-            <ul
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                listStyle: 'none',
-                padding: 0,
-              }}
-            >
-              <li>
-                {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
-                    ← {previous.frontmatter.title}
-                  </Link>
-                )}
-              </li>
-              <li>
-                {next && (
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                )}
-              </li>
-            </ul>
-            <Comment location={location} />
-          </div>
-          <div className="toc">
+                {date}
+                {` • ${formatReadingTime(post.timeToRead)}`}
+              </p>
+              <div dangerouslySetInnerHTML={{ __html: post.html }} />
+              <p className="blog-post__edit-on-gb">
+                <ALink href={editUrl}>在 GitHub 上编辑本文</ALink>
+              </p>
+              <Bio boxShadow="none" />
+              <ul className="blog-post__nav">
+                <li>
+                  {previous && (
+                    <button className="blog-post__nav-btn" type="button">
+                      <Link
+                        to={previous.fields.slug}
+                        rel="prev"
+                        style={{ boxShadow: 'none' }}
+                      >
+                        ← {previous.frontmatter.title}
+                      </Link>
+                    </button>
+                  )}
+                </li>
+                <li>
+                  {next && (
+                    <button className="blog-post__nav-btn" type="button">
+                      <Link
+                        to={next.fields.slug}
+                        rel="next"
+                        style={{ boxShadow: 'none' }}
+                      >
+                        {next.frontmatter.title} →
+                      </Link>
+                    </button>
+                  )}
+                </li>
+              </ul>
+              <Comment location={location} />
+            </section>
+          </section>
+          <aside className="toc">
             <div
               className="toc-list"
               dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
             />
-          </div>
+          </aside>
         </div>
       </Layout>
     );
@@ -148,6 +138,13 @@ export const pageQuery = graphql`
         title
         date(formatString: "YYYY MM DD")
         spoiler
+        mainImage {
+          childImageSharp {
+            fluid(quality: 75, background: "rgba(0,0,0,0.05)") {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
       fields {
         slug

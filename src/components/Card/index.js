@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './index.scss';
 
-export default function Card({ className, style, children, borderRadius }) {
+export default function Card({
+  className,
+  style,
+  children,
+  borderRadius,
+  boxShadow,
+}) {
   return (
     <div
       className={classnames('card', className)}
-      style={{ borderRadius, ...style }}
+      style={{ borderRadius, boxShadow, ...style }}
     >
       {children}
     </div>
@@ -15,14 +21,16 @@ export default function Card({ className, style, children, borderRadius }) {
 }
 
 Card.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
   borderRadius: PropTypes.number,
+  boxShadow: PropTypes.string,
 };
 
 Card.defaultProps = {
   style: {},
   className: '',
   borderRadius: 5,
+  boxShadow: '',
 };

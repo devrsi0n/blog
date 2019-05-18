@@ -46,7 +46,7 @@ class BlogIndex extends React.Component {
               <Link to={postLink}>
                 <Img fluid={mainImage} alt="main image of blog" />
               </Link>
-              <div className="index__post">
+              <section className="index__post">
                 <h3
                   className="index__post-title"
                   style={{
@@ -60,14 +60,14 @@ class BlogIndex extends React.Component {
                     {title}
                   </Link>
                 </h3>
-                <small style={{ fontSize: '0.85rem' }}>
+                <small className="index__time-info">
                   {node.frontmatter.date}
                   {` • ${formatReadingTime(node.timeToRead)}`}
                 </small>
                 <p
                   dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
                 />
-              </div>
+              </section>
             </Card>
           );
         })}

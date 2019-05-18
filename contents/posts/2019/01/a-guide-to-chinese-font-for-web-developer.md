@@ -5,9 +5,7 @@ spoiler: Web 开发需要了解的字体知识都在这儿了
 mainImage: './images/font.png'
 ---
 
-![](./images/font.png)
-
-> 头图来自[思源宋体](https://source.typekit.com/source-han-serif/cn/)
+<!-- > 头图来自[思源宋体](https://source.typekit.com/source-han-serif/cn/) -->
 
 作为一名前端工程师，经常在还原设计师视觉稿时忽略字体，其实选择一套精心设计过的字体能极大地提升产品的视觉感受。今天就从这个很容易被忽略的细节入手，Web 开发需要了解的字体相关知识都梳理一遍。然而不像拉丁语系翻来覆去就那么一点西文字符，常见的字体就 100+ KB，而中文字体要包含常用汉字动辄 10+ MB 的体积（比如，著名的 [思源黑体](https://github.com/adobe-fonts/source-han-sans/tree/release) 光常规字重就高达 23 MB）实在不适合内嵌到 Web。
 

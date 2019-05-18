@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { sansSerifFontFamilies } from 'typography-theme-pottery/src';
 import Card from '../Card';
@@ -9,9 +10,10 @@ import './index.scss';
 
 const textFontFamily = sansSerifFontFamilies.join(',');
 
-function Bio() {
+function Bio({ boxShadow }) {
   return (
     <Card
+      boxShadow={boxShadow}
       style={{
         marginBottom: rhythm(2.5),
       }}
@@ -48,5 +50,13 @@ function Bio() {
     </Card>
   );
 }
+
+Bio.propTypes = {
+  boxShadow: PropTypes.string,
+};
+
+Bio.defaultProps = {
+  boxShadow: '',
+};
 
 export default Bio;

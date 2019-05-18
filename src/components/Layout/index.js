@@ -23,7 +23,7 @@ class Layout extends React.Component {
     return (
       <div>
         <Header {...{ title }} />
-        <div
+        <main
           style={{
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -33,7 +33,7 @@ class Layout extends React.Component {
           {...{ className }}
         >
           {children}
-        </div>
+        </main>
         <Footer />
       </div>
     );

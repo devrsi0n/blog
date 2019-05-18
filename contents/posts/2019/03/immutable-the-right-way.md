@@ -2,7 +2,7 @@
 title: 用正确的方式打开 JavaScript immutable 的大门
 date: '2019-01-16'
 spoiler: immer - JavaScript 使用 immutable 的正确姿势
-headPicture: './images/immutable.jpg'
+mainImage: './images/immutable.jpg'
 ---
 
 ![immutable](./images/immutable.jpg)

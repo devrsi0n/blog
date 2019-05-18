@@ -32,6 +32,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "gatsby": "^2.4.2",
+    "gatsby-image": "^2.1.0",
     "gatsby-plugin-feed": "^2.2.0",
     "gatsby-plugin-google-analytics": "^2.0.19",
     "gatsby-plugin-manifest": "^2.1.1",
@@ -68,7 +69,6 @@
     "@commitlint/config-conventional": "^7.6.0",
     "@devrsi0n/eslint-config-react": "^0.2.3",
     "eslint": "^5.16.0",
-    "gatsby-image": "^2.1.0",
     "gh-pages": "^2.0.1",
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
@@ -86,7 +86,7 @@
       "eslint --fix",
       "git add"
     ],
-    "*.{html,json,css,md}": [
+    "*.{html,json,scss,css,md}": [
       "prettier --write",
       "git add"
     ]

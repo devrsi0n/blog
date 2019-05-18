@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "devrsi0n.com",
+  "alias": ["devrsi0n.com"],
   "builds": [
     {
       "src": "package.json",

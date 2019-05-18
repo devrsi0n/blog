@@ -1,6 +1,7 @@
 import React from 'react';
 import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import get from 'lodash/get';
 
 import Bio from '../components/Bio';
@@ -37,19 +38,13 @@ class BlogIndex extends React.Component {
         {posts.map(({ node }) => {
           const { slug } = node.fields;
           const title = get(node, 'frontmatter.title') || slug;
-          const headPicture =
-            node.frontmatter.headPicture.childImageSharp.resolutions;
-          console.log(headPicture);
+          const mainImage = node.frontmatter.mainImage.childImageSharp.fluid;
+          const postLink = node.fields.slug;
           return (
             <div key={node.fields.slug} className="index_post-wrap">
-              <div
-                style={{
-                  backgroundImage: `url(${headPicture.src})`,
-                  height: headPicture.height,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
+              <Link to={postLink}>
+                <Img fluid={mainImage} alt="main image of blog" />
+              </Link>
               <div className="index__post">
                 <h3
                   className="index__post-title"
@@ -58,12 +53,9 @@ class BlogIndex extends React.Component {
                   }}
                 >
                   {slug.startsWith('/drafts/') && (
-                    <div className="index-draft-logo">✍</div>
+                    <div className="index__draft-logo">✍</div>
                   )}
-                  <Link
-                    style={{ boxShadow: 'none' }}
-                    to={`${node.fields.slug}`}
-                  >
+                  <Link style={{ boxShadow: 'none' }} to={postLink}>
                     {title}
                   </Link>
                 </h3>
@@ -107,12 +99,10 @@ export const pageQuery = graphql`
             )
             title
             spoiler
-            headPicture {
+            mainImage {
               childImageSharp {
-                resolutions(height: 150) {
-                  height
-                  src
-                  srcSet
+                fluid(quality: 75, background: "rgba(0,0,0,0.05)") {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

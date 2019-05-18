@@ -2,6 +2,7 @@
 title: Web 开发中文字体指南
 date: '2019-01-05'
 spoiler: Web 开发需要了解的字体知识都在这儿了
+headPicture: './images/font.png'
 ---
 
 ![](./images/font.png)

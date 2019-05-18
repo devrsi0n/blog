@@ -18,7 +18,7 @@
     "start": "yarn run dev",
     "clean": "rimraf .cache public",
     "build": "yarn run clean && gatsby build",
-    "dev": "gatsby develop",
+    "dev": "yarn run clean && gatsby develop",
     "serve": "gatsby serve",
     "analyze": "cross-env ANALYZE=true gatsby build",
     "lint": "yarn run eslint && yarn run prettier",
@@ -40,7 +40,7 @@
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-plugin-sharp": "^2.0.35",
     "gatsby-plugin-typography": "^2.2.13",
-    "gatsby-plugin-webpack-bundle-analyzer": "^1.0.4",
+    "gatsby-plugin-webpack-bundle-analyzer": "^1.0.5",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-copy-linked-files": "^2.0.12",
     "gatsby-remark-images": "^3.0.11",
@@ -64,21 +64,21 @@
     "typography-theme-pottery": "^0.0.9"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.5.2",
-    "@commitlint/config-conventional": "^7.5.0",
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
     "@devrsi0n/eslint-config-react": "^0.2.3",
     "eslint": "^5.16.0",
+    "gatsby-image": "^2.1.0",
     "gh-pages": "^2.0.1",
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
-    "prettier": "^1.17.0",
+    "prettier": "^1.17.1",
     "rimraf": "^2.6.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "yarn run build && yarn run deploy"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {

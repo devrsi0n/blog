@@ -37,28 +37,44 @@ class BlogIndex extends React.Component {
         {posts.map(({ node }) => {
           const { slug } = node.fields;
           const title = get(node, 'frontmatter.title') || slug;
+          const headPicture =
+            node.frontmatter.headPicture.childImageSharp.resolutions;
+          console.log(headPicture);
           return (
-            <div key={node.fields.slug}>
-              <h3
-                className="index-post-container"
+            <div key={node.fields.slug} className="index_post-wrap">
+              <div
                 style={{
-                  marginBottom: rhythm(1 / 4),
+                  backgroundImage: `url(${headPicture.src})`,
+                  height: headPicture.height,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                 }}
-              >
-                {slug.startsWith('/drafts/') && (
-                  <div className="index-draft-logo">✍</div>
-                )}
-                <Link style={{ boxShadow: 'none' }} to={`${node.fields.slug}`}>
-                  {title}
-                </Link>
-              </h3>
-              <small style={{ fontSize: '0.85rem' }}>
-                {node.frontmatter.date}
-                {` • ${formatReadingTime(node.timeToRead)}`}
-              </small>
-              <p
-                dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
               />
+              <div className="index__post">
+                <h3
+                  className="index__post-title"
+                  style={{
+                    marginBottom: rhythm(1 / 4),
+                  }}
+                >
+                  {slug.startsWith('/drafts/') && (
+                    <div className="index-draft-logo">✍</div>
+                  )}
+                  <Link
+                    style={{ boxShadow: 'none' }}
+                    to={`${node.fields.slug}`}
+                  >
+                    {title}
+                  </Link>
+                </h3>
+                <small style={{ fontSize: '0.85rem' }}>
+                  {node.frontmatter.date}
+                  {` • ${formatReadingTime(node.timeToRead)}`}
+                </small>
+                <p
+                  dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
+                />
+              </div>
             </div>
           );
         })}
@@ -91,6 +107,15 @@ export const pageQuery = graphql`
             )
             title
             spoiler
+            headPicture {
+              childImageSharp {
+                resolutions(height: 150) {
+                  height
+                  src
+                  srcSet
+                }
+              }
+            }
           }
         }
       }

@@ -1,38 +1,52 @@
 import React from 'react';
 
+import { sansSerifFontFamilies } from 'typography-theme-pottery/src';
+import Card from '../Card';
 import profilePic from '../../assets/img/icons/default.jpg';
 import { rhythm } from '../../utils/typography';
+import Link from '../Link';
+import './index.scss';
 
-class Bio extends React.Component {
-  render() {
-    return (
-      <div
+const textFontFamily = sansSerifFontFamilies.join(',');
+
+function Bio() {
+  return (
+    <Card
+      style={{
+        marginBottom: rhythm(2.5),
+      }}
+      className="bio"
+      borderRadius={15}
+    >
+      <Link
+        href="https://weibo.com/qianmofeiyu"
         style={{
-          display: 'flex',
-          marginBottom: rhythm(2.5),
+          borderRadius: rhythm(1.25),
+          width: rhythm(2.5),
+          height: rhythm(2.5),
         }}
+        className="bio__avatar-wrap"
       >
         <img
           src={profilePic}
           alt="Devrsi0n"
           style={{
-            marginRight: rhythm(1 / 2),
             marginBottom: 0,
             width: rhythm(2),
             height: rhythm(2),
           }}
         />
-        <p style={{ maxWidth: 310 }}>
-          <a href="https://weibo.com/qianmofeiyu" rel="noopener noreferrer">
-            Devrsi0n
-          </a>
-          &nbsp;的个人博客.
-          <br />
-          软件手艺人.
+      </Link>
+      <section className="bio__text-wrap">
+        <p className="bio__first-row" style={{ fontFamily: textFontFamily }}>
+          Devrsi0n&nbsp;的个人博客
         </p>
-      </div>
-    );
-  }
+        <p className="bio__second-row" style={{ fontFamily: textFontFamily }}>
+          软件手艺人
+        </p>
+      </section>
+    </Card>
+  );
 }
 
 export default Bio;

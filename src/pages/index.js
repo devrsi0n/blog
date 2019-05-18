@@ -5,6 +5,7 @@ import Img from 'gatsby-image';
 import get from 'lodash/get';
 
 import Bio from '../components/Bio';
+import Card from '../components/Card';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { formatReadingTime } from '../utils/helpers';
@@ -41,7 +42,7 @@ class BlogIndex extends React.Component {
           const mainImage = node.frontmatter.mainImage.childImageSharp.fluid;
           const postLink = node.fields.slug;
           return (
-            <div key={node.fields.slug} className="index_post-wrap">
+            <Card key={node.fields.slug}>
               <Link to={postLink}>
                 <Img fluid={mainImage} alt="main image of blog" />
               </Link>
@@ -67,7 +68,7 @@ class BlogIndex extends React.Component {
                   dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
                 />
               </div>
-            </div>
+            </Card>
           );
         })}
       </Layout>

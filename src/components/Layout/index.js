@@ -19,10 +19,7 @@ class Layout extends React.Component {
   };
 
   render() {
-    const { location, title, children, className, style } = this.props;
-    // eslint-disable-next-line no-undef
-    const rootPath = `${__PATH_PREFIX__}/`;
-    const isRootPath = location.pathname === rootPath;
+    const { title, children, className, style } = this.props;
     return (
       <div>
         <Header {...{ title }} />
@@ -30,8 +27,7 @@ class Layout extends React.Component {
           style={{
             marginLeft: 'auto',
             marginRight: 'auto',
-            maxWidth: isRootPath ? rhythm(14) : rhythm(28),
-            // padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+            maxWidth: rhythm(28),
             ...style,
           }}
           {...{ className }}

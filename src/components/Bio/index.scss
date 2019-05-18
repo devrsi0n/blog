@@ -1,0 +1,26 @@
+.bio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+
+  .bio__avatar-wrap {
+    // background-color: rgba(103, 218, 225, 1);
+    background-color: #67daff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bio__text-wrap {
+    padding-left: 15px;
+  }
+
+  .bio__first-row {
+    margin-bottom: 2px;
+  }
+  .bio__second-row {
+    margin-bottom: 0;
+    color: rgb(165, 166, 187);
+  }
+}

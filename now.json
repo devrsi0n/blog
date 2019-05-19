@@ -3,13 +3,13 @@
   "name": "devrsi0n.com",
   "alias": ["devrsi0n.com"],
   "env": {
-    "GH_CLIENT_ID": "@gh_client_id",
-    "GH_CLIENT_SECRET": "@gh_client_secret"
+    "GH_CLIENT_ID": "@gh-client-id",
+    "GH_CLIENT_SECRET": "@gh-client-secret"
   },
   "build": {
     "env": {
-      "GH_CLIENT_ID": "@gh_client_id",
-      "GH_CLIENT_SECRET": "@gh_client_secret"
+      "GH_CLIENT_ID": "@gh-client-id",
+      "GH_CLIENT_SECRET": "@gh-client-secret"
     }
   },
   "builds": [

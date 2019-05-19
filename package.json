@@ -32,6 +32,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
     "gatsby": "^2.4.2",
     "gatsby-image": "^2.1.0",
     "gatsby-plugin-feed": "^2.2.0",

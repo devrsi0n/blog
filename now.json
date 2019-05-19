@@ -2,6 +2,16 @@
   "version": 2,
   "name": "devrsi0n.com",
   "alias": ["devrsi0n.com"],
+  "env": {
+    "GH_CLIENT_ID": "@GH_CLIENT_ID",
+    "GH_CLIENT_SECRET": "@GH_CLIENT_SECRET"
+  },
+  "build": {
+    "env": {
+      "GH_CLIENT_ID": "@GH_CLIENT_ID",
+      "GH_CLIENT_SECRET": "@GH_CLIENT_SECRET"
+    }
+  },
   "builds": [
     {
       "src": "package.json",

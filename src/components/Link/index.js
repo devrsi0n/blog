@@ -6,7 +6,11 @@ export default function Link({ children, linkIcon, ...otherProps }) {
   return (
     <a target="_blank" rel="noopener noreferrer" {...otherProps}>
       {<span>{children}</span>}
-      {linkIcon && <LinkIcon style={{ width: '1rem', marginLeft: '5px' }} />}
+      {linkIcon && (
+        <LinkIcon
+          style={{ width: '0.9rem', marginLeft: '8px', color: '#666' }}
+        />
+      )}
     </a>
   );
 }

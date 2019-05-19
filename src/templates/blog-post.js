@@ -7,6 +7,7 @@ import Img from 'gatsby-image';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Card from '../components/Card';
 import Comment from '../components/Comment';
 import ALink from '../components/Link';
 import Button from '../components/Button';
@@ -54,61 +55,67 @@ class BlogPostTemplate extends React.Component {
         <div className="main-wrap">
           <aside className="sidebar" />
           <section className="main">
-            <figure className="blog-post__headline">
-              <Img
-                fluid={mainImage.childImageSharp.fluid}
-                alt="Main picture of post"
-              />
-              <figcaption className="blog-post__title">{title}</figcaption>
-              <div className="blog-post__headline-mask" />
-            </figure>
-            <section className="blog-post__content">
-              <p
-                style={{
-                  ...scale(-1 / 5),
-                }}
-                className="blog-post__time-info"
-              >
-                {date}
-                {` • ${formatReadingTime(post.timeToRead)}`}
-              </p>
-              <div dangerouslySetInnerHTML={{ __html: post.html }} />
-              <p className="blog-post__edit-on-gb">
-                <ALink href={editUrl} linkIcon>
-                  在 GitHub 上编辑本文
-                </ALink>
-              </p>
-              <Bio boxShadow="none" />
-              <ul className="blog-post__nav">
-                <li>
-                  {previous && (
-                    <Button>
-                      <Link
-                        to={previous.fields.slug}
-                        rel="prev"
-                        style={{ boxShadow: 'none' }}
-                      >
-                        ← {previous.frontmatter.title}
-                      </Link>
-                    </Button>
-                  )}
-                </li>
-                <li>
-                  {next && (
-                    <Button>
-                      <Link
-                        to={next.fields.slug}
-                        rel="next"
-                        style={{ boxShadow: 'none' }}
-                      >
-                        {next.frontmatter.title} →
-                      </Link>
-                    </Button>
-                  )}
-                </li>
-              </ul>
-              <Comment location={location} />
+            <section className="main-content">
+              <figure className="blog-post__headline">
+                <Img
+                  fluid={mainImage.childImageSharp.fluid}
+                  alt="Main picture of post"
+                />
+                <figcaption className="blog-post__title">{title}</figcaption>
+                <div className="blog-post__headline-mask" />
+              </figure>
+              <section className="blog-post__content">
+                <p
+                  style={{
+                    ...scale(-1 / 5),
+                  }}
+                  className="blog-post__time-info"
+                >
+                  {date}
+                  {` • ${formatReadingTime(post.timeToRead)}`}
+                </p>
+                <div dangerouslySetInnerHTML={{ __html: post.html }} />
+              </section>
+              <section className="blog-post__content blog-post__footer">
+                <p className="blog-post__edit-on-gb">
+                  <ALink href={editUrl} linkIcon>
+                    在 GitHub 上编辑本文
+                  </ALink>
+                </p>
+                <Bio />
+                <ul className="blog-post__nav">
+                  <li>
+                    {previous && (
+                      <Button>
+                        <Link
+                          to={previous.fields.slug}
+                          rel="prev"
+                          style={{ boxShadow: 'none' }}
+                        >
+                          ← {previous.frontmatter.title}
+                        </Link>
+                      </Button>
+                    )}
+                  </li>
+                  <li>
+                    {next && (
+                      <Button>
+                        <Link
+                          to={next.fields.slug}
+                          rel="next"
+                          style={{ boxShadow: 'none' }}
+                        >
+                          {next.frontmatter.title} →
+                        </Link>
+                      </Button>
+                    )}
+                  </li>
+                </ul>
+              </section>
             </section>
+            <Card className="blog-post__content blog-post__comment">
+              <Comment location={location} />
+            </Card>
           </section>
           <aside className="toc">
             <div
@@ -143,7 +150,7 @@ export const pageQuery = graphql`
         spoiler
         mainImage {
           childImageSharp {
-            fluid(quality: 75, background: "rgba(0,0,0,0.05)") {
+            fluid(quality: 95, background: "rgba(0,0,0,0.05)") {
               ...GatsbyImageSharpFluid
             }
           }

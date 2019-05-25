@@ -1,6 +1,8 @@
-const dayjs = require('dayjs');
+const moment = require('moment-timezone');
 
-process.env.GATSBY_BUILD_TIMESTAMP = dayjs().format('YYYY-MM-DD HH:mm:ss Z');
+process.env.GATSBY_BUILD_TIMESTAMP = moment
+  .tz(new Date(), 'Asia/Shanghai')
+  .format();
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });

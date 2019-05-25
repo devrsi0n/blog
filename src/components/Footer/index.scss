@@ -6,7 +6,6 @@ $color: rgba(255, 255, 255, 0.9);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 19.3rem;
   box-shadow: 0 -1px 7px rgba(0, 0, 0, 0.1);
 
   .footer {
@@ -39,6 +38,16 @@ $color: rgba(255, 255, 255, 0.9);
     }
     .footer-logo:hover {
       box-shadow: none;
+    }
+  }
+
+  @media (max-width: 700px) and (orientation: portrait) {
+    .footer {
+      flex-direction: column;
+    }
+
+    .footer-logo-group {
+      margin-top: 2rem;
     }
   }
 }

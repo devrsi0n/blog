@@ -42,7 +42,7 @@ class BlogPostTemplate extends React.Component {
       /\/$/g,
       ''
     )}.md`;
-    const { title, spoiler, date, mainImage } = post.frontmatter;
+    const { title, spoiler, date, mainImage, reference } = post.frontmatter;
 
     return (
       <Layout
@@ -64,6 +64,14 @@ class BlogPostTemplate extends React.Component {
                 <figcaption className="blog-post__title">{title}</figcaption>
                 <div className="blog-post__headline-mask" />
               </figure>
+              {reference && (
+                <section className="blog-post__reference-wrap">
+                  <p className="blog-post__reference">
+                    题图来自&nbsp;
+                    <span dangerouslySetInnerHTML={{ __html: reference }} />
+                  </p>
+                </section>
+              )}
               <section className="blog-post__content">
                 <p
                   style={{
@@ -148,6 +156,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "YYYY MM DD")
         spoiler
+        reference
         mainImage {
           childImageSharp {
             fluid(quality: 95, background: "rgba(0,0,0,0.05)") {

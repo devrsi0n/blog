@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from '../Link';
 import { rhythm } from '../../utils/typography';
 import './index.scss';
@@ -8,9 +8,6 @@ import Weibo from './weibo-logo.svg';
 import { colorDark } from '../../utils/theme-variable';
 
 function Footer() {
-  useEffect(() => {
-    console.log('Build at:', process.env.GATSBY_BUILD_TIMESTAMP);
-  }, []);
   const year = new Date().getFullYear();
   return (
     <footer

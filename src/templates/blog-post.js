@@ -52,7 +52,7 @@ class BlogPostTemplate extends React.Component {
         style={{ maxWidth: '100vw' }}
       >
         <SEO title={title} description={spoiler} slug={post.fields.slug} />
-        <div className="main-wrap">
+        <section className="main-wrap">
           <aside className="sidebar" />
           <section className="main">
             <section className="main-content">
@@ -118,12 +118,12 @@ class BlogPostTemplate extends React.Component {
             </Card>
           </section>
           <aside className="toc">
-            <div
+            <section
               className="toc-list"
               dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
             />
           </aside>
-        </div>
+        </section>
       </Layout>
     );
   }

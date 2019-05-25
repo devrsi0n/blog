@@ -37,6 +37,11 @@ function Footer() {
           </Link>
         </div>
       </div>
+      <div className="footer">
+        <p className="footer__build-time">
+          Build at {process.env.GATSBY_BUILD_TIMESTAMP}
+        </p>
+      </div>
     </footer>
   );
 }

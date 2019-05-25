@@ -51,11 +51,11 @@
   }
 
   & .sidebar {
-    flex: 2;
+    // flex: 2;
   }
 
   & .main {
-    flex: 5;
+    // flex: 5;
     max-width: 50vw;
     margin: 1rem;
   }
@@ -86,15 +86,21 @@
   }
 
   & .toc {
-    flex: 2;
-    padding-right: 40px;
+    // flex: 2;
+    // padding-right: 40px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: -1;
 
     .toc-list {
       // background: #f6f7f7;
       line-height: 1.35;
-      position: fixed;
-      right: 5rem;
-      top: 10rem;
       font-size: 14px;
     }
 

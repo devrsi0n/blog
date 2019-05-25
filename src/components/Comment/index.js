@@ -19,8 +19,8 @@ export default function Comment({ location }) {
         <Gitalk
           options={{
             // process.env.* cannot be destructured since they are only available at build time
-            clientID: process.env.GH_CLIENT_ID,
-            clientSecret: process.env.GH_CLIENT_SECRET,
+            clientID: process.env.GATSBY_GH_CLIENT_ID,
+            clientSecret: process.env.GATSBY_GH_CLIENT_SECRET,
             repo: 'blog',
             owner: 'devrsi0n',
             admin: ['devrsi0n'],

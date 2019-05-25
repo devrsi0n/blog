@@ -1,3 +1,6 @@
+const dayjs = require('dayjs');
+
+process.env.GATSBY_BUILD_TIMESTAMP = dayjs().format('YYYY-MM-DD HH:mm:ss Z');
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });

@@ -23,6 +23,14 @@ module.exports = {
   pathPrefix: '/',
   plugins: [
     {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        // Setting a color is optional.
+        color: `tomato`,
+        showSpinner: true,
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: 'src/pages',
@@ -64,6 +72,13 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            },
+          },
         ],
       },
     },
@@ -149,6 +164,7 @@ module.exports = {
     },
     'gatsby-plugin-sass',
     'gatsby-plugin-react-svg',
+    'gatsby-plugin-catch-links',
     analyze && {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {

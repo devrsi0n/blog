@@ -151,9 +151,27 @@ pre[data-line] {
   background: #011627;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
-}
+  position: relative;
 
-.gatsby-highlight pre[class*='language-'] {
-  float: left;
-  min-width: 100%;
+  & pre[class*='language-'] {
+    float: left;
+    min-width: 100%;
+  }
+
+  &[data-language]::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    right: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    text-align: right;
+    color: #111;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-radius: 0 0 5px 5px;
+    background: #ddd;
+    background: #f7df1e;
+  }
 }

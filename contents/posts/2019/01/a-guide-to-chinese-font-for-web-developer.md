@@ -2,7 +2,7 @@
 title: Web 开发中文字体指南
 date: '2019-01-05'
 spoiler: Web 开发需要了解的字体知识都在这儿了
-mainImage: './images/font.png'
+cover: './images/font.png'
 ---
 
 <!-- > 头图来自[思源宋体](https://source.typekit.com/source-han-serif/cn/) -->

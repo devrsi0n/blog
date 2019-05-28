@@ -42,7 +42,7 @@ class BlogPostTemplate extends React.Component {
       /\/$/g,
       ''
     )}.md`;
-    const { title, spoiler, date, mainImage, reference } = post.frontmatter;
+    const { title, spoiler, date, cover, reference } = post.frontmatter;
 
     return (
       <Layout
@@ -55,10 +55,10 @@ class BlogPostTemplate extends React.Component {
         <section className="main-wrap">
           <aside className="sidebar" />
           <section className="main">
-            <section className="main-content">
+            <article className="main-content">
               <figure className="blog-post__headline">
                 <Img
-                  fluid={mainImage.childImageSharp.fluid}
+                  fluid={cover.childImageSharp.fluid}
                   alt="Main picture of post"
                 />
                 <figcaption className="blog-post__title">{title}</figcaption>
@@ -120,7 +120,7 @@ class BlogPostTemplate extends React.Component {
                   </li>
                 </ul>
               </section>
-            </section>
+            </article>
             <Card className="blog-post__content blog-post__comment">
               <Comment location={location} />
             </Card>
@@ -157,7 +157,7 @@ export const pageQuery = graphql`
         date(formatString: "YYYY MM DD")
         spoiler
         reference
-        mainImage {
+        cover {
           childImageSharp {
             fluid(quality: 95, background: "rgba(0,0,0,0.05)") {
               ...GatsbyImageSharpFluid

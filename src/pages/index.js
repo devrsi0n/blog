@@ -39,12 +39,12 @@ class BlogIndex extends React.Component {
         {posts.map(({ node }) => {
           const { slug } = node.fields;
           const title = get(node, 'frontmatter.title') || slug;
-          const mainImage = node.frontmatter.mainImage.childImageSharp.fluid;
+          const cover = node.frontmatter.cover.childImageSharp.fluid;
           const postLink = node.fields.slug;
           return (
             <Card key={node.fields.slug}>
               <Link to={postLink}>
-                <Img fluid={mainImage} alt="main image of blog" />
+                <Img fluid={cover} alt="main image of blog" />
               </Link>
               <section className="index__post">
                 <h3
@@ -100,7 +100,7 @@ export const pageQuery = graphql`
             )
             title
             spoiler
-            mainImage {
+            cover {
               childImageSharp {
                 fluid(quality: 75, background: "rgba(0,0,0,0.05)") {
                   ...GatsbyImageSharpFluid

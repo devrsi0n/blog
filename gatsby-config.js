@@ -23,6 +23,12 @@ module.exports = {
   pathPrefix: '/',
   plugins: [
     {
+      resolve: 'gatsby-plugin-layout',
+      options: {
+        component: require.resolve('./src/layout/index.js'),
+      },
+    },
+    {
       resolve: `gatsby-plugin-nprogress`,
       options: {
         // Setting a color is optional.
@@ -165,6 +171,19 @@ module.exports = {
     'gatsby-plugin-sass',
     'gatsby-plugin-react-svg',
     'gatsby-plugin-catch-links',
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ['develop'],
+        options: {
+          fix: true,
+          emitWarning: true,
+          failOnError: true,
+        },
+      },
+    },
     analyze && {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {

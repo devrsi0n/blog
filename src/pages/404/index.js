@@ -1,15 +1,19 @@
 import React from 'react';
-import pt from 'prop-types';
+// import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 
-import Layout from '../../components/Layout';
+import { LayoutConsumer } from '../../layout/Context';
 import './index.scss';
 
 class NotFoundPage extends React.Component {
-  static propTypes = {
-    location: pt.object.isRequired,
-  };
+  // static propTypes = {
+  //   location: pt.object.isRequired,
+  // };
+  constructor(props) {
+    super(props);
+    this.didInit = false;
+  }
 
   render() {
     const title = get(this, 'props.data.site.siteMetadata.title');
@@ -23,35 +27,48 @@ class NotFoundPage extends React.Component {
     };
 
     return (
-      <Layout location={this.props.location} title={title} style={layoutStyle}>
-        <div className="code-area">
-          <span style={{ color: '#777', fontStyle: 'italic' }}>
-            {'// 404, 你来到了未知领域.'}
-          </span>
-          <br />
-          <span>
-            <span style={{ color: '#d65562' }}>if </span>(
-            <span style={{ color: '#4ca8ef' }}>!</span>
-            <span style={{ fontStyle: 'italic', color: '#bdbdbd' }}>found</span>
-            ){' {'}
-          </span>
-          <br />
-          <span>
-            <span style={{ paddingLeft: '15px', color: '#2796ec' }}>
-              <i style={{ width: '10px', display: 'inline-block' }} />
-              throw
-            </span>
-            <span>
-              (<span style={{ color: '#a6a61f' }}>"(╯°□°)╯︵ ┻━┻"</span>);
-            </span>
-            <span style={{ display: 'block' }}>{'}'}</span>
-            <br />
-            <span style={{ color: '#777', fontStyle: 'italic' }}>
-              {'//'} <Link to="/">回到首页!</Link>
-            </span>
-          </span>
-        </div>
-      </Layout>
+      <LayoutConsumer>
+        {({ set }) => {
+          if (!this.didInit) {
+            set({
+              title,
+              style: layoutStyle,
+            });
+            this.didInit = true;
+          }
+          return (
+            <div className="code-area">
+              <span style={{ color: '#777', fontStyle: 'italic' }}>
+                {'// 404, 你来到了未知领域.'}
+              </span>
+              <br />
+              <span>
+                <span style={{ color: '#d65562' }}>if </span>(
+                <span style={{ color: '#4ca8ef' }}>!</span>
+                <span style={{ fontStyle: 'italic', color: '#bdbdbd' }}>
+                  found
+                </span>
+                ){' {'}
+              </span>
+              <br />
+              <span>
+                <span style={{ paddingLeft: '15px', color: '#2796ec' }}>
+                  <i style={{ width: '10px', display: 'inline-block' }} />
+                  throw
+                </span>
+                <span>
+                  (<span style={{ color: '#a6a61f' }}>"(╯°□°)╯︵ ┻━┻"</span>);
+                </span>
+                <span style={{ display: 'block' }}>{'}'}</span>
+                <br />
+                <span style={{ color: '#777', fontStyle: 'italic' }}>
+                  {'//'} <Link to="/">回到首页!</Link>
+                </span>
+              </span>
+            </div>
+          );
+        }}
+      </LayoutConsumer>
     );
   }
 }

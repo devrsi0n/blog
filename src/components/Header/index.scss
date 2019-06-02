@@ -32,9 +32,16 @@
 
   .header-brand-text {
     // background-color: rgb(29, 29, 29);
+    color: #007ac1;
+    font-weight: bold;
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0;
     width: auto;
     // padding: 3px 6px 4px 3px;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 // import pt from 'prop-types';
 import { Link } from 'gatsby';
+import { sansSerifFontFamilies } from 'typography-theme-pottery/src';
 // import { LayoutConsumer } from '../../layout/Context';
 import { rhythm } from '../../utils/typography';
 import { colorDark } from '../../utils/theme-variable';
@@ -11,11 +12,10 @@ export default function Header() {
   const rhythmFactor = 2;
   return (
     <header className="header-wrap">
-      <Link
+      <nav
         style={{
           color: colorDark,
         }}
-        to="/"
         className="header"
       >
         <div
@@ -25,9 +25,15 @@ export default function Header() {
           }}
         >
           {/* <TikTok className="header-brand-text">{title}</TikTok> */}
-          <h3 className="header-brand-text">devrsi0n</h3>
+          <Link
+            to="/"
+            className="header-brand-text"
+            style={{ fontFamily: sansSerifFontFamilies.join(',') }}
+          >
+            Devrsi0n
+          </Link>
         </div>
-      </Link>
+      </nav>
       <div style={{ height: rhythm(rhythmFactor) }} />
     </header>
   );

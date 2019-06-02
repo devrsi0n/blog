@@ -1,18 +1,18 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import pt from 'prop-types';
 import { Link, graphql } from 'gatsby';
-import get from 'lodash/get';
+// import get from 'lodash/get';
 import Img from 'gatsby-image';
 
 import Bio from '../components/Bio';
-import { LayoutConsumer } from '../layout/Context';
+// import { LayoutConsumer } from '../layout/Context';
 import SEO from '../components/SEO';
 import Card from '../components/Card';
 import Comment from '../components/Comment';
 import ALink from '../components/Link';
 import Button from '../components/Button';
 import { formatReadingTime, setLastPost } from '../utils/helpers';
-import { scale } from '../utils/typography';
+import { scale /* rhythm */ } from '../utils/typography';
 import './blog-post.scss';
 
 const GITHUB_USERNAME = 'devrsi0n';
@@ -27,11 +27,6 @@ class BlogPostTemplate extends React.Component {
     location: pt.object.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.didInit = false;
-  }
-
   componentWillUnmount() {
     setLastPost({
       link: this.props.location.pathname,
@@ -41,7 +36,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const { location } = this.props;
     const post = this.props.data.markdownRemark;
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    // const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const { previous, next, slug } = this.props.pageContext;
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/contents/${slug.replace(
       /\/$/g,
@@ -50,111 +45,97 @@ class BlogPostTemplate extends React.Component {
     const { title, spoiler, date, cover, reference } = post.frontmatter;
 
     return (
-      <LayoutConsumer>
-        {({ set }) => {
-          if (!this.didInit) {
-            set({
-              title: siteTitle,
-              className: 'blog-post',
-              style: { maxWidth: '100vw' },
-            });
-            this.didInit = true;
-          }
-          return (
-            <Fragment>
-              <SEO
-                title={title}
-                description={spoiler}
-                slug={post.fields.slug}
-              />
-              <section className="main-wrap">
-                <aside className="sidebar" />
-                <section className="main">
-                  <article className="main-content">
-                    <figure className="blog-post__headline">
-                      <Img
-                        fluid={cover.childImageSharp.fluid}
-                        alt="Main picture of post"
-                      />
-                      <figcaption className="blog-post__title">
-                        {title}
-                      </figcaption>
-                      <div className="blog-post__headline-mask" />
-                    </figure>
-                    {reference && (
-                      <section className="blog-post__reference-wrap">
-                        <p className="blog-post__reference">
-                          题图来自&nbsp;
-                          <span
-                            dangerouslySetInnerHTML={{ __html: reference }}
-                          />
-                        </p>
-                      </section>
-                    )}
-                    <section className="blog-post__content">
-                      <p
-                        style={{
-                          ...scale(-1 / 5),
-                        }}
-                        className="blog-post__time-info"
-                      >
-                        {date}
-                        {` • ${formatReadingTime(post.timeToRead)}`}
-                      </p>
-                      <div dangerouslySetInnerHTML={{ __html: post.html }} />
-                    </section>
-                    <section className="blog-post__content blog-post__footer">
-                      <p className="blog-post__edit-on-gb">
-                        <ALink href={editUrl} linkIcon>
-                          在 GitHub 上编辑本文
-                        </ALink>
-                      </p>
-                      <Bio />
-                      <ul className="blog-post__nav">
-                        <li>
-                          {previous && (
-                            <Button>
-                              <Link
-                                to={previous.fields.slug}
-                                rel="prev"
-                                style={{ boxShadow: 'none' }}
-                              >
-                                ← {previous.frontmatter.title}
-                              </Link>
-                            </Button>
-                          )}
-                        </li>
-                        <li>
-                          {next && (
-                            <Button>
-                              <Link
-                                to={next.fields.slug}
-                                rel="next"
-                                style={{ boxShadow: 'none' }}
-                              >
-                                {next.frontmatter.title} →
-                              </Link>
-                            </Button>
-                          )}
-                        </li>
-                      </ul>
-                    </section>
-                  </article>
-                  <Card className="blog-post__content blog-post__comment">
-                    <Comment location={location} />
-                  </Card>
-                </section>
-                <aside className="toc">
-                  <section
-                    className="toc-list"
-                    dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
-                  />
-                </aside>
-              </section>
-            </Fragment>
-          );
+      <main
+        className="blog-post"
+        style={{
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          // maxWidth: rhythm(28),
+          maxWidth: '100vw',
         }}
-      </LayoutConsumer>
+      >
+        <SEO title={title} description={spoiler} slug={post.fields.slug} />
+        <section className="main-wrap">
+          <aside className="sidebar" />
+          <section className="main">
+            <article className="main-content">
+              <figure className="blog-post__headline">
+                <Img
+                  fluid={cover.childImageSharp.fluid}
+                  alt="Main picture of post"
+                />
+                <figcaption className="blog-post__title">{title}</figcaption>
+                <div className="blog-post__headline-mask" />
+              </figure>
+              {reference && (
+                <section className="blog-post__reference-wrap">
+                  <p className="blog-post__reference">
+                    题图来自&nbsp;
+                    <span dangerouslySetInnerHTML={{ __html: reference }} />
+                  </p>
+                </section>
+              )}
+              <section className="blog-post__content">
+                <p
+                  style={{
+                    ...scale(-1 / 5),
+                  }}
+                  className="blog-post__time-info"
+                >
+                  {date}
+                  {` • ${formatReadingTime(post.timeToRead)}`}
+                </p>
+                <div dangerouslySetInnerHTML={{ __html: post.html }} />
+              </section>
+              <section className="blog-post__content blog-post__footer">
+                <p className="blog-post__edit-on-gb">
+                  <ALink href={editUrl} linkIcon>
+                    在 GitHub 上编辑本文
+                  </ALink>
+                </p>
+                <Bio />
+                <ul className="blog-post__nav">
+                  <li>
+                    {previous && (
+                      <Button>
+                        <Link
+                          to={previous.fields.slug}
+                          rel="prev"
+                          style={{ boxShadow: 'none' }}
+                        >
+                          ← {previous.frontmatter.title}
+                        </Link>
+                      </Button>
+                    )}
+                  </li>
+                  <li>
+                    {next && (
+                      <Button>
+                        <Link
+                          to={next.fields.slug}
+                          rel="next"
+                          style={{ boxShadow: 'none' }}
+                        >
+                          {next.frontmatter.title} →
+                        </Link>
+                      </Button>
+                    )}
+                  </li>
+                </ul>
+              </section>
+            </article>
+            <Card className="blog-post__content blog-post__comment">
+              <Comment location={location} />
+            </Card>
+          </section>
+          <aside className="toc">
+            <section
+              className="toc-list"
+              dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
+            />
+          </aside>
+        </section>
+      </main>
     );
   }
 }

@@ -1,14 +1,6 @@
 .code-area {
-  // position: absolute;
-  width: 320px;
-  min-width: 320px;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-}
-
-.code-area > span {
-  display: block;
+  width: 250px;
+  margin: 5rem auto 15rem auto;
 }
 
 @media screen and (max-width: 320px) {

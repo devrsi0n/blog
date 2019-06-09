@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby';
 // import get from 'lodash/get';
 
 // import { LayoutConsumer } from '../../layout/Context';
-import { rhythm } from '../../utils/typography';
+// import { rhythm } from '../../utils/typography';
 import './index.scss';
 
 class NotFoundPage extends React.Component {
@@ -14,37 +14,28 @@ class NotFoundPage extends React.Component {
 
   render() {
     // const title = get(this, 'props.data.site.siteMetadata.title');
-    const layoutStyle = {
-      marginLeft: null,
-      marginRight: null,
-      maxWidth: null,
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: '5rem',
-    };
 
     return (
-      <main
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: rhythm(28),
-          ...layoutStyle,
-        }}
+      <section
+        style={
+          {
+            // maxWidth: rhythm(28),
+          }
+        }
         className="code-area"
       >
-        <span style={{ color: '#777', fontStyle: 'italic' }}>
+        <p style={{ color: '#777', fontStyle: 'italic' }}>
           {'// 404, 你来到了未知领域.'}
-        </span>
+        </p>
         <br />
-        <span>
+        <div>
           <span style={{ color: '#d65562' }}>if </span>(
           <span style={{ color: '#4ca8ef' }}>!</span>
           <span style={{ fontStyle: 'italic', color: '#bdbdbd' }}>found</span>)
           {' {'}
-        </span>
+        </div>
         <br />
-        <span>
+        <div>
           <span style={{ paddingLeft: '15px', color: '#2796ec' }}>
             <i style={{ width: '10px', display: 'inline-block' }} />
             throw
@@ -57,8 +48,8 @@ class NotFoundPage extends React.Component {
           <span style={{ color: '#777', fontStyle: 'italic' }}>
             {'//'} <Link to="/">回到首页!</Link>
           </span>
-        </span>
-      </main>
+        </div>
+      </section>
     );
   }
 }

@@ -15,7 +15,7 @@ const { Provider, Consumer } = React.createContext(defaultContextValue);
 
 class ContextProviderComponent extends React.Component {
   static propTypes = {
-    children: pt.oneOf([pt.element, pt.arrayOf(pt.element)]).isRequired,
+    children: pt.any.isRequired,
   };
 
   constructor(props) {

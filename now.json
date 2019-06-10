@@ -23,7 +23,7 @@
   ],
   "routes": [
     {
-      "src": "^/public/static/(.*)",
+      "src": "^/static/(.*)",
       "headers": { "cache-control": "public,max-age=31536000,immutable" }
     },
     {
@@ -35,6 +35,6 @@
       "headers": { "cache-control": "public,max-age=0,must-revalidate" }
     },
     { "handle": "filesystem" },
-    { "src": "/.*", "status": 404, "dest": "/404/index.html" }
+    { "src": "/.*", "status": 404, "dest": "/404" }
   ]
 }

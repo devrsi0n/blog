@@ -23,7 +23,7 @@
   ],
   "routes": [
     {
-      "src": "^/static/(.*)",
+      "src": "^/(static|icons)/(.*)",
       "headers": { "cache-control": "public,max-age=31536000,immutable" }
     },
     {

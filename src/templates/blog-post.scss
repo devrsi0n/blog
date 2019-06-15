@@ -115,7 +115,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: -1;
+    z-index: auto;
 
     .toc-list {
       // background: #f6f7f7;

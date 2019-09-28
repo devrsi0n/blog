@@ -1,0 +1,9 @@
+- name: Devrsi0n
+  bio: |
+    软件手艺人
+  avatar: ./avatars/devrsi0n.jpg
+  featured: true
+  social:
+    - url: https://github.com/devrsi0n
+    - url: https://weibo.com/qianmofeiyu
+    - url: https://twitter.com/devrsi0n

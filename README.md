@@ -2,16 +2,12 @@
 
 [devrsi0n.com](https://devrsion.com)
 
-Devrsi0n's blog fork from [overreacted.io](https://github.com/gaearon/overreacted.io/tree/8266ef5e2ab69b264d85f65449e0c02e58014a38)
-
-## Features
-
-- Add blog comment by [gitalk](https://github.com/gitalk/gitalk)
-- Chinese font first [typography-theme](https://github.com/devrsi0n/typography-theme-pottery)
+Devrsi0n's blog fork from [gatsby-theme-novela](https://github.com/narative/gatsby-theme-novela/tree/75f241249ddb56bca503e8bf1db13043e22931cc) `v0.7.0`. Home page icon copied from [icons8.com](https://icons8.com/icons/set/macbook-idea).
 
 ## Quick start
 
 ```bash
+npm i
 # local development
 npm start
 # Build for deploy

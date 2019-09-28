@@ -1,33 +1,106 @@
+const contentAuthors = 'content/authors';
+const contentPosts = 'content/posts';
+
+const analyze = process.env.ANALYZE;
+const isEnvDev = process.env.NODE_ENV === 'development';
+
 const moment = require('moment-timezone');
 
 process.env.GATSBY_BUILD_TIMESTAMP = moment
   .tz(new Date(), 'Asia/Shanghai')
   .format();
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
 
-const analyze = process.env.ANALYZE;
-const isEnvDev = process.env.NODE_ENV === 'development';
+const local = true;
+const contentful = false;
 
 module.exports = {
   siteMetadata: {
-    title: 'Devrsi0n',
-    author: 'Devrsi0n',
-    description: '软件手艺人',
-    siteUrl: 'https://devrsi0n.com',
-    social: {
-      twitter: '@devrsi0n',
+    title: `Devrsi0n's blog`,
+    name: `devrsi0n`,
+    siteUrl: `https://devrsi0n.com`,
+    description: `软件手艺人`,
+    hero: {
+      heading: `软件手艺人，I build softwares for humans`,
+      maxWidth: 652,
     },
+    social: [
+      {
+        url: `https://twitter.com/devrsi0n`,
+      },
+      {
+        url: `https://github.com/devrsi0n`,
+      },
+      {
+        url: `https://weibo.com/qianmofeiyu`,
+      },
+    ],
   },
-  pathPrefix: '/',
+  mapping: {
+    'Mdx.frontmatter.author': `AuthorsYaml`,
+  },
   plugins: [
+    `gatsby-plugin-typescript`,
+    `gatsby-image`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
+    `gatsby-transformer-yaml`,
     {
-      resolve: 'gatsby-plugin-layout',
+      resolve: `gatsby-source-filesystem`,
       options: {
-        component: require.resolve('./src/layout/index.js'),
+        path: contentPosts,
+        name: contentPosts,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: contentAuthors,
+        name: contentAuthors,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 10000,
+              linkImagesToOriginal: false,
+              quality: 80,
+              withWebp: true,
+            },
+          },
+          { resolve: `gatsby-remark-copy-linked-files` },
+          { resolve: `gatsby-remark-numbered-footnotes` },
+          { resolve: `gatsby-remark-smartypants` },
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'noreferrer', // eslint-disable-line unicorn/prevent-abbreviations
+            },
+          },
+        ],
+        remarkPlugins: [require(`remark-slug`)], // eslint-disable-line global-require
+      },
+    },
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        displayName: isEnvDev,
+      },
+    },
+    `gatsby-plugin-theme-ui`,
+    // {
+    //   resolve: 'gatsby-plugin-mailchimp',
+    //   options: {
+    //     endpoint: '', // add your MC list endpoint here; see plugin repo for instructions
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-nprogress`,
       options: {
@@ -37,68 +110,48 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: 'src/pages',
-        name: 'pages',
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: 'contents',
-        ignore: isEnvDev ? undefined : ['**/contents/drafts/**/*.*'],
-        // ignore: ['**/contents/drafts/**/*.*'],
-        name: 'posts',
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 800,
-            },
-          },
-          {
-            resolve: 'gatsby-remark-responsive-iframe',
-            options: {
-              wrapperStyle: 'margin-bottom: 1.0725rem',
-            },
-          },
-          'gatsby-remark-autolink-headers',
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: {
-              inlineCodeMarker: '÷',
-              showLineNumbers: true,
-            },
-          },
-          'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants',
-          {
-            resolve: 'gatsby-remark-external-links',
-            options: {
-              target: '_blank',
-              rel: 'noopener noreferrer',
-            },
-          },
-        ],
-      },
-    },
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
-    {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-108341680-2',
       },
     },
-    {
-      resolve: 'gatsby-plugin-feed',
+    // {
+    //   resolve: 'gatsby-plugin-eslint',
+    //   options: {
+    //     test: /\.js$|\.jsx$/,
+    //     exclude: /(node_modules|.cache|public)/,
+    //     stages: ['develop'],
+    //     options: {
+    //       fix: true,
+    //       emitWarning: true,
+    //       failOnError: false,
+    //     },
+    //   },
+    // },
+    analyze && {
+      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {
+        analyzerPort: 3001,
+        production: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Devrsi0n's blog`,
+        short_name: `Devrsi0n`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#fff`,
+        display: `standalone`,
+        icon: `static/favicon.png`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        title: "Devrsi0n's blog feed",
+        output: '/rss.xml',
         query: `
           {
             site {
@@ -111,84 +164,144 @@ module.exports = {
             }
           }
         `,
+        setup: ({
+          query: {
+            site: { siteMetadata },
+          },
+          ...rest
+        }) => {
+          siteMetadata.feed_url = `${siteMetadata.siteUrl}/rss.xml`;
+          siteMetadata.image_url = `${siteMetadata.siteUrl}/icons/icon-512x512.png`;
+          const siteMetadataModified = siteMetadata;
+          siteMetadataModified.feed_url = `${siteMetadata.siteUrl}/rss.xml`;
+          siteMetadataModified.image_url = `${siteMetadata.siteUrl}/icons/icon-512x512.png`;
+
+          return {
+            ...siteMetadataModified,
+            ...rest,
+          };
+        },
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.html }],
+            title: "Devrsi0n's blog feed",
+            output: '/rss.xml',
+            serialize: ({ query: { site, allArticle, allContentfulPost } }) => {
+              if (local && !contentful) {
+                return allArticle.edges
+                  .filter(edge => !edge.node.secret)
+                  .map(edge => {
+                    return {
+                      ...edge.node,
+                      description: edge.node.excerpt,
+                      date: edge.node.date,
+                      url: site.siteMetadata.siteUrl + edge.node.slug,
+                      guid: site.siteMetadata.siteUrl + edge.node.slug,
+                      // custom_elements: [{ "content:encoded": edge.node.body }],
+                      author: edge.node.author,
+                    };
+                  });
+              }
+              if (!local && contentful) {
+                return allContentfulPost.edges
+                  .filter(edge => !edge.node.secret)
+                  .map(edge => {
+                    return {
+                      ...edge.node,
+                      description: edge.node.excerpt,
+                      date: edge.node.date,
+                      url: site.siteMetadata.siteUrl + edge.node.slug,
+                      guid: site.siteMetadata.siteUrl + edge.node.slug,
+                      // custom_elements: [{ "content:encoded": edge.node.body }],
+                      author: edge.node.author,
+                    };
+                  });
+              }
+              const allArticlesData = { ...allArticle, ...allContentfulPost };
+              return allArticlesData.edges
+                .filter(edge => !edge.node.secret)
+                .map(edge => {
+                  return {
+                    ...edge.node,
+                    description: edge.node.excerpt,
+                    date: edge.node.date,
+                    url: site.siteMetadata.siteUrl + edge.node.slug,
+                    guid: site.siteMetadata.siteUrl + edge.node.slug,
+                    // custom_elements: [{ "content:encoded": edge.node.body }],
+                    author: edge.node.author,
+                  };
                 });
-              });
             },
-            query: `
+            query:
+              local && !contentful
+                ? `
               {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
+                allArticle(sort: {order: DESC, fields: date}) {
                   edges {
                     node {
                       excerpt
-                      html
-                      fields { slug }
-                      frontmatter {
-                        title
-                        date
-                      }
+                      date
+                      slug
+                      title
+                      author
+                      secret
                     }
                   }
                 }
               }
-            `,
-            output: '/rss.xml',
-            title: "Devrsi0n's RSS Feed",
+              `
+                : !local && contentful
+                ? `
+              {
+                allContentfulPost(sort: {order: DESC, fields: date}) {
+                  edges {
+                    node {
+                      excerpt
+                      date
+                      slug
+                      title
+                      author {
+                        name
+                      }
+                      secret
+                    }
+                  }
+                }
+              }
+              `
+                : `
+              {
+                allArticle(sort: {order: DESC, fields: date}) {
+                  edges {
+                    node {
+                      excerpt
+                      date
+                      slug
+                      title
+                      author
+                      secret
+                    }
+                  }
+                }
+              }
+              {
+                allContentfulPost(sort: {order: DESC, fields: date}) {
+                  edges {
+                    node {
+                      excerpt
+                      date
+                      slug
+                      title
+                      author {
+                        name
+                      }
+                      secret
+                    }
+                  }
+                }
+              }
+              `,
           },
         ],
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-manifest',
-      options: {
-        name: 'devrsi0n',
-        short_name: 'devrsi0n',
-        start_url: '/',
-        background_color: '#ffffff',
-        theme_color: '#03a9f4',
-        display: 'minimal-ui',
-        icon: 'src/assets/img/icons/default.jpg',
-      },
-    },
-    'gatsby-plugin-react-helmet',
-    {
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography',
-      },
-    },
-    'gatsby-plugin-sass',
-    'gatsby-plugin-react-svg',
-    'gatsby-plugin-catch-links',
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        test: /\.js$|\.jsx$/,
-        exclude: /(node_modules|.cache|public)/,
-        stages: ['develop'],
-        options: {
-          fix: true,
-          emitWarning: true,
-          failOnError: true,
-        },
-      },
-    },
-    analyze && {
-      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
-      options: {
-        analyzerPort: 3001,
-        production: true,
       },
     },
   ].filter(Boolean),

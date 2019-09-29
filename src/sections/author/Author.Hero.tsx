@@ -91,7 +91,7 @@ const Subheading = styled.p`
 
 const Social = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-top: 35px;
 
   ${mediaqueries.phablet`

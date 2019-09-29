@@ -96,7 +96,11 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         `${basePath}articles/`,
         generateArticlePermalink(
           // slugify(node.frontmatter.slug || node.frontmatter.title),
-          slugify(node.id.slice(0, node.id.indexOf('-'))),
+          crypto
+            .createHash(`md5`)
+            .update(JSON.stringify(node.frontmatter.title))
+            .digest(`hex`)
+            .slice(0, 6),
           node.frontmatter.date
         )
       ),

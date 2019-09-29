@@ -1,3 +1,5 @@
+import 'typeface-merriweather';
+
 const chineseSanSerifFonts = [
   '"PingFang SC"', // 苹方, <mac>
   '"Hiragino Sans GB"', // 冬青黑体, <mac>

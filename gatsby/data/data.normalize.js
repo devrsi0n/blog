@@ -5,7 +5,7 @@
  * when they're not provided. This will allow you to write articles without immediately
  * adding a hero image.
  *
- * @param {Object} heroSource
+ * @param {Object} article
  */
 function normalizeHero(article) {
   let hero = {

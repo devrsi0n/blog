@@ -4,7 +4,7 @@
     "checkJs": true,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
+    // "importHelpers": true,
     "target": "ES5",
     "moduleResolution": "node",
     "jsx": "react",
@@ -28,6 +28,7 @@
       "@utils/*": ["utils/*"],
       "@utils": ["utils/index"]
     },
+    "types": ["node"],
     "typeRoots": ["./src/types", "**/node_modules/@types"],
     "outDir": "./lib"
   },

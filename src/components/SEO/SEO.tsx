@@ -144,10 +144,10 @@ function SEO({
       script={themeUIDarkModeWorkaroundScript}
       meta={metaTags}
     >
-      <link
+      {/* <link
         href="https://fonts.googleapis.com/css?family=Merriweather:700,700i&display=swap"
         rel="stylesheet"
-      />
+      /> */}
       {children}
     </Helmet>
   );

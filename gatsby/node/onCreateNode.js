@@ -49,8 +49,8 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
     return permalink;
   }
 
-  function generateSlug(...arguments_) {
-    return `/${arguments_.join('/')}`.replace(/\/\/+/g, '/');
+  function generateSlug(...args) {
+    return `/${args.join('/')}`.replace(/\/\/+/g, '/');
   }
 
   // ///////////////////////////////////////////////////////
@@ -93,9 +93,10 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       hero: node.frontmatter.hero,
       secret: node.frontmatter.secret || false,
       slug: generateSlug(
-        basePath,
+        `${basePath}articles/`,
         generateArticlePermalink(
-          slugify(node.frontmatter.slug || node.frontmatter.title),
+          // slugify(node.frontmatter.slug || node.frontmatter.title),
+          slugify(node.id.slice(0, node.id.indexOf('-'))),
           node.frontmatter.date
         )
       ),

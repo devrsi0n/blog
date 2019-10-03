@@ -14,7 +14,7 @@ import {
   getBreakpointFromTheme,
 } from '@utils';
 
-const strNavToHome = '导航回主页';
+const strNavToHome = '回到主页';
 
 function NavigationHeader() {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
@@ -54,7 +54,7 @@ function NavigationHeader() {
             </BackArrowIconContainer>
           )}
           <Logo fill={fill} />
-          <Hidden>Navigate back to the homepage</Hidden>
+          <Hidden>{strNavToHome}</Hidden>
         </LogoLink>
         <NavControls>
           {showBackArrow ? (
@@ -80,8 +80,8 @@ function NavigationHeader() {
 
 export default NavigationHeader;
 
-const strActiveLightMode = '激活明亮模式';
-const strActiveDarkMode = '激活黑夜模式';
+const strActiveLightMode = '打开白天模式';
+const strActiveDarkMode = '打开黑夜模式';
 
 function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
@@ -135,7 +135,7 @@ function SharePageButton() {
     >
       <Icons.Link fill={fill} />
       <ToolTip isDark={isDark} hasCopied={hasCopied}>
-        已复制
+        复制成功
       </ToolTip>
     </IconWrapper>
   );
@@ -213,7 +213,7 @@ const NavControls = styled.div`
   `}
 `;
 
-const ToolTip = styled.div<{ isDark: boolean; hasCopied: boolean }>`
+const ToolTip = styled.span<{ isDark: boolean; hasCopied: boolean }>`
   position: absolute;
   padding: 4px 13px;
   background: ${p => (p.isDark ? '#000' : 'rgba(0,0,0,0.1)')};
@@ -224,7 +224,7 @@ const ToolTip = styled.div<{ isDark: boolean; hasCopied: boolean }>`
   opacity: ${p => (p.hasCopied ? 1 : 0)};
   transform: ${p => (p.hasCopied ? 'translateY(-3px)' : 'none')};
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  width: 70px;
+  white-space: nowrap;
 
   &::after {
     content: '';

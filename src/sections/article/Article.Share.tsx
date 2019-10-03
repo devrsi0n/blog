@@ -147,7 +147,7 @@ function ArticelShare() {
   }, [show]);
 
   function handleCopyClick() {
-    toast.success({ content: '已复制' });
+    toast.success({ content: '复制成功' });
     const tempInput = document.createElement('input');
     document.body.appendChild(tempInput);
     tempInput.setAttribute('value', text);

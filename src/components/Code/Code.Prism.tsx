@@ -105,7 +105,7 @@ function Copy({ toCopy }: { toCopy: string }) {
     <CopyButton onClick={copyToClipboardOnClick} data-a11y="false">
       {hasCopied ? (
         <>
-          已复制 <Icons.Copied fill="#6f7177" />
+          复制成功 <Icons.Copied fill="#6f7177" />
         </>
       ) : (
         <>

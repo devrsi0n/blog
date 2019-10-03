@@ -96,7 +96,7 @@ function SharePageButton() {
     >
       <Icon />
       <ToolTip isDark={isDark} hasCopied={hasCopied}>
-        已复制
+        复制成功
       </ToolTip>
     </IconWrapper>
   );

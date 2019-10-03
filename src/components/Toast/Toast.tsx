@@ -48,7 +48,7 @@ const FadeOut = styled(FadeIn)`
 export interface ToastProps {
   content: string;
   icon?: React.ReactElement;
-  duration: number;
+  duration?: number;
   onAnimationDone?: () => void;
 }
 

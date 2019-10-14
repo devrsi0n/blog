@@ -81,7 +81,7 @@ module.exports = {
             resolve: 'gatsby-remark-external-links',
             options: {
               target: '_blank',
-              rel: 'noreferrer', // eslint-disable-line unicorn/prevent-abbreviations
+              rel: 'noreferrer',
             },
           },
         ],

@@ -19,7 +19,7 @@ function NotFound() {
               <TextContainer>
                 <div />
                 <WelcomeHeader>
-                  抱歉，你似乎来到了没有知识存在的荒原，{' '}
+                  抱歉，你似乎来到了没有知识存在的荒原，
                   <TextLink isDark={isDark} to="/">
                     回到首页
                   </TextLink>

@@ -26,6 +26,7 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    "@typescript-eslint/explicit-function-return-type": "off",
 
     'class-methods-use-this': 'off',
 
@@ -55,5 +56,14 @@ module.exports = {
     'prefer-destructuring': 'off',
     'comma-dangle': 'off',
     'object-curly-newline': 'off'
-  }
+  },
+  "overrides": [
+    {
+      // enable the rule specifically for TypeScript files
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["warn"]
+      }
+    }
+  ]
 };

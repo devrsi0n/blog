@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["Novela", "gitalk", "immer", "netlify", "noreferrer", "zeit"]
+  "cSpell.words": [
+    "Novela",
+    "gitalk",
+    "immer",
+    "netlify",
+    "noreferrer",
+    "slugify",
+    "zeit"
+  ]
 }

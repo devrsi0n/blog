@@ -17,10 +17,15 @@ const chineseSerifFonts = [
   '"AR PL Sungti"', // 文鼎简报宋, linux
 ];
 
+const serif = `"Merriweather", Georgia, ${chineseSerifFonts}, serif`;
+const sansSerif = `"SF Pro Display", "-apple-system", "BlinkMacSystemFont", "San Francisco", "Helvetica Neue", "Helvetica", "Ubuntu", "Roboto", "Noto", "Segoe UI", "Arial", ${chineseSanSerifFonts.join(
+  ' ,'
+)}, sans-serif`;
+
 export default {
-  serif: `"Merriweather", Georgia, ${chineseSerifFonts}, serif`,
-  sansSerif: `"SF Pro Display", "-apple-system", "BlinkMacSystemFont", "San Francisco", "Helvetica Neue", "Helvetica", "Ubuntu", "Roboto", "Noto", "Segoe UI", "Arial", ${chineseSanSerifFonts.join(
-    ' ,'
-  )}, sans-serif`,
+  serif,
+  sansSerif,
+  body: sansSerif,
+  heading: serif,
   monospace: `"Dank Mono", "Noto Sans Mono", "Menlo", "Roboto Mono", "Consolas", "Operator Mono", "Monaco", "source-code-pro", "Courier New", monospace`,
 };

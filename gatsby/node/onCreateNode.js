@@ -1,6 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 
 const crypto = require(`crypto`);
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
@@ -87,6 +88,12 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
   }
 
   if (node.internal.type === `Mdx` && source === contentPath) {
+    const filePath = createFilePath({
+      node,
+      getNode,
+      basePath: `content`,
+      trailingSlash: false,
+    });
     const fieldData = {
       author: node.frontmatter.author,
       date: node.frontmatter.date,
@@ -95,12 +102,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       slug: generateSlug(
         `${basePath}articles/`,
         generateArticlePermalink(
-          // slugify(node.frontmatter.slug || node.frontmatter.title),
-          crypto
-            .createHash(`md5`)
-            .update(JSON.stringify(node.frontmatter.title))
-            .digest(`hex`)
-            .slice(0, 6),
+          slugify(filePath.slice(filePath.lastIndexOf('/'))),
           node.frontmatter.date
         )
       ),

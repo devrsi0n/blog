@@ -69,6 +69,7 @@ export interface IArticle {
   };
   timeToRead: number;
   date: string;
+  secret: boolean;
 }
 
 interface IArticleQuery {

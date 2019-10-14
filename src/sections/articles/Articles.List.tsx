@@ -101,7 +101,7 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
         </ImageContainer>
         <div>
           <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
-            {article.title}
+            {article.secret ? `📝${article.title}` : article.title}
           </Title>
           <Excerpt
             narrow={narrow}

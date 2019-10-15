@@ -191,6 +191,7 @@ const PrismCSS = p => css`
     `};
 
     ${mediaqueries.phablet`
+      text-size-adjust: none;
       border-radius: 0;
       margin: 0 auto 25px;
       padding: 25px 20px;

@@ -23,10 +23,11 @@ const siteQuery = graphql`
   }
 `;
 
+console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
+
 function Footer() {
   const results = useStaticQuery(siteQuery);
   const { name, social } = results.allSite.edges[0].node.siteMetadata;
-  console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
   return (
     <>
       <FooterGradient />

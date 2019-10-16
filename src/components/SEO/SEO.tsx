@@ -1,12 +1,12 @@
 /**
- * This react helmt code is adapted from
+ * This react helmet code is adapted from
  * https://themeteorchef.com/tutorials/reusable-seo-with-react-helmet.
  *
  * A great tutorial explaining how to setup a robust version of an
  * SEO friendly react-helmet instance.
  *
  *
- * Use the Helmt on pages to generate SEO and meta content!
+ * Use the Helmet on pages to generate SEO and meta content!
  *
  * Usage:
  * <SEO

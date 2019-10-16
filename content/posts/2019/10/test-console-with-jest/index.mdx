@@ -1,0 +1,52 @@
+---
+title: jest 测试 console.log
+author: Devrsi0n
+date: 2019-10-16
+hero: ./images/hero.png
+excerpt: jest 测试 console.log 小技巧
+---
+
+# console.log 问题
+
+[jest](https://jestjs.io) 是个简单好用的单测工具，最近在写算法实现时遇到了测试 `console.log` 入参的问题，官方文档没有直接给出解决办法，但是用 `jest.fn()` 来模拟 `console.log` 可以轻松解决这个问题。废话不多说，show code。
+
+## Code
+
+```ts
+let originalLog: any;
+let originalWarn: any;
+let originalError: any;
+
+// 所有测试用例运行前
+beforeAll(() => { // 可以换成 beforeEach
+  // 保留原 console 函数引用
+  originalLog = global.console.log;
+  originalWarn = global.console.warn;
+  originalError = global.console.error;
+
+  // 用 jest.fn() 替换，方便模拟
+  global.console.log = jest.fn();
+  global.console.warn = jest.fn();
+  global.console.error = jest.fn();
+});
+
+// 所有测试用例运行之后
+afterAll(() => { // 可以换成 afterEach
+  // 恢复原 console 函数引用
+  global.console.log = originalLog;
+  global.console.warn = originalWarn;
+  global.console.error = originalError;
+});
+
+// demo
+test('console.log', () => {
+  console.log('123'); // 替换成你要测试的函数或者方法
+  expect(global.console.log).toHaveBeenCalledWith('123');
+});
+```
+
+⚠ 最好要在测试用例运行之后恢复原有的 `console` 的引用，避免别的测试用例执行不正确。
+
+## 结论
+
+除了 console，很多 node 自身的模块都可以用 jest 相关 mock 函数模拟测试，非常方便，[参考文档](https://jestjs.io/docs/en/bypassing-module-mocks)。

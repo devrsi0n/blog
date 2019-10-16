@@ -27,5 +27,5 @@ export default {
   sansSerif,
   body: sansSerif,
   heading: serif,
-  monospace: `"Dank Mono", "Noto Sans Mono", "Menlo", "Roboto Mono", "Consolas", "Operator Mono", "Monaco", "source-code-pro", "Courier New", monospace`,
+  monospace: `"Dank Mono", "Noto Sans Mono", "Menlo", "Roboto Mono", "Consolas", "Operator Mono", "Monaco", "source-code-pro", "Courier New", ${sansSerif}, monospace`,
 };

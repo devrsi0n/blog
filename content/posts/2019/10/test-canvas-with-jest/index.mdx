@@ -6,7 +6,7 @@ hero: ./images/hero.jpg
 excerpt: jest 测试 canvas 小技巧
 ---
 
-# canvas 的问题
+# canvas 问题
 
 [jest](https://jestjs.io) 是个简单好用的单测工具，自带 [JSDOM](https://github.com/jsdom/jsdom)，可以在 node 环境模拟浏览器 DOM 环境，方便测试前端代码，但是 JSDOM 并不是万能，部分 DOM API 并未完全实现，比如今天遇到的 [Canvas](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/canvas) 就属于这部分未实现的 API，如果需要写相关测试用例，jest 并未直接提供解决方法。
 

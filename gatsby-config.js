@@ -34,6 +34,8 @@ module.exports = {
         url: `https://weibo.com/qianmofeiyu`,
       },
     ],
+    isLocal: local,
+    repoUrl: 'https://github.com/devrsi0n/blog',
   },
   mapping: {
     'Mdx.frontmatter.author': `AuthorsYaml`,
@@ -104,9 +106,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-nprogress`,
       options: {
-        // Setting a color is optional.
-        color: `tomato`,
-        showSpinner: true,
+        color: `#6166DC`,
+        showSpinner: false,
       },
     },
     {

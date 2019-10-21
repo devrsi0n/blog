@@ -1,6 +1,7 @@
+import React, { AnchorHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 
-const Anchor = styled.a`
+const BaseAnchor = styled.a`
   transition: ${p => p.theme.colorModeTransition};
   color: ${p => p.theme.colors.accent};
 
@@ -15,4 +16,6 @@ const Anchor = styled.a`
   }
 `;
 
-export default Anchor;
+export default function Anchor(props: AnchorHTMLAttributes<any>) {
+  return <BaseAnchor target="_blank" rel="noopener noreferrer" {...props} />;
+}

@@ -8,6 +8,7 @@ import MDXRenderer from '@components/MDX';
 import Progress from '@components/Progress';
 import Section from '@components/Section';
 import Subscription from '@components/Subscription';
+import Anchor from '@components/Anchor';
 
 import mediaqueries from '@styles/media';
 
@@ -26,6 +27,8 @@ const siteQuery = graphql`
         node {
           siteMetadata {
             name
+            repoUrl
+            isLocal
           }
         }
       }
@@ -40,7 +43,7 @@ function Article({ pageContext, location }) {
   const [contentHeight, setContentHeight] = useState<number>(0);
 
   const results = useStaticQuery(siteQuery);
-  const { name } = results.allSite.edges[0].node.siteMetadata;
+  const { name, isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
   const { article, authors, mailchimp, next } = pageContext;
 
@@ -78,6 +81,11 @@ function Article({ pageContext, location }) {
     return () => window.removeEventListener('resize', calculateBodySize);
   }, []);
 
+  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.slug}/index.mdx`.replace(
+    '//',
+    '/'
+  );
+
   return (
     <Layout>
       <ArticleSEO article={article} authors={authors} location={location} />
@@ -93,10 +101,16 @@ function Article({ pageContext, location }) {
           <ArticleShare />
         </MDXRenderer>
       </ArticleBody>
+      {isLocal && (
+        <EditOnGitHub narrow>
+          <Anchor href={editOnGitHubUrl}>在 GitHub 上编辑此文</Anchor>
+        </EditOnGitHub>
+      )}
+
       {mailchimp && article.subscription && <Subscription />}
       {next.length > 0 && (
         <NextArticle narrow>
-          <FooterNext>来自 {name} 的更多文章</FooterNext>
+          <FooterNext>{name} 其他文章</FooterNext>
           <ArticlesNext articles={next} />
           <FooterSpacer />
         </NextArticle>
@@ -106,6 +120,10 @@ function Article({ pageContext, location }) {
 }
 
 export default Article;
+
+const EditOnGitHub = styled(Section)`
+  margin-bottom: 2rem;
+`;
 
 const MobileControls = styled.div`
   position: relative;

@@ -23,6 +23,7 @@ import ToggleClose from './ui/ToggleClose.Icon';
 import Rows from './ui/Rows.Icon';
 import Tiles from './ui/Tiles.Icon';
 import Done from './ui/Done.Icon';
+import ExternalLink from './ui/ExternalLink.Icon';
 
 export default {
   Dribbble,
@@ -48,4 +49,5 @@ export default {
   Rows,
   Tiles,
   Done,
+  ExternalLink,
 };

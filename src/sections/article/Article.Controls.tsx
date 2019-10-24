@@ -119,7 +119,7 @@ const ToolTip = styled.div<{ isDark: boolean; hasCopied: boolean }>`
   opacity: ${p => (p.hasCopied ? 1 : 0)};
   transform: ${p => (p.hasCopied ? 'translateY(-3px)' : 'none')};
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  width: 70px;
+  white-space: nowrap;
 
   &::after {
     content: '';

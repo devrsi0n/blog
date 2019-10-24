@@ -194,7 +194,7 @@ const PrismCSS = p => css`
       text-size-adjust: none;
       border-radius: 0;
       margin: 0 auto 25px;
-      padding: 25px 20px;
+      padding: 30px 20px 25px 20px;
       overflow: initial;
       width: unset;
       max-width: unset;
@@ -313,7 +313,7 @@ const ImageCSS = css`
 /**
  * MDXBody
  * Here we're applying "global" selectors to make sure we maintain an article
- * body type feel. We're also applying all the Prism selecotors and styles within
+ * body type feel. We're also applying all the Prism selectors and styles within
  * the MDXBody.
  */
 const MDXBody = styled.div`

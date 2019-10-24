@@ -6,6 +6,11 @@ declare module '*.png' {
   export = value;
 }
 
+declare module '*.svg' {
+  const value: any;
+  export = value;
+}
+
 declare module 'process' {
   declare module 'env' {
     export const GATSBY_BUILD_TIMESTAMP: string;

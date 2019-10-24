@@ -46,7 +46,12 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [`gatsby-remark-copy-linked-files`],
+      },
+    },
     `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -305,5 +310,6 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-catch-links`,
   ].filter(Boolean),
 };

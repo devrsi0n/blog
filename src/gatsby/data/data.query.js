@@ -25,6 +25,7 @@ module.exports.local = {
           secret
           title
           author
+          filePath
           date(
             formatString: "YYYY年MM月DD日"
             locale: "zh-CN"

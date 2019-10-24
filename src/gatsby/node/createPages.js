@@ -53,7 +53,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   const {
     basePath = '/',
     authorsPath = '/authors',
-    authorsPage = true,
+    authorsPage = false,
     pageLength = 6,
     sources = {},
     mailchimp = '',

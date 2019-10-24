@@ -37,7 +37,7 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
   return (
     <>
       {links.map(option => {
-        const name = getHostname(option.url);
+        const name = option.name || getHostname(option.url);
         const Icon = icons[name];
         if (!Icon) {
           throw new Error(
@@ -48,7 +48,7 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
           <SocialIconContainer
             key={option.url}
             target="_blank"
-            rel="noopener"
+            rel="noopener nofollow"
             data-a11y="false"
             aria-label={`Link to ${option.url}`}
             href={option.url}

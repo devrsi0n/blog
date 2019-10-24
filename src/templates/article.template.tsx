@@ -81,7 +81,7 @@ function Article({ pageContext, location }) {
     return () => window.removeEventListener('resize', calculateBodySize);
   }, []);
 
-  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.slug}/index.mdx`.replace(
+  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`.replace(
     '//',
     '/'
   );

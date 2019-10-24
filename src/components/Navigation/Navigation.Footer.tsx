@@ -15,6 +15,7 @@ const siteQuery = graphql`
             name
             social {
               url
+              name
             }
           }
         }

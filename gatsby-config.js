@@ -20,12 +20,14 @@ module.exports = {
     siteUrl: `https://devrsi0n.com`,
     description: `软件手艺人`,
     hero: {
-      heading: `软件手艺人，I build softwares for humans`,
+      heading: `软件手艺人，I build softwares for humans.`,
       maxWidth: 652,
     },
     social: [
       {
-        url: `https://twitter.com/devrsi0n`,
+        name: 'twitter',
+        // url: `https://twitter.com/devrsi0n`,
+        url: `https://bit.ly/2NcAZQZ`,
       },
       {
         url: `https://github.com/devrsi0n`,

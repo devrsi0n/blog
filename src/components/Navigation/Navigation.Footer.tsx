@@ -23,7 +23,7 @@ const siteQuery = graphql`
     }
   }
 `;
-
+/* eslint-disable no-console */
 console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
 
 function Footer() {

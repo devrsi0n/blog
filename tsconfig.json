@@ -3,6 +3,7 @@
     "allowJs": true,
     "checkJs": true,
     "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     // "importHelpers": true,
     "target": "ES5",

@@ -1,4 +1,4 @@
-import merge from 'lodash/merge';
+// import merge from 'lodash/merge';
 
 import colors from './colors';
 import tags from './tags';
@@ -17,11 +17,11 @@ const breakpoints = [
 const colorModeTransition =
   'background 0.25s var(--ease-in-out-quad), color 0.25s var(--ease-in-out-quad)';
 
-export default merge({
+export default {
   initialColorMode: 'light',
   colorModeTransition,
   colors,
   fonts,
   breakpoints,
   tags,
-});
+};

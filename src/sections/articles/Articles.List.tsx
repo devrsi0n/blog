@@ -35,13 +35,19 @@ interface ArticlesListItemProps {
   narrow?: boolean;
 }
 
-function ArticlesList({ articles, alwaysShowAllDetails }: ArticlesListProps) {
-  if (!articles) return null;
-
-  const hasOnlyOneArticle = articles.length === 1;
+export default function ArticlesList({
+  articles,
+  alwaysShowAllDetails,
+}: ArticlesListProps) {
   const { gridLayout = 'tiles', hasSetGridLayout, getGridLayout } = useContext(
     GridLayoutContext
   );
+  useEffect(() => getGridLayout(), [getGridLayout]);
+  if (!articles) {
+    return null;
+  }
+
+  const hasOnlyOneArticle = articles.length === 1;
 
   /**
    * We're taking the flat array of articles [{}, {}, {}...]
@@ -54,8 +60,6 @@ function ArticlesList({ articles, alwaysShowAllDetails }: ArticlesListProps) {
     }
     return result;
   }, []);
-
-  useEffect(() => getGridLayout(), []);
 
   return (
     <ArticlesListContainer
@@ -82,12 +86,10 @@ function ArticlesList({ articles, alwaysShowAllDetails }: ArticlesListProps) {
   );
 }
 
-export default ArticlesList;
-
 const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
+  const { gridLayout } = useContext(GridLayoutContext);
   if (!article) return null;
 
-  const { gridLayout } = useContext(GridLayoutContext);
   const hasOverflow = narrow && article.title.length > 35;
   const imageSource = narrow ? article.hero.narrow : article.hero.regular;
   const hasHeroImage =

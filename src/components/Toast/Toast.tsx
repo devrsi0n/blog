@@ -72,7 +72,7 @@ export default function Toast({
       );
     }, duration);
     return () => clearTimeout(timerID);
-  }, []);
+  }, [duration, onAnimationDone]);
   return (
     <Container>
       <Wrapper>

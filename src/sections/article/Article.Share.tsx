@@ -252,7 +252,7 @@ const MenuFloat = styled.div<{ isDark: boolean }>`
   height: ${MENU_HEIGHT}px;
   padding: 7px 11px 7px 19px;
   color: ${p => p.theme.colors.grey};
-  background: ${p => (p.isDark ? '#fafafa' : '#000')};
+  background: ${p => (p.isDark ? '#000' : '#fff')};
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
@@ -270,13 +270,13 @@ const MenuFloat = styled.div<{ isDark: boolean }>`
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-top: 8px solid ${p => (p.isDark ? '#fafafa' : '#000')};
+    border-top: 8px solid ${p => (p.isDark ? '#000' : '#fafafa')};
     transition: border-color 200ms;
   }
 
   svg {
     path {
-      fill: ${p => (p.isDark ? '#000' : '#fff')};
+      fill: ${p => (p.isDark ? '#fff' : '#000')};
     }
   }
 `;

@@ -1,13 +1,16 @@
-import { ReactNode } from 'react';
-import { string } from 'prop-types';
+declare global {
+  interface Document {
+    selection?: Selection;
+  }
+}
 
 declare module '*.png' {
-  const value: any;
+  const value: string;
   export = value;
 }
 
 declare module '*.svg' {
-  const value: any;
+  const value: string;
   export = value;
 }
 
@@ -23,7 +26,7 @@ export interface IPaginator {
   pathPrefix: string;
 }
 
-interface IImage {
+export interface IImage {
   src: string;
   alt?: string;
 }

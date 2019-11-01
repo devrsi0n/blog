@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import GatsbyImg from 'gatsby-image';
 
-import { IImg } from '@types';
+import { IImage } from '@types';
 
 /**
  * To soften the blur-up we get from the default configuration of gatbsy image
@@ -30,11 +30,10 @@ const StyledGatsbyImag = styled(GatsbyImg)`
  *
  * todo : lazyload the default img tag
  */
-const Image: React.SFC<IImg> = ({ src, alt, ...props }) => {
+const Image: React.SFC<IImage> = ({ src, alt, ...props }: IImage) => {
   // We're going to build our final component's props dynamically.
   // So create a nice default set of props that are relevant to Gatsby and non Gatsby images
   const imgProps = {
-    alt,
     ...props,
   };
 
@@ -63,7 +62,11 @@ const Image: React.SFC<IImg> = ({ src, alt, ...props }) => {
   const Compontent = src.tracedSVG ? GatsbyImg : StyledGatsbyImag;
 
   // Retrun either the GatsbyImg component or a regular img tag with the spread props
-  return isGatsby ? <Compontent {...imgProps} /> : <img {...imgProps} />;
+  return isGatsby ? (
+    <Compontent {...imgProps} />
+  ) : (
+    <img {...imgProps} alt={alt} />
+  );
 };
 
 export default Image;

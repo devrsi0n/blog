@@ -10,6 +10,7 @@ function handleImageZoomBackground(background: string) {
       img.previousElementSibling &&
       img.previousElementSibling.tagName === 'DIV'
     ) {
+      /* eslint-disable no-param-reassign */
       img.previousElementSibling.style.background = background;
     }
   });

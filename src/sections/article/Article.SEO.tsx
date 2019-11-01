@@ -27,7 +27,7 @@ function ArticleSEO({
 }: {
   article: IArticle;
   authors: IAuthor[];
-  location: any;
+  location: Location;
 }) {
   const results = useStaticQuery(siteQuery);
   const { name } = results.allSite.edges[0].node.siteMetadata;

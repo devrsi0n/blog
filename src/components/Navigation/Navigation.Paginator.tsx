@@ -93,7 +93,7 @@ class Paginator extends Component<IPaginator, {}> {
       truncatedRange.push(count);
     }
 
-    return [...new Set(truncatedRange)].map((page: number | null, i) =>
+    return [...new Set(truncatedRange)].map((page: number | null) =>
       page === null ? (
         // If you find a null in the truncated array then add a spacer
         <Spacer key={`PaginatorPage_spacer_${page}`} aria-hidden />

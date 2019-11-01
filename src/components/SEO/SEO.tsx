@@ -86,7 +86,7 @@ function SEO({
     path ? `${site.siteUrl}${path}` : site.siteUrl;
 
   // If no image is provided lets looks for a default novela static image
-  image = image || '/preview.jpg';
+  image = image || '/preview.jpg';// eslint-disable-line
 
   const metaTags = [
     { charset: 'utf-8' },

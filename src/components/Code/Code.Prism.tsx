@@ -131,7 +131,7 @@ const backgroundMap = {
 const LanguageWrapper = styled.div`
   position: absolute;
   top: 0;
-  left: 20px;
+  /* left: 20px; */
   padding: 5px 10px;
   font-size: 13px;
   text-align: right;

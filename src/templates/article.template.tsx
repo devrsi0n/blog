@@ -64,7 +64,10 @@ function Article({ pageContext, location }) {
 
         $imgs.forEach($img => {
           // If the image hasn't finished loading then add a listener
-          if (!$img.complete) $img.onload = debouncedCalculation;
+          if (!$img.complete) {
+            const _img = $img;
+            _img.onload = debouncedCalculation;
+          }
         });
 
         // Prevent rerun of the listener attachment
@@ -79,7 +82,7 @@ function Article({ pageContext, location }) {
     window.addEventListener('resize', calculateBodySize);
 
     return () => window.removeEventListener('resize', calculateBodySize);
-  }, []);
+  }, [hasCalculated]);
 
   const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`.replace(
     '//',

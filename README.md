@@ -6,7 +6,7 @@ Devrsi0n's blog fork from [gatsby-theme-novela](https://github.com/narative/gats
 
 ## 💪 Quick start
 
-```bash
+```shell
 npm i
 # local development
 npm start
@@ -21,4 +21,4 @@ I made some improvements to make this blog even better.
 - Page loading progress bar
 - Scroll to top or bottom
 - Anchor hover animation
-- Support
+- Copied toast

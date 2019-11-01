@@ -37,6 +37,8 @@ export const range = (start: number, len: number, step = 1) =>
         .map((_, i) => +(start + i * step).toFixed(4))
     : [];
 
+type FnProps = {}[];
+
 /**
  * Debounce a fn by a given number of ms
  *
@@ -45,10 +47,10 @@ export const range = (start: number, len: number, step = 1) =>
  * @param time Amount in ms to debounce. Defaults to 100ms
  * @returns Your function debounced by given ms
  */
-export const debounce = (fn: () => any, time = 100) => {
+export const debounce = (fn: () => void, time = 100) => {
   let timeout: ReturnType<typeof setTimeout>;
 
-  return function(...args: any[]) {
+  return function(...args: FnProps) {
     const functionCall = () => fn.apply(this, args);
 
     clearTimeout(timeout);
@@ -65,10 +67,14 @@ export const debounce = (fn: () => any, time = 100) => {
  * @example
  *    getBreakpointFromTheme('tablet') 768
  */
-export const getBreakpointFromTheme: (arg0: string) => number = name =>
-  theme.breakpoints.find(([label, _]) => label === name)![1];
+export function getBreakpointFromTheme(name: string) {
+  const foundBreakpoint = theme.breakpoints.find(
+    ([label, _]) => label === name
+  );
+  return foundBreakpoint && (foundBreakpoint[1] as number);
+}
 
-export const getWindowDimensions = (): { height: number; width: number } => {
+export function getWindowDimensions(): { height: number; width: number } {
   if (typeof window !== 'undefined') {
     const width =
       window.innerWidth ||
@@ -90,7 +96,7 @@ export const getWindowDimensions = (): { height: number; width: number } => {
     width: 0,
     height: 0,
   };
-};
+}
 
 export function useResize() {
   const [dimensions, setDimensions] = useState({ width: 1280, height: 900 });
@@ -118,14 +124,14 @@ export function useResize() {
  *    scrollable('enable') Will allow the user to scroll again
  *    scrollable('disable') Will freeze the screen
  */
-export const scrollable = (action: string) => {
+export function scrollable(action: string) {
   if (action.toLowerCase() === 'enable') {
     document.body.style.cssText = null;
   } else {
     document.body.style.overflow = 'hidden';
     document.body.style.height = '100%';
   }
-};
+}
 
 export function useScrollPosition() {
   const [offset, setOffset] = useState(0);
@@ -146,7 +152,7 @@ export function useScrollPosition() {
  * and animation on mount but it not flowing correctly
  * due to frame timing.
  */
-export function startAnimation(callback) {
+export function startAnimation(callback: () => void) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       callback();
@@ -159,11 +165,11 @@ export function startAnimation(callback) {
  * This will always return the top left corner of the selection.
  */
 export const getHighlightedTextPositioning = () => {
-  const doc: any = window.document;
-  let sel = doc.selection;
-  let selRange;
-  let rects;
-  let rect: any = {};
+  const doc: Document = window.document;
+  let sel: Selection = doc.selection;
+  let selRange: Range;
+  let rects: ClientRectList;
+  let rect: ClientRect;
 
   let x = 0;
   let y = 0;
@@ -186,10 +192,9 @@ export const getHighlightedTextPositioning = () => {
 
         if (rects.length > 0) {
           [rect] = rects;
+          x = rect.left;
+          y = rect.top;
         }
-
-        x = rect.left;
-        y = rect.top;
       }
 
       // Fall back to inserting a temporary element
@@ -216,11 +221,12 @@ export const getHighlightedTextPositioning = () => {
   return { x, y };
 };
 
-function isOrContains(node, container) {
+function isOrContains(node: Node & ParentNode, container: Node) {
   while (node) {
     if (node === container) {
       return true;
     }
+    /* eslint-disable no-param-reassign */
     node = node.parentNode;
   }
   return false;
@@ -238,7 +244,8 @@ function elementContainsSelection(el) {
       }
       return true;
     }
-  } else if ((sel = document.selection) && sel.type !== 'Control') {
+  } else if (document.selection && sel.type !== 'Control') {
+    sel = document.selection;
     return isOrContains(sel.createRange().parentElement(), el);
   }
   return false;
@@ -268,7 +275,7 @@ export const getSelectionDimensions = () => {
     };
   }
 
-  const doc: any = window.document;
+  const doc: Document = window.document;
   let sel = doc.selection;
   let selRange;
 

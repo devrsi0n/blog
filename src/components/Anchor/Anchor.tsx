@@ -25,12 +25,16 @@ const BaseAnchor = styled.a`
   }
 `;
 
-export default function Anchor(props: AnchorHTMLAttributes<any>) {
-  const { children, ...otherProps } = props;
+interface AnchorProps extends AnchorHTMLAttributes<{}> {
+  showIcon?: boolean;
+}
+
+export default function Anchor(props: AnchorProps) {
+  const { children, showIcon = false, ...otherProps } = props;
   return (
     <BaseAnchor target="_blank" rel="noopener noreferrer" {...otherProps}>
       <ChildrenWrap>{children}</ChildrenWrap>
-      <Icons.ExternalLink />
+      {showIcon && <Icons.ExternalLink />}
     </BaseAnchor>
   );
 }

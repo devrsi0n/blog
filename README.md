@@ -18,6 +18,7 @@ npm run build
 
 I made some improvements to make this blog even better.
 
+- Clean white code color theme
 - Page loading progress bar
 - Scroll to top or bottom
 - Anchor hover animation

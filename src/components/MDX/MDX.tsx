@@ -152,7 +152,7 @@ const PrismCSS = p => css`
       width: 32px;
       user-select: none;
       opacity: 0.3;
-      color: #dcd9e6;
+      color: ${p.theme.colors.prism.lineNumber};
 
       ${mediaqueries.tablet`
         opacity: 0;

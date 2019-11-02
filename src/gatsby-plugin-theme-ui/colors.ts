@@ -1,7 +1,7 @@
-import prism from './prism';
+import * as prism from './prism';
 
 export default {
-  prism,
+  prism: prism.light,
 
   primary: '#000',
   secondary: '#73737D',
@@ -21,6 +21,8 @@ export default {
   inputBackground: 'rgba(0, 0, 0, 0.05)',
   modes: {
     dark: {
+      prism: prism.dark,
+
       grey: '#73737D',
       primary: '#fff',
       secondary: '#fff',

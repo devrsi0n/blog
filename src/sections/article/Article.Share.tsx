@@ -252,7 +252,7 @@ const MenuFloat = styled.div<{ isDark: boolean }>`
   height: ${MENU_HEIGHT}px;
   padding: 7px 11px 7px 19px;
   color: ${p => p.theme.colors.grey};
-  background: ${p => (p.isDark ? '#000' : '#fff')};
+  background: ${p => (p.isDark ? '#fff' : '#000')};
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
@@ -276,7 +276,7 @@ const MenuFloat = styled.div<{ isDark: boolean }>`
 
   svg {
     path {
-      fill: ${p => (p.isDark ? '#fff' : '#000')};
+      fill: ${p => (p.isDark ? '#000' : '#fff')};
     }
   }
 `;

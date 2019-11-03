@@ -21,14 +21,31 @@ const siteQuery = graphql`
         }
       }
     }
+    allMdx(sort: { fields: frontmatter___date, order: ASC }) {
+      edges {
+        node {
+          frontmatter {
+            date(formatString: "YYYY")
+          }
+        }
+      }
+    }
   }
 `;
+
 /* eslint-disable no-console */
 console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
 
 function Footer() {
   const results = useStaticQuery(siteQuery);
   const { name, social } = results.allSite.edges[0].node.siteMetadata;
+  const copyrightDate = (() => {
+    const { edges } = results.allMdx;
+    const years = [0, edges.length - 1].map(
+      edge => edges[edge].node.frontmatter.date
+    );
+    return years[0] === years[1] ? `${years[0]}` : `${years[0]} – ${years[1]}`;
+  })();
   return (
     <>
       <FooterGradient />
@@ -36,7 +53,7 @@ function Footer() {
         <HoritzontalRule />
         <FooterContainer>
           <FooterText>
-            © {new Date().getFullYear()} {name}
+            © {copyrightDate} {name}
           </FooterText>
           <div>
             <SocialLinks links={social} />

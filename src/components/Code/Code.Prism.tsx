@@ -3,6 +3,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import theme from 'prism-react-renderer/themes/oceanicNext';
+import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
 import Icons from '@icons';
@@ -89,6 +90,7 @@ export default CodePrism;
 
 function Copy({ toCopy }: { toCopy: string }) {
   const [hasCopied, setHasCopied] = useState<boolean>(false);
+  const [colorMode] = useColorMode();
 
   function copyToClipboardOnClick() {
     if (hasCopied) return;
@@ -102,7 +104,11 @@ function Copy({ toCopy }: { toCopy: string }) {
   }
 
   return (
-    <CopyButton onClick={copyToClipboardOnClick} data-a11y="false">
+    <CopyButton
+      isDark={colorMode === 'dark'}
+      onClick={copyToClipboardOnClick}
+      data-a11y="false"
+    >
       {hasCopied ? (
         <>
           复制成功 <Icons.Copied fill="#6f7177" />
@@ -154,7 +160,7 @@ const CopyButton = styled.button`
   transition: background 0.3s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: ${p => (p.isDark ? 'rgba(255, 255, 255, 0.07)' : '#fefefe')};
   }
 
   &[data-a11y='true']:focus::after {

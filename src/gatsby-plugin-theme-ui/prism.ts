@@ -35,7 +35,7 @@ export const light = {
   token: `#24292eff`,
   languageJavascript: `#e8696b`,
   javascript: `#e8696b`,
-  background: `#ffffff`,
+  background: `#f0f5f5`,
   comment: `#6a737d`,
   string: `#032f62`,
   var: `#005cc5`,

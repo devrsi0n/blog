@@ -111,6 +111,7 @@
     "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
+    "polished": "^3.4.2",
     "prettier": "~1.18.2",
     "typescript": "~3.6.4"
   },

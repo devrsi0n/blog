@@ -21,25 +21,32 @@ import mediaqueries from '@styles/media';
 import { toKebabCase } from '@utils';
 
 const components = {
-  img: ImageZoom,
-  a: Anchor,
-  blockquote: Blockquote,
+  p: Paragraph,
   h1: Headings.h2, // h1 reserved article title
   h2: Headings.h2,
   h3: Headings.h3,
   h4: Headings.h4,
   h5: Headings.h5,
   h6: Headings.h6,
-  hr: HorizontalRule,
+  // -thematicBreak
+  blockquote: Blockquote,
   ul: Lists.ul,
   ol: Lists.ol,
-  p: Paragraph,
-  code: Code.Prism,
-  pre: Code.Pre,
+  // -li
   table: Tables.Table,
-  thead: Tables.Head,
-  th: Tables.HeadCell,
+  // -tr
   td: Tables.Cell,
+  th: Tables.HeadCell,
+  pre: Code.Pre,
+  code: Code.Prism,
+  // -em
+  // -strong
+  // -delete
+  inlineCode: Code.Inline,
+  hr: HorizontalRule,
+  a: Anchor,
+  img: ImageZoom,
+  thead: Tables.Head, // ?
 };
 
 function MDX({ content, children, ...props }) {

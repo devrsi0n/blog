@@ -10,7 +10,7 @@ import ArticlesContextProvider from '../../sections/articles/Articles.List.Conte
 import { globalStyles } from '@styles';
 
 interface LayoutProps {
-  children: React.ReactChild | React.ReactChild[];
+  children: React.ReactNode;
 }
 
 /**

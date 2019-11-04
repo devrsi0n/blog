@@ -4,7 +4,7 @@ import { keyframes } from '@emotion/core';
 
 interface CSSFadeInProps {
   as?: string;
-  children: React.ReactChildren;
+  children: React.ReactNode;
 }
 
 function CSSFadeIn({ as, children }: CSSFadeInProps) {

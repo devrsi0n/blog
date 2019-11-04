@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 
 interface AnimationComponentProps {
-  children: React.ReactElement[];
+  children: React.ReactNode;
   ref: React.MutableRefObject<HTMLElement>;
   theme?: { colors: { grey: string } };
 }

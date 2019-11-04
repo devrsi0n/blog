@@ -3,11 +3,7 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 interface OverlapProps {
-  children: React.ReactNode[];
-}
-
-interface OverlapState {
-  isOverlapping: boolean;
+  children: React.ReactNode;
 }
 
 /**
@@ -23,7 +19,7 @@ interface OverlapState {
 
 function HandleOverlap(props: OverlapProps) {
   const asideRef = useRef<HTMLDivElement>(null);
-  const [isOverlapping, setIsOverlapping] = useState<OverlapState>(false);
+  const [isOverlapping, setIsOverlapping] = useState(false);
 
   // Is the current element within the window's frame? That's all we care about!
   function isVisible(element: HTMLElement): boolean {
@@ -34,7 +30,7 @@ function HandleOverlap(props: OverlapProps) {
 
   /**
    * This is a nice stackoverflow answer that sums up the overlapping feature. All
-   * we've added is a small BUFFER because we don't want it to disppear as it touches.
+   * we've added is a small BUFFER because we don't want it to disappear as it touches.
    * We prefer to start the fade out a few pixels before!
    */
   function collide(fixedElement: HTMLElement, node: HTMLElement): boolean {

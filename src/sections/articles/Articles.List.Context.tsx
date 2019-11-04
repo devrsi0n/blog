@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
 
 interface GridLayoutProviderProps {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
 export const GridLayoutContext = createContext({
   gridLayout: 'tiles',
   hasSetGridLayout: false,
-  setGridLayout: () => {},
+  setGridLayout: (tile: string) => {},
   getGridLayout: () => {},
 });
 

@@ -25,7 +25,7 @@ const BaseAnchor = styled.a`
   }
 `;
 
-interface AnchorProps extends AnchorHTMLAttributes<{}> {
+interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   showIcon?: boolean;
 }
 

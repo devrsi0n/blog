@@ -37,22 +37,22 @@ module.exports.local = {
           body
           hero {
             full: childImageSharp {
-              fluid(maxWidth: 944, quality: 100) {
+              fluid(maxWidth: 944, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
             regular: childImageSharp {
-              fluid(maxWidth: 653, quality: 100) {
+              fluid(maxWidth: 653, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
             narrow: childImageSharp {
-              fluid(maxWidth: 457, quality: 100) {
+              fluid(maxWidth: 457, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
             seo: childImageSharp {
-              fixed(width: 1200, quality: 100) {
+              fixed(width: 1200, quality: 85) {
                 src
               }
             }
@@ -76,17 +76,17 @@ module.exports.local = {
           slug
           avatar {
             small: childImageSharp {
-              fluid(maxWidth: 50, quality: 100) {
+              fluid(maxWidth: 50, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
             medium: childImageSharp {
-              fluid(maxWidth: 100, quality: 100) {
+              fluid(maxWidth: 100, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
             large: childImageSharp {
-              fluid(maxWidth: 328, quality: 100) {
+              fluid(maxWidth: 328, quality: 85) {
                 ${GatsbyFluid_withWebp}
               }
             }
@@ -115,16 +115,16 @@ module.exports.contentful = {
           date(formatString: "MMMM Do, YYYY")
           dateForSEO: date
           hero {
-            full: fluid(maxWidth: 944, quality: 100) {
+            full: fluid(maxWidth: 944, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
-            regular: fluid(maxWidth: 653, quality: 100) {
+            regular: fluid(maxWidth: 653, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
-            narrow: fluid(maxWidth: 457, quality: 100) {
+            narrow: fluid(maxWidth: 457, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
-            seo: fixed(width: 1200, quality: 100) {
+            seo: fixed(width: 1200, quality: 85) {
               src
             }
           }
@@ -142,13 +142,13 @@ module.exports.contentful = {
       edges {
         node {
           avatar {
-            small: fluid(maxWidth: 50, quality: 100) {
+            small: fluid(maxWidth: 50, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
-            medium: fluid(maxWidth: 100, quality: 100) {
+            medium: fluid(maxWidth: 100, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
-            large: fluid(maxWidth: 328, quality: 100) {
+            large: fluid(maxWidth: 328, quality: 85) {
               ${GatsbyFluid_withWebp}
             }
           }

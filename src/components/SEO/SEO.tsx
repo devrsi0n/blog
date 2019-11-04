@@ -22,7 +22,7 @@ import Helmet from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
 
 interface HelmetProps {
-  children?: React.ReactChildren;
+  children?: React.ReactNode;
   title?: string;
   description?: string;
   pathname: string;

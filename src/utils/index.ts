@@ -71,7 +71,7 @@ export function getBreakpointFromTheme(name: string) {
   const foundBreakpoint = theme.breakpoints.find(
     ([label, _]) => label === name
   );
-  return foundBreakpoint && (foundBreakpoint[1] as number);
+  return foundBreakpoint && foundBreakpoint[1];
 }
 
 export function getWindowDimensions(): { height: number; width: number } {

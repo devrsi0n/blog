@@ -28,7 +28,7 @@
     "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
     "deploy": "node ./deploy.js",
     "now-dev": "gatsby develop -p $PORT",
-    "now-build": "gatsby clean && gatsby build --prefix-paths",
+    "now-build": "gatsby clean && gatsby build --prefix-paths && npm run deploy",
     "contentful:export": "contentful space export --config contentful.json --skip-content --skip-roles --skip-webhooks",
     "contentful:export:model": "contentful space export --config contentful.json",
     "contentful:import": "contentful space import --config contentful.json"

@@ -8,6 +8,7 @@
   },
   "build": {
     "env": {
+      "GH_TOKEN": "@gh-token",
       "GATSBY_GH_CLIENT_ID": "@gh-client-id",
       "GATSBY_GH_CLIENT_SECRET": "@gh-client-secret"
     }

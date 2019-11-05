@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const contentAuthors = 'content/authors';
 const contentPosts = 'content/posts';
 
@@ -14,6 +15,7 @@ const local = true;
 const contentful = false;
 
 module.exports = {
+  assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io`,
   siteMetadata: {
     title: `Devrsi0n's blog`,
     name: `devrsi0n`,

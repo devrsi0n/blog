@@ -6,6 +6,7 @@ ghpages.publish(
   'public',
   {
     repo: `https://${process.env.GH_TOKEN}@github.com/devrsi0n/devrsi0n.github.io.git`,
+    branch: 'master',
     silent: true,
   },
   function(...args) {

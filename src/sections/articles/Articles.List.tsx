@@ -49,17 +49,21 @@ export default function ArticlesList({
 
   const hasOnlyOneArticle = articles.length === 1;
 
+  type ArticlePair = [IArticle, IArticle];
   /**
    * We're taking the flat array of articles [{}, {}, {}...]
    * and turning it into an array of pairs of articles [[{}, {}], [{}, {}], [{}, {}]...]
    * This makes it simpler to create the grid we want
    */
-  const articlePairs = articles.reduce((result, value, index, array) => {
-    if (index % 2 === 0) {
-      result.push(array.slice(index, index + 2));
-    }
-    return result;
-  }, []);
+  const articlePairs: ArticlePair[] = articles.reduce(
+    (result, value, index, array) => {
+      if (index % 2 === 0) {
+        result.push(array.slice(index, index + 2) as ArticlePair);
+      }
+      return result;
+    },
+    []
+  );
 
   return (
     <ArticlesListContainer
@@ -72,7 +76,7 @@ export default function ArticlesList({
 
         return (
           <List
-            key={ap[0] + ap[1]}
+            key={ap[0].title + ap[1].title}
             gridLayout={gridLayout}
             hasOnlyOneArticle={hasOnlyOneArticle}
             reverse={isEven}

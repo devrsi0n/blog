@@ -6,6 +6,7 @@ const analyze = process.env.ANALYZE;
 const isEnvDev = process.env.NODE_ENV === 'development';
 
 const moment = require('moment-timezone');
+const github = require('./github.json');
 
 process.env.GATSBY_BUILD_TIMESTAMP = moment
   .tz(new Date(), 'Asia/Shanghai')
@@ -15,7 +16,7 @@ const local = true;
 const contentful = false;
 
 module.exports = {
-  assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io`,
+  assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${github.tag}`,
   siteMetadata: {
     title: `Devrsi0n's blog`,
     name: `devrsi0n`,

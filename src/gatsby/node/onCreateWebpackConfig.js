@@ -1,6 +1,8 @@
 const path = require('path');
 
-module.exports = ({ actions }) => {
+const isEnvProd = process.env.NODE_ENV === 'production';
+
+module.exports = ({ stage, actions }) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
@@ -10,7 +12,12 @@ module.exports = ({ actions }) => {
         '@utils': path.resolve(__dirname, '../../utils/'),
         '@types': path.resolve(__dirname, '../../types/'),
       },
-      extensions: ['.js', '.json', '.ts', '.tsx'],
+      extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     },
+    // Remove sourcemap files in production
+    ...(isEnvProd &&
+      stage === `build-javascript` && {
+        devtool: false,
+      }),
   });
 };

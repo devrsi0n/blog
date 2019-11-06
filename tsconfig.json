@@ -5,6 +5,7 @@
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     // "importHelpers": true,
     "target": "ES5",
     "moduleResolution": "node",
@@ -29,7 +30,7 @@
       "@utils/*": ["utils/*"],
       "@utils": ["utils/index"]
     },
-    "types": ["node"],
+    // "types": ["node"],
     "typeRoots": ["./src/types", "**/node_modules/@types"],
     "outDir": "./lib"
   },

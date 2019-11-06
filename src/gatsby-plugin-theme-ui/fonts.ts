@@ -1,4 +1,4 @@
-import 'typeface-merriweather';
+// import 'typeface-merriweather';
 
 const chineseSanSerifFonts = [
   '"PingFang SC"', // 苹方, <mac>
@@ -17,7 +17,8 @@ const chineseSerifFonts = [
   '"AR PL Sungti"', // 文鼎简报宋, linux
 ];
 
-const serif = `"Merriweather", Georgia, ${chineseSerifFonts}, serif`;
+// const serif = `"Merriweather", Georgia, ${chineseSerifFonts}, serif`;
+const serif = `Georgia, ${chineseSerifFonts}, serif`;
 const sansSerif = `"SF Pro Display", "-apple-system", "BlinkMacSystemFont", "San Francisco", "Helvetica Neue", "Helvetica", "Ubuntu", "Roboto", "Noto", "Segoe UI", "Arial", ${chineseSanSerifFonts.join(
   ' ,'
 )}, sans-serif`;

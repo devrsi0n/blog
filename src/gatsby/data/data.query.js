@@ -2,13 +2,21 @@
 
 // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-transformer-sharp/src/fragments.js
 
-const GatsbyFluid_withWebp = `
+// const GatsbyFluid_withWebp = `
+//   base64
+//   aspectRatio
+//   src
+//   srcSet
+//   srcWebp
+//   srcSetWebp
+//   sizes
+// `;
+
+const GatsbyFluid = `
   base64
   aspectRatio
   src
   srcSet
-  srcWebp
-  srcSetWebp
   sizes
 `;
 
@@ -38,17 +46,17 @@ module.exports.local = {
           hero {
             full: childImageSharp {
               fluid(maxWidth: 944, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
             regular: childImageSharp {
               fluid(maxWidth: 653, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
             narrow: childImageSharp {
               fluid(maxWidth: 457, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
             seo: childImageSharp {
@@ -77,17 +85,17 @@ module.exports.local = {
           avatar {
             small: childImageSharp {
               fluid(maxWidth: 50, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
             medium: childImageSharp {
               fluid(maxWidth: 100, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
             large: childImageSharp {
               fluid(maxWidth: 328, quality: 85) {
-                ${GatsbyFluid_withWebp}
+                ${GatsbyFluid}
               }
             }
           }
@@ -116,13 +124,13 @@ module.exports.contentful = {
           dateForSEO: date
           hero {
             full: fluid(maxWidth: 944, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
             regular: fluid(maxWidth: 653, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
             narrow: fluid(maxWidth: 457, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
             seo: fixed(width: 1200, quality: 85) {
               src
@@ -143,13 +151,13 @@ module.exports.contentful = {
         node {
           avatar {
             small: fluid(maxWidth: 50, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
             medium: fluid(maxWidth: 100, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
             large: fluid(maxWidth: 328, quality: 85) {
-              ${GatsbyFluid_withWebp}
+              ${GatsbyFluid}
             }
           }
           fields {

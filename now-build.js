@@ -24,7 +24,12 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
     './github.json',
     JSON.stringify({ tag: newTagVersion }, null, 2)
   );
-  await exec('gatsby clean && gatsby build --prefix-paths');
+  try {
+    await exec('npx gatsby clean');
+    await exec('npx gatsby build --prefix-paths');
+  } catch (error) {
+    console.error(error);
+  }
 
   ghPages.publish(
     'public',

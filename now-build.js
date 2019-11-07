@@ -35,7 +35,7 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
     'public',
     {
       repo: `https://${process.env.GH_TOKEN}@github.com/devrsi0n/devrsi0n.github.io.git`,
-      // branch: 'master',
+      branch: 'master',
       message: 'chore: auto-generated commit',
       tag: newTag,
       silent: true,

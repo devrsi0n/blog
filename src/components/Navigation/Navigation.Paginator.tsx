@@ -141,10 +141,10 @@ class Paginator extends Component<IPaginator, {}> {
           {hasNext && <link rel="next" href={nextPath} />}
         </Helmet>
         <Frame>
-          {hasPrevious && <PageButton to={previousPath}>前一页</PageButton>}
+          {hasPrevious && <PageButton to={previousPath}>上一页</PageButton>}
           {this.getPageLinks}
           <MobileReference aria-hidden="true">
-            <em>{current}</em>&nbsp;of {count}
+            <em>{current}</em>&nbsp;o / {count}
           </MobileReference>
           {hasNext && <PageButton to={nextPath}>下一页</PageButton>}
         </Frame>

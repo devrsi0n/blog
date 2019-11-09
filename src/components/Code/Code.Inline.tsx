@@ -10,5 +10,6 @@ export default function CodeInline(props: CodeInlineProps) {
 }
 
 const Code = styled.code`
+  padding: 0 8px;
   background: ${p => p.theme.colors.prism.background || '#ddd'};
 `;

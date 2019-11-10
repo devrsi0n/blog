@@ -26,10 +26,8 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {/* {new Intl.DateTimeFormat('default', {
-              timeZone: 'Asia/Shanghai',
-            }).format(new Date(article.date))}{' '} */}
-            {article.date} · 阅读需要 {article.timeToRead} 分钟
+            {article.date}
+            {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
@@ -117,6 +115,7 @@ const HeroHeading = styled(Headings.h1)`
   margin-bottom: 25px;
   font-weight: bold;
   line-height: 1.32;
+  text-align: center;
 
   ${mediaqueries.tablet`
     margin-bottom: 20px;
@@ -125,12 +124,14 @@ const HeroHeading = styled(Headings.h1)`
 
   ${mediaqueries.phablet`
     font-size: 32px;
+    text-align: unset;
   `}
 `;
 
 const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   position: relative;
   display: flex;
+  justify-content: center;
   font-size: 18px;
   color: ${p => p.theme.colors.grey};
 

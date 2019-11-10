@@ -62,7 +62,8 @@ const GridItem = ({
         </Title>
         <Excerpt hasOverflow={hasOverflow}>{article.excerpt}</Excerpt>
         <MetaData>
-          {article.date} · 阅读需要 {article.timeToRead} 分钟
+          {article.date}
+          {/* · 阅读需要 {article.timeToRead} 分钟 */}
         </MetaData>
       </Item>
     </ArticleLink>

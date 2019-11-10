@@ -103,7 +103,7 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
         </ImageContainer>
         <div>
           <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
-            {article.secret ? `📝${article.title}` : article.title}
+            {article.secret ? `${article.title} 🚧` : article.title}
           </Title>
           <Excerpt
             narrow={narrow}
@@ -113,7 +113,8 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
             {article.excerpt}
           </Excerpt>
           <MetaData>
-            {article.date} · 阅读需要 {article.timeToRead} 分钟
+            {article.date}
+            {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </MetaData>
         </div>
       </Item>

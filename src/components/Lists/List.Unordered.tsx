@@ -46,7 +46,7 @@ const UnorderedList = styled.ul`
     }
   }
 
-  li > * {
+  li > :not(ol, ul) {
     display: inline;
   }
 

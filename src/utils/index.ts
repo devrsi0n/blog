@@ -68,9 +68,7 @@ export const debounce = (fn: () => void, time = 100) => {
  *    getBreakpointFromTheme('tablet') 768
  */
 export function getBreakpointFromTheme(name: string) {
-  const foundBreakpoint = theme.breakpoints.find(
-    ([label, _]) => label === name
-  );
+  const foundBreakpoint = theme.breakpoints.find(([label]) => label === name);
   return foundBreakpoint && foundBreakpoint[1];
 }
 
@@ -206,8 +204,10 @@ export const getHighlightedTextPositioning = () => {
           span.appendChild(doc.createTextNode('\u200b'));
           selRange.insertNode(span);
           [rect] = span.getClientRects();
-          x = rect.left;
-          y = rect.top;
+          if (rect) {
+            x = rect.left;
+            y = rect.top;
+          }
           const spanParent = span.parentNode;
           spanParent.removeChild(span);
 

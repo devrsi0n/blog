@@ -1,5 +1,5 @@
 ---
-title: 前端单测 jest 最佳运行环境
+title: 前端单测 jest 运行环境 - electron
 author: Devrsi0n
 date: 2019-10-25
 hero: ./images/hero.jpg
@@ -7,7 +7,7 @@ heroReference: “test”
 excerpt: 选择最优的 jest 运行环境
 ---
 
-# 引言
+>> ⚠️ 11.11 注：@jest-runner/electron 并不支持 jest vscode Debug 调试模式，建议只部分单测用这个环境。
 
 Jest 是个非常不错的 JS 单测工具，Jest 集成了 JSDOM 作为它的默认运行环境，即在 Node.js 运行时里面模拟浏览器 document 等 DOM api，但限于 JSDOM 本身能力一些限制，很多浏览器 api 并没有提供（比如： 之前博客提到的 [canvas](/articles/test-canvas-with-jest)，localstorage，fetch 等等），如果不需要模拟直接提供真实的浏览器环境用来测试岂不是完全就没有此类烦恼了？不错，很多人都想到了这个点子，具体技术主要是用 [Electron.js](https://electronjs.org/) 来实现和控制浏览器环境（不知道什么是 Electron.js ？简单的说就是用前端熟悉的 Web 技术栈构建跨平台的桌面应用）。现有社区也有很多轮子可以用，
 
@@ -79,8 +79,9 @@ module.exports = {
 }
 ```
 
-## End
+## 问题
 
-自然，目前前端代码的单测 jest 最佳运行环境非 [jest-runner/electron](https://github.com/facebook-atom/jest-electron-runner) 莫属。造轮子一时爽，但也要多考虑用户生态啊，而且明显 Facebook 这个轮子适配性更广，使用体验更佳。😂
+✅ 如果你遇到了这个配置在 GitHub Actions/circleci 等服务跑不通过的问题，请参考[使用 Electron 时 GitHub Actions 执行失败](/articles/github-actions-ci-failed-with-electron)
 
-如果你遇到了这个配置在 GitHub Actions/circleci 等服务跑不通过的问题，请参考[使用 Electron 时 GitHub Actions 执行失败](/articles/github-actions-ci-failed-with-electron)
+🚧 @jest-runner/electron 并不支持 jest vscode Debug 调试模式，建议只部分单测用这个框架。
+check

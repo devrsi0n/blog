@@ -3,4 +3,7 @@ module.exports = {
   extends: [
     "eslint-config-prettify-ts-react"
   ],
+  rules: {
+    'no-unused-vars': 'off'
+  }
 };

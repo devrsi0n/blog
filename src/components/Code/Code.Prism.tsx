@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import styled from '@emotion/styled';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import theme from 'prism-react-renderer/themes/oceanicNext';
+// import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+// import theme from 'prism-react-renderer/themes/oceanicNext';
 import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
@@ -28,20 +28,21 @@ function calculateLinesToHighlight(meta) {
   return () => false;
 }
 
-function CodePrism({ codeString, language, metastring, ...props }) {
+function CodePrism({ codeString, language, metastring /* , ...props */ }) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
 
-  if (props.live) {
-    return (
-      <Container>
-        <LiveProvider code={codeString} noInline theme={theme}>
-          <LiveEditor style={{ marginBottom: '3px', borderRadius: '2px' }} />
-          <LivePreview style={{ fontSize: '18px', borderRadius: '2px' }} />
-          <LiveError style={{ color: 'tomato' }} />
-        </LiveProvider>
-      </Container>
-    );
-  }
+  // Disable live as dependencies too large
+  // if (props.live) {
+  //   return (
+  //     <Container>
+  //       <LiveProvider code={codeString} theme={theme}>
+  //         <LiveEditor style={{ marginBottom: '3px', borderRadius: '2px' }} />
+  //         <LivePreview style={{ fontSize: '18px', borderRadius: '2px' }} />
+  //         <LiveError style={{ color: 'tomato' }} />
+  //       </LiveProvider>
+  //     </Container>
+  //   );
+  // }
   return (
     <Highlight {...defaultProps} code={codeString} language={language}>
       {({ className, tokens, getLineProps, getTokenProps }) => {

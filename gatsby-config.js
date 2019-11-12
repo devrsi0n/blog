@@ -155,7 +155,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#fff`,
         display: `standalone`,
-        icon: `static/favicon.png`,
+        icon: `assets/favicon.png`,
       },
     },
     {

@@ -5,7 +5,11 @@ import styled from '@emotion/styled';
 import Image from '@components/Image';
 import { IAuthor } from '@types';
 
-function Bio({ author }: IAuthor) {
+interface BioProps {
+  author: IAuthor;
+}
+
+function Bio({ author }: BioProps) {
   return (
     <BioContainer>
       <BioAvatar

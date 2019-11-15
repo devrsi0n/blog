@@ -84,17 +84,17 @@ module.exports.local = {
           slug
           avatar {
             small: childImageSharp {
-              fluid(maxWidth: 50, quality: 85) {
+              fluid(maxWidth: 50, quality: 100) {
                 ${GatsbyFluid}
               }
             }
             medium: childImageSharp {
-              fluid(maxWidth: 100, quality: 85) {
+              fluid(maxWidth: 100, quality: 100) {
                 ${GatsbyFluid}
               }
             }
             large: childImageSharp {
-              fluid(maxWidth: 328, quality: 85) {
+              fluid(maxWidth: 328, quality: 100) {
                 ${GatsbyFluid}
               }
             }

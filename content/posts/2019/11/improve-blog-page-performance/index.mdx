@@ -1,0 +1,139 @@
+---
+title: 🚀 提高博客页面性能
+author: devrsi0n
+date: 2019-11-15
+hero: ./images/hero.jpg
+excerpt: 通用 web 网站提速技巧
+---
+
+如何提高博客页面的性能是每个博主都可能面对的问题，简单一点的直接用 [Jekyll](https://jekyllrb.com/) + GitHub 就能简单粗暴的搭建出一个性能尚可的博客，作为一枚前端工程师当然还是喜欢自己熟悉的技术栈来搭建博客，最终选择了 [gatsby](https://www.gatsbyjs.org/) 作为开发框架，这个框架使用流行的 React/TypeScript 技术栈可以很方便的使用 React/TypeScript 社区的资源来加快开发速度。这就带来新的问题，这类框架相比 Jekyll 的前端三板斧较为笨重，开发倒是便利了，到网站上线之后性能问题就逐渐暴露出来了：build 出来的产物 `JS/CSS/图片` 等静态资源较大，数量也较多，再加上博客本身是部署在 <https://zeit.co>  这类国外的服务上，很难达到轻量博客的秒开效果。
+
+下面是优化前的网站 [lighthouse](https://developers.google.com/web/tools/lighthouse) 数据：
+
+![](./images/before-lighthouse.png)
+
+可以看到性能数据非常差，页面首屏出来（FMP）已经到5s左右。😥
+
+优化后的 lighthouse 数据：
+
+![](./images/after-lighthouse.png)
+
+性能数据大幅改观，如何做到这点的？🤔
+
+## 加 CDN
+
+从 lighthouse 数据可以看到网站之所以慢是花了很多时间在下载资源（图片、字体、JS、CSS等）上，提高网络性能最通用的办法自然是加 [CDN](https://developer.mozilla.org/zh-CN/docs/Glossary/CDN)。大部分服务商提供的 CDN 服务是付费的，而且部署也是一个不小的挑战，有没有一个免费又容易部署的 CDN 服务呢？
+
+答案是有的，<https://www.jsdelivr.com> 是一个免费托管 npm 和 GitHub 资源的 CDN 服务，最重要的是这个服务没有被 GFW 认证 /😂 在国内也有着不错的访问速度。
+
+可是这个服务只能托管 npm 包或者 GitHub 仓库，和网站提速有什么关系？
+
+聪明的你可能已经猜到了，把前端编译出来的产物发布到 npm registry 或者 GitHub 仓库就行了。发布一个 npm 包很容易，前端可以轻松写个脚本自动化发布，但这里采用 GitHub 仓库的方式发布，网站部署到国外服务器最怕的是突然被 GFW 认证直接整个网站访问不了，放在 GitHub 仓库还能使用 [GitHub Pages](https://pages.github.com/) 作为备份。
+
+### GitHub CDN
+
+根据 [jsdelivr](https://www.jsdelivr.com/features) 说明，要使用 GitHub CDN，需要仓库设为公开，且打上 git tag 版本号。小提示，jsdelivr 支持不带版本号的 url，但发布到线上的页面一定要带版本号，不然很可能因为缓存问题使用的不是最新的资源。
+
+怎么自动化发布代码到 GitHub 仓库？大体分为这几步：
+
+- 网站部署触发构建，自定义构建脚本（比如: zeit.co 只需要在 package.json scripts 加一个 `"now-build": "node ./now-build.js"` 作为构建入口）
+- 构建脚本执行构建（比如: `gatsby build`）
+- 构建脚本提交代码到 GitHub，推荐使用 `gh-pages`
+
+⚠️ 注意：
+
+一般构建出来的 html 的资源链接都指向当前服务器，为了使用 CDN，需要改资源文件的域名 + 路径前缀，比如网站默认使用的资源是 `https://devrsi0n.com/static/a13f45c.png` ，需要换成 `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@0.1.4/static/a13f45c.png` 。以 gatsby 为例，需要在 `gatsby-config.js` 添加 `assetPrefix` 配置，使用 `gatsby build --prefix-paths` 使配置生效。但是因为构建必须要带版本号，所以还需要在构建前拉取 GitHub 仓库最新的版本号，再生成新的版本号（z位 + 1）。
+
+gh-pages 要在 zeit.co 服务器上发布代码到 GitHub 仓库还需要有相应的 token（使用 token 参考以下代码 36 行），到 <https://github.com/settings/tokens> 生成一个，勾选 **repo 权限**即可。最后把 token 注入到构建服务器，zeit 使用 `now secret add <key> <value>` 命令。
+
+可参考本博客构建脚本：
+
+```js
+const fetch = require('node-fetch');
+const semver = require('semver');
+const ghPages = require('gh-pages');
+const fs = require('fs');
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
+
+const writeFile = promisify(fs.writeFile);
+
+const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
+
+(async function() {
+  const data = await fetch(url).then(res => res.json());
+  const versions = data.sort(function(v1, v2) {
+    return semver.compare(v2.name, v1.name);
+  });
+  const latestTag = versions[0].name;
+  const newTagVersion = semver.inc(latestTag, 'patch');
+  console.log({ latestTag, newTagVersion });
+  const newTag = `v${newTagVersion}`;
+
+  await writeFile(
+    './github.json',
+    JSON.stringify({ tag: newTagVersion }, null, 2)
+  );
+  try {
+    await exec('npx gatsby clean');
+    await exec('npx gatsby build --prefix-paths');
+  } catch (error) {
+    console.error(error);
+  }
+
+  ghPages.publish(
+    'public',
+    {
+      repo: `https://${process.env.GH_TOKEN}@github.com/devrsi0n/devrsi0n.github.io.git`,
+      branch: 'master',
+      message: 'chore: auto-generated commit',
+      tag: newTag,
+      silent: true,
+    },
+    function(...args) {
+      console.log('GitHub deploy');
+      console.log(args);
+    }
+  );
+})();
+```
+
+## 优化 JavaScript 和 CSS
+
+尽量减少 JavaScript/CSS 体积，因为这类文件大小除了影响网络加载，大体积意味着更多的代码，浏览器需要花更多时间去解析 + 执行代码。
+
+常规的压缩，uglify 就不用讲了。还可以通过 [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 分析 JS 模块大小，揪出最影响 js 体积的包，想办法优化。比如：通过分析发现 mdx live 实时编辑预览功能相关 lib 体积巨大，而本博客目前尚无此需求，去掉相关依赖之后包体积减少了 **600+ kb**，效果显著。
+
+实在不能去掉的 JS 包还可以把大包拆成小包，首屏只阻塞（**同步**）加载最关键的 JS 和 CSS（比如内联），剩余的 JS 可以使用 html prefetch/preload 延迟（**异步**）加载。这类功能 gatsby 内置的，开发者基本无感。
+
+别忘了开启 **gzip 压缩**和 **HTTP 缓存**，进一步减少下载量，HTTP 缓存策略也适用于图片等外联资源。
+
+## 减少资源数量和大小
+
+CDN 帮助提高网络下载速度，但从源头本身还能做很多文章，减少不必要的资源数量和大小！哪怕资源体积很小，浏览器也要解析 DNS，建立 HTTP 链接，下载资源，占用宝贵的加载时间。
+
+### 减少图片大小
+
+网站一般使用很多图片来提升用户体验，减少图片大小能有效提升网站加载性能。年轻的我曾使用 <https://unsplash.com> 未经压缩的 4k 原图作为文章封面，单个图片最高达到恐怖的 *7mb*，使用体验可想而知 😂。
+
+页面使用的图片一定要先压缩，在线压缩工具可选 <https://tinypng.com>：用户体验好，但有 *5m* 大小限制；<http://jpeg-optimizer.com>： 没有体积大小限制，还能调整图片像素大小。
+
+注意某些有损压缩算法会把图片透明背景去掉，导致显示效果大打折扣。gatsby 这类框架还支持自动生成 **webp**（Google 推出的开源图片格式，相比 png、jpg, 同等质量下体积更小，但不是所有浏览器都支持，参考 [caniuse](https://caniuse.com/#search=webp)），进一步降低图片体积。gatsby 支持构建多份图片以适配浏览器最佳图片格式，但注意 jsdelivr 在体积超过 *50m* 之后会有限制，酌情使用。
+
+### 去掉字体，内联 svg
+
+去掉第三方字体，使用系统默认的字体，相关系统自带字体推荐请看另一篇博文 [Web 开发中文字体指南](/articles/a-guide-to-chinese-font-for-web-developer)。
+
+使用 react 等技术栈可以直接把 svg 放在组件渲染，减少不必要的外链。参考代码: [Copy.Icon.tsx](https://github.com/devrsi0n/blog/blob/8a750f73a39cf148a2093929a2c9573eb42fa1c2/src/icons/ui/Copy.Icon.tsx#L3)。很多 svg 图标也可以换成 iconfont，减少体积和请求数量。
+
+### 去掉 sourcemap
+
+gatsby 构建出来的资源带有 sourcemap 方便在线调试，因为有 jsdelivr *50m* 大小限制，建议去除。
+
+## Further
+
+到目前为止本网站性能优化之后达到了一个基本满意的状态，但还可以做到更多，比如：
+
+- 构建针对现代浏览器的 JS bundle，显著降低 JS 包体积，参考博客：[Deploying ES2015+ Code in Production Today](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)。原理是支持 ES6 module 的现代浏览器可直接运行 ES6 代码，少了很多 babel 转换代码和 polyfill 还提高了浏览器执行性能，不支持 ES6 module 的老浏览器也能安全的 fallback，可谓百利无害。可惜的是很多 npm 包（比如：react）并没有包含 ES6 bundle，gatsby 目前也不支持，见 [issue](https://github.com/gatsbyjs/gatsby/issues/2114)。
+- 合并请求资源，每次建立 http 连接也是一个不小的性能开销，通过 Combine 多个文件，可以有效降低请求数量，参考 <https://www.jsdelivr.com/features> Combine multiple files
+- 对于页面复杂的交互减少重排重绘次数（本博客基本没有 😂）

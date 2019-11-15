@@ -93,7 +93,9 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
   const hasOverflow = narrow && article.title.length > 35;
   const imageSource = narrow ? article.hero.narrow : article.hero.regular;
   const hasHeroImage =
-    Object.keys(imageSource).length !== 0 && imageSource.constructor === Object;
+    imageSource &&
+    Object.keys(imageSource).length !== 0 &&
+    imageSource.constructor === Object;
 
   return (
     <ArticleLink to={article.slug} data-a11y="false">

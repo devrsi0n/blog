@@ -21,9 +21,9 @@ module.exports = {
     title: `Devrsi0n's blog`,
     name: `devrsi0n`,
     siteUrl: `https://devrsi0n.com`,
-    description: `软件手艺人`,
+    description: `I build software for humans`,
     hero: {
-      heading: `软件手艺人，I build softwares for humans.`,
+      heading: `I build software for humans.`,
       maxWidth: 652,
     },
     social: [
@@ -82,8 +82,8 @@ module.exports = {
             options: {
               maxWidth: 10000,
               linkImagesToOriginal: false,
-              quality: 80,
-              withWebp: true,
+              quality: 85,
+              withWebp: false,
             },
           },
           { resolve: `gatsby-remark-copy-linked-files` },

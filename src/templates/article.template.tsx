@@ -18,6 +18,7 @@ import ArticleControls from '../sections/article/Article.Controls';
 import ArticlesNext from '../sections/article/Article.Next';
 import ArticleSEO from '../sections/article/Article.SEO';
 import ArticleShare from '../sections/article/Article.Share';
+import useUtteranc from '../hooks/useUtteranc';
 import { debounce } from '@utils';
 
 const siteQuery = graphql`
@@ -89,6 +90,8 @@ function Article({ pageContext, location }) {
     '/'
   );
 
+  useUtteranc('utterancContainer');
+
   return (
     <Layout>
       <ArticleSEO article={article} authors={authors} location={location} />
@@ -104,6 +107,9 @@ function Article({ pageContext, location }) {
           <ArticleShare />
         </MDXRenderer>
       </ArticleBody>
+
+      <div id="utterancContainer" />
+
       {isLocal && (
         <EditOnGitHub narrow>
           <Anchor href={editOnGitHubUrl}>在 GitHub 上编辑此文</Anchor>

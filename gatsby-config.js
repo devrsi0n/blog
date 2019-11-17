@@ -77,6 +77,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
+          // `gatsby-remark-embed-video`,
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -156,6 +157,12 @@ module.exports = {
         theme_color: `#fff`,
         display: `standalone`,
         icon: `assets/favicon.png`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        // precachePages: [`/about-us/`, `/projects/*`],
       },
     },
     {

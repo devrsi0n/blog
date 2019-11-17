@@ -119,7 +119,7 @@ function Article({ pageContext, location }) {
       {mailchimp && article.subscription && <Subscription />}
       {next.length > 0 && (
         <NextArticle narrow>
-          <FooterNext>{name} 其他文章</FooterNext>
+          <FooterNext>其他文章</FooterNext>
           <ArticlesNext articles={next} />
           <FooterSpacer />
         </NextArticle>

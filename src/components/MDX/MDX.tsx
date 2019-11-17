@@ -59,12 +59,21 @@ function MDX({ content, children, ...props }) {
           {content}
         </MDXRenderer>
         {children}
+        <SplitLine />
       </MDXBody>
     </MDXProvider>
   );
 }
 
 export default MDX;
+
+const SplitLine = styled.div`
+  background: #ccc;
+  height: 1px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 680px;
+`;
 
 const IMAGE_WIDTHS = {
   regular: '680px',

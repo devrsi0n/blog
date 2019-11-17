@@ -20,7 +20,9 @@ npm run build
 
 I made some improvements to make this blog even better.
 
+- Comments widget by <https://utteranc.es>
 - Clean white code color theme
+- [PWA](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
 - Code language label
 - Page loading progress bar
 - Scroll to top or bottom

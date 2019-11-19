@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { ImgHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 
-import GatsbyImg from 'gatsby-image';
+import GatsbyImg, { FluidObject, FixedObject } from 'gatsby-image';
 
-import { IImage } from '@types';
+interface IImage extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
+  src: string | FixedObject | FluidObject;
+}
 
 /**
  * To soften the blur-up we get from the default configuration of gatbsy image
@@ -47,7 +49,10 @@ const Image: React.SFC<IImage> = ({ src, alt, ...props }: IImage) => {
   // This will either be src (for strings), fixed or fluid. Defaults to src
   const keyForSrc =
     // If src is an object with a width and height then we want fixed={src}
-    (isGatsby && src.width && src.height && 'fixed') ||
+    (isGatsby &&
+      (src as FixedObject).width &&
+      (src as FixedObject).height &&
+      'fixed') ||
     // The only other Gatsby option would be fluid
     (isGatsby && 'fluid') ||
     // Otherwise src is a string so set a vanilla src prop
@@ -59,11 +64,13 @@ const Image: React.SFC<IImage> = ({ src, alt, ...props }: IImage) => {
   imgProps[keyForSrc] = src;
 
   // We don't want to CSS blur tracedSVG images! Only regular blur-ups.
-  const Compontent = src.tracedSVG ? GatsbyImg : StyledGatsbyImag;
+  const Component = (src as FixedObject).tracedSVG
+    ? GatsbyImg
+    : StyledGatsbyImag;
 
   // Retrun either the GatsbyImg component or a regular img tag with the spread props
   return isGatsby ? (
-    <Compontent {...imgProps} />
+    <Component {...(imgProps as any)} alt={alt} />
   ) : (
     <img {...imgProps} alt={alt} />
   );

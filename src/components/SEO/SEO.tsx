@@ -30,7 +30,7 @@ interface HelmetProps {
   url?: string;
   canonical?: string;
   published?: string;
-  timeToRead?: string;
+  timeToRead?: number;
 }
 
 const seoQuery = graphql`

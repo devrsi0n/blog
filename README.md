@@ -29,3 +29,8 @@ I made some improvements to make this blog even better.
 - Anchor hover animation
 - Copied toast
 - Fix `inlineCode` block highlight
+
+## Working in progress
+
+- Type safe, 100% TypeScript support
+  - Emotion styled theme types are not working, at least not work for me, [issue](https://github.com/emotion-js/emotion/issues/1320#issuecomment-523123548).

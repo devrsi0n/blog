@@ -44,7 +44,7 @@ function Article({ pageContext, location }) {
   const [contentHeight, setContentHeight] = useState<number>(0);
 
   const results = useStaticQuery(siteQuery);
-  const { name, isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
+  const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
   const { article, authors, mailchimp, next } = pageContext;
 

@@ -1,3 +1,13 @@
+import { FluidObject } from 'gatsby-image';
+
+declare module '@emotion/styled' {
+  import { CreateStyled } from '@emotion/styled/types/index';
+
+  export * from '@emotion/styled/types/index';
+  const customStyled: CreateStyled<import('gatsby-plugin-theme-ui').Theme>;
+  export default customStyled;
+}
+
 declare global {
   interface Document {
     selection?: Selection;
@@ -26,30 +36,6 @@ export interface IPaginator {
   pathPrefix: string;
 }
 
-export interface IImage {
-  src: string;
-  alt?: string;
-}
-
-interface IGatsbyImage extends IImage {
-  src: string;
-  base64?: string;
-  srcWebp?: string;
-  srcSet?: string;
-  srcSetWebp?: string;
-  tracedSVG?: string;
-}
-
-interface IGatsbyImageFluid extends IGatsbyImage {
-  maxHeight: number;
-  maxWidth: number;
-}
-
-interface IGatsbyImageFixed extends IGatsbyImage {
-  height: number;
-  width: number;
-}
-
 export interface IAuthor {
   authorsPage?: boolean;
   featured?: boolean;
@@ -57,9 +43,15 @@ export interface IAuthor {
   slug: string;
   bio: string;
   avatar: {
-    image: IGatsbyImageFluid;
-    full: IGatsbyImageFluid;
+    image: FluidObject;
+    medium: FluidObject;
+    large: FluidObject;
+    full: FluidObject;
   };
+  social: {
+    name: string;
+    url: string;
+  }[];
 }
 
 export interface IArticle {
@@ -70,14 +62,16 @@ export interface IArticle {
   body: string;
   id: string;
   hero: {
-    full: IGatsbyImageFluid;
-    preview: IGatsbyImageFluid;
-    regular: IGatsbyImageFluid;
-    seo: string;
+    full: FluidObject;
+    preview: FluidObject;
+    regular: FluidObject;
+    narrow: FluidObject;
+    seo: FluidObject;
   };
   timeToRead: number;
   date: string;
   secret: boolean;
+  dateForSEO: string;
 }
 
 interface IArticleQuery {

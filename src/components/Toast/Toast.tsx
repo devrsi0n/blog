@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 interface AnimationComponentProps {
   children: React.ReactNode;
   ref: React.MutableRefObject<HTMLElement>;
-  theme?: { colors: { grey: string } };
 }
 
 const FadeIn = styled.div<AnimationComponentProps>`

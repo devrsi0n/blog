@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { Link } from 'gatsby';
+import { Link, GatsbyLinkProps } from 'gatsby';
 
 import Headings from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';
@@ -340,7 +340,7 @@ const MetaData = styled.div`
   `}
 `;
 
-const ArticleLink = styled(Link)`
+const ArticleLink = styled<GatsbyLinkProps>(Link)`
   position: relative;
   display: block;
   width: 100%;

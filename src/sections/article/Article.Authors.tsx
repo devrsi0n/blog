@@ -13,7 +13,7 @@ import { IAuthor } from '@types';
  * Novela supports multiple authors and therefore we need to ensure
  * we render the right UI when there are varying amount of authors.
  */
-function ArticleAuthors({ authors }: { authors: IAuthor[] }) {
+function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
   const hasCoAuthors = authors.length > 1;
 
   // Special dropdown UI for multiple authors

@@ -174,10 +174,10 @@ export const getHighlightedTextPositioning = () => {
 
   if (sel) {
     if (sel.type !== 'Control') {
-      selRange = sel.createRange();
+      selRange = (sel as any).createRange();
       selRange.collapse(true);
-      x = selRange.boundingLeft;
-      y = selRange.boundingTop;
+      x = (selRange as any).boundingLeft;
+      y = (selRange as any).boundingTop;
     }
   } else if (window.getSelection) {
     sel = window.getSelection();

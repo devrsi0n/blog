@@ -11,7 +11,7 @@ function handleImageZoomBackground(background: string) {
       img.previousElementSibling.tagName === 'DIV'
     ) {
       /* eslint-disable no-param-reassign */
-      img.previousElementSibling.style.background = background;
+      (img.previousElementSibling as HTMLDivElement).style.background = background;
     }
   });
 }

@@ -147,11 +147,11 @@ const LanguageWrapper = styled.div`
   letter-spacing: 0.8px;
   text-transform: uppercase;
   border-radius: 0 0 5px 5px;
-  background: ${p => backgroundMap[p.children.toLowerCase()] || '#ddd'};
+  background: ${p => backgroundMap[`${p.children}`.toLowerCase()] || '#ddd'};
   box-shadow: 0 1px 5px rgba(255, 255, 255, 0.35);
 `;
 
-const CopyButton = styled.button`
+const CopyButton = styled.button<{ isDark: boolean }>`
   position: absolute;
   right: 5px;
   top: 5px;
@@ -181,45 +181,45 @@ const CopyButton = styled.button`
   `}
 `;
 
-const Container = styled.div`
-  overflow: scroll;
-  width: 100%;
-  max-width: 750px;
-  margin: 0 auto;
-  font-size: 13px;
-  margin: 15px auto 50px;
-  border-radius: 5px;
-  font-family: ${p => p.theme.fonts.monospace} !important;
+// const Container = styled.div<{}, Theme>`
+//   overflow: scroll;
+//   width: 100%;
+//   max-width: 750px;
+//   margin: 0 auto;
+//   font-size: 13px;
+//   margin: 15px auto 50px;
+//   border-radius: 5px;
+//   font-family: ${p => p.theme.fonts.monospace} !important;
 
-  textarea,
-  pre {
-    padding: 32px !important;
-    font-family: ${p => p.theme.fonts.monospace} !important;
-  }
+//   textarea,
+//   pre {
+//     padding: 32px !important;
+//     font-family: ${p => p.theme.fonts.monospace} !important;
+//   }
 
-  ${mediaqueries.desktop`
-      left: -26px;
-    `};
+//   ${mediaqueries.desktop`
+//       left: -26px;
+//     `};
 
-  ${mediaqueries.tablet`
-    max-width: 526px;
-    left: 0;
+//   ${mediaqueries.tablet`
+//     max-width: 526px;
+//     left: 0;
 
-    textarea,
-    pre {
-      padding: 20px !important;
-    }
-  `};
+//     textarea,
+//     pre {
+//       padding: 20px !important;
+//     }
+//   `};
 
-  ${mediaqueries.phablet`
-    border-radius: 0;
-    margin: 0 auto 25px;
-    overflow: initial;
-    width: unset;
-    max-width: unset;
-    float: left;
-    min-width: 100%;
-    overflow: initial;
-    position: relative;
-  `};
-`;
+//   ${mediaqueries.phablet`
+//     border-radius: 0;
+//     margin: 0 auto 25px;
+//     overflow: initial;
+//     width: unset;
+//     max-width: unset;
+//     float: left;
+//     min-width: 100%;
+//     overflow: initial;
+//     position: relative;
+//   `};
+// `;

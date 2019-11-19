@@ -127,19 +127,19 @@ module.exports = {
         trackingId: 'UA-108341680-2',
       },
     },
-    // {
-    //   resolve: 'gatsby-plugin-eslint',
-    //   options: {
-    //     test: /\.js$|\.jsx$/,
-    //     exclude: /(node_modules|.cache|public)/,
-    //     stages: ['develop'],
-    //     options: {
-    //       fix: true,
-    //       emitWarning: true,
-    //       failOnError: false,
-    //     },
-    //   },
-    // },
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.ts$|\.tsx$|\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ['develop'],
+        options: {
+          fix: true,
+          emitWarning: true,
+          failOnError: false,
+        },
+      },
+    },
     analyze && {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {

@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, ReactNode } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ReactNode,
+  ReactHTMLElement,
+} from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
@@ -36,7 +42,7 @@ function Aside({ contentHeight, children }: AsideProps) {
 
   const show = imageOffset && progress < 100;
   const childrenWithProps = React.Children.map(children, child =>
-    React.cloneElement(child, { show })
+    React.cloneElement(child as any, { show })
   );
 
   useEffect(() => {

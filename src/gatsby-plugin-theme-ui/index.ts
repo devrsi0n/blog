@@ -17,7 +17,7 @@ const breakpoints = [
 const colorModeTransition =
   'background 0.25s var(--ease-in-out-quad), color 0.25s var(--ease-in-out-quad)';
 
-export default {
+const theme = {
   initialColorMode: 'light',
   colorModeTransition,
   colors,
@@ -25,3 +25,7 @@ export default {
   breakpoints,
   tags,
 };
+
+export default theme;
+
+export type Theme = typeof theme;

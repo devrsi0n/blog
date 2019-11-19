@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TilesIcon = ({ fill }) => (
+const TilesIcon = ({ fill = 'white' }) => (
   <svg
     width="26"
     height="26"

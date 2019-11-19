@@ -13,13 +13,13 @@ function NotFound() {
   return (
     <>
       <div style={{ overflow: 'hidden' }}>
-        <Layout withFooter={false}>
-          <Section hideOverflow>
+        <Layout>
+          <Section>
             <GridContainer>
               <TextContainer>
                 <div />
                 <WelcomeHeader>
-                  抱歉，你似乎来到了没有知识存在的荒原，
+                  抱歉，你似乎来到了未知的荒原，
                   <TextLink isDark={isDark} to="/">
                     回到首页
                   </TextLink>
@@ -61,7 +61,7 @@ const WelcomeHeader = styled(Heading.h1)`
   `};
 `;
 
-const TextLink = styled(Link)`
+const TextLink = styled(Link)<{ isDark: boolean }>`
   color: ${p => (p.isDark ? '#fff' : '#000')};
   transition: ${p => p.theme.colorModeTransition};
   color: ${p => p.theme.colors.accent};

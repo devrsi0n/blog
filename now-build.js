@@ -16,7 +16,10 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
     return semver.compare(v2.name, v1.name);
   });
   const latestTag = versions[0].name;
-  const newTagVersion = semver.inc(latestTag, 'patch');
+  const newTagVersion = semver.inc(
+    latestTag,
+    Math.random() > 0.9 ? 'minor' : 'patch'
+  );
   console.log({ latestTag, newTagVersion });
   const newTag = `v${newTagVersion}`;
 

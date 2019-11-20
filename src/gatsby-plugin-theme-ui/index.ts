@@ -24,6 +24,9 @@ const theme = {
   fonts,
   breakpoints,
   tags,
+  messages: {
+    maxWidth: '680px',
+  },
 };
 
 export default theme;

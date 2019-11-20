@@ -37,6 +37,8 @@
     "@emotion/styled": "^10.0.23",
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
+    "@theme-ui/color": "^0.2.49",
+    "@theme-ui/components": "^0.2.49",
     "adm-zip": "^0.4.13",
     "babel-plugin-emotion": "^10.0.23",
     "contentful-cli": "^0.36.0",

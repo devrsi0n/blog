@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Section from '@components/Section';
 import Bio from '@components/Bio';
 import mediaqueries from '@styles/media';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 import { IAuthor } from '@types';
 
 import { GridLayoutContext } from './Articles.List.Context';

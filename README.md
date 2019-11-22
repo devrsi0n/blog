@@ -29,8 +29,12 @@ I made some improvements to make this blog even better.
 - Anchor hover animation
 - Copied toast
 - Fix `inlineCode` block highlight
+- Fix initial color mode
 
-## Working in progress
+## 🚧 Working in progress
 
 - Type safe, 100% TypeScript support
   - Emotion styled theme types are not working, at least not work for me, [issue](https://github.com/emotion-js/emotion/issues/1320#issuecomment-523123548)，[emotion doc](https://emotion.sh/docs/typescript#define-a-theme).
+- Refactor @emotion/styled to @theme-ui/components to fix type issue above and more
+  formal specification
+- GraphQL type defines

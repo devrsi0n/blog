@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 import { copyToClipboard } from '@utils';
 
 const RE = /{([\d,-]+)}/;

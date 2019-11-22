@@ -4,7 +4,7 @@ import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
 
 import toast from '@components/Toast';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 
 import {
   getHighlightedTextPositioning,

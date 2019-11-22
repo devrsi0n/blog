@@ -1,6 +1,5 @@
 import React from 'react';
 import { Message as ThemeMessage } from '@theme-ui/components';
-import { lighten } from '@theme-ui/color';
 
 interface AnchorProps {
   // icon?: React.Component;
@@ -14,10 +13,9 @@ export default function Message(props: AnchorProps) {
   return (
     <ThemeMessage
       sx={{
-        borderLeftColor: 'accent',
+        variant: 'messages',
         borderLeftWidth: '8px',
         borderRadius: '8px',
-        bg: lighten('accent', 0.3),
         m: '0 auto 45px auto',
         width: '100%',
         maxWidth: '744px',

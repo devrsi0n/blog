@@ -6,7 +6,7 @@ import { Link } from 'gatsby';
 
 import Image from '@components/Image';
 import mediaqueries from '@styles/media';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 import { IAuthor } from '@types';
 
 /**

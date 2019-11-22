@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 
-import theme from '../gatsby-plugin-theme-ui';
+import { breakpoints } from '../gatsby-plugin-theme-ui';
 
 const toEm = (size: number) => `${size / 16}em`;
 
@@ -16,7 +16,7 @@ const toEm = (size: number) => `${size / 16}em`;
  *    ${mediaqueries.tablet_up` width: 200px; `};
  */
 
-const mediaqueries = theme.breakpoints.reduce(
+const mediaqueries = breakpoints.reduce(
   (acc, [label, size], i) => ({
     ...acc,
     // max-width media query e.g. mediaqueries.desktop
@@ -28,7 +28,7 @@ const mediaqueries = theme.breakpoints.reduce(
     // min-width media query e.g. mediaqueries.desktop_up
     // This is the breakpoint prior's size +1
     [`${label}_up`]: (...args) => css`
-      @media (min-width: ${toEm(theme.breakpoints[i - 1][1] + 1)}) {
+      @media (min-width: ${toEm(breakpoints[i - 1][1] + 1)}) {
         ${css(...args)};
       }
     `,

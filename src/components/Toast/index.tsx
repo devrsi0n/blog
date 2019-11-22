@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from 'theme-ui';
+import { ThemeProvider, ColorMode } from 'theme-ui';
+import Icons from '@components/Icons';
 import Toast, { ToastProps } from './Toast';
-import Icons from '@icons';
 import theme from '../../gatsby-plugin-theme-ui';
 
 function show(props: ToastProps) {
@@ -10,6 +10,7 @@ function show(props: ToastProps) {
   document.body.appendChild(container);
   ReactDOM.render(
     <ThemeProvider theme={theme}>
+      <ColorMode />
       <Toast
         {...props}
         onAnimationDone={() => {

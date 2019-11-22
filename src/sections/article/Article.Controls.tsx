@@ -20,9 +20,11 @@ function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
 
-  function toggleColorMode(event) {
+  function toggleColorMode(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     event.preventDefault();
-    setColorMode(isDark ? `light` : `dark`);
+    setColorMode(isDark ? `default` : `dark`);
   }
 
   return (

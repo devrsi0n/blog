@@ -39,6 +39,7 @@ const seoQuery = graphql`
       edges {
         node {
           siteMetadata {
+            name
             description
             social {
               url
@@ -52,21 +53,21 @@ const seoQuery = graphql`
   }
 `;
 
-const themeUIDarkModeWorkaroundScript = [
-  {
-    type: 'text/javascript',
-    innerHTML: `
-    (function() {
-      try {
-        var mode = localStorage.getItem('theme-ui-color-mode');
-        if (!mode) {
-          localStorage.setItem('theme-ui-color-mode', 'light');
-        }
-      } catch (e) {}
-    })();
-  `,
-  },
-];
+// const themeUIDarkModeWorkaroundScript = [
+//   {
+//     type: 'text/javascript',
+//     innerHTML: `
+//     (function() {
+//       try {
+//         var mode = localStorage.getItem('theme-ui-color-mode');
+//         if (!mode) {
+//           localStorage.setItem('theme-ui-color-mode', 'light');
+//         }
+//       } catch (e) {}
+//     })();
+//   `,
+//   },
+// ];
 
 function SEO({
   title,
@@ -80,7 +81,7 @@ function SEO({
 }: HelmetProps) {
   const results = useStaticQuery(seoQuery);
   const site = results.allSite.edges[0].node.siteMetadata;
-  const twitter = site.social.find(option => option.name === 'twitter') || {};
+  // const twitter = site.social.find(option => option.name === 'twitter') || {};
 
   const fullURL = (path: string) =>
     path ? `${site.siteUrl}${path}` : site.siteUrl;
@@ -110,12 +111,12 @@ function SEO({
     { itemprop: 'description', content: description || site.description },
     { itemprop: 'image', content: fullURL(image) },
     { name: 'description', content: description || site.description },
-
+    // https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: site.name },
+    { name: 'twitter:site', content: `@${site.name}` },
     { name: 'twitter:title', content: title || site.title },
     { name: 'twitter:description', content: description || site.description },
-    { name: 'twitter:creator', content: twitter.url },
+    { name: 'twitter:creator', content: `@${site.name}` },
     {
       name: 'twitter:image',
       content: fullURL(image),
@@ -133,15 +134,15 @@ function SEO({
   }
 
   if (timeToRead) {
-    metaTags.push({ name: 'twitter:label1', value: 'Reading time' });
-    metaTags.push({ name: 'twitter:data1', value: `${timeToRead} min read` });
+    metaTags.push({ name: 'twitter:label1', content: 'Reading time' });
+    metaTags.push({ name: 'twitter:data1', content: `${timeToRead} min read` });
   }
 
   return (
     <Helmet
       title={title || site.title}
       htmlAttributes={{ lang: 'zh-cmn-Hans' }}
-      script={themeUIDarkModeWorkaroundScript}
+      // script={themeUIDarkModeWorkaroundScript}
       meta={metaTags}
     >
       {children}

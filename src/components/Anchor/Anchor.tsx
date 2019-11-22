@@ -1,6 +1,6 @@
 import React, { AnchorHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 
 const BaseAnchor = styled.a`
   transition: background-size 0.5s;

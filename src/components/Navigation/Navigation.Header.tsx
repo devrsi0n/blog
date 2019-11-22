@@ -7,7 +7,7 @@ import Section from '@components/Section';
 import Logo from '@components/Logo';
 
 import mediaqueries from '@styles/media';
-import Icons from '@icons';
+import Icons from '@components/Icons';
 import {
   copyToClipboard,
   getWindowDimensions,
@@ -87,9 +87,11 @@ function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
 
-  function toggleColorMode(event) {
+  function toggleColorMode(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     event.preventDefault();
-    setColorMode(isDark ? `light` : `dark`);
+    setColorMode(isDark ? `default` : `dark`);
   }
 
   return (
@@ -145,9 +147,9 @@ const BackArrowIconContainer = styled.div`
   transition: 0.2s transform var(--ease-out-quad);
   opacity: 0;
   padding-right: 30px;
-  animation: fadein 0.3s linear forwards;
+  animation: fadeIn 0.3s linear forwards;
 
-  @keyframes fadein {
+  @keyframes fadeIn {
     to {
       opacity: 1;
     }

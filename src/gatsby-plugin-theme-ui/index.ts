@@ -96,6 +96,15 @@ const heading = {
   lineHeight: 'heading',
 };
 
+export const fonts = {
+  serif,
+  sansSerif,
+
+  body: sansSerif,
+  heading: serif,
+  monospace,
+};
+
 export const breakpoints = [
   ['phone_small', 320] as const,
   ['phone', 376] as const,
@@ -115,14 +124,7 @@ const theme = {
   initialColorMode: 'light',
   colorModeTransition,
   colors,
-  fonts: {
-    serif,
-    sansSerif,
-
-    body: sansSerif,
-    heading: serif,
-    monospace,
-  },
+  fonts,
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
   fontWeights: {
     body: 400,

@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import fonts from '../gatsby-plugin-theme-ui/fonts';
+import { fonts } from '../gatsby-plugin-theme-ui';
 
 export const globalStyles = css`
   /**

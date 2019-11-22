@@ -32,6 +32,7 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
     await exec('npx gatsby build --prefix-paths');
   } catch (error) {
     console.error(error);
+    process.exit(-1);
   }
 
   ghPages.publish(

@@ -120,6 +120,15 @@
     "prettier": "~1.19.1",
     "typescript": "~3.7.2"
   },
+  "browserslist": [
+    "chrome >= 57",
+    "firefox >= 52",
+    "edge >= 16",
+    "safari >= 10.1",
+    "opera >= 44",
+    "ios >= 10.3",
+    "ChromeAndroid >= 57"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",

@@ -90,12 +90,6 @@ const sansSerif = `"SF Pro Display", "-apple-system", "BlinkMacSystemFont", "San
 )}, sans-serif`;
 const monospace = `"Dank Mono", "Noto Sans Mono", "Menlo", "Roboto Mono", "Consolas", "Operator Mono", "Monaco", "source-code-pro", "Courier New", ${sansSerif}, monospace`;
 
-const heading = {
-  fontFamily: 'heading',
-  fontWeight: 'heading',
-  lineHeight: 'heading',
-};
-
 export const fonts = {
   serif,
   sansSerif,
@@ -121,46 +115,109 @@ const colorModeTransition =
 const theme = {
   ...deepTheme,
 
-  initialColorMode: 'light',
+  initialColorMode: 'system',
   colorModeTransition,
+  // color, background-color, border-color
   colors,
+  // font-family
   fonts,
+  // font-size
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
+  // font-weight
   fontWeights: {
     body: 400,
     heading: 700,
     bold: 700,
     display: 900,
   },
+  // line-height
   lineHeights: {
     body: 1.5,
     heading: 1.25,
   },
+  // letter-spacing
   letterSpacings: {
     body: 'normal',
     caps: '0.2em',
   },
-  textStyles: {
-    heading,
-    display: {
-      variant: 'textStyles.heading',
-      fontSize: [5, 6],
-      fontWeight: 'display',
-      letterSpacing: '-0.03em',
-      mt: 3,
+  // width, height, min-width, max-width, min-height, max-height
+  sizes: {
+    // container widths
+    sm: 540,
+    md: 720,
+    lg: 960,
+    xl: 1140,
+  },
+  text: {
+    caps: {
+      textTransform: 'uppercase',
+      letterSpacing: '0.2em',
+    },
+    heading: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      lineHeight: 'heading',
+    },
+    body: {
+      fontFamily: 'body',
+      fontWeight: 'body',
+      lineHeight: 'body',
     },
   },
+  // border, border-top, border-right, border-bottom, border-left
+  // borders: [],
+
+  // border-width
+  // borderWidths: [],
+
+  // border-style
+  // borderStyles: [],
+
+  // border-radius
+  radii: {
+    none: '0',
+    sm: '2px',
+    default: '4px',
+    lg: '8px',
+    xl: '16px',
+  },
+
+  // box-shadow, text-shadow
+  shadows: {
+    default: '0 .5rem 1rem rgba(0, 0, 0, .15)',
+    sm: '0 .125rem .25rem rgba(0, 0, 0, .075)',
+    lg: '0 1rem 3rem rgba(0, 0, 0, .175)',
+  },
+
+  // z-index
+  // zIndices: [],
+
+  // margin, margin-top, margin-right, margin-bottom, margin-left, padding, padding-top, padding-right, padding-bottom, padding-left, grid-gap, grid-column-gap, grid-row-gap
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   breakpoints: breakpoints.map(b => `${b[1]}px`),
+  messages: {
+    primary: {
+      p: 3,
+      pb: 0,
+      // paddingLeft: 2,
+      borderLeftWidth: t => t.space[2],
+      borderLeftStyle: 'solid',
+      borderRadius: 'lg',
+
+      m: '0 auto 45px auto',
+      width: '100%',
+      maxWidth: '744px',
+
+      borderLeftColor: 'accent',
+      bg: 'highlight',
+    },
+  },
   // Styles for MDX
   styles: {
-    ...deepTheme,
+    ...deepTheme.styles,
     pre: {
       ...prismPreset,
     },
-  },
-  messages: {
-    borderLeftColor: 'accent',
-    bg: 'highlight',
   },
 
   // TODO: refactor

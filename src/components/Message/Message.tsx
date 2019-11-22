@@ -12,14 +12,14 @@ export default function Message(props: AnchorProps) {
   const { paragraph, children } = props;
   return (
     <ThemeMessage
-      sx={{
-        variant: 'messages',
-        borderLeftWidth: '8px',
-        borderRadius: '8px',
-        m: '0 auto 45px auto',
-        width: '100%',
-        maxWidth: '744px',
-      }}
+      variant="primary"
+      // sx={{
+      // borderLeftWidth: '8px',
+      // borderRadius: '8px',
+      // m: '0 auto 45px auto',
+      // width: '100%',
+      // maxWidth: '744px',
+      // }}
     >
       {paragraph}
       {children}

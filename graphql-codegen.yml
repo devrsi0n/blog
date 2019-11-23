@@ -1,0 +1,18 @@
+overwrite: true
+schema: "http://localhost:8000/___graphql"
+documents:
+  - "src/**/*.tsx"
+  - "src/**/*.js"
+  - "node_modules/gatsby-transformer-sharp/src/fragments.js"
+pluckConfig:
+  modules:
+    - name: gatsby
+      identifier: graphql
+generates:
+  src/types/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+  ./graphql.json:
+    plugins:
+      - "introspection"

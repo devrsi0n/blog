@@ -5,9 +5,10 @@ import Section from '@components/Section';
 import SocialLinks from '@components/SocialLinks';
 
 import mediaqueries from '@styles/media';
+import { SiteAndMdxQuery } from '../../types/graphql';
 
 const siteQuery = graphql`
-  {
+  query siteAndMdx {
     allSite {
       edges {
         node {
@@ -37,7 +38,7 @@ const siteQuery = graphql`
 console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
 
 function Footer() {
-  const results = useStaticQuery(siteQuery);
+  const results = useStaticQuery<SiteAndMdxQuery>(siteQuery);
   const { name, social } = results.allSite.edges[0].node.siteMetadata;
   const copyrightDate = (() => {
     const { edges } = results.allMdx;

@@ -9,9 +9,10 @@ import Icons from '@components/Icons';
 import { IAuthor } from '@types';
 
 import { GridLayoutContext } from './Articles.List.Context';
+import { AuthorHeroQuery } from '../../types/graphql';
 
 const authorQuery = graphql`
-  {
+  query authorHero {
     site: allSite {
       edges {
         node {
@@ -32,7 +33,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
     GridLayoutContext
   );
 
-  const results = useStaticQuery(authorQuery);
+  const results = useStaticQuery<AuthorHeroQuery>(authorQuery);
   const { hero } = results.site.edges[0].node.siteMetadata;
   const tilesIsActive = hasSetGridLayout && gridLayout === 'tiles';
   const featuredAuthor = authors.find(author => author.featured);

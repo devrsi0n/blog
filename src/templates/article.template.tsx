@@ -20,9 +20,10 @@ import ArticleSEO from '../sections/article/Article.SEO';
 import ArticleShare from '../sections/article/Article.Share';
 import useUtteranc from '../hooks/useUtteranc';
 import { debounce } from '@utils';
+import { ArticleTemplateSiteQuery } from '../types/graphql';
 
 const siteQuery = graphql`
-  {
+  query articleTemplateSite {
     allSite {
       edges {
         node {
@@ -43,7 +44,7 @@ function Article({ pageContext, location }) {
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
   const [contentHeight, setContentHeight] = useState<number>(0);
 
-  const results = useStaticQuery(siteQuery);
+  const results = useStaticQuery<ArticleTemplateSiteQuery>(siteQuery);
   const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
   const { article, authors, mailchimp, next } = pageContext;

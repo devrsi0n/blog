@@ -4,9 +4,10 @@ import SEO from '@components/SEO';
 
 import { graphql, useStaticQuery } from 'gatsby';
 import { IArticle, IAuthor } from '@types';
+import { ArticleSeoSiteQuery } from '../../types/graphql';
 
 const siteQuery = graphql`
-  {
+  query articleSeoSite {
     allSite {
       edges {
         node {
@@ -29,7 +30,7 @@ function ArticleSEO({
   authors: IAuthor[];
   location: Location;
 }) {
-  const results = useStaticQuery(siteQuery);
+  const results = useStaticQuery<ArticleSeoSiteQuery>(siteQuery);
   const { name } = results.allSite.edges[0].node.siteMetadata;
   const { siteUrl } = results.allSite.edges[0].node.siteMetadata;
 

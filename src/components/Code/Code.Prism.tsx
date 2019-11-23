@@ -28,6 +28,10 @@ function calculateLinesToHighlight(meta) {
   return () => false;
 }
 
+const languageAlias = {
+  sh: 'bash',
+};
+
 function CodePrism({ codeString, language, metastring /* , ...props */ }) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
 
@@ -43,8 +47,9 @@ function CodePrism({ codeString, language, metastring /* , ...props */ }) {
   //     </Container>
   //   );
   // }
+  const lang = languageAlias[language] || language;
   return (
-    <Highlight {...defaultProps} code={codeString} language={language}>
+    <Highlight {...defaultProps} code={codeString} language={lang}>
       {({ className, tokens, getLineProps, getTokenProps }) => {
         return (
           <div style={{ overflow: 'auto' }}>

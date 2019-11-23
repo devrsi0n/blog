@@ -20,6 +20,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
+import { SeoSiteQuery } from '../../types/graphql';
 
 interface HelmetProps {
   children?: React.ReactNode;
@@ -34,7 +35,7 @@ interface HelmetProps {
 }
 
 const seoQuery = graphql`
-  {
+  query seoSite {
     allSite {
       edges {
         node {
@@ -53,22 +54,6 @@ const seoQuery = graphql`
   }
 `;
 
-// const themeUIDarkModeWorkaroundScript = [
-//   {
-//     type: 'text/javascript',
-//     innerHTML: `
-//     (function() {
-//       try {
-//         var mode = localStorage.getItem('theme-ui-color-mode');
-//         if (!mode) {
-//           localStorage.setItem('theme-ui-color-mode', 'light');
-//         }
-//       } catch (e) {}
-//     })();
-//   `,
-//   },
-// ];
-
 function SEO({
   title,
   description,
@@ -79,7 +64,7 @@ function SEO({
   pathname,
   timeToRead,
 }: HelmetProps) {
-  const results = useStaticQuery(seoQuery);
+  const results = useStaticQuery<SeoSiteQuery>(seoQuery);
   const site = results.allSite.edges[0].node.siteMetadata;
   // const twitter = site.social.find(option => option.name === 'twitter') || {};
 
@@ -142,7 +127,6 @@ function SEO({
     <Helmet
       title={title || site.title}
       htmlAttributes={{ lang: 'zh-cmn-Hans' }}
-      // script={themeUIDarkModeWorkaroundScript}
       meta={metaTags}
     >
       {children}

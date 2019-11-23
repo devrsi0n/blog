@@ -43,8 +43,6 @@
     "@theme-ui/components": "^0.2.49",
     "@theme-ui/preset-deep": "^0.2.40",
     "@theme-ui/prism": "^0.2.46",
-    "adm-zip": "^0.4.13",
-    "babel-plugin-emotion": "^10.0.23",
     "contentful-cli": "^0.36.0",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
@@ -57,7 +55,6 @@
     "gatsby-plugin-feed": "^2.3.20",
     "gatsby-plugin-google-analytics": "^2.1.26",
     "gatsby-plugin-layout": "^1.1.14",
-    "gatsby-plugin-mailchimp": "^5.1.2",
     "gatsby-plugin-manifest": "^2.2.27",
     "gatsby-plugin-mdx": "^1.0.56",
     "gatsby-plugin-nprogress": "^2.1.13",
@@ -99,12 +96,9 @@
     "react-transition-group": "^4.3.0",
     "react-typography": "^0.16.19",
     "remark-slug": "^5.1.2",
-    "request": "^2.88.0",
     "semver": "^6.3.0",
     "theme-ui": "^0.2.46",
-    "typeface-merriweather": "0.0.72",
-    "typography": "^0.16.19",
-    "typography-theme-pottery": "^0.0.9"
+    "typeface-merriweather": "0.0.72"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
@@ -154,6 +148,6 @@
     ]
   },
   "engines": {
-    "node": "10.x || 12.x"
+    "node": "12.x"
   }
 }

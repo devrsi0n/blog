@@ -202,7 +202,7 @@ const theme = {
       // paddingLeft: 2,
       borderLeftWidth: t => t.space[2],
       borderLeftStyle: 'solid',
-      borderRadius: 'lg',
+      borderRadius: 'default',
 
       m: '0 auto 45px auto',
       width: '100%',

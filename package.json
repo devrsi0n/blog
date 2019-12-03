@@ -55,6 +55,7 @@
     "gatsby-plugin-feed": "^2.3.20",
     "gatsby-plugin-google-analytics": "^2.1.26",
     "gatsby-plugin-layout": "^1.1.14",
+    "gatsby-plugin-mailchimp": "^5.1.2",
     "gatsby-plugin-manifest": "^2.2.27",
     "gatsby-plugin-mdx": "^1.0.56",
     "gatsby-plugin-nprogress": "^2.1.13",

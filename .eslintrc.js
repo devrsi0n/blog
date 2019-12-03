@@ -5,6 +5,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',
+    'react/no-danger': 'off',
     'no-unused-vars': 'off'
   }
 };

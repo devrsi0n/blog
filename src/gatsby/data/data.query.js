@@ -44,6 +44,7 @@ module.exports.local = {
           excerpt
           subscription
           body
+          heroRef
           hero {
             full: childImageSharp {
               fluid(maxWidth: 944, quality: 85) {

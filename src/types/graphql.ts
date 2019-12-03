@@ -35,6 +35,7 @@ export type Article = Node & {
   excerpt: Scalars['String'],
   body: Scalars['String'],
   hero?: Maybe<File>,
+  heroRef: Scalars['String'],
   timeToRead?: Maybe<Scalars['Int']>,
   secret?: Maybe<Scalars['Boolean']>,
   subscription?: Maybe<Scalars['Boolean']>,
@@ -238,8 +239,9 @@ export enum ArticleFieldsEnum {
   HeroChildMdxFrontmatterTitle = 'hero___childMdx___frontmatter___title',
   HeroChildMdxFrontmatterDate = 'hero___childMdx___frontmatter___date',
   HeroChildMdxFrontmatterExcerpt = 'hero___childMdx___frontmatter___excerpt',
+  HeroChildMdxFrontmatterHeroRef = 'hero___childMdx___frontmatter___heroRef',
+  HeroChildMdxFrontmatterTags = 'hero___childMdx___frontmatter___tags',
   HeroChildMdxFrontmatterSecret = 'hero___childMdx___frontmatter___secret',
-  HeroChildMdxFrontmatterHeroReference = 'hero___childMdx___frontmatter___heroReference',
   HeroChildMdxBody = 'hero___childMdx___body',
   HeroChildMdxExcerpt = 'hero___childMdx___excerpt',
   HeroChildMdxHeadings = 'hero___childMdx___headings',
@@ -321,6 +323,7 @@ export enum ArticleFieldsEnum {
   HeroChildAuthorsYamlFeatured = 'hero___childAuthorsYaml___featured',
   HeroChildAuthorsYamlSocial = 'hero___childAuthorsYaml___social',
   HeroChildAuthorsYamlSocialUrl = 'hero___childAuthorsYaml___social___url',
+  HeroRef = 'heroRef',
   TimeToRead = 'timeToRead',
   Secret = 'secret',
   Subscription = 'subscription',
@@ -421,6 +424,7 @@ export type ArticleFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>,
   body?: Maybe<StringQueryOperatorInput>,
   hero?: Maybe<FileFilterInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   timeToRead?: Maybe<IntQueryOperatorInput>,
   secret?: Maybe<BooleanQueryOperatorInput>,
   subscription?: Maybe<BooleanQueryOperatorInput>,
@@ -722,8 +726,9 @@ export enum AuthorFieldsEnum {
   AvatarChildMdxFrontmatterTitle = 'avatar___childMdx___frontmatter___title',
   AvatarChildMdxFrontmatterDate = 'avatar___childMdx___frontmatter___date',
   AvatarChildMdxFrontmatterExcerpt = 'avatar___childMdx___frontmatter___excerpt',
+  AvatarChildMdxFrontmatterHeroRef = 'avatar___childMdx___frontmatter___heroRef',
+  AvatarChildMdxFrontmatterTags = 'avatar___childMdx___frontmatter___tags',
   AvatarChildMdxFrontmatterSecret = 'avatar___childMdx___frontmatter___secret',
-  AvatarChildMdxFrontmatterHeroReference = 'avatar___childMdx___frontmatter___heroReference',
   AvatarChildMdxBody = 'avatar___childMdx___body',
   AvatarChildMdxExcerpt = 'avatar___childMdx___excerpt',
   AvatarChildMdxHeadings = 'avatar___childMdx___headings',
@@ -1129,8 +1134,9 @@ export enum AuthorsYamlFieldsEnum {
   AvatarChildMdxFrontmatterTitle = 'avatar___childMdx___frontmatter___title',
   AvatarChildMdxFrontmatterDate = 'avatar___childMdx___frontmatter___date',
   AvatarChildMdxFrontmatterExcerpt = 'avatar___childMdx___frontmatter___excerpt',
+  AvatarChildMdxFrontmatterHeroRef = 'avatar___childMdx___frontmatter___heroRef',
+  AvatarChildMdxFrontmatterTags = 'avatar___childMdx___frontmatter___tags',
   AvatarChildMdxFrontmatterSecret = 'avatar___childMdx___frontmatter___secret',
-  AvatarChildMdxFrontmatterHeroReference = 'avatar___childMdx___frontmatter___heroReference',
   AvatarChildMdxBody = 'avatar___childMdx___body',
   AvatarChildMdxExcerpt = 'avatar___childMdx___excerpt',
   AvatarChildMdxHeadings = 'avatar___childMdx___headings',
@@ -1983,8 +1989,9 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterHeroId = 'childMdx___frontmatter___hero___id',
   ChildMdxFrontmatterHeroChildren = 'childMdx___frontmatter___hero___children',
   ChildMdxFrontmatterExcerpt = 'childMdx___frontmatter___excerpt',
+  ChildMdxFrontmatterHeroRef = 'childMdx___frontmatter___heroRef',
+  ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
   ChildMdxFrontmatterSecret = 'childMdx___frontmatter___secret',
-  ChildMdxFrontmatterHeroReference = 'childMdx___frontmatter___heroReference',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
   ChildMdxHeadings = 'childMdx___headings',
@@ -3212,8 +3219,9 @@ export enum MdxFieldsEnum {
   FrontmatterHeroChildAuthorsYamlFeatured = 'frontmatter___hero___childAuthorsYaml___featured',
   FrontmatterHeroChildAuthorsYamlSocial = 'frontmatter___hero___childAuthorsYaml___social',
   FrontmatterExcerpt = 'frontmatter___excerpt',
+  FrontmatterHeroRef = 'frontmatter___heroRef',
+  FrontmatterTags = 'frontmatter___tags',
   FrontmatterSecret = 'frontmatter___secret',
-  FrontmatterHeroReference = 'frontmatter___heroReference',
   Body = 'body',
   Excerpt = 'excerpt',
   Headings = 'headings',
@@ -3339,8 +3347,9 @@ export type MdxFrontmatter = {
   date?: Maybe<Scalars['Date']>,
   hero?: Maybe<File>,
   excerpt?: Maybe<Scalars['String']>,
+  heroRef?: Maybe<Scalars['String']>,
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
   secret?: Maybe<Scalars['Boolean']>,
-  heroReference?: Maybe<Scalars['String']>,
 };
 
 
@@ -3357,8 +3366,9 @@ export type MdxFrontmatterFilterInput = {
   date?: Maybe<DateQueryOperatorInput>,
   hero?: Maybe<FileFilterInput>,
   excerpt?: Maybe<StringQueryOperatorInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
+  tags?: Maybe<StringQueryOperatorInput>,
   secret?: Maybe<BooleanQueryOperatorInput>,
-  heroReference?: Maybe<StringQueryOperatorInput>,
 };
 
 export type MdxGroupConnection = {
@@ -3616,6 +3626,7 @@ export type QueryArticleArgs = {
   excerpt?: Maybe<StringQueryOperatorInput>,
   body?: Maybe<StringQueryOperatorInput>,
   hero?: Maybe<FileFilterInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   timeToRead?: Maybe<IntQueryOperatorInput>,
   secret?: Maybe<BooleanQueryOperatorInput>,
   subscription?: Maybe<BooleanQueryOperatorInput>,
@@ -4047,6 +4058,7 @@ export type SitePageContext = {
   pageCount?: Maybe<Scalars['Int']>,
   additionalContext?: Maybe<SitePageContextAdditionalContext>,
   article?: Maybe<SitePageContextArticle>,
+  heroRef?: Maybe<Scalars['String']>,
   slug?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['String']>,
   title?: Maybe<Scalars['String']>,
@@ -4187,6 +4199,7 @@ export type SitePageContextArticle = {
   excerpt?: Maybe<Scalars['String']>,
   subscription?: Maybe<Scalars['Boolean']>,
   body?: Maybe<Scalars['String']>,
+  heroRef?: Maybe<Scalars['String']>,
   hero?: Maybe<SitePageContextArticleHero>,
 };
 
@@ -4203,6 +4216,7 @@ export type SitePageContextArticleFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>,
   subscription?: Maybe<BooleanQueryOperatorInput>,
   body?: Maybe<StringQueryOperatorInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   hero?: Maybe<SitePageContextArticleHeroFilterInput>,
 };
 
@@ -4398,6 +4412,7 @@ export type SitePageContextFilterInput = {
   pageCount?: Maybe<IntQueryOperatorInput>,
   additionalContext?: Maybe<SitePageContextAdditionalContextFilterInput>,
   article?: Maybe<SitePageContextArticleFilterInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   slug?: Maybe<StringQueryOperatorInput>,
   id?: Maybe<StringQueryOperatorInput>,
   title?: Maybe<StringQueryOperatorInput>,
@@ -4419,6 +4434,7 @@ export type SitePageContextGroup = {
   excerpt?: Maybe<Scalars['String']>,
   subscription?: Maybe<Scalars['Boolean']>,
   body?: Maybe<Scalars['String']>,
+  heroRef?: Maybe<Scalars['String']>,
   hero?: Maybe<SitePageContextGroupHero>,
 };
 
@@ -4435,6 +4451,7 @@ export type SitePageContextGroupFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>,
   subscription?: Maybe<BooleanQueryOperatorInput>,
   body?: Maybe<StringQueryOperatorInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   hero?: Maybe<SitePageContextGroupHeroFilterInput>,
 };
 
@@ -4531,6 +4548,7 @@ export type SitePageContextNext = {
   excerpt?: Maybe<Scalars['String']>,
   subscription?: Maybe<Scalars['Boolean']>,
   body?: Maybe<Scalars['String']>,
+  heroRef?: Maybe<Scalars['String']>,
   hero?: Maybe<SitePageContextNextHero>,
 };
 
@@ -4547,6 +4565,7 @@ export type SitePageContextNextFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>,
   subscription?: Maybe<BooleanQueryOperatorInput>,
   body?: Maybe<StringQueryOperatorInput>,
+  heroRef?: Maybe<StringQueryOperatorInput>,
   hero?: Maybe<SitePageContextNextHeroFilterInput>,
 };
 
@@ -4753,6 +4772,7 @@ export enum SitePageFieldsEnum {
   ContextGroupExcerpt = 'context___group___excerpt',
   ContextGroupSubscription = 'context___group___subscription',
   ContextGroupBody = 'context___group___body',
+  ContextGroupHeroRef = 'context___group___heroRef',
   ContextPathPrefix = 'context___pathPrefix',
   ContextFirst = 'context___first',
   ContextLast = 'context___last',
@@ -4781,6 +4801,8 @@ export enum SitePageFieldsEnum {
   ContextArticleExcerpt = 'context___article___excerpt',
   ContextArticleSubscription = 'context___article___subscription',
   ContextArticleBody = 'context___article___body',
+  ContextArticleHeroRef = 'context___article___heroRef',
+  ContextHeroRef = 'context___heroRef',
   ContextSlug = 'context___slug',
   ContextId = 'context___id',
   ContextTitle = 'context___title',
@@ -4798,6 +4820,7 @@ export enum SitePageFieldsEnum {
   ContextNextExcerpt = 'context___next___excerpt',
   ContextNextSubscription = 'context___next___subscription',
   ContextNextBody = 'context___next___body',
+  ContextNextHeroRef = 'context___next___heroRef',
   PluginCreatorId = 'pluginCreator___id',
   PluginCreatorParentId = 'pluginCreator___parent___id',
   PluginCreatorParentParentId = 'pluginCreator___parent___parent___id',

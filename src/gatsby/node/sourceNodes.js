@@ -9,6 +9,7 @@ module.exports = ({ actions }) => {
       excerpt(pruneLength: Int = 140): String!
       body: String!
       hero: File @fileByRelativePath
+      heroRef: String!
       timeToRead: Int
     }
   `);

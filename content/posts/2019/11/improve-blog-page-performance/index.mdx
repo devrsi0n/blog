@@ -2,8 +2,10 @@
 title: 🚀 提高博客页面性能
 author: devrsi0n
 date: 2019-11-15
-hero: ./images/hero.jpg
 excerpt: 通用 web 网站提速技巧
+hero: ./images/hero.jpg
+heroRef: <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@spacex?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from SpaceX"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">SpaceX</span></a>
+tags: ['performance', 'frontend']
 ---
 
 import Message from '../../../../../src/components/Message';
@@ -132,7 +134,14 @@ CDN 帮助提高网络下载速度，但从源头本身还能做很多文章，�
 
 ### 去掉 sourcemap
 
-gatsby 构建出来的资源带有 sourcemap 方便在线调试，因为有 jsdelivr *50m* 大小限制，建议去除。
+gatsby 构建出来的资源带有 sourcemap 方便在线调试，因为有 jsdelivr *50m* 大小限制，建议去除。使用 webpack 把 devtool 置为 false 即可。
+
+```json
+{
+  // webpack configs
+  devtool: false,
+}
+```
 
 ## Further
 

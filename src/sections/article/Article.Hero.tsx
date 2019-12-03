@@ -39,11 +39,31 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
           <ImagePlaceholder />
         )}
       </HeroImage>
+      {article.heroRef && (
+        <HeroRef>
+          <p>主图来自 </p>
+          <div dangerouslySetInnerHTML={{ __html: article.heroRef }} />
+        </HeroRef>
+      )}
     </Hero>
   );
 };
 
 export default ArticleHero;
+
+const HeroRef = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 944px;
+  margin: 10px auto 0 auto;
+
+  & > p {
+    color: ${p => p.theme.gray};
+    padding-right: 10px;
+    /* font-style: italic; */
+  }
+`;
 
 const Hero = styled.div`
   ${p => mediaqueries.phablet`

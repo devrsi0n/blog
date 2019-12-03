@@ -1156,6 +1156,16 @@
                 "defaultValue": null
               },
               {
+                "name": "heroRef",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "StringQueryOperatorInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
                 "name": "timeToRead",
                 "description": "",
                 "type": {
@@ -9824,21 +9834,31 @@
             "defaultValue": null
           },
           {
-            "name": "secret",
+            "name": "heroRef",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BooleanQueryOperatorInput",
+              "name": "StringQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "heroReference",
+            "name": "tags",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "secret",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -11702,24 +11722,40 @@
             "deprecationReason": null
           },
           {
-            "name": "secret",
+            "name": "heroRef",
             "description": "",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "heroReference",
+            "name": "tags",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "secret",
             "description": "",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13628,13 +13664,19 @@
             "deprecationReason": null
           },
           {
-            "name": "childMdx___frontmatter___secret",
+            "name": "childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "childMdx___frontmatter___heroReference",
+            "name": "childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -15771,13 +15813,19 @@
             "deprecationReason": null
           },
           {
-            "name": "frontmatter___secret",
+            "name": "frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "frontmatter___heroReference",
+            "name": "frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -16914,6 +16962,22 @@
             "deprecationReason": null
           },
           {
+            "name": "heroRef",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timeToRead",
             "description": "",
             "args": [],
@@ -17107,6 +17171,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "FileFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "heroRef",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -18140,13 +18214,19 @@
             "deprecationReason": null
           },
           {
-            "name": "hero___childMdx___frontmatter___secret",
+            "name": "hero___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "hero___childMdx___frontmatter___heroReference",
+            "name": "hero___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hero___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -18633,6 +18713,12 @@
           },
           {
             "name": "hero___childAuthorsYaml___social___url",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -19660,6 +19746,16 @@
             "defaultValue": null
           },
           {
+            "name": "heroRef",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "slug",
             "description": "",
             "type": {
@@ -20231,6 +20327,16 @@
           },
           {
             "name": "body",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "heroRef",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -21065,6 +21171,16 @@
             "defaultValue": null
           },
           {
+            "name": "heroRef",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "hero",
             "description": "",
             "type": {
@@ -21473,6 +21589,16 @@
           },
           {
             "name": "body",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "heroRef",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -23039,6 +23165,18 @@
             "deprecationReason": null
           },
           {
+            "name": "heroRef",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": "",
             "args": [],
@@ -23641,6 +23779,18 @@
           },
           {
             "name": "body",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroRef",
             "description": "",
             "args": [],
             "type": {
@@ -24571,6 +24721,18 @@
             "deprecationReason": null
           },
           {
+            "name": "heroRef",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hero",
             "description": "",
             "args": [],
@@ -25022,6 +25184,18 @@
           },
           {
             "name": "body",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroRef",
             "description": "",
             "args": [],
             "type": {
@@ -27253,6 +27427,12 @@
             "deprecationReason": null
           },
           {
+            "name": "context___group___heroRef",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "context___pathPrefix",
             "description": "",
             "isDeprecated": false,
@@ -27421,6 +27601,18 @@
             "deprecationReason": null
           },
           {
+            "name": "context___article___heroRef",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "context___heroRef",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "context___slug",
             "description": "",
             "isDeprecated": false,
@@ -27518,6 +27710,12 @@
           },
           {
             "name": "context___next___body",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "context___next___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -35283,13 +35481,19 @@
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___secret",
+            "name": "avatar___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___heroReference",
+            "name": "avatar___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatar___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -37959,13 +38163,19 @@
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___secret",
+            "name": "avatar___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___heroReference",
+            "name": "avatar___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatar___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null

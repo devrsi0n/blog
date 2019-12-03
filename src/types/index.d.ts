@@ -68,6 +68,7 @@ export interface IArticle {
     narrow: FluidObject;
     seo: FluidObject;
   };
+  heroRef: string;
   timeToRead: number;
   date: string;
   secret: boolean;

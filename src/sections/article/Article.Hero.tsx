@@ -56,7 +56,11 @@ const HeroRef = styled.div`
   justify-content: flex-end;
   width: 100%;
   max-width: 944px;
-  margin: 10px auto 0 auto;
+  margin: 20px auto 0 auto;
+
+  ${mediaqueries.phablet`
+    width: calc(100vw - 40px);
+  `}
 
   & > p {
     color: ${p => p.theme.gray};
@@ -206,5 +210,5 @@ const HeroImage = styled.div`
     & > div {
       height: 220px;
     }
-`}
+  `}
 `;

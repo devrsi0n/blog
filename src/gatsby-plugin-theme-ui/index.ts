@@ -19,7 +19,7 @@ const colors = {
   accent: accent.light, // a contrast color for emphasizing UI
   highlight: lighten(0.3, accent.light),
   purple: 'hsl(250, 60%, 30%)',
-  gray: 'hsl(10, 20%, 50%)',
+  gray: '#999',
   // Set the initial color mode to dark when @media (prefers-color-scheme: dark) matches
   useColorSchemeMediaQuery: true,
 
@@ -46,7 +46,7 @@ const colors = {
       muted: 'hsl(10, 20%, 94%)',
       highlight: transparentize(0.85, lighten(0.1, accent.dark)),
       purple: 'hsl(250, 60%, 30%)',
-      gray: 'hsl(10, 20%, 50%)',
+      gray: '#666',
 
       prism: PrismColors.dark,
       grey: '#73737D',
@@ -121,8 +121,8 @@ const theme = {
   colors,
   // font-family
   fonts,
-  // font-size
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
+  // font-size, h6 ~ h1
+  fontSizes: [12, 14, 16, 18, 20, 22, 24, 32, 38, 52],
   // font-weight
   fontWeights: {
     body: 400,
@@ -217,6 +217,9 @@ const theme = {
     ...deepTheme.styles,
     pre: {
       ...prismPreset,
+      inlineCode: {
+        background: '',
+      },
     },
   },
 

@@ -41,7 +41,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
       </HeroImage>
       {article.heroRef && (
         <HeroRef>
-          <p>主图来自 </p>
+          <HeroRefTxt>主图来自 </HeroRefTxt>
           <div dangerouslySetInnerHTML={{ __html: article.heroRef }} />
         </HeroRef>
       )}
@@ -50,6 +50,11 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
 };
 
 export default ArticleHero;
+
+const HeroRefTxt = styled.p`
+  color: ${p => p.theme.colors.gray};
+  padding-right: 10px;
+`;
 
 const HeroRef = styled.div`
   display: flex;
@@ -61,12 +66,6 @@ const HeroRef = styled.div`
   ${mediaqueries.phablet`
     width: calc(100vw - 40px);
   `}
-
-  & > p {
-    color: ${p => p.theme.gray};
-    padding-right: 10px;
-    /* font-style: italic; */
-  }
 `;
 
 const Hero = styled.div`

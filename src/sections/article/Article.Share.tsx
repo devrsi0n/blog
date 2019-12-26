@@ -62,11 +62,12 @@ function ArticelShare() {
        * the window.selection values will give the previous ranges instead of the current!
        */
       setTimeout(() => {
-        const article = document.getElementsByTagName('article')[0];
-        const paragraphOffset = document.getElementsByTagName('p')[0]
-          .offsetLeft;
+        const article = document.querySelector('article');
+        const paragraphOffset = (document.querySelector(
+          'article p'
+        ) as HTMLParagraphElement)?.offsetLeft;
 
-        if (!article) return;
+        if (!article || !paragraphOffset) return;
 
         // We want to not show the menu float in code blocks
         const codeBlocks = Array.from(
@@ -110,7 +111,6 @@ function ArticelShare() {
           x: height > 29 ? paragraphOffset + paddingOffset : _x,
           y: _y - articleBox.y - 160,
         };
-
         setPosition({
           x: offset.x + width / 2 - MENU_WIDTH / 2 - paddingOffset,
           y: offset.y - MENU_HEIGHT - 5,

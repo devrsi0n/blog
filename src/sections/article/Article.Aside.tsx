@@ -9,9 +9,8 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 import mediaqueries from '@styles/media';
-import HandleOverlap from './Article.HandleOverlap';
-
 import { clamp } from '@utils';
+import HandleOverlap from './Article.HandleOverlap';
 
 interface AsideProps {
   children: ReactNode[] | ReactNode;

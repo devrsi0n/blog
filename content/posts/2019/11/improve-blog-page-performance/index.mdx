@@ -8,8 +8,6 @@ heroRef: <a style="background-color:black;color:white;text-decoration:none;paddi
 tags: ['performance', 'frontend']
 ---
 
-import Message from '../../../../../src/components/Message';
-
 如何提高博客页面的性能是每个博主都可能面对的问题，简单一点的直接用 [Jekyll](https://jekyllrb.com/) + GitHub 就能简单粗暴的搭建出一个性能尚可的博客，作为一枚前端工程师当然还是喜欢自己熟悉的技术栈来搭建博客，最终选择了 [gatsby](https://www.gatsbyjs.org/) 作为开发框架，这个框架使用流行的 React/TypeScript 技术栈可以很方便的使用 React/TypeScript 社区的资源来加快开发速度。这就带来新的问题，这类框架相比 Jekyll 的前端三板斧较为笨重，开发倒是便利了，到网站上线之后性能问题就逐渐暴露出来了：build 出来的产物 `JS/CSS/图片` 等静态资源较大，数量也较多，再加上博客本身是部署在 <https://zeit.co>  这类国外的服务上，很难达到轻量博客的秒开效果。
 
 下面是优化前的网站 [lighthouse](https://developers.google.com/web/tools/lighthouse) 数据：
@@ -45,7 +43,6 @@ import Message from '../../../../../src/components/Message';
 - 构建脚本提交代码到 GitHub，推荐使用 `gh-pages`
 
 <Message>
-  ⚠️
 
   一般构建出来的 html 的资源链接都指向当前服务器，为了使用 CDN，需要改资源文件的域名 + 路径前缀，比如网站默认使用的资源是 `https://devrsi0n.com/static/a13f45c.png` ，需要换成 `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@0.1.4/static/a13f45c.png` 。以 gatsby 为例，需要在 `gatsby-config.js` 添加 `assetPrefix` 配置，使用 `gatsby build --prefix-paths` 命令使配置生效。但是因为构建必须要带版本号，所以还需要在构建前拉取 GitHub 仓库最新的版本号，再生成新的版本号（z位 + 1）。
 </Message>

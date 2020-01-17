@@ -61,7 +61,7 @@
     "gatsby-plugin-nprogress": "^2.1.13",
     "gatsby-plugin-offline": "^3.0.21",
     "gatsby-plugin-react-helmet": "^3.1.14",
-    "gatsby-plugin-react-svg": "^2.1.2",
+    "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sharp": "^2.2.38",
     "gatsby-plugin-theme-ui": "^0.2.43",
     "gatsby-plugin-typescript": "^2.1.17",
@@ -76,7 +76,7 @@
     "gatsby-remark-prismjs": "^3.3.22",
     "gatsby-remark-responsive-iframe": "^2.2.26",
     "gatsby-remark-smartypants": "^2.1.15",
-    "gatsby-remark-typescript": "^0.0.15",
+    "gatsby-remark-typescript": "^0.2.2",
     "gatsby-source-filesystem": "^2.1.36",
     "gatsby-transformer-remark": "^2.6.34",
     "gatsby-transformer-sharp": "^2.2.19",
@@ -97,8 +97,8 @@
     "react-transition-group": "^4.3.0",
     "react-typography": "^0.16.19",
     "remark-slug": "^5.1.2",
-    "semver": "^6.3.0",
-    "theme-ui": "^0.2.46",
+    "semver": "^7.1.1",
+    "theme-ui": "0.2.52",
     "typeface-merriweather": "0.0.72"
   },
   "devDependencies": {
@@ -118,7 +118,7 @@
     "delay-cli": "^1.1.0",
     "eslint": "^6.6.0",
     "eslint-config-prettify-ts-react": "^0.1.6",
-    "husky": "^3.0.9",
+    "husky": "^4.0.10",
     "lint-staged": "^9.4.3",
     "prettier": "~1.19.1",
     "typescript": "~3.7.2"

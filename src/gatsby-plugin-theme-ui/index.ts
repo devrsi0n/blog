@@ -1,4 +1,4 @@
-import deepTheme from '@theme-ui/preset-deep';
+// import deepTheme from '@theme-ui/preset-deep';
 import prismPreset from '@theme-ui/prism/presets/theme-ui';
 import { lighten, transparentize } from 'polished';
 
@@ -113,7 +113,7 @@ const colorModeTransition =
   'background 0.25s var(--ease-in-out-quad), color 0.25s var(--ease-in-out-quad)';
 
 const theme = {
-  ...deepTheme,
+  // ...deepTheme,
 
   initialColorMode: 'system',
   colorModeTransition,
@@ -195,26 +195,9 @@ const theme = {
   // margin, margin-top, margin-right, margin-bottom, margin-left, padding, padding-top, padding-right, padding-bottom, padding-left, grid-gap, grid-column-gap, grid-row-gap
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   breakpoints: breakpoints.map(b => `${b[1]}px`),
-  messages: {
-    primary: {
-      p: 3,
-      pb: 0,
-      // paddingLeft: 2,
-      borderLeftWidth: t => t.space[2],
-      borderLeftStyle: 'solid',
-      borderRadius: 'default',
-
-      m: '0 auto 45px auto',
-      width: '100%',
-      maxWidth: '744px',
-
-      borderLeftColor: 'accent',
-      bg: 'highlight',
-    },
-  },
   // Styles for MDX
   styles: {
-    ...deepTheme.styles,
+    // ...deepTheme.styles,
     pre: {
       ...prismPreset,
       inlineCode: {

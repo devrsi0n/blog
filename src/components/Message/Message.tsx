@@ -1,18 +1,19 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Message as ThemeMessage } from '@theme-ui/components';
+import styled from '@emotion/styled';
+import mediaqueries from '@styles/media';
 
 interface AnchorProps {
   // icon?: React.Component;
   // title: string;
-  paragraph: string;
-  children?: string;
+  children: string;
 }
 
 export default function Message(props: AnchorProps) {
-  const { paragraph, children } = props;
+  const { children } = props;
   return (
-    <ThemeMessage
+    <StyledMessage
       sx={{
         // p: 3,
         // pb: 0,
@@ -22,15 +23,23 @@ export default function Message(props: AnchorProps) {
         borderRadius: 'default',
 
         m: '0 auto 16px auto',
-        // width: '100%',
+        width: '100%',
         maxWidth: '744px',
 
         borderLeftColor: 'accent',
         bg: 'highlight',
       }}
     >
-      {paragraph}
       {children}
-    </ThemeMessage>
+    </StyledMessage>
   );
 }
+
+const StyledMessage = styled(ThemeMessage)`
+  ${mediaqueries.phablet`
+
+    & > p {
+      margin: 0 auto;
+    }
+  `};
+`;

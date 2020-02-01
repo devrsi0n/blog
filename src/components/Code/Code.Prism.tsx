@@ -52,7 +52,7 @@ function CodePrism({ codeString, language, metastring /* , ...props */ }) {
     <Highlight {...defaultProps} code={codeString} language={lang}>
       {({ className, tokens, getLineProps, getTokenProps }) => {
         return (
-          <div style={{ overflow: 'auto' }}>
+          <div style={{ overflowX: 'scroll' }}>
             <pre className={className} style={{ position: 'relative' }}>
               <LanguageWrapper>{language}</LanguageWrapper>
               <Copy toCopy={codeString} />

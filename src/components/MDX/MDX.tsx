@@ -16,6 +16,7 @@ import Lists from '@components/Lists';
 import Paragraph from '@components/Paragraph';
 import Tables from '@components/Tables';
 import { ImageZoom } from '@components/Image';
+import Figcaption from '@components/Figcaption';
 
 import mediaqueries from '@styles/media';
 import { toKebabCase } from '@utils';
@@ -47,6 +48,7 @@ const components = {
   a: Anchor,
   img: ImageZoom,
   thead: Tables.Head, // ?
+  figcaption: Figcaption,
 };
 
 function MDX({ content, children, ...props }) {

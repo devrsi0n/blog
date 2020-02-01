@@ -4230,16 +4230,6 @@
             "defaultValue": null
           },
           {
-            "name": "hero",
-            "description": "",
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "FileFilterInput",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "excerpt",
             "description": "",
             "type": {
@@ -4250,11 +4240,11 @@
             "defaultValue": null
           },
           {
-            "name": "secret",
+            "name": "hero",
             "description": "",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BooleanQueryOperatorInput",
+              "name": "FileFilterInput",
               "ofType": null
             },
             "defaultValue": null
@@ -4275,6 +4265,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "StringQueryOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "secret",
+            "description": "",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanQueryOperatorInput",
               "ofType": null
             },
             "defaultValue": null
@@ -8851,18 +8851,6 @@
             "deprecationReason": null
           },
           {
-            "name": "hero",
-            "description": "",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "File",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "excerpt",
             "description": "",
             "args": [],
@@ -8875,12 +8863,12 @@
             "deprecationReason": null
           },
           {
-            "name": "secret",
+            "name": "hero",
             "description": "",
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
+              "kind": "OBJECT",
+              "name": "File",
               "ofType": null
             },
             "isDeprecated": false,
@@ -8910,6 +8898,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "secret",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -10595,6 +10595,12 @@
             "deprecationReason": null
           },
           {
+            "name": "childMdx___frontmatter___excerpt",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "childMdx___frontmatter___hero___sourceInstanceName",
             "description": "",
             "isDeprecated": false,
@@ -10811,18 +10817,6 @@
             "deprecationReason": null
           },
           {
-            "name": "childMdx___frontmatter___excerpt",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "childMdx___frontmatter___secret",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
@@ -10830,6 +10824,12 @@
           },
           {
             "name": "childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -17983,6 +17983,12 @@
             "deprecationReason": null
           },
           {
+            "name": "frontmatter___excerpt",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "frontmatter___hero___sourceInstanceName",
             "description": "",
             "isDeprecated": false,
@@ -18385,18 +18391,6 @@
             "deprecationReason": null
           },
           {
-            "name": "frontmatter___excerpt",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "frontmatter___secret",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
@@ -18404,6 +18398,12 @@
           },
           {
             "name": "frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -20792,12 +20792,6 @@
             "deprecationReason": null
           },
           {
-            "name": "hero___childMdx___frontmatter___secret",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "hero___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
@@ -20805,6 +20799,12 @@
           },
           {
             "name": "hero___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hero___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -23996,12 +23996,6 @@
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___secret",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "avatar___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
@@ -24009,6 +24003,12 @@
           },
           {
             "name": "avatar___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatar___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -26331,12 +26331,6 @@
             "deprecationReason": null
           },
           {
-            "name": "avatar___childMdx___frontmatter___secret",
-            "description": "",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "avatar___childMdx___frontmatter___heroRef",
             "description": "",
             "isDeprecated": false,
@@ -26344,6 +26338,12 @@
           },
           {
             "name": "avatar___childMdx___frontmatter___tags",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatar___childMdx___frontmatter___secret",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null

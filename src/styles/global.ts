@@ -68,6 +68,7 @@ export const globalStyles = css`
   svg,
   video {
     vertical-align: middle;
+    align-self: center;
   }
 
   input,

@@ -71,7 +71,7 @@ function ArticelShare() {
 
         // We want to not show the menu float in code blocks
         const codeBlocks = Array.from(
-          article.getElementsByClassName('.prism-code')
+          article.getElementsByClassName('prism-code')
         );
         const isHighlightedInCodeBlock = codeBlocks.some(block =>
           window.getSelection().containsNode(block, true)

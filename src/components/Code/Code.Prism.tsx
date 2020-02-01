@@ -52,7 +52,7 @@ function CodePrism({ codeString, language, metastring /* , ...props */ }) {
     <Highlight {...defaultProps} code={codeString} language={lang}>
       {({ className, tokens, getLineProps, getTokenProps }) => {
         return (
-          <div style={{ overflowX: 'scroll' }}>
+          <RootContainer>
             <pre className={className} style={{ position: 'relative' }}>
               <LanguageWrapper>{language}</LanguageWrapper>
               <Copy toCopy={codeString} />
@@ -85,7 +85,7 @@ function CodePrism({ codeString, language, metastring /* , ...props */ }) {
                 );
               })}
             </pre>
-          </div>
+          </RootContainer>
         );
       }}
     </Highlight>
@@ -139,6 +139,13 @@ const backgroundMap = {
   mdx: '#f9ac00',
   graphql: '#E10098',
 };
+
+const RootContainer = styled.div`
+  overflow: auto;
+  ${mediaqueries.phablet`
+    overflow-x: scroll;
+  `}
+`;
 
 const LanguageWrapper = styled.div`
   position: absolute;

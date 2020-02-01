@@ -23,7 +23,7 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
   return (
     <AuthorLink as={authors[0].authorsPage ? Link : 'div'} to={authors[0].slug}>
       <AuthorAvatar>
-        <Image src={authors[0].avatar.small} />
+        <RoundedImage src={authors[0].avatar.small} />
       </AuthorAvatar>
       <strong>{authors[0].name}</strong>
       <HideOnMobile>,&nbsp;</HideOnMobile>
@@ -62,7 +62,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
       <CoAuthorsList style={listWidth}>
         {authors.map((author, index) => (
           <CoAuthorAvatar style={{ left: `${index * 15}px` }} key={author.name}>
-            <Image src={author.avatar.small} />
+            <RoundedImage src={author.avatar.small} />
           </CoAuthorAvatar>
         ))}
       </CoAuthorsList>
@@ -84,7 +84,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
                   to={author.slug}
                 >
                   <CoAuthorAvatarOpen>
-                    <Image src={author.avatar.small} />
+                    <RoundedImage src={author.avatar.small} />
                   </CoAuthorAvatarOpen>
                   <AuthorNameOpen>{author.name}</AuthorNameOpen>
                 </AuthorLink>
@@ -112,6 +112,10 @@ const AuthorAvatar = styled.div`
   ${mediaqueries.phablet`
     display: none;
   `}
+`;
+
+const RoundedImage = styled(Image)`
+  border-radius: 50%;
 `;
 
 const AuthorLink = styled.div`

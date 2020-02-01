@@ -15,7 +15,7 @@ const AuthorHero = ({ author }: AuthorHeroProps) => {
   return (
     <Hero>
       <HeroImage>
-        <Image src={author.avatar.large} />
+        <RoundedImage src={author.avatar.large} />
       </HeroImage>
       <Heading>{author.name}</Heading>
       <Subheading>{author.bio}</Subheading>
@@ -27,6 +27,10 @@ const AuthorHero = ({ author }: AuthorHeroProps) => {
 };
 
 export default AuthorHero;
+
+const RoundedImage = styled(Image)`
+  border-radius: 50%;
+`;
 
 const Hero = styled.div`
   position: relative;

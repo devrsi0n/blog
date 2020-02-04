@@ -1,7 +1,7 @@
 ---
 title: ⚛️ 从零开始构建 React
 author: devrsi0n
-date: 2020-02-01
+date: 2020-02-04
 excerpt: 不依赖任何第三方包，从零开始动手造 React
 hero: ./images/hero.jpeg
 heroRef: <a href="https://zh.ifixit.com/Guide/MacBook+Pro+16-Inch+2019+%E6%8B%86%E8%A7%A3/128106">ifix</a>
@@ -42,7 +42,7 @@ ReactDOM.render(element, container);
 
 ## JSX
 
-熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 JSX。JSX 本质上还是 JS 而不是 html 模版，一般需要 `babel` 转换成调用 `React.createElement`，函数入参如下：
+熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 JSX。JSX 本质上还是 JS，是语法糖而不是 html 模版，一般需要 [babel](https://babeljs.io/) 转换成调用 `React.createElement`，函数入参如下：
 
 ```js
 React.createElement(
@@ -111,6 +111,12 @@ container.appendChild(node);
 然后创建 children 节点，由于 children 是字符串，故创建 `textNode` 节点，并把字符串赋值给 `nodeValue`，这里之所以用 `createTextNode` 而不是 `innerText`，是为了方便之后统一处理。
 
 再把 children 节点 text 插到元素节点的子节点上，最后把元素节点插到根结点即完成了这次 React 的替换。
+
+<Message>
+
+像上面代码 `element` 这样 JSX 转成的描述 UI 界面的对象就是所谓的 **虚拟 DOM**，相对的 `node` 即 **真实 DOM**。`render/渲染` 过程就是把虚拟 DOM 转换成真实 DOM 的过程。
+
+</Message>
 
 ---
 
@@ -250,7 +256,7 @@ function render(element, container) {
 }
 ```
 
-上面的代码放在了 CodeSandbox（在线开发环境），试一试改下面的代码验证下。
+上面的代码放在了 CodeSandbox（在线开发环境），项目基于 [Create React App](https://create-react-app.dev/docs/getting-started/) 模版，试一试改下面的代码验证下。
 
 <iframe
   src="https://codesandbox.io/embed/adoring-lewin-93gyy?fontsize=14&hidenavigation=1&theme=dark"
@@ -358,6 +364,8 @@ Redact.render(
 如果父节点没有兄弟节点，则继续往上找，直到找到一个兄弟节点或者到达 fiber 根结点。到达根结点即意味本次 `render` 任务全部完成。
 
 把这个思路用代码表达如下：
+
+*提示：代码差异部分左边框有高亮，下同*
 
 ```js {2-16,19-24,39-86}
 // 之前 render 的逻辑挪到这个函数
@@ -1027,10 +1035,6 @@ function useState(initial) {
 - Redact 如果在渲染阶段收到新的更新会直接丢弃已渲染的树，再从头开始渲染。而 React 会用时间戳标记每次更新，以决定更新的优先级。
 - 源码还有很多优化等待读者去发现。。。
 
-还有很多很容易的功能读者可以尝试自己实现：
-
-- useEffect hook
-
 ---
 
 # 参考
@@ -1038,3 +1042,5 @@ function useState(initial) {
 征得原作者同意，本文参考了 [build-your-own-react](https://pomb.us/build-your-own-react/) 部分内容，推荐英文水平不错读者直接在桌面端阅读原文以获得最佳阅读体验。
 
 - [build your own react](https://pomb.us/build-your-own-react/)
+- [wtf is jsx](https://jasonformat.com/wtf-is-jsx/)
+- [gooact react in 160 lines of javascript](https://medium.com/@sweetpalma/gooact-react-in-160-lines-of-javascript-44e0742ad60f)

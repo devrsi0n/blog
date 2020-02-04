@@ -144,7 +144,7 @@ const PrismCSS = p => css`
     margin: 0 auto;
     padding: 46px 32px 32px 32px;
     font-size: 14px;
-    margin: 15px auto 50px;
+    margin: 15px auto 25px;
     border-radius: 5px;
     font-family: ${p.theme.fonts.monospace};
     background: ${p.theme.colors.prism.background};

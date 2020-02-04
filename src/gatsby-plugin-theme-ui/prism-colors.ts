@@ -39,7 +39,7 @@ export const light = {
   comment: `#6a737d`,
   string: `#032f62`,
   var: `#005cc5`,
-  number: `#cccccc`,
+  number: `#22863a`,
   constant: `#005cc5`,
   plain: `#032f62`,
   doctype: `#e8696b`,

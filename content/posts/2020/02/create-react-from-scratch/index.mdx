@@ -1,5 +1,5 @@
 ---
-title: "Re: 从零开始的 React 再造之旅 ⚛️"
+title: "⚛️ Re: 从零开始的 React 再造之旅"
 author: devrsi0n
 date: 2020-02-04
 excerpt: 不依赖任何第三方包，从零开始动手造 React
@@ -10,7 +10,7 @@ tags: ['react', 'frontend', 'JavaScript']
 
 React 是目前最流行的前端框架，很多读者用 React 很溜，但想要深入学习 React 的原理就会被官方源码仓库浩瀚如烟的代码绕的晕头转向。今天我们通过不依赖任何第三方库的方式，抛弃边界处理、性能优化、安全性等弱相关代码手写一个基础版的 React，供大家学习和理解 React 的核心原理。
 
-![](./images/feynman.png)
+![feynman](./images/feynman.png)
 
 本文实现的是包含现代 React 最新特性 [Hooks](https://reactjs.org/docs/hooks-intro.html) 和 [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) 的版本，传统 class 组件的方式稍有不同，不影响理解核心原理。本文函数、变量等标识符命名都和官方尽量贴近，方便以后深入官方源码。
 
@@ -42,7 +42,7 @@ ReactDOM.render(element, container);
 
 ## JSX
 
-熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 JSX。JSX 本质上还是 JS，是语法糖而不是 html 模版，一般需要 [babel](https://babeljs.io/) 转换成调用 `React.createElement`，函数入参如下：
+熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。JSX 本质上还是 JS，是语法糖而不是 html 模版（相比 html 模版要学习千奇百怪的语法比如：`{{#if value}}`，JSX 可以直接使用 JS 原生的 `&& || map reduce` 等语法更易学表达能力也更强），一般需要 [babel](https://babeljs.io/) 配合相应插件转换成调用 `React.createElement`，函数入参如下：
 
 ```js
 React.createElement(

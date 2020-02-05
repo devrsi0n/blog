@@ -42,7 +42,7 @@ ReactDOM.render(element, container);
 
 ## JSX
 
-熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。JSX 本质上还是 JS，是语法糖而不是 html 模版（相比 html 模版要学习千奇百怪的语法比如：`{{#if value}}`，JSX 可以直接使用 JS 原生的 `&& || map reduce` 等语法更易学表达能力也更强），一般需要 [babel](https://babeljs.io/) 配合相应插件转换成调用 `React.createElement`，函数入参如下：
+熟悉 React 的同学都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。JSX 本质上还是 JS，是语法糖而不是 html 模版（相比 html 模版要学习千奇百怪的语法比如：`{{#if value}}`，JSX 可以直接使用 JS 原生的 `&& || map reduce` 等语法更易学表达能力也更强）。一般需要 [babel](https://babeljs.io/) 配合[@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) 插件（babel 转换过程不是本文重点，感兴趣可以阅读[插件源码](https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-react-jsx/README.md#babelplugin-transform-react-jsx)）转换成调用 `React.createElement`，函数入参如下：
 
 ```js
 React.createElement(

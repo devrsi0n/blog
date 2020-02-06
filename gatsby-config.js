@@ -160,7 +160,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-offline`,
+      resolve: `gatsby-plugin-remove-serviceworker`,
       options: {
         // precachePages: [`/about-us/`, `/projects/*`],
       },

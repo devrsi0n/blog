@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { fonts } from '../gatsby-plugin-theme-ui';
 
-export const globalStyles = css`
+export const globalStyles = theme => css`
   /**
    * Thanks to Benjamin De Cock
    * https://gist.github.com/bendc/ac03faac0bf2aee25b49e5fd260a727d
@@ -15,10 +15,9 @@ export const globalStyles = css`
     --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  @font-face {
-    font-family: ${fonts.sansSerif};
-    font-weight: 400;
-    font-style: normal;
+  ::selection {
+    background: ${theme.colors.accent};
+    color: ${theme.colors.background};
   }
 
   *,

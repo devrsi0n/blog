@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
+import { stringify } from 'query-string';
 
 import toast from '@components/Toast';
 import Icons from '@components/Icons';
@@ -17,10 +18,14 @@ import {
 function generateShare(shareText: string) {
   if (!shareText) return {};
   const url = window.location.href;
+  const weiboParams = {
+    title: shareText,
+    url: window.location.href,
+  };
 
   return {
     twitter: `https://twitter.com/intent/tweet?text="${shareText}" — ${url}`,
-    linkedin: `http://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${shareText}&title=${shareText}`,
+    weibo: `//service.weibo.com/share/share.php?${stringify(weiboParams)}`,
   };
 }
 
@@ -34,7 +39,7 @@ interface MenuFloatState {
  * Values we get to be able to ensure the positionting context are correct!
  * Padding is derviced from the CSS value in Editor
  */
-const MENU_WIDTH = 245;
+const MENU_WIDTH = 255;
 const MENU_HEIGHT = 46;
 
 function ArticelShare() {
@@ -184,8 +189,8 @@ function ArticelShare() {
       <ReferralLink disabled={!canTweet} share={share.twitter}>
         <Icons.Twitter width="18px" height="15px" />
       </ReferralLink>
-      <ReferralLink disabled={false} share={share.linkedin}>
-        <Icons.LinkedIn width="16px" height="16px" />
+      <ReferralLink disabled={false} share={share.weibo}>
+        <Icons.Weibo width="20px" height="20px" />
       </ReferralLink>
       <MenuDivider />
       <MenuButton onClick={handleCopyClick} aria-label="Copy selected text">

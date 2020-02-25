@@ -5639,7 +5639,7 @@ export type SeoSiteQuery = (
           & Pick<SiteSiteMetadata, 'name' | 'description' | 'siteUrl' | 'title'>
           & { social: Maybe<Array<Maybe<(
             { __typename?: 'SiteSiteMetadataSocial' }
-            & Pick<SiteSiteMetadataSocial, 'url'>
+            & Pick<SiteSiteMetadataSocial, 'url' | 'name'>
           )>>> }
         )> }
       ) }

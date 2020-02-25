@@ -30,6 +30,8 @@ I made some improvements to make this blog even better.
 - Copied toast
 - Fix `inlineCode` block highlight
 - Fix initial color mode
+- Selected text highlight
+- Weibo share
 
 ## 🚧 Working in progress
 

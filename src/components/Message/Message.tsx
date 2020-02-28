@@ -20,14 +20,15 @@ export default function Message(props: AnchorProps) {
         // paddingLeft: 2,
         borderLeftWidth: t => t.space[2],
         borderLeftStyle: 'solid',
-        borderRadius: 'default',
+        borderRadius: 'sm',
+        fontStyle: 'italic',
 
         m: '0 auto 16px auto',
         width: '100%',
         maxWidth: '744px',
 
         borderLeftColor: 'accent',
-        bg: 'highlight',
+        bg: 'background',
       }}
     >
       {children}

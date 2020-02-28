@@ -189,7 +189,7 @@ function ArticelShare() {
       <ReferralLink disabled={!canTweet} share={share.twitter}>
         <Icons.Twitter width="18px" height="15px" />
       </ReferralLink>
-      <ReferralLink disabled={false} share={share.weibo}>
+      <ReferralLink disabled={!canTweet} share={share.weibo}>
         <Icons.Weibo width="20px" height="20px" />
       </ReferralLink>
       <MenuDivider />

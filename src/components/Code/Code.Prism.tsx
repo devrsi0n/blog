@@ -128,18 +128,6 @@ function Copy({ toCopy }: { toCopy: string }) {
   );
 }
 
-const backgroundMap = {
-  css: '#ff9800',
-  js: '#f7df1e',
-  jsx: '#61dafb',
-  html: '#005A9C',
-  yaml: '#ffa8df',
-  json: 'linen',
-  diff: '#e6ffed',
-  mdx: '#f9ac00',
-  graphql: '#E10098',
-};
-
 const RootContainer = styled.div`
   overflow: auto;
   ${mediaqueries.phablet`
@@ -154,12 +142,12 @@ const LanguageWrapper = styled.div`
   padding: 5px 10px;
   font-size: 13px;
   text-align: right;
-  color: #111216;
+  color: ${p => p.theme.colors.text};
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   border-radius: 0 0 5px 5px;
-  background: ${p => backgroundMap[`${p.children}`.toLowerCase()] || '#ddd'};
+  background: ${p => p.theme.colors.highlight};
   box-shadow: 0 1px 5px rgba(255, 255, 255, 0.35);
 `;
 

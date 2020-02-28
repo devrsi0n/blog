@@ -44,7 +44,7 @@ const colors = {
       accent: accent.dark,
       background: 'rgba(17, 18, 22, 0.95)',
       muted: 'hsl(10, 20%, 94%)',
-      highlight: transparentize(0.85, lighten(0.1, accent.dark)),
+      highlight: lighten(0.1, accent.dark),
       purple: 'hsl(250, 60%, 30%)',
       gray: '#666',
 

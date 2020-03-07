@@ -50,6 +50,10 @@ export const globalStyles = theme => css`
     scroll-behavior: smooth;
   }
 
+  article {
+    word-break: break-word;
+  }
+
   button,
   a {
     text-decoration: none;

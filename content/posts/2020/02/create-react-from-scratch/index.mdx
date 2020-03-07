@@ -192,7 +192,8 @@ const element = Redact.createElement(
   Redact.createElement("b")
 );
 const container = document.getElementById("root");
-ReactDOM.render(element, container);
+// 后面实现 render 方法
+RedactDOM.render(element, container);
 ```
 
 但是我们还是习惯用 JSX 来写组件，这里还能用吗？答案是能的，只需要加一行注释即可。
@@ -206,10 +207,10 @@ const element = (
   </div>
 );
 const container = document.getElementById("root");
-ReactDOM.render(element, container);
+RedactDOM.render(element, container);
 ```
 
-注意第一行注释 `@jsx` 告诉 babel 用 `Redact.createElement` 替换默认的 `React.createElement`。或者直接修改 `.babelrc` 配置文件的 `pragma` 项，就不用每次都添加注释了。
+注意第一行注释 `@jsx` 告诉 babel 用 `Redact.createElement` 替换默认的 `React.createElement`。或者直接修改 `.babelrc` 配置文件的 `pragma` 项，就不用每个 JSX 文件都添加注释了。
 
 ```json
 {
@@ -256,7 +257,7 @@ function render(element, container) {
 }
 ```
 
-上面的代码放在了 CodeSandbox（在线开发环境），项目基于 [Create React App](https://create-react-app.dev/docs/getting-started/) 模版，试一试改下面的代码验证下。
+上面的代码放在了 CodeSandbox（在线开发环境），项目基于 [Create React App](https://create-react-app.dev/docs/getting-started/) 脚手架，试一试改下面的 JSX 代码验证下。
 
 <iframe
   src="https://codesandbox.io/embed/adoring-lewin-93gyy?fontsize=14&hidenavigation=1&theme=dark"
@@ -274,13 +275,13 @@ function render(element, container) {
 
 可能读者会疑惑我们目前连最基本的组件状态更新都还没实现就先实现并发模式，其实目前代码逻辑还十分简单，现在重构，比之后实现所有功能再回头要容易很多，所谓积重难返就是这个道理。
 
-有经验的开发者很容易发现上面的 `render` 代码有一个问题，渲染子节点时递归遍历了整棵树，当我们页面非常复杂时很容易阻塞主线程（和 stack over flow, 堆栈溢出），我们都知道每个页面是单线程的（不考虑 worker 线程），主线程阻塞会导致页面不能及时响应高优先级操作，如用户点击或者渲染动画，页面给用户 “很卡，难用” 的负面印象，这肯定不是我们想要的。
+有经验的开发者很容易发现上面的 `render` 代码有一个问题，渲染子节点时递归遍历了整棵树，当页面非常复杂时很容易阻塞主线程，我们都知道每个页面是单线程的（不考虑 worker 线程），主线程阻塞会导致页面不能及时响应高优先级操作，如用户点击事件或者渲染动画，页面给用户 “很卡，难用” 的负面印象，这肯定不是我们想要的。
 
 因此，理想情况下，我们应该把 `render` 拆成更细分的单元，每完成一个单元的工作，允许浏览器打断渲染响应更高优先级的的工作，这个过程即 “并发模式”。
 
 这里我们用 [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) 这个浏览器 API 来实现。这个 API 有点类似 `setTimeout`，不过不是我们告诉浏览器什么时候执行回调函数，而是浏览器在线程空闲（idle）的时侯主动执行回调函数。
 
-React 目前已经[不用这个 API](https://github.com/facebook/react/issues/11171#issuecomment-417349573) 了，而是用 [调度器/scheduler](https://github.com/facebook/react/tree/master/packages/scheduler) 这个包，自己实现调度算法。但它们核心思路是类似的，简化起见用 requestIdleCallback 足矣。
+React 目前已经[不用这个 API](https://github.com/facebook/react/issues/11171#issuecomment-417349573) 了，而是自己实现调度算法 [调度器/scheduler](https://github.com/facebook/react/tree/master/packages/scheduler)。但它们核心思路是类似的，简化起见用 requestIdleCallback 足矣。
 
 ```js
 let nextUnitOfWork = null
@@ -305,6 +306,8 @@ function performUnitOfWork(nextUnitOfWork) {
   // TODO
 }
 ```
+
+这就是我们简易并发模式的实现，渲染任务拆分为多个任务单元交给 `performUnitOfWork` 执行，具体怎么拆分任务？答案是 “Fibers”。
 
 # IV: Fibers 数据结构
 
@@ -361,13 +364,13 @@ Redact.render(
   <img src="./images/fiber4.png"></img>
 </div>
 
-如果父节点没有兄弟节点，则继续往上找，直到找到一个兄弟节点或者到达 fiber 根结点。到达根结点即意味本次 `render` 任务全部完成。
+如果父节点没有兄弟节点，则继续往上找，直到找到一个兄弟节点或者到达 fiber 根结点。到达根结点即意味本次 `render` 任务全部完成。学过算法的同学对这个过程肯定很熟悉，这是典型的深度优先搜索遍历（DFS/depth first search）。
 
 把这个思路用代码表达如下：
 
 *提示：代码差异部分左边框有高亮，下同*
 
-```js {2-16,19-24,39-86}
+```js {2-16,19-24,41-89}
 // 之前 render 的逻辑挪到这个函数
 function createDom(fiber) {
   const dom =
@@ -403,8 +406,10 @@ function workLoop(deadline) {
   }
   requestIdleCallback(workLoop);
 }
+
 // 一旦浏览器空闲，就触发执行单元任务
 requestIdleCallback(workLoop);
+
 function performUnitOfWork(fiber) {
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
@@ -415,7 +420,7 @@ function performUnitOfWork(fiber) {
     fiber.parent.dom.appendChild(fiber.dom);
   }
 
-  // 每个子元素创建新的 fiber
+  // 为每个子元素创建新的 fiber
   const elements = fiber.props.children;
   let index = 0;
   let prevSibling = null;
@@ -454,6 +459,7 @@ function performUnitOfWork(fiber) {
     }
     nextFiber = nextFiber.parent;
   }
+  return null;
 }
 ```
 
@@ -533,6 +539,7 @@ function workLoop(deadline) {
   }
   requestIdleCallback(workLoop);
 }
+
 ​// 一旦浏览器空闲，就触发执行单元任务
 requestIdleCallback(workLoop);
 
@@ -803,7 +810,7 @@ function reconcileChildren(wipFiber, elements) {
 
 </Message>
 
-下面 CodeSandbox 代码用了个小技巧，重复执行 `render` 实现更新界面的效果，动手改改试试。
+下面 CodeSandbox 代码用了个小技巧，重复执行 `render` 实现更新界面的效果，输入几个字试试看效果。
 
 <iframe
   src="https://codesandbox.io/embed/redact-1-dovfc?fontsize=14&hidenavigation=1&theme=dark"
@@ -949,7 +956,7 @@ Redact.render(element, container);
 ```js
 // 新增变量，渲染进行中的 fiber 节点
 let wipFiber = null;
-// 新增变量，当前 hook 的索引
+// 新增变量，当前 hook 的索引，以支持同一个函数组件多次调用 useState
 let hookIndex = null;
 
 function updateFunctionComponent(fiber) {
@@ -957,7 +964,7 @@ function updateFunctionComponent(fiber) {
   wipFiber = fiber;
   // 重置 hook 索引
   hookIndex = 0;
-  // 新增 hooks 数组以支持同一个组件多次调用 `useState`
+  // 新增 hooks 数组以支持同一个组件多次调用 useState
   wipFiber.hooks = [];
   const children = [fiber.type(fiber.props)];
   reconcileChildren(fiber, children);

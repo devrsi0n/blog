@@ -14,7 +14,7 @@ React 是目前最流行的前端框架，很多读者用 React 很溜，但想�
 
 本文实现的是包含现代 React 最新特性 [Hooks](https://reactjs.org/docs/hooks-intro.html) 和 [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) 的版本，传统 class 组件的方式稍有不同，不影响理解核心原理。本文函数、变量等标识符命名都和官方尽量贴近，方便以后深入官方源码。
 
-建议桌面端浏览本文，并且跟着文章手动敲一遍代码加深理解。
+建议桌面端浏览本文，并且跟着文章手动敲一遍代码加深理解。每完成一个完整功能最后都会有对应的完整代码放在 [CodeSandbox（在线开发环境）](https://codesandbox.io/)，如果对代码有疑问，可以先查看完整代码，打断点调试下。
 
 **目录总览**
 
@@ -287,19 +287,19 @@ React 目前已经[不用这个 API](https://github.com/facebook/react/issues/11
 let nextUnitOfWork = null
 ​
 function workLoop(deadline) {
-  let shouldYield = false
+  let shouldYield = false;
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(
       nextUnitOfWork
-    )
+    );
     // 回调函数入参 deadline 可以告诉我们在这个渲染周期还剩多少时间可用
     // 剩余时间小于1毫秒就退出回调，等待浏览器再次空闲
-    shouldYield = deadline.timeRemaining() < 1
+    shouldYield = deadline.timeRemaining() < 1;
   }
-  requestIdleCallback(workLoop)
+  requestIdleCallback(workLoop);
 }
 ​
-requestIdleCallback(workLoop)
+requestIdleCallback(workLoop);
 ​
 // 注意，这个函数执行完本次单元任务之后要返回下一个单元任务
 function performUnitOfWork(nextUnitOfWork) {
@@ -478,16 +478,16 @@ function createDom(fiber) {
   const dom =
     fiber.type == "TEXT_ELEMENT"
       ? document.createTextNode("")
-      : document.createElement(fiber.type)
+      : document.createElement(fiber.type);
 ​
-  const isProperty = key => key !== "children"
+  const isProperty = key => key !== "children";
   Object.keys(fiber.props)
     .filter(isProperty)
     .forEach(name => {
-      dom[name] = fiber.props[name]
-    })
+      dom[name] = fiber.props[name];
+    });
 ​
-  return dom
+  return dom;
 }
 
 // 新增函数，提交根结点到 DOM
@@ -573,7 +573,7 @@ function performUnitOfWork(fiber) {
   }
 
   if (fiber.child) {
-    return fiber.child
+    return fiber.child;
   }
 
   let nextFiber = fiber;
@@ -841,7 +841,7 @@ function App(props) {
     null,
     "Hi ",
     props.name
-  )
+  );
 }
 
 const element = <App name="foo" />;

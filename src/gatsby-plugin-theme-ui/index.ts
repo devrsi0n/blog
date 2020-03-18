@@ -1,6 +1,6 @@
 // import deepTheme from '@theme-ui/preset-deep';
 import prismPreset from '@theme-ui/prism/presets/theme-ui';
-import { lighten, transparentize } from 'polished';
+import { lighten } from 'polished';
 
 // TODO: refactor
 import * as PrismColors from './prism-colors';
@@ -115,7 +115,8 @@ const colorModeTransition =
 const theme = {
   // ...deepTheme,
 
-  initialColorMode: 'system',
+  // or dark
+  // initialColorModeName: 'default',
   colorModeTransition,
   // color, background-color, border-color
   colors,

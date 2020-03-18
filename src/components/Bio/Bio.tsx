@@ -13,6 +13,7 @@ function Bio({ author }: BioProps) {
   return (
     <BioContainer>
       <BioAvatar
+        // https://github.com/emotion-js/emotion/issues/1434
         as={author.authorsPage ? Link : 'div'}
         to={author.slug}
         data-a11y="false"

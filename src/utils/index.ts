@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 
-import theme from '../gatsby-plugin-theme-ui';
+import { breakpoints } from '../gatsby-plugin-theme-ui';
 
 /**
  * Clamp a number between min and max
@@ -68,7 +68,7 @@ export const debounce = (fn: () => void, time = 100) => {
  *    getBreakpointFromTheme('tablet') 768
  */
 export function getBreakpointFromTheme(name: string) {
-  const foundBreakpoint = theme.breakpoints.find(([label]) => label === name);
+  const foundBreakpoint = breakpoints.find(([label]) => label === name);
   return foundBreakpoint && foundBreakpoint[1];
 }
 
@@ -276,7 +276,7 @@ export const getSelectionDimensions = () => {
   }
 
   const doc: Document = window.document;
-  let sel = doc.selection;
+  let sel: Selection = doc.selection;
   let selRange;
 
   let width = 0;
@@ -284,7 +284,7 @@ export const getSelectionDimensions = () => {
 
   if (sel) {
     if (sel.type !== 'Control') {
-      selRange = sel.createRange();
+      selRange = (sel as any).createRange();
       width = selRange.boundingWidth;
       height = selRange.boundingHeight;
     }
@@ -308,7 +308,7 @@ export function getSelectionText() {
   if (window.getSelection) {
     text = window.getSelection().toString();
   } else if (document.selection && document.selection.type !== 'Control') {
-    text = document.selection.createRange().text;
+    text = (document.selection as any).createRange().text;
   }
   return text;
 }

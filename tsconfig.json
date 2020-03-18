@@ -6,8 +6,9 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    // "importHelpers": true,
-    "target": "ES5",
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "target": "es6",
     "moduleResolution": "node",
     "jsx": "react",
     "pretty": true,
@@ -30,11 +31,15 @@
       "@utils/*": ["utils/*"],
       "@utils": ["utils/index"]
     },
-    // "types": ["node"],
-    "typeRoots": ["./src/types", "**/node_modules/@types"],
     "outDir": "./lib"
   },
-  // "include": ["./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.js"],
-  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.js"],
-  "exclude": ["node_modules", "**/node_modules/*", "lib", "public", ".cache"]
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "lib",
+    "public",
+    ".cache",
+    "gatsby/**"
+  ]
 }

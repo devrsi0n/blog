@@ -13,7 +13,6 @@
   ],
   "license": "MIT",
   "main": "n/a",
-  "types": "./src/types/index.d.ts",
   "scripts": {
     "prestart": "gatsby clean",
     "dev": "gatsby develop -o",

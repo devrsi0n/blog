@@ -340,7 +340,7 @@ const MetaData = styled.div`
   `}
 `;
 
-const ArticleLink = styled<GatsbyLinkProps>(Link)`
+const ArticleLink = styled(Link)`
   position: relative;
   display: block;
   width: 100%;

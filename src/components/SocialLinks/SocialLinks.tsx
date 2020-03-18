@@ -6,8 +6,8 @@ import Icons from '@components/Icons';
 
 interface SocialLinksProps {
   links: {
-    name: string;
-    url: string;
+    name?: string;
+    url?: string;
   }[];
   fill?: string;
 }

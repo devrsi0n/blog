@@ -114,7 +114,7 @@ const Grid = styled.div<{ numberOfArticles: number }>`
   `}
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ narrow?: boolean }>`
   position: relative;
   height: 280px;
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, ${p => (p.narrow ? 0.22 : 0.3)}),
@@ -172,7 +172,7 @@ const Title = styled(Headings.h3)`
   `}
 `;
 
-const Excerpt = styled.p<{ narrow: boolean; hasOverflow: boolean }>`
+const Excerpt = styled.p<{ narrow?: boolean; hasOverflow?: boolean }>`
   ${limitToTwoLines};
   font-size: 16px;
   margin-bottom: 10px;

@@ -33,7 +33,7 @@ const mediaqueries = breakpoints.reduce(
       }
     `,
   }),
-  {}
+  {} as any
 );
 
 export const media = mediaqueries;

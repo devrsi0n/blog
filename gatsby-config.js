@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
+const moment = require('moment-timezone');
+
 const contentAuthors = 'content/authors';
 const contentPosts = 'content/posts';
 
 const analyze = process.env.ANALYZE;
 const isEnvDev = process.env.NODE_ENV === 'development';
 
-const moment = require('moment-timezone');
-const github = require('./github.json');
+const version = process.env.GATSBY_BUILD_VERSION;
 
 process.env.GATSBY_BUILD_TIMESTAMP = moment
   .tz(new Date(), 'Asia/Shanghai')
@@ -16,7 +17,7 @@ const local = true;
 const contentful = false;
 
 module.exports = {
-  assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${github.tag}`,
+  assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${version}`,
   siteMetadata: {
     title: `Devrsi0n's blog`,
     name: `devrsi0n`,

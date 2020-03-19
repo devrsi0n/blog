@@ -2,11 +2,8 @@
 const fetch = require('node-fetch');
 const semver = require('semver');
 const ghPages = require('gh-pages');
-const fs = require('fs');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
-
-const writeFile = promisify(fs.writeFile);
 
 const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
 
@@ -23,13 +20,14 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
   console.log({ latestTag, newTagVersion });
   const newTag = `v${newTagVersion}`;
 
-  await writeFile(
-    './github.json',
-    JSON.stringify({ tag: newTagVersion }, null, 2)
-  );
   try {
     await exec('npx gatsby clean');
-    await exec('npx gatsby build --prefix-paths');
+    await exec('npx gatsby build --prefix-paths', {
+      env: {
+        ...process.env,
+        GATSBY_BUILD_VERSION: newTagVersion,
+      },
+    });
   } catch (error) {
     console.error(error);
     process.exit(-1);

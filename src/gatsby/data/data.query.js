@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 // https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-transformer-sharp/src/fragments.js
 
 // const GatsbyFluid_withWebp = `
@@ -13,10 +11,12 @@
 // `;
 
 const GatsbyFluid = `
-  base64
   aspectRatio
   src
   srcSet
+  srcWebp
+  srcSetWebp
+  tracedSVG
   sizes
 `;
 
@@ -87,17 +87,17 @@ module.exports.local = {
           slug
           avatar {
             small: childImageSharp {
-              fluid(maxWidth: 50, quality: 100) {
+              fluid(maxWidth: 50, quality: 85) {
                 ${GatsbyFluid}
               }
             }
             medium: childImageSharp {
-              fluid(maxWidth: 100, quality: 100) {
+              fluid(maxWidth: 100, quality: 85) {
                 ${GatsbyFluid}
               }
             }
             large: childImageSharp {
-              fluid(maxWidth: 328, quality: 100) {
+              fluid(maxWidth: 328, quality: 85) {
                 ${GatsbyFluid}
               }
             }

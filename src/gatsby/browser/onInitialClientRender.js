@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-const { globalHistory } = require('@reach/router');
+import { globalHistory } from '@reach/router';
 
 function handleAccessibilityFocus() {
   const elementsWithA11yFocus = [...document.querySelectorAll('[data-a11y]')];
@@ -25,7 +23,7 @@ function handleAccessibilityFocus() {
   });
 }
 
-module.exports = () => {
+export default () => {
   localStorage.removeItem('previousPath');
 
   setTimeout(() => {

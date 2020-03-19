@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 import Section from '@components/Section';
 import Heading from '@components/Headings';
-import Layout from '@components/Layout';
 import mediaqueries from '@styles/media';
 
 function NotFound() {
@@ -13,25 +12,23 @@ function NotFound() {
   return (
     <>
       <div style={{ overflow: 'hidden' }}>
-        <Layout>
-          <Section>
-            <GridContainer>
-              <TextContainer>
-                <div />
-                <WelcomeHeader>
-                  抱歉，你似乎来到了未知的荒原，
-                  <TextLink isDark={isDark} to="/">
-                    回到首页
-                  </TextLink>
-                  .
-                </WelcomeHeader>
-              </TextContainer>
-              <ImageContainer>
-                <NotFoundIcon aria-hidden="true" />
-              </ImageContainer>
-            </GridContainer>
-          </Section>
-        </Layout>
+        <Section>
+          <GridContainer>
+            <TextContainer>
+              <div />
+              <WelcomeHeader>
+                抱歉，你似乎来到了未知的荒原，
+                <TextLink isDark={isDark} to="/">
+                  回到首页
+                </TextLink>
+                .
+              </WelcomeHeader>
+            </TextContainer>
+            <ImageContainer>
+              <NotFoundIcon aria-hidden="true" />
+            </ImageContainer>
+          </GridContainer>
+        </Section>
       </div>
     </>
   );

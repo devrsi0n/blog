@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import Layout from '@components/Layout';
 import MDXRenderer from '@components/MDX';
 import Progress from '@components/Progress';
 import Section from '@components/Section';
@@ -94,7 +93,7 @@ function Article({ pageContext, location }) {
   useUtteranc('utterancContainer');
 
   return (
-    <Layout>
+    <>
       <ArticleSEO article={article} authors={authors} location={location} />
       <ArticleHero article={article} authors={authors} />
       <ArticleAside contentHeight={contentHeight}>
@@ -125,7 +124,7 @@ function Article({ pageContext, location }) {
           <FooterSpacer />
         </NextArticle>
       )}
-    </Layout>
+    </>
   );
 }
 

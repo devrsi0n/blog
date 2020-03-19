@@ -9,6 +9,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'react/no-danger': 'off',
     'no-unused-vars': 'off',
-    'import/no-named-as-default-member': 'off'
+    'import/no-named-as-default-member': 'off',
+    'import/no-extraneous-dependencies': 'off'
   }
 };

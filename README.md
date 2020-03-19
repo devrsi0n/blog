@@ -22,7 +22,8 @@ I made some improvements to make this blog even better.
 
 - Comments widget by <https://utteranc.es>
 - Clean white code color theme
-- [PWA](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
+- [~~PWA~~](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
+- Page transition animation
 - Code language label
 - Page loading progress bar
 - Scroll to top or bottom
@@ -36,7 +37,8 @@ I made some improvements to make this blog even better.
 ## 🚧 Working in progress
 
 - Type safe, 100% TypeScript support
-  - Emotion styled theme types are not working, at least not work for me, [issue](https://github.com/emotion-js/emotion/issues/1320#issuecomment-523123548)，[emotion doc](https://emotion.sh/docs/typescript#define-a-theme).
+  - ~~Emotion styled theme types are not working, at least not work for me, [issue](https://github.com/emotion-js/emotion/issues/1320#issuecomment-523123548)，[emotion doc](https://emotion.sh/docs/typescript#define-a-theme).~~
+  - Emotion styled theme types are working, but other props such as `as` are not. [issue](https://github.com/emotion-js/emotion/issues/1434)
 - Refactor @emotion/styled to @theme-ui/components to fix type issue above and more
   formal specification
 - GraphQL type defines

@@ -1,3 +1,13 @@
-exports.onInitialClientRender = require('./src/gatsby/browser/onInitialClientRender');
-exports.onRouteUpdate = require('./src/gatsby/browser/onRouteUpdate');
-exports.shouldUpdateScroll = require('./src/gatsby/browser/shouldUpdateScroll');
+import React from 'react';
+import Layout from './src/components/Layout';
+import _onInitialClientRender from './src/gatsby/browser/onInitialClientRender';
+import _onRouteUpdate from './src/gatsby/browser/onRouteUpdate';
+import _shouldUpdateScroll from './src/gatsby/browser/shouldUpdateScroll';
+
+export const wrapPageElement = ({ element, props }) => {
+  return <Layout {...props}>{element}</Layout>;
+};
+
+export const onInitialClientRender = _onInitialClientRender;
+export const onRouteUpdate = _onRouteUpdate;
+export const shouldUpdateScroll = _shouldUpdateScroll;

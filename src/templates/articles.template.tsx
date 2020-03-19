@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import Section from '@components/Section';
 import SEO from '@components/SEO';
-import Layout from '@components/Layout';
 import Paginator from '@components/Navigation/Navigation.Paginator';
 
 import ArticlesHero from '../sections/articles/Articles.Hero';
@@ -14,7 +13,7 @@ function ArticlesPage({ location, pageContext }) {
   const { authors } = pageContext.additionalContext;
 
   return (
-    <Layout>
+    <>
       <SEO pathname={location.pathname} />
       <ArticlesHero authors={authors} />
       <Section narrow>
@@ -24,7 +23,7 @@ function ArticlesPage({ location, pageContext }) {
         </ArticlesPaginator>
       </Section>
       <ArticlesGradient />
-    </Layout>
+    </>
   );
 }
 

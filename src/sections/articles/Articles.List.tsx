@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { Link, GatsbyLinkProps } from 'gatsby';
+import { Link } from 'gatsby';
 
 import Headings from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';

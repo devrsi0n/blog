@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
-    "prestart": "gatsby clean",
+    "predev": "gatsby clean",
     "dev": "gatsby develop -o",
     "start": "concurrently \"yarn run dev\" \"delay 60 && yarn run codegen\"",
     "clean": "gatsby clean",
@@ -44,6 +44,7 @@
     "contentful-cli": "^0.36.2",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
+    "framer-motion": "^1.9.1",
     "gatsby": "^2.19.45",
     "gatsby-image": "^2.2.44",
     "gatsby-paginate": "^1.1.1",

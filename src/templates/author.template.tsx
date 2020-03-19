@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import Section from '@components/Section';
 import SEO from '@components/SEO';
-import Layout from '@components/Layout';
 import Paginator from '@components/Navigation/Navigation.Paginator';
 
 import AuthorHero from '../sections/author/Author.Hero';
@@ -14,7 +13,7 @@ function ArticlesPage({ location, pageContext }) {
   const articles = pageContext.group;
 
   return (
-    <Layout>
+    <>
       <SEO
         pathname={location.pathname}
         title={author.name}
@@ -28,7 +27,7 @@ function ArticlesPage({ location, pageContext }) {
         </AuthorPaginator>
       </Section>
       <AuthorsGradient />
-    </Layout>
+    </>
   );
 }
 

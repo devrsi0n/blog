@@ -21,7 +21,7 @@ function handleAccessibilityFocus() {
   });
 }
 
-module.exports = ({ prevLocation }) => {
+export default ({ prevLocation }) => {
   handleAccessibilityFocus();
 
   if (prevLocation) {

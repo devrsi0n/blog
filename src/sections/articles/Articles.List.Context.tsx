@@ -7,7 +7,7 @@ interface GridLayoutProviderProps {
 export const GridLayoutContext = createContext({
   gridLayout: 'tiles',
   hasSetGridLayout: false,
-  setGridLayout: (tile: string) => {},
+  setGridLayout: (_: string) => {},
   getGridLayout: () => {},
 });
 

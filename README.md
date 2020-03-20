@@ -24,6 +24,7 @@ I made some improvements to make this blog even better.
 - Clean white code color theme
 - [~~PWA~~](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
 - Page transition animation
+- Last updated date
 - Code language label
 - Page loading progress bar
 - Scroll to top or bottom

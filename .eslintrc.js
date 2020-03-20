@@ -7,6 +7,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     'react/no-danger': 'off',
     'no-unused-vars': 'off',
     'import/no-named-as-default-member': 'off',

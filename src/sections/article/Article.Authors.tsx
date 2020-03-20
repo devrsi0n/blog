@@ -25,8 +25,8 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
       <AuthorAvatar>
         <RoundedImage src={authors[0].avatar.small} />
       </AuthorAvatar>
-      <strong>{authors[0].name}</strong>
-      <HideOnMobile>,&nbsp;</HideOnMobile>
+      <strong>{authors[0].name}&nbsp;</strong>
+      <HideOnMobile>▴&nbsp;</HideOnMobile>
     </AuthorLink>
   );
 }

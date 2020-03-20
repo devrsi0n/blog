@@ -48,6 +48,7 @@ export interface IArticle {
   heroRef: string;
   timeToRead: number;
   date: string;
+  updatedAt: string;
   secret: boolean;
   dateForSEO: string;
 }

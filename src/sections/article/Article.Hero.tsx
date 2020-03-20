@@ -20,6 +20,8 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
     article.hero &&
     Object.keys(article.hero.full).length !== 0 &&
     article.hero.full.constructor === Object;
+  const updateAt = article.updatedAt.slice(0, 10);
+  const createAt = article.date;
   return (
     <Hero>
       <Header>
@@ -27,7 +29,17 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {article.date}
+            {compareDate(updateAt, createAt) ? (
+              <>
+                <span>更新于&nbsp;</span>
+                <time>{updateAt}</time>
+              </>
+            ) : (
+              <>
+                <span>发表于&nbsp;</span>
+                <time>{createAt}</time>
+              </>
+            )}
             {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </ArticleMeta>
         </HeroSubtitle>
@@ -50,6 +62,12 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
 };
 
 export default ArticleHero;
+
+function compareDate(updatedAt: string, date: string) {
+  const update = new Date(updatedAt);
+  const create = new Date(date);
+  return update.getTime() > create.getTime();
+}
 
 const HeroRefTxt = styled.p`
   color: ${p => p.theme.colors.gray};
@@ -156,7 +174,8 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   position: relative;
   display: flex;
   justify-content: center;
-  font-size: 18px;
+  align-items: center;
+  font-size: 16px;
   color: ${p => p.theme.colors.grey};
 
   ${p => mediaqueries.phablet`

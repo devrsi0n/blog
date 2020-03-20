@@ -52,12 +52,6 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [`gatsby-remark-copy-linked-files`],
-      },
-    },
     `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-filesystem`,

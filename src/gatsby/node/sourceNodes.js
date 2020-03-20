@@ -5,6 +5,7 @@ module.exports = ({ actions }) => {
       slug: String!
       title: String!
       date: Date! @dateformat
+      updatedAt: String!
       author: String!
       excerpt(pruneLength: Int = 140): String!
       body: String!

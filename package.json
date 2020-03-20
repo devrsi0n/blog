@@ -77,7 +77,6 @@
     "gatsby-remark-smartypants": "^2.1.23",
     "gatsby-remark-typescript": "^0.2.2",
     "gatsby-source-filesystem": "^2.1.56",
-    "gatsby-transformer-remark": "^2.6.59",
     "gatsby-transformer-sharp": "^2.3.19",
     "gatsby-transformer-yaml": "^2.2.27",
     "gh-pages": "^2.2.0",

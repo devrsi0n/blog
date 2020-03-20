@@ -36,9 +36,10 @@ module.exports.local = {
           author
           filePath
           date(
-            formatString: "YYYY年MM月DD日"
+            formatString: "YYYY-MM-DD"
             locale: "zh-CN"
           )
+          updatedAt
           dateForSEO: date
           timeToRead
           excerpt

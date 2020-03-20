@@ -2,10 +2,15 @@
 
 const crypto = require(`crypto`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
-module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
+module.exports = async (
+  { node, actions, getNode, createNodeId },
+  themeOptions
+) => {
   const { createNode, createNodeField, createParentChildLink } = actions;
   const contentPath = themeOptions.contentPath || 'content/posts';
   const basePath = themeOptions.basePath || '/';
@@ -94,6 +99,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       basePath: `content`,
       trailingSlash: false,
     });
+
     const fieldData = {
       author: node.frontmatter.author,
       date: node.frontmatter.date,
@@ -111,6 +117,13 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       heroRef: node.frontmatter.heroRef || '',
       filePath,
     };
+    // Read from git the most recent commit
+    const { stdout: updatedAt } = await exec(
+      `git log -1 --pretty=format:%cI -- ${node.fileAbsolutePath} | sort | tail -n 1`
+    );
+    if (updatedAt) {
+      fieldData.updatedAt = updatedAt.trim();
+    }
 
     createNode({
       ...fieldData,

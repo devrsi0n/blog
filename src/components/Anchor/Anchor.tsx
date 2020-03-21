@@ -35,17 +35,18 @@ interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export default function Anchor(props: AnchorProps) {
   const { children, showIcon = false, ...otherProps } = props;
-  const extraProps: AnchorHTMLAttributes<HTMLAnchorElement> = {};
+  const extraProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
+    rel: 'noopener noreferrer',
+  };
   if (props.href.startsWith('http') && typeof window !== 'undefined') {
     const url = new URL(props.href);
     const loc = window.location;
     // Open the url in new tab if it's not current domain url
     if (url.protocol !== loc.protocol || url.host !== loc.host) {
       extraProps.target = '_blank';
-      extraProps.rel = 'noopener noreferrer';
     }
   }
-  const anchorProps = { ...otherProps, ...extraProps };
+  const anchorProps = { ...extraProps, ...otherProps };
   return (
     <BaseAnchor {...anchorProps}>
       <ChildrenWrap>{children}</ChildrenWrap>

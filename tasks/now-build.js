@@ -21,13 +21,17 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
   const newTag = `v${newTagVersion}`;
 
   try {
-    await exec('npx gatsby clean');
-    await exec('npx gatsby build --prefix-paths', {
+    const clean = await exec('npx gatsby clean');
+    console.log(clean.stdout);
+    console.error(clean.stderr);
+    const build = await exec('npx gatsby build --prefix-paths', {
       env: {
         ...process.env,
         GATSBY_BUILD_VERSION: newTagVersion,
       },
     });
+    console.log(build.stdout);
+    console.error(build.stderr);
   } catch (error) {
     console.error(error);
     process.exit(-1);

@@ -29,7 +29,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {compareDate(updateAt, createAt) ? (
+            {compareDate(article.updatedAt, article.date) ? (
               <>
                 <span>更新于&nbsp;</span>
                 <time>{updateAt}</time>

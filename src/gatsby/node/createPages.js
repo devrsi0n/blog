@@ -135,7 +135,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     throw new Error(`
     You must have at least one Author and Post. As reference you can view the
     example repository. Look at the content folder in the example repo.
-    https://github.com/narative/gatsby-theme-novela-example
   `);
   }
 

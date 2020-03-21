@@ -1,9 +1,10 @@
 /* eslint-disable no-prototype-builtins */
 
+const path = require('path');
+
 const crypto = require(`crypto`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
-const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
+const postTimestamps = require('./postTimestamps.json');
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
@@ -117,13 +118,9 @@ module.exports = async (
       heroRef: node.frontmatter.heroRef || '',
       filePath,
     };
-    // Read from git the most recent commit
-    const { stdout: updatedAt } = await exec(
-      `git log -1 --pretty=format:%cI -- ${node.fileAbsolutePath} | sort | tail -n 1`
-    );
-    if (updatedAt) {
-      fieldData.updatedAt = updatedAt.trim();
-    }
+    const relativePath = path.relative(process.cwd(), node.fileAbsolutePath);
+    // https://github.com/saberland/saber/blob/master/packages/saber-plugin-git-modification-time/lib/index.js
+    fieldData.updatedAt = postTimestamps[relativePath].updatedAt || null;
 
     createNode({
       ...fieldData,

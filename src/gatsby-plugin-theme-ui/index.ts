@@ -11,7 +11,7 @@ const accent = {
 };
 
 const colors = {
-  text: 'hsl(10, 20%, 20%)', // body color
+  text: '#08080B', // body color
   background: '#fefefe', // body background color
   primary: '#000', // primary button and link color
   secondary: '#73737D', // secondary color - can be used for hover states
@@ -27,9 +27,11 @@ const colors = {
   grey: '#73737D',
   hover: 'rgba(0, 0, 0, 0.07)',
   gradient: 'linear-gradient(180deg, rgba(217, 219, 224, 0) 0%, #D9DBE0 100%)',
-  articleText: '#08080B',
   track: 'rgba(8, 8, 11, 0.3)',
-  progress: '#000',
+  progress: {
+    complete: '#000',
+    bg: '#B5B8B9',
+  },
   card: '#fff',
   error: '#EE565B',
   success: '#46B17B',
@@ -38,7 +40,7 @@ const colors = {
   inputBackground: 'rgba(0, 0, 0, 0.05)',
   modes: {
     dark: {
-      text: 'hsl(10, 20%, 20%)',
+      text: '#fff',
       primary: '#fff',
       secondary: '#fff',
       accent: accent.dark,
@@ -53,9 +55,11 @@ const colors = {
       hover: 'rgba(255, 255, 255, 0.07)',
       gradient:
         'linear-gradient(180deg, #111216 0%, rgba(66, 81, 98, 0.36) 100%)',
-      articleText: '#fff',
       track: 'rgba(255, 255, 255, 0.3)',
-      progress: '#fff',
+      progress: {
+        complete: '#fff',
+        bg: '#73737D',
+      },
       card: '#1D2128',
       error: '#EE565B',
       success: '#46B17B',

@@ -5,11 +5,47 @@ import throttle from 'lodash/throttle';
 import { clamp } from '@utils';
 
 export interface IProgress {
+  /**
+   * Article content DOM height
+   */
   contentHeight: number;
 }
 
+interface Heading {
+  text: string;
+  offset: number;
+  offsetPercentage: number;
+}
+
 function Progress({ contentHeight }: IProgress) {
+  const [headings, setHeadings] = useState<Heading[]>([]);
   const [progress, setProgress] = useState<number>(0);
+
+  useEffect(() => {
+    const introduction = {
+      text: '引言',
+      offset: 1000,
+      offsetPercentage: 0,
+    };
+    const articleHeadings = Array.from(
+      document.querySelectorAll('h2')
+    ).reverse();
+    const allHeadings = articleHeadings
+      .map(heading => {
+        const rect = heading.getBoundingClientRect();
+        const offset = rect.top + window.pageYOffset;
+        const text = heading.innerText;
+        const offsetPercentage = (heading.offsetTop / contentHeight) * 100;
+
+        return {
+          text,
+          offset,
+          offsetPercentage,
+        };
+      })
+      .reverse();
+    setHeadings([introduction, ...allHeadings]);
+  }, [contentHeight]);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -32,14 +68,66 @@ function Progress({ contentHeight }: IProgress) {
     <ProgressContainer tabIndex={-1}>
       <Introduction
         onClick={() => {
-          window.scrollTo(0, 0);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       >
         <Arrow />
       </Introduction>
-      <Trackline aria-hidden="true">
-        <ProgressLine style={{ transform: `translateY(${progress}%)` }} />
-      </Trackline>
+      <ProgressBar>
+        {headings.map((heading, index) => {
+          const previousOffset = headings[index - 1]
+            ? headings[index - 1].offsetPercentage
+            : 0;
+          const nextOffset = headings[index + 1]
+            ? headings[index + 1].offsetPercentage
+            : 100;
+
+          const start = progress - heading.offsetPercentage;
+          const multiplier = 100 / (nextOffset - heading.offsetPercentage);
+
+          const individualOffset = {
+            transform: `translateY(${start - 100}%)`,
+            height: `${100 * multiplier}%`,
+          };
+
+          const isActive =
+            progress > previousOffset &&
+            progress > heading.offsetPercentage &&
+            progress < nextOffset;
+
+          return (
+            <Frame key={heading.text}>
+              <Chapter
+                onClick={() =>
+                  window.scrollTo({
+                    top: heading.offset + 65,
+                    behavior: 'smooth',
+                  })
+                }
+              >
+                <ChapterProgress style={individualOffset} />
+              </Chapter>
+              <HeadingHover>
+                <Heading
+                  isActive={isActive}
+                  onClick={() =>
+                    window.scrollTo({
+                      top: heading.offset + 15,
+                      behavior: 'smooth',
+                    })
+                  }
+                >
+                  <Truncate>
+                    <HeadingBackground isActive={isActive}>
+                      {heading.text}
+                    </HeadingBackground>
+                  </Truncate>
+                </Heading>
+              </HeadingHover>
+            </Frame>
+          );
+        })}
+      </ProgressBar>
       <Introduction
         style={{
           top: 'unset',
@@ -47,7 +135,10 @@ function Progress({ contentHeight }: IProgress) {
           paddingBottom: '3px',
         }}
         onClick={() => {
-          window.scrollTo(0, document.body.scrollHeight - 1000);
+          window.scrollTo({
+            top: document.body.scrollHeight - 1000,
+            behavior: 'smooth',
+          });
         }}
       >
         <Arrow />
@@ -58,10 +149,114 @@ function Progress({ contentHeight }: IProgress) {
 
 export default Progress;
 
-const ProgressContainer = styled.div`
+const HeadingHover = styled.div`
+  opacity: 0;
+  transition: opacity 0.3s linear;
+`;
+
+const ProgressContainer = styled.div<{ hint?: boolean }>`
   position: relative;
   outline: none;
   user-select: none;
+
+  &:hover {
+    ${HeadingHover} {
+      opacity: 1;
+    }
+  }
+
+  ${p =>
+    p.hint &&
+    `
+    ${HeadingHover} {
+      opacity: 1;
+    }
+  `}
+`;
+
+const Frame = styled.div`
+  position: relative;
+  flex: 1;
+  padding-bottom: 5px;
+  outline: none;
+  user-select: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 20px;
+    left: -20px;
+    top: 0;
+  }
+`;
+
+const Chapter = styled.div`
+  position: relative;
+  height: 100%;
+  margin-bottom: 5px;
+  background-color: ${p => p.theme.colors.progress.bg};
+  overflow: hidden;
+`;
+
+const ChapterProgress = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: ${p => p.theme.colors.text};
+  top: 0;
+`;
+
+const Truncate = styled.div`
+  width: 188px;
+  padding: 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const HeadingBackground = styled.span<{ isActive: boolean }>`
+  position: relative;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 115%;
+    max-width: 198px;
+    height: 130%;
+    border-radius: 5px;
+    background: ${p => p.theme.colors.background};
+    opacity: ${p => (p.isActive ? 0.4 : 1)};
+    left: -7.5%;
+    top: -15%;
+    position: absolute;
+    z-index: -1;
+  }
+`;
+
+const Heading = styled.h6<{ isActive: boolean }>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  padding-left: 18px;
+  top: 0;
+  bottom: 0;
+
+  color: ${p => p.theme.colors.text};
+  opacity: ${p => (p.isActive ? '1 !important' : 0.25)};
+  font-weight: 400;
+  transition: opacity 0.3s;
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+
+  &:hover ${HeadingBackground} {
+    opacity: 0.4;
+  }
 `;
 
 const Introduction = styled.div`
@@ -72,29 +267,19 @@ const Introduction = styled.div`
     cursor: pointer;
   }
   svg path {
-    fill: ${p => p.theme.colors.progress};
+    fill: ${p => p.theme.colors.progress.complete};
   }
 `;
 
-const Trackline = styled.div`
-  position: relative;
+const ProgressBar = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
+  width: 1px;
   height: calc(88vh - 40px);
-  max-height: 425px;
-  width: 1px;
-  background-color: ${p => p.theme.colors.track};
-  opacity: 0.6;
-  overflow: hidden;
-`;
-
-const ProgressLine = styled.div`
-  position: absolute;
-  height: 100%;
-  top: -100%;
-  width: 1px;
-  background-color: ${p => p.theme.colors.progress};
-  left: 0;
+  max-height: 520px;
+  outline: none;
+  user-select: none;
 `;
 
 const Arrow = () => (

@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 import Section from '@components/Section';
-import Heading from '@components/Headings';
+import { H1 } from '@components/Headings';
 import mediaqueries from '@styles/media';
 
 function NotFound() {
@@ -49,7 +49,7 @@ const GridContainer = styled.div`
   `};
 `;
 
-const WelcomeHeader = styled(Heading.h1)`
+const WelcomeHeader = styled(H1)`
   color: ${p => p.theme.colors.grey};
   margin-bottom: 2rem;
   ${mediaqueries.desktop`

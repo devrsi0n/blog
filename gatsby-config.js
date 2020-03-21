@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 const moment = require('moment-timezone');
 
+const remarkSlug = require(`remark-slug`);
+
 const contentAuthors = 'content/authors';
 const contentPosts = 'content/posts';
 
@@ -85,15 +87,8 @@ module.exports = {
           { resolve: `gatsby-remark-copy-linked-files` },
           { resolve: `gatsby-remark-numbered-footnotes` },
           { resolve: `gatsby-remark-smartypants` },
-          {
-            resolve: 'gatsby-remark-external-links',
-            options: {
-              target: '_blank',
-              rel: 'noreferrer',
-            },
-          },
         ],
-        remarkPlugins: [require(`remark-slug`)], // eslint-disable-line global-require
+        remarkPlugins: [remarkSlug],
       },
     },
     {
@@ -152,12 +147,6 @@ module.exports = {
         theme_color: `#fff`,
         display: `standalone`,
         icon: `assets/favicon.png`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remove-serviceworker`,
-      options: {
-        // precachePages: [`/about-us/`, `/projects/*`],
       },
     },
     {

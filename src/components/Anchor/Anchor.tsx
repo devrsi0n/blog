@@ -25,20 +25,31 @@ const BaseAnchor = styled.a`
   }
 `;
 
+const ChildrenWrap = styled.span`
+  padding-right: 5px;
+`;
+
 interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   showIcon?: boolean;
 }
 
 export default function Anchor(props: AnchorProps) {
   const { children, showIcon = false, ...otherProps } = props;
+  const extraProps: AnchorHTMLAttributes<HTMLAnchorElement> = {};
+  if (props.href.startsWith('http')) {
+    const url = new URL(props.href);
+    const loc = window.location;
+    // Open the url in new tab if it's not current domain url
+    if (url.protocol !== loc.protocol || url.host !== loc.host) {
+      extraProps.target = '_blank';
+      extraProps.rel = 'noopener noreferrer';
+    }
+  }
+  const anchorProps = { ...otherProps, ...extraProps };
   return (
-    <BaseAnchor target="_blank" rel="noopener noreferrer" {...otherProps}>
+    <BaseAnchor {...anchorProps}>
       <ChildrenWrap>{children}</ChildrenWrap>
       {showIcon && <Icons.ExternalLink />}
     </BaseAnchor>
   );
 }
-
-const ChildrenWrap = styled.span`
-  padding-right: 5px;
-`;

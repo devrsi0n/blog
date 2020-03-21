@@ -4,7 +4,7 @@ author: devrsi0n
 date: 2020-02-04
 excerpt: 不依赖任何第三方包，从零开始动手造 React
 hero: ./images/hero.jpeg
-heroRef: <a href="https://zh.ifixit.com/Guide/MacBook+Pro+16-Inch+2019+%E6%8B%86%E8%A7%A3/128106">ifix</a>
+heroRef: <a href="https://zh.ifixit.com/Guide/MacBook+Pro+16-Inch+2019+%E6%8B%86%E8%A7%A3/128106">IFIX</a>
 tags: ['react', 'frontend', 'JavaScript']
 ---
 
@@ -28,7 +28,7 @@ React 是目前最流行的前端框架，很多读者用 React 很溜，但想�
 - VII: 函数组件
 - VIII: 函数组件 Hooks
 
-# 0: 从一次最简单的 React 渲染说起
+## 0: 从一次最简单的 React 渲染说起
 
 ```jsx
 const element = <h1 title="hello">Hello World!</h1>;
@@ -40,7 +40,7 @@ ReactDOM.render(element, container);
 
 第一步的目标是**用原生 DOM 方式替换 React 代码**。
 
-## JSX
+### JSX
 
 熟悉 React 的读者都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。JSX 本质上还是 JS，是语法糖而不是 html 模版（相比 html 模版要学习千奇百怪的语法比如：`{{#if value}}`，JSX 可以直接使用 JS 原生的 `&& || map reduce` 等语法更易学表达能力也更强）。一般需要 [babel](https://babeljs.io/) 配合[@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) 插件（babel 转换过程不是本文重点，感兴趣可以阅读[插件源码](https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-react-jsx/README.md#babelplugin-transform-react-jsx)）转换成调用 `React.createElement`，函数入参如下：
 
@@ -81,7 +81,7 @@ react 官方实现还包括了很多额外属性，简单起见本文未涉及�
 
 **为了避免含义不清，“元素”特指 “React elements”，“节点”特指 “DOM elements”。**
 
-## ReactDOM.render
+### ReactDOM.render
 
 下面替换掉 `ReactDOM.render` 调用，这里 React 会把元素更新到 DOM。
 
@@ -120,7 +120,7 @@ container.appendChild(node);
 
 ---
 
-# I: 实现 createElement 函数
+## I: 实现 createElement 函数
 
 第一步首先实现 `createElement` 函数，把 JSX 转换成 JS。以下面这个新的渲染为例，`createElement` 就是把 JSX 结构转成元素描述对象。
 
@@ -227,7 +227,7 @@ RedactDOM.render(element, container);
 
 ---
 
-# II: 实现 render 函数
+## II: 实现 render 函数
 
 实现我们的 render 函数，目前只需要添加节点到 DOM，删除和更新操作后面再加。
 
@@ -269,7 +269,7 @@ function render(element, container) {
 
 ---
 
-# III: 并发模式 / Concurrent Mode
+## III: 并发模式 / Concurrent Mode
 
 在我们深入其他 React 功能之前，先对代码重构，引入 React 最新的并发模式（截止本文发表该功能还未正式发布）。
 
@@ -309,7 +309,7 @@ function performUnitOfWork(nextUnitOfWork) {
 
 这就是我们简易并发模式的实现，渲染任务拆分为多个任务单元交给 `performUnitOfWork` 执行，具体怎么拆分任务？答案是 “Fibers”。
 
-# IV: Fibers 数据结构
+## IV: Fibers 数据结构
 
 为了方便描述渲染树和单元任务，React 设计了一种数据结构 “fiber 树”。每个元素都是一个 fiber，每个 fiber 就是一个单元任务。
 
@@ -465,7 +465,7 @@ function performUnitOfWork(fiber) {
 
 ---
 
-# V: render 和 commit 阶段
+## V: render 和 commit 阶段
 
 我们的代码还有一个问题。
 
@@ -588,7 +588,7 @@ function performUnitOfWork(fiber) {
 
 ---
 
-# VI: 更新和删除节点/Reconciliation
+## VI: 更新和删除节点/Reconciliation
 
 目前我们只添加节点到 DOM，还没考虑更新和删除节点的情况。要处理这2种情况，需要对比上次渲染的 fiber 和当前渲染的 fiber 的差异，根据差异决定是更新还是删除节点。React 把这个过程叫 `Reconciliation`。
 
@@ -822,7 +822,7 @@ function reconcileChildren(wipFiber, elements) {
 
 ---
 
-# VII: 函数组件
+## VII: 函数组件
 
 目前我们还只考虑了直接渲染 DOM 标签的情况，不支持组件，而组件是 React 是灵魂，下面我们来实现函数组件。
 
@@ -930,7 +930,7 @@ function updateHostComponent(fiber) {
 
 ---
 
-# VIII: 函数组件 Hooks
+## VIII: 函数组件 Hooks
 
 支持了函数组件，还需要支持组件状态 / state 才能实现刷新界面。
 
@@ -1024,7 +1024,7 @@ function useState(initial) {
 
 ---
 
-# 结语
+## 结语
 
 除了帮助读者理解 React 核心工作原理外，本文很多变量都和 React 官方代码保持一致，比如，读者在 React 应用的任何函数组件里断点，再打开调试工作能看到下面这样的调用栈：
 
@@ -1044,7 +1044,7 @@ function useState(initial) {
 
 ---
 
-# 参考
+## 参考
 
 征得原作者同意，本文参考了 [build-your-own-react](https://pomb.us/build-your-own-react/) 部分内容，推荐英文水平不错读者直接在桌面端阅读原文以获得最佳阅读体验。
 

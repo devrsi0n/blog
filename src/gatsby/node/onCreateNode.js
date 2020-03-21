@@ -49,7 +49,6 @@ module.exports = async (
       throw new Error(`
           We could not find the value for: "${key}".
           Please verify the articlePermalinkFormat format in theme options.
-          https://github.com/narative/gatsby-theme-novela#theme-options
         `);
     });
 
@@ -119,8 +118,12 @@ module.exports = async (
       filePath,
     };
     const relativePath = path.relative(process.cwd(), node.fileAbsolutePath);
-    // https://github.com/saberland/saber/blob/master/packages/saber-plugin-git-modification-time/lib/index.js
-    fieldData.updatedAt = postTimestamps[relativePath].updatedAt || null;
+    const timestamp = postTimestamps[relativePath];
+
+    // Fallback to a invalid date if not found
+    fieldData.updatedAt = timestamp
+      ? timestamp.updatedAt
+      : '1992-10-15T10:53:18+08:00';
 
     createNode({
       ...fieldData,

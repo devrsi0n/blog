@@ -1,4 +1,4 @@
-const transitionDelay = 500;
+const transitionDelay = 350;
 
 export default ({ routerProps, prevRouterProps, getSavedScrollPosition }) => {
   const currentPosition = getSavedScrollPosition(routerProps.location);

@@ -41,7 +41,8 @@ function Article({ pageContext, location }) {
   const contentSectionRef = useRef<HTMLElement>(null);
 
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
-  const [contentHeight, setContentHeight] = useState<number>(0);
+  // Set a minmum content height avoid calculate error
+  const [contentHeight, setContentHeight] = useState<number>(100);
 
   const results = useStaticQuery<ArticleTemplateSiteQuery>(siteQuery);
   const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
@@ -61,29 +62,30 @@ function Article({ pageContext, location }) {
        */
       if (!hasCalculated) {
         const debouncedCalculation = debounce(calculateBodySize);
-        const $imgs = contentSection.querySelectorAll('img');
+        const $images = contentSection.querySelectorAll('img');
 
-        $imgs.forEach($img => {
+        $images.forEach($img => {
           // If the image hasn't finished loading then add a listener
           if (!$img.complete) {
-            const _img = $img;
-            _img.onload = debouncedCalculation;
+            $img.addEventListener('load', debouncedCalculation, false);
           }
         });
 
         // Prevent rerun of the listener attachment
         setHasCalculated(true);
       }
-
+      const newHeight = contentSection.getBoundingClientRect().height;
       // Set the height and offset of the content area
-      setContentHeight(contentSection.getBoundingClientRect().height);
+      if (contentHeight !== newHeight) {
+        setContentHeight(newHeight);
+      }
     }, 20);
 
     calculateBodySize();
     window.addEventListener('resize', calculateBodySize);
 
     return () => window.removeEventListener('resize', calculateBodySize);
-  }, [hasCalculated]);
+  }, [hasCalculated, contentSectionRef, contentHeight]);
 
   const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`.replace(
     '//',

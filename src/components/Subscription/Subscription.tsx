@@ -2,7 +2,7 @@ import addToMailchimp from 'gatsby-plugin-mailchimp';
 import React, { useState } from 'react';
 
 import Section from '@components/Section';
-import Headings from '@components/Headings';
+import { H3 } from '@components/Headings';
 
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
@@ -115,7 +115,7 @@ const Content = styled.div`
   `}
 `;
 
-const Heading = styled(Headings.h3)`
+const Heading = styled(H3)`
   margin-bottom: 20px;
 
   ${mediaqueries.tablet`

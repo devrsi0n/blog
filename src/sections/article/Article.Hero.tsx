@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import Headings from '@components/Headings';
+import { H1 } from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';
 
 import mediaqueries from '@styles/media';
@@ -53,7 +53,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
       </HeroImage>
       {article.heroRef && (
         <HeroRef>
-          <HeroRefTxt>主图来自 </HeroRefTxt>
+          <HeroRefTxt>封面来自 </HeroRefTxt>
           <div dangerouslySetInnerHTML={{ __html: article.heroRef }} />
         </HeroRef>
       )}
@@ -151,7 +151,7 @@ const Header = styled.header`
   }
 `;
 
-const HeroHeading = styled(Headings.h1)`
+const HeroHeading = styled(H1)`
   font-size: 48px;
   font-family: ${p => p.theme.fonts.serif};
   margin-bottom: 25px;

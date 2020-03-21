@@ -6,8 +6,6 @@ hero: ./images/hero.jpg
 excerpt: 解决 ESLint import 插件找不到模块路径问题
 ---
 
-# 引言
-
 TypeScript 社区的静态代码检查工具开始逐渐从 TSLint 过渡到 ESLint 了，等到相关 ESLint 插件把 TSLint 功能都实现了 TSLint 即宣告 Deprecated [1]。相关的 ESLint 插件和 parser 在 [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) 仓库。在迁移过程中并不是那么一帆风顺，比如这次在写 [eslint-config-prettify](https://github.com/devrsi0n/eslint-config-prettify) 的时候，就遇到了 [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) 找不到模块而报 `Unable to resolve path to module ‘xxx’` 错误。
 
 之所以现在会有这个问题是因为 eslint-plugin-import 原本只支持 ES6 模块，从 README 文档也可以看出默认只支持 `.js`, `.jsx` 后缀的这类 JS 社区常见的文件。TypeScript 使用的 `.ts` 和 `.tsx` 自然是不支持的，更不用说 import 插件还需要相应的 parser 来解决 TypeScript 解析问题。

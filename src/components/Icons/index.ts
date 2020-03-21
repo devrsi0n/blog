@@ -24,6 +24,7 @@ import Rows from './ui/Rows.Icon';
 import Tiles from './ui/Tiles.Icon';
 import Done from './ui/Done.Icon';
 import ExternalLink from './ui/ExternalLink.Icon';
+import HashLink from './ui/HashLink.Icon';
 
 export default {
   Dribbble,
@@ -50,4 +51,5 @@ export default {
   Tiles,
   Done,
   ExternalLink,
+  HashLink,
 };

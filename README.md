@@ -34,6 +34,7 @@ I made some improvements to make this blog even better.
 - Fix initial color mode
 - Selected text highlight
 - Weibo share
+- Heading link
 
 ## 🚧 Working in progress
 

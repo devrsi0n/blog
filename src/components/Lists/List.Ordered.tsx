@@ -4,7 +4,7 @@ import mediaqueries from '@styles/media';
 const OrderedList = styled.ol`
   list-style: none;
   counter-reset: list;
-  color: ${p => p.theme.colors.articleText};
+  color: ${p => p.theme.colors.text};
   position: relative;
   padding: 15px 0 30px 30px;
   margin: 0 auto;
@@ -54,7 +54,7 @@ const OrderedList = styled.ol`
     width: 3rem;
     display: inline-block;
     position: absolute;
-    color: ${p => p.theme.colors.articleText};
+    color: ${p => p.theme.colors.text};
   }
 
   li::before {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Link } from 'gatsby';
 
-import Headings from '@components/Headings';
+import { H2 } from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';
 
 import mediaqueries from '@styles/media';
@@ -276,7 +276,7 @@ const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
   `}
 `;
 
-const Title = styled(Headings.h2)`
+const Title = styled(H2)`
   font-size: 21px;
   font-family: ${p => p.theme.fonts.serif};
   margin-bottom: ${p =>

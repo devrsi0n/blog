@@ -10,7 +10,7 @@ import { useColorMode } from 'theme-ui';
 import Anchor from '@components/Anchor';
 import Blockquote from '@components/Blockquote';
 import Code from '@components/Code';
-import Headings from '@components/Headings';
+import Headings from '@components/Headings/ArticleHeadings';
 import HorizontalRule from '@components/HorizontalRule';
 import Lists from '@components/Lists';
 import Paragraph from '@components/Paragraph';
@@ -111,9 +111,7 @@ const HeadingsCSS = css`
   }
 
   h1,
-  h1 *,
-  h2,
-  h2 * {
+  h2 {
     margin: 25px auto 18px;
 
     ${mediaqueries.tablet`
@@ -121,8 +119,7 @@ const HeadingsCSS = css`
     `};
   }
 
-  h3,
-  h3 * {
+  h3 {
     margin: 20px auto 10px;
   }
 

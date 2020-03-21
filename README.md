@@ -28,6 +28,7 @@ I made some improvements to make this blog even better.
 - Code language label
 - Page loading progress bar
 - Scroll to top or bottom
+- Table of content
 - Anchor hover animation
 - Copied toast
 - Fix `inlineCode` block highlight
@@ -43,4 +44,5 @@ I made some improvements to make this blog even better.
   - Emotion styled theme types are working, but other props such as `as` are not. [issue](https://github.com/emotion-js/emotion/issues/1434)
 - Refactor @emotion/styled to @theme-ui/components to fix type issue above and more
   formal specification
-- GraphQL type defines
+- ~~GraphQL type defines~~
+- Click hash link scroll to top

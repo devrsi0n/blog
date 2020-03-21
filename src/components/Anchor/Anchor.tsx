@@ -36,7 +36,7 @@ interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 export default function Anchor(props: AnchorProps) {
   const { children, showIcon = false, ...otherProps } = props;
   const extraProps: AnchorHTMLAttributes<HTMLAnchorElement> = {};
-  if (props.href.startsWith('http')) {
+  if (props.href.startsWith('http') && typeof window !== 'undefined') {
     const url = new URL(props.href);
     const loc = window.location;
     // Open the url in new tab if it's not current domain url

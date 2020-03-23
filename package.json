@@ -131,7 +131,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS && node ./tasks/update-post-timestamps.js"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -141,6 +141,10 @@
     ],
     "*.{html,json,scss,css,md}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{mdx,md}": [
+      "node ./tasks/update-post-timestamps.js",
       "git add"
     ]
   },

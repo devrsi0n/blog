@@ -22,6 +22,4 @@ const exec = promisify(require('child_process').exec);
     '../src/gatsby/node/postTimestamps.json'
   );
   await fs.writeFile(targetFilePath, JSON.stringify(result, null, 2));
-  await exec('git add .');
-  await exec('git commit --no-verify --amend --no-edit');
 })();

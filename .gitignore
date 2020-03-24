@@ -7,5 +7,4 @@ public/
 lib/
 
 .DS_Store
-yarn*
 .env.*

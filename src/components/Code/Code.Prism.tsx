@@ -35,7 +35,7 @@ const languageAlias = {
 function CodePrism({ codeString, language, metastring /* , ...props */ }) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
 
-  // Disable live as dependencies too large
+  // Disable live edit as dependencies too large
   // if (props.live) {
   //   return (
   //     <Container>
@@ -142,7 +142,7 @@ const LanguageWrapper = styled.div`
   padding: 5px 10px;
   font-size: 13px;
   text-align: right;
-  color: ${p => p.theme.colors.text};
+  color: ${p => p.theme.colors.codeLabel};
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;

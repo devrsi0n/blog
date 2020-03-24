@@ -24,6 +24,7 @@ const colors = {
   useColorSchemeMediaQuery: true,
 
   prism: PrismColors.light,
+  codeLabel: '#08080B',
   grey: '#73737D',
   hover: 'rgba(0, 0, 0, 0.07)',
   gradient: 'linear-gradient(180deg, rgba(217, 219, 224, 0) 0%, #D9DBE0 100%)',
@@ -51,6 +52,7 @@ const colors = {
       gray: '#666',
 
       prism: PrismColors.dark,
+      codeLabel: '#292c34',
       grey: '#73737D',
       hover: 'rgba(255, 255, 255, 0.07)',
       gradient:

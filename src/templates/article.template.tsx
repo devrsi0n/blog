@@ -87,10 +87,7 @@ function Article({ pageContext, location }) {
     return () => window.removeEventListener('resize', calculateBodySize);
   }, [hasCalculated, contentSectionRef, contentHeight]);
 
-  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`.replace(
-    '//',
-    '/'
-  );
+  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`;
 
   useUtteranc('utterancContainer');
 

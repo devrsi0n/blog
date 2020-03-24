@@ -1,4 +1,4 @@
-import React, { AnchorHTMLAttributes } from 'react';
+import React, { AnchorHTMLAttributes, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Icons from '@components/Icons';
 
@@ -35,8 +35,20 @@ interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export default function Anchor(props: AnchorProps) {
   const { children, showIcon = false, ...otherProps } = props;
+  const [target, setTarget] = useState('');
+  useEffect(() => {
+    if (props.href.startsWith('http')) {
+      const url = new URL(props.href);
+      const loc = window.location;
+      // Open the url in new tab if it's not current domain url
+      if (url.protocol !== loc.protocol || url.host !== loc.host) {
+        setTarget('_blank');
+      }
+    }
+  }, [props.href]);
+  const allProps = { ...(target && { target }), ...otherProps };
   return (
-    <BaseAnchor rel="noopener noreferrer" {...otherProps}>
+    <BaseAnchor rel="noopener noreferrer" {...allProps}>
       <ChildrenWrap>{children}</ChildrenWrap>
       {showIcon && <Icons.ExternalLink />}
     </BaseAnchor>

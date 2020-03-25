@@ -40,8 +40,8 @@ interface Heading {
 
 function H1Heading({ children }: Heading) {
   return (
-    <H1 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+    <H1 id={children as string} css={commonStyle}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}
@@ -52,7 +52,7 @@ function H1Heading({ children }: Heading) {
 function H2Heading({ children }: Heading) {
   return (
     <H2 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}
@@ -63,7 +63,7 @@ function H2Heading({ children }: Heading) {
 function H3Heading({ children }: Heading) {
   return (
     <H3 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}
@@ -74,7 +74,7 @@ function H3Heading({ children }: Heading) {
 function H4Heading({ children }: Heading) {
   return (
     <H4 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}
@@ -85,7 +85,7 @@ function H4Heading({ children }: Heading) {
 function H5Heading({ children }: Heading) {
   return (
     <H5 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}
@@ -96,7 +96,7 @@ function H5Heading({ children }: Heading) {
 function H6Heading({ children }: Heading) {
   return (
     <H6 id={children} css={commonStyle}>
-      <Anchor href={`#${children}`}>
+      <Anchor href={`#${children}`} aria-hidden="true" tabIndex="-1">
         <IconHashLink />
       </Anchor>
       {children}

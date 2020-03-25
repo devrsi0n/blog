@@ -19,6 +19,7 @@ const local = true;
 const contentful = false;
 
 module.exports = {
+  pathPrefix: '/',
   assetPrefix: `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${version}`,
   siteMetadata: {
     title: `Devrsi0n's blog`,
@@ -82,6 +83,7 @@ module.exports = {
               linkImagesToOriginal: false,
               quality: 85,
               withWebp: false,
+              tracedSVG: true,
             },
           },
           { resolve: `gatsby-remark-copy-linked-files` },

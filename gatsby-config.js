@@ -87,6 +87,7 @@ module.exports = {
             },
           },
           { resolve: `gatsby-remark-copy-linked-files` },
+          { resolve: 'gatsby-remark-check-links' },
           { resolve: `gatsby-remark-numbered-footnotes` },
           { resolve: `gatsby-remark-smartypants` },
         ],

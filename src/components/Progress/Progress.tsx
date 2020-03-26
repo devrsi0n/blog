@@ -100,7 +100,7 @@ function Progress({ contentHeight }: IProgress) {
               <Chapter
                 onClick={() =>
                   window.scrollTo({
-                    top: heading.offset + 65,
+                    top: heading.offset,
                     behavior: 'smooth',
                   })
                 }
@@ -112,7 +112,7 @@ function Progress({ contentHeight }: IProgress) {
                   isActive={isActive}
                   onClick={() =>
                     window.scrollTo({
-                      top: heading.offset + 15,
+                      top: heading.offset,
                       behavior: 'smooth',
                     })
                   }

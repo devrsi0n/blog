@@ -39,8 +39,22 @@ interface LayoutProps {
  * and the main structure of each page. Within Layout we have the <Container />
  * which hides a lot of the mess we need to create our Desktop and Mobile experiences.
  */
-function Layout({ children /* location */ }: LayoutProps) {
+function Layout({ children, location }: LayoutProps) {
   const [colorMode] = useColorMode();
+
+  useEffect(() => {
+    // Scroll to hash link element when user navigate to or refresh the page
+    if (location.hash.length > 1) {
+      const id = location.hash.slice(1);
+      const elm = document.getElementById(decodeURIComponent(id));
+      if (!elm) {
+        return;
+      }
+      const rect = elm.getBoundingClientRect();
+      const offset = rect.top + window.pageYOffset;
+      window.scrollTo(0, offset);
+    }
+  }, [location]);
 
   useEffect(() => {
     window.parent.postMessage({ theme: colorMode }, '*');

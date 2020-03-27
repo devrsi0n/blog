@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
 import Icons from '@components/Icons';
+import mediaqueries from '@styles/media';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';
 
 function IconHashLink() {
@@ -14,7 +15,7 @@ function IconHashLink() {
 
 const Anchor = styled.a`
   padding-right: 4px;
-  margin-left: -20px;
+  margin-left: -28px;
   line-height: 1;
 `;
 
@@ -27,11 +28,24 @@ const commonStyle = css`
     visibility: hidden;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     svg {
       visibility: visible;
     }
   }
+
+  /* Mobile device should show hash link icon directly */
+  ${mediaqueries.desktop`
+    svg {
+      width: 18px;
+      height: 18px;
+      visibility: visible;
+    }
+    a {
+      margin-left: -20px;
+    }
+  `};
 `;
 
 interface Heading {

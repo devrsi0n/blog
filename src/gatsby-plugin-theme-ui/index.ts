@@ -110,7 +110,7 @@ export const breakpoints = [
   ['phone', 376] as const,
   ['phablet', 540] as const,
   ['tablet', 735] as const,
-  ['desktop', 1070],
+  ['desktop', 1070] as const,
   ['desktop_medium', 1280] as const,
   ['desktop_large', 1440] as const,
 ] as const;

@@ -9,7 +9,7 @@ heroRef: <a style="background-color:black;color:white;text-decoration:none;paddi
 tags: ['gatsby', 'frontend', 'JavaScript']
 ---
 
-用 Gatsby 框架开发博客是一件颇为惬意的事情，可以很轻易的使用 React 社区的很多资源，定制化自由度颇高。最近想要给博客文章添加最近更新时间戳功能，但这个功能 Gatsby 框架和插件并不能直接提供（[issue](https://github.com/gatsbyjs/gatsby/issues/19272)），基于 Git 仓库本地 Markdown 文件的博客都会面临这个问题，下面是我的解决方案，思路也适用于类似 static site generator.
+用 Gatsby 框架开发博客是一件颇为惬意的事情，可以很轻易的使用 React 社区的很多资源，定制化自由度颇高。最近想要给博客文章添加最近更新时间戳功能，但这个功能 Gatsby 框架和插件并不能直接提供（[issue](https://github.com/gatsbyjs/gatsby/issues/19272)），基于 Git 仓库本地 Markdown 文件的博客都会面临这个问题，下面是我的解决方案，思路也适用于类似的 static site generator.
 
 <Message>
 
@@ -60,3 +60,76 @@ git log -1 --pretty=format:%cI -- package.json
 git log --pretty=format:%cI -- package.json | sort | tail -n 1
 ```
 
+但这个方案也有个问题，在 [zeit](https://zeit.co)，[netlify](https://www.netlify.com/) 这类自动构建部署平台，为了提高构建速度，构建过程并不会完整克隆整个仓库，而只拉取最新 commit 代码。
+
+Gatsby 插件 [gatsby-transformer-gitinfo](https://github.com/kraynel/gatsby-transformer-gitinfo) 也是做类似事情，只是并没有解决构建时的问题。
+
+## 最终方案
+
+最终方案主要是解决平台构建时因不会 `git clone` 导致不能获取文件的最近更新时间。方法很简单，每次 git commit 之后把 `md/mdx` 文件最近更新时间写入 JSON 文件，并提交 git 即可。
+
+参考脚本如下（代码位于 `./tasks/update-post-timestamps.js`）：
+
+```js
+const moment = require('moment-timezone');
+const path = require('path');
+const fs = require('fs').promises;
+const glob = require('tiny-glob');
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
+
+(async function() {
+  const files = await glob('content/**/*.mdx');
+  const result = {};
+  for (const file of files) {
+    /* eslint-disable no-await-in-loop */
+    const { stdout } = await exec(
+      `git log -1 --pretty=format:%cI -- ${file} | sort | tail -n 1`
+    );
+    let updatedAt = stdout.trim();
+    // Read from file mtime if file first add to git
+    if (!updatedAt) {
+      const stat = await fs.stat(file);
+      updatedAt = moment
+      .tz(stat.mtime, 'Asia/Shanghai')
+      .format();
+    }
+    result[file] = {
+      updatedAt: updatedAt,
+    };
+  }
+
+  const targetFilePath = path.resolve(
+    __dirname,
+    './postTimestamps.json'
+  );
+  await fs.writeFile(targetFilePath, JSON.stringify(result, null, 2));
+})();
+```
+
+平台构建时，从 JSON 读取最近更新时间，参考 Gatsby 文档在 `gatsby-node.js` 添加 Gataby Node Field 即可。
+
+```js
+const postTimestamps = require('./postTimestamps.json');
+
+module.exports.onCreateNode = async function onCreateNode({ node, actions }) {
+  const { createNodeField } = actions;
+
+  if (node.internal.type !== `File`) {
+    return;
+  }
+  const relativePath = path.relative(process.cwd(), node.fileAbsolutePath);
+  const timestamp = postTimestamps[relativePath];
+  createNodeField({
+    node,
+    name: `updatedAt`,
+    // 如果没有找到给一个无效值
+    value:
+     timestamp
+      ? timestamp.updatedAt
+      : 'Invalid'
+  });
+}
+```
+
+最后在每次

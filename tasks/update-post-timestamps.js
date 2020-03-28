@@ -1,19 +1,29 @@
+const moment = require('moment-timezone');
 const path = require('path');
 const fs = require('fs').promises;
-const glob = require('tiny-glob');
+// const glob = require('tiny-glob');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
+const postTimestamps = require('../src/gatsby/node/postTimestamps.json');
 
+/**
+ * This function called at git staged
+ */
 (async function() {
-  const files = await glob('content/**/*.mdx');
-  const result = {};
-  for (const file of files) {
+  // Show staged files only
+  const { stdout: gitDiff } = await exec('git diff --staged --name-only');
+  const stagedFiles = gitDiff.matchAll(/content\/[\S]+\/[\S]+.mdx?/gm);
+  if (stagedFiles.length === 0) {
+    // MDX files are not modified
+    return;
+  }
+
+  for (const [file] of stagedFiles) {
     /* eslint-disable no-await-in-loop */
-    const { stdout: updatedAt } = await exec(
-      `git log -1 --pretty=format:%cI -- ${file} | sort | tail -n 1`
-    );
-    result[file] = {
-      updatedAt: updatedAt.trim(),
+    const stat = await fs.stat(file);
+    const updatedAt = moment.tz(stat.mtime, 'Asia/Shanghai').format();
+    postTimestamps[file] = {
+      updatedAt,
     };
   }
 
@@ -21,5 +31,5 @@ const exec = promisify(require('child_process').exec);
     __dirname,
     '../src/gatsby/node/postTimestamps.json'
   );
-  await fs.writeFile(targetFilePath, JSON.stringify(result, null, 2));
+  await fs.writeFile(targetFilePath, JSON.stringify(postTimestamps, null, 2));
 })();

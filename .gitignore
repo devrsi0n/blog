@@ -8,3 +8,5 @@ lib/
 
 .DS_Store
 .env.*
+
+*.backup.*

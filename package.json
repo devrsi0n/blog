@@ -133,16 +133,13 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "*.{html,json,scss,css,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "content/**/*.{mdx,md}": [
-      "node ./tasks/update-post-timestamps.js",
-      "git add"
+      "node ./tasks/update-post-timestamps.js"
     ]
   },
   "engines": {

@@ -5,8 +5,8 @@ import Section from '@components/Section';
 import SEO from '@components/SEO';
 import Paginator from '@components/Navigation/Navigation.Paginator';
 
-import ArticlesHero from '../sections/articles/Articles.Hero';
-import ArticlesList from '../sections/articles/Articles.List';
+import ArticlesHero from '@sections/articles/Articles.Hero';
+import ArticlesList from '@sections/articles/Articles.List';
 
 function ArticlesPage({ location, pageContext }) {
   const articles = pageContext.group;

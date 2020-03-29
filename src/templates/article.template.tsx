@@ -12,13 +12,13 @@ import Anchor from '@components/Anchor';
 import mediaqueries from '@styles/media';
 
 import { debounce } from '@utils';
-import ArticleAside from '../sections/article/Article.Aside';
-import ArticleHero from '../sections/article/Article.Hero';
-import ArticleControls from '../sections/article/Article.Controls';
-import ArticlesNext from '../sections/article/Article.Next';
-import ArticleSEO from '../sections/article/Article.SEO';
-import ArticleShare from '../sections/article/Article.Share';
-import useUtteranc from '../hooks/useUtteranc';
+import ArticleAside from '@sections/article/Article.Aside';
+import ArticleHero from '@sections/article/Article.Hero';
+import ArticleControls from '@sections/article/Article.Controls';
+import ArticlesNext from '@sections/article/Article.Next';
+import ArticleSEO from '@sections/article/Article.SEO';
+import ArticleShare from '@sections/article/Article.Share';
+import useUtteranc from '@hooks/useUtteranc';
 import { ArticleTemplateSiteQuery } from '../types/graphql';
 
 const siteQuery = graphql`

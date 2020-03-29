@@ -14,6 +14,7 @@ export default ({ routerProps, prevRouterProps, getSavedScrollPosition }) => {
     }
     return false;
   }
+  return true;
   // } else {
   //   window.scrollTo(...topOfPage);
   // }

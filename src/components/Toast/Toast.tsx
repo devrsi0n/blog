@@ -51,6 +51,7 @@ export interface ToastProps {
   onAnimationDone?: () => void;
 }
 
+// TODO: refactor, https://react.zeit-ui.co/docs/components/toast
 export default function Toast({
   icon,
   content,

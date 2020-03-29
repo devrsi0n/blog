@@ -18,9 +18,12 @@ const postTimestamps = require('../src/gatsby/node/postTimestamps.json');
     return;
   }
 
+  const statPromises = [];
   for (const [file] of stagedFiles) {
-    /* eslint-disable no-await-in-loop */
-    const stat = await fs.stat(file);
+    statPromises.push(fs.stat(file).then(stat => ({ stat, file })));
+  }
+  const statList = await Promise.all(statPromises);
+  for (const { stat, file } of statList) {
     const updatedAt = moment.tz(stat.mtime, 'Asia/Shanghai').format();
     postTimestamps[file] = {
       updatedAt,

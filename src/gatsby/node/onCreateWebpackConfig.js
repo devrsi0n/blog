@@ -11,6 +11,8 @@ module.exports = ({ stage, actions }) => {
         '@styles': path.resolve(__dirname, '../../styles/'),
         '@utils': path.resolve(__dirname, '../../utils/'),
         '@types': path.resolve(__dirname, '../../types/'),
+        '@sections': path.resolve(__dirname, '../../sections/'),
+        '@hooks': path.resolve(__dirname, '../../hooks/'),
       },
       extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     },

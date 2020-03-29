@@ -23,7 +23,7 @@
       "@sections/*": ["sections/*"],
       "@sections": ["sections/index"],
       "@styles/*": ["styles/*"],
-      "@styles": ["styles/index"],
+      "@hooks/*": ["hooks/*"],
       "@templates/*": ["templates/*"],
       "@templates": ["templates/index"],
       "@types/*": ["types/*"],

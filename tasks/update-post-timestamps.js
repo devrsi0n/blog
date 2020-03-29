@@ -35,4 +35,5 @@ const postTimestamps = require('../src/gatsby/node/postTimestamps.json');
     '../src/gatsby/node/postTimestamps.json'
   );
   await fs.writeFile(targetFilePath, JSON.stringify(postTimestamps, null, 2));
+  await exec(`git add ${targetFilePath}`);
 })();

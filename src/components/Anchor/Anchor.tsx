@@ -1,6 +1,7 @@
 import React, { AnchorHTMLAttributes, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Icons from '@components/Icons';
+import { useStaticQuery, graphql } from 'gatsby';
 
 const BaseAnchor = styled.a`
   transition: background-size 0.5s;
@@ -34,7 +35,7 @@ interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export default function Anchor(props: AnchorProps) {
-  const { children, showIcon = false, ...otherProps } = props;
+  const { children, href, showIcon = false, ...otherProps } = props;
   const [target, setTarget] = useState('');
   useEffect(() => {
     if (props.href.startsWith('http')) {
@@ -46,7 +47,22 @@ export default function Anchor(props: AnchorProps) {
       }
     }
   }, [props.href]);
-  const allProps = { ...(target && { target }), ...otherProps };
+
+  const { site } = useStaticQuery(graphql`
+    {
+      site {
+        assetPrefix
+      }
+    }
+  `);
+  let newHref = href;
+  // https://github.com/gatsbyjs/gatsby/issues/21462
+  if (href.startsWith(site.assetPrefix)) {
+    const index = href.indexOf(site.assetPrefix);
+    newHref = href.slice(index);
+  }
+
+  const allProps = { ...(target && { target }), ...otherProps, href: newHref };
   return (
     <BaseAnchor rel="noopener noreferrer" {...allProps}>
       <ChildrenWrap>{children}</ChildrenWrap>

@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import NavigationFooter from '@components/Navigation/Navigation.Footer';
 import NavigationHeader from '@components/Navigation/Navigation.Header';
-import { globalStyles } from '@styles';
+import { globalStyles } from '@styles/index';
 import ArticlesContextProvider from '@sections/articles/Articles.List.Context';
+import useStatistics from './useStatistics';
 
 const duration = 0.25;
 
@@ -55,6 +56,8 @@ function Layout({ children, location }: LayoutProps) {
       window.scrollTo(0, offset);
     }
   }, [location]);
+
+  useStatistics(location);
 
   useEffect(() => {
     window.parent.postMessage({ theme: colorMode }, '*');

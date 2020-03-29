@@ -4,13 +4,15 @@
   "alias": ["devrsi0n.com"],
   "env": {
     "GATSBY_GH_CLIENT_ID": "@gh-client-id",
-    "GATSBY_GH_CLIENT_SECRET": "@gh-client-secret"
+    "GATSBY_GH_CLIENT_SECRET": "@gh-client-secret",
+    "GATSBY_FAUNADB_SECRET": "@faunadb-secret"
   },
   "build": {
     "env": {
       "GH_TOKEN": "@gh-token",
       "GATSBY_GH_CLIENT_ID": "@gh-client-id",
-      "GATSBY_GH_CLIENT_SECRET": "@gh-client-secret"
+      "GATSBY_GH_CLIENT_SECRET": "@gh-client-secret",
+      "GATSBY_FAUNADB_SECRET": "@faunadb-secret"
     }
   },
   "builds": [

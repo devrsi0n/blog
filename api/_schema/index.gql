@@ -1,0 +1,7 @@
+# Page view
+type PV {
+  count: Int!
+  url: String!
+  browser: String!
+  title: String
+}

@@ -56,9 +56,10 @@ export default function Anchor(props: AnchorProps) {
     }
   `);
   let newHref = href;
+  const assetPrefix = site.assetPrefix.replace('https://', 'https:/');
   // https://github.com/gatsbyjs/gatsby/issues/21462
-  if (href.startsWith(site.assetPrefix)) {
-    const index = href.indexOf(site.assetPrefix);
+  if (href.startsWith(assetPrefix)) {
+    const index = href.indexOf(assetPrefix);
     newHref = href.slice(index);
   }
 

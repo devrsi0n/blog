@@ -59,7 +59,7 @@ export default function Anchor(props: AnchorProps) {
   const assetPrefix = site.assetPrefix.replace('https://', 'https:/');
   // https://github.com/gatsbyjs/gatsby/issues/21462
   if (href.startsWith(assetPrefix)) {
-    const index = href.indexOf(assetPrefix);
+    const index = assetPrefix.length - 1;
     newHref = href.slice(index);
   }
 

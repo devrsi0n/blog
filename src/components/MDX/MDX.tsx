@@ -15,6 +15,7 @@ import HorizontalRule from '@components/HorizontalRule';
 import Lists from '@components/Lists';
 import Paragraph from '@components/Paragraph';
 import Tables from '@components/Tables';
+import Message from '@components/Message';
 import { ImageZoom } from '@components/Image';
 import Figcaption from '@components/Figcaption';
 
@@ -49,6 +50,9 @@ const components = {
   img: ImageZoom,
   thead: Tables.Head, // ?
   figcaption: Figcaption,
+
+  // Custom components, used in MDX directly
+  Message,
 };
 
 function MDX({ content, children, ...props }) {

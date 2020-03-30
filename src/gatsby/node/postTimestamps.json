@@ -34,5 +34,8 @@
   },
   "content/posts/2020/03/gatsby-file-last-updated-date/index.mdx": {
     "updatedAt": "2020-03-28T20:51:40+08:00"
+  },
+  "content/posts/2020/03/add-page-transitions-to-gatsby-with-framer-motion/index.mdx": {
+    "updatedAt": "2020-03-30T16:33:36+08:00"
   }
 }

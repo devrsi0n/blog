@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "devrsi0n.com",
   "alias": ["devrsi0n.com"],
   "env": {
     "FAUNADB_SECRET": "@faunadb-secret"

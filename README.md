@@ -9,11 +9,14 @@ Devrsi0n's blog fork from [gatsby-theme-novela](https://github.com/narative/gats
 ## 💪 Quick start
 
 ```shell
+# Install dependencies
 npm i
-# local development
+# Gatsby local development
 npm start
-# Build for deploy
+# Gatsby build for deploy
 npm run build
+# Zeit now severless functions local development
+NOW_DEV=true now dev
 ```
 
 ## 🚀 Improvements

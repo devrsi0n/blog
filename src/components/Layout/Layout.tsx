@@ -8,7 +8,7 @@ import NavigationFooter from '@components/Navigation/Navigation.Footer';
 import NavigationHeader from '@components/Navigation/Navigation.Header';
 import { globalStyles } from '@styles/index';
 import ArticlesContextProvider from '@sections/articles/Articles.List.Context';
-import useStatistics from './useStatistics';
+import useStats from './useStats';
 
 const duration = 0.25;
 
@@ -57,7 +57,7 @@ function Layout({ children, location }: LayoutProps) {
     }
   }, [location]);
 
-  useStatistics(location);
+  useStats(location);
 
   useEffect(() => {
     window.parent.postMessage({ theme: colorMode }, '*');

@@ -5,6 +5,12 @@ const ghPages = require('gh-pages');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
 
+// Skip this build process when run `NOW_DEV=true now dev` command
+if (process.env.NOW_DEV) {
+  console.log('Exit at the `now dev` command');
+  return;
+}
+
 const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
 
 (async function() {

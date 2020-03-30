@@ -1,7 +1,17 @@
 # Page view
-type PV {
-  count: Int!
+type PV @collection(name: "pv") {
   url: String!
-  browser: String!
-  title: String
+  title: String!
+
+  browserName: String!
+  browserVersion: String!
+
+  osName: String!
+  osVersion: String!
+
+  createdAt: String!
+}
+
+type Query {
+  allPV: [PV!]! @index(name: "all_pv")
 }

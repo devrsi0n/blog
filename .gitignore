@@ -12,3 +12,5 @@ lib/
 *.backup.*
 
 .now
+
+.env

@@ -26,7 +26,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
-    "now-dev": "gatsby develop -p $PORT",
     "codegen": "graphql-codegen --config graphql-codegen.yml",
     "contentful:export": "contentful space export --config contentful.json --skip-content --skip-roles --skip-webhooks",
     "contentful:export:model": "contentful space export --config contentful.json",

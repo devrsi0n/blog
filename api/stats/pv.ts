@@ -27,7 +27,7 @@ export default async (request: NowRequest, response: NowResponse) => {
   const { url, title } = request.body;
   const ua = new UAParser(request.headers['user-agent']);
   const browser = ua.getBrowser();
-  const os = ua.getBrowser();
+  const os = ua.getOS();
   const data = `{
     createdAt: "${moment.tz(new Date(), 'Asia/Shanghai').format()}",
     url: "${url}",

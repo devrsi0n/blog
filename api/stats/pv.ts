@@ -8,15 +8,20 @@ import client from '../_utils/apolloClient';
  * Save page view info
  */
 export default async (request: NowRequest, response: NowResponse) => {
-  if (
-    process.env.NODE_ENV === 'production' &&
-    !request.headers.referer.startsWith('https://devrsi0n.com')
-  ) {
+  if (process.env.NODE_ENV !== 'production') {
+    response.status(400).send({
+      error: 'Environment error',
+    });
+    return;
+  }
+
+  if (!request.headers.referer.startsWith('https://devrsi0n.com')) {
     response.status(400).send({
       error: 'Invalid referer',
     });
     return;
   }
+
   if (!request.headers['user-agent']) {
     response.status(400).send({
       error: 'Invalid user agent',

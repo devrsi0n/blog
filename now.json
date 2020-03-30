@@ -19,8 +19,8 @@
       "headers": { "cache-control": "public,max-age=31536000,immutable" }
     },
     {
-      "src": "^/(.*).html",
-      "headers": { "cache-control": "public,max-age=600,must-revalidate" }
+      "src": "^/(.*).(html|json)",
+      "headers": { "cache-control": "public,max-age=0,must-revalidate" }
     },
     { "handle": "filesystem" },
     { "src": "/.*", "status": 404, "dest": "/404" }

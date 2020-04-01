@@ -16,9 +16,14 @@ import {
 
 const strNavToHome = '回到主页';
 
-function NavigationHeader() {
+interface NavigationHeaderPropos {
+  location: Location;
+}
+
+function NavigationHeader({ location }: NavigationHeaderPropos) {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
   const [previousPath, setPreviousPath] = useState<string>('/');
+  const [showCloseButton, setShowCloseButton] = useState(false);
 
   const [colorMode] = useColorMode();
   const fill = colorMode === 'dark' ? '#fff' : '#000';
@@ -30,16 +35,17 @@ function NavigationHeader() {
     const prev = localStorage.getItem('previousPath');
     const previousPathWasHomepage =
       prev === '/' || (prev && prev.includes('/page/'));
-    const isNotPaginated = !window.location.pathname.includes('/page/');
+    const isArticle = !location.pathname.includes('/article/');
 
-    setShowBackArrow(
-      previousPathWasHomepage && isNotPaginated && width <= phablet
+    setShowBackArrow(previousPathWasHomepage && isArticle && width > phablet);
+    setShowCloseButton(
+      previousPathWasHomepage && isArticle && width <= phablet
     );
     setPreviousPath(prev);
-  }, []);
+  }, [location.pathname]);
 
   return (
-    <Section>
+    <Section as="header">
       <NavContainer>
         <LogoLink
           to="/"
@@ -57,7 +63,7 @@ function NavigationHeader() {
           <Hidden>{strNavToHome}</Hidden>
         </LogoLink>
         <NavControls>
-          {showBackArrow ? (
+          {showCloseButton ? (
             <button
               type="button"
               onClick={() => navigate(previousPath)}
@@ -160,7 +166,7 @@ const BackArrowIconContainer = styled.div`
   `}
 `;
 
-const NavContainer = styled.div`
+const NavContainer = styled.nav`
   position: relative;
   z-index: 100;
   padding-top: 100px;
@@ -275,7 +281,6 @@ const IconWrapper = styled.button<{ isDark: boolean }>`
     display: inline-flex;
     transform: scale(0.708);
     margin-left: 10px;
-
 
     &:hover {
       opacity: 0.5;

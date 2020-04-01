@@ -67,7 +67,7 @@ function Layout({ children, location }: LayoutProps) {
     <ArticlesContextProvider>
       <Container>
         <Global styles={globalStyles} />
-        <NavigationHeader />
+        <NavigationHeader location={location} />
         <AnimatePresence exitBeforeEnter initial={false}>
           <motion.main
             key={location.pathname}

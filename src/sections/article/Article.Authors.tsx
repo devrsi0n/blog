@@ -10,7 +10,7 @@ import Icons from '@components/Icons';
 import { IAuthor } from '@types';
 
 /**
- * Novela supports multiple authors and therefore we need to ensure
+ * This theme supports multiple authors and therefore we need to ensure
  * we render the right UI when there are varying amount of authors.
  */
 function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
@@ -102,7 +102,7 @@ const AuthorAvatar = styled.div`
   width: 25px;
   border-radius: 50%;
   margin-right: 14px;
-  background: ${p => p.theme.colors.grey};
+  background: ${p => p.theme.colors.gray};
   overflow: hidden;
 
   .gatsby-image-wrapper > div {

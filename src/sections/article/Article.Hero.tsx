@@ -128,6 +128,7 @@ const Header = styled.header`
   margin:100px auto 120px;
   padding-left: 68px;
   max-width: 749px;
+  text-align: center;
 
   ${mediaqueries.desktop`
     padding-left: 53px;

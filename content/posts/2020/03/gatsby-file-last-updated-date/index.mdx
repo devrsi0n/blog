@@ -1,7 +1,6 @@
 ---
 title: 给 Gataby 文章添加修改日期
 author: devrsi0n
-secret: true
 date: 2020-03-21
 excerpt: 自动生成指定文件的最近更新时间戳，添加到 Gatsby Node
 hero: ./images/hero.jpg
@@ -66,48 +65,78 @@ Gatsby 插件 [gatsby-transformer-gitinfo](https://github.com/kraynel/gatsby-tra
 
 ## 最终方案
 
-最终方案主要是解决平台构建时因不会 `git clone` 导致不能获取文件的最近更新时间。方法很简单，每次 git commit 之后把 `md/mdx` 文件最近更新时间写入 JSON 文件，并提交 git 即可。
+最终方案是解决平台构建时因不会 `git clone` 导致不能获取文件的最近更新时间。方法很简单，每次 git staged 时把 `md/mdx` 文件最近更新时间写入 JSON 文件，并提交 git，最后 Gatsby 构建时从 JSON 读取最近更新时间。
 
-参考脚本如下（代码位于 `./tasks/update-post-timestamps.js`）：
+### 生成文件最近更新时间 JSON
+
+这里没有用 `git log` 提取时间，因为 git staged 时还没有 commit，参考脚本如下（代码位于本仓库 [./tasks/update-post-timestamps.js](https://github.com/devrsi0n/blog/blob/32176bf5d855b3bbd8b0e0954377269365186327/tasks/update-post-timestamps.js#L12)`）：
 
 ```js
 const moment = require('moment-timezone');
 const path = require('path');
 const fs = require('fs').promises;
-const glob = require('tiny-glob');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
+const postTimestamps = require('../src/gatsby/node/postTimestamps.json');
 
+/**
+ * This function called at git staged
+ */
 (async function() {
-  const files = await glob('content/**/*.mdx');
-  const result = {};
-  for (const file of files) {
-    /* eslint-disable no-await-in-loop */
-    const { stdout } = await exec(
-      `git log -1 --pretty=format:%cI -- ${file} | sort | tail -n 1`
-    );
-    let updatedAt = stdout.trim();
-    // Read from file mtime if file first add to git
-    if (!updatedAt) {
-      const stat = await fs.stat(file);
-      updatedAt = moment
-      .tz(stat.mtime, 'Asia/Shanghai')
-      .format();
-    }
-    result[file] = {
-      updatedAt: updatedAt,
+  // Show staged files only
+  const { stdout: gitDiff } = await exec('git diff --staged --name-only');
+  const stagedFiles = gitDiff.matchAll(/content\/[\S]+\/[\S]+.mdx?/gm);
+  if (stagedFiles.length === 0) {
+    // MDX files are not modified
+    return;
+  }
+
+  const statPromises = [];
+  for (const [file] of stagedFiles) {
+    statPromises.push(fs.stat(file).then(stat => ({ stat, file })));
+  }
+  const statList = await Promise.all(statPromises);
+  for (const { stat, file } of statList) {
+    const updatedAt = moment.tz(stat.mtime, 'Asia/Shanghai').format();
+    postTimestamps[file] = {
+      updatedAt,
     };
   }
 
   const targetFilePath = path.resolve(
     __dirname,
-    './postTimestamps.json'
+    '../src/gatsby/node/postTimestamps.json'
   );
-  await fs.writeFile(targetFilePath, JSON.stringify(result, null, 2));
+  await fs.writeFile(targetFilePath, JSON.stringify(postTimestamps, null, 2));
+  await exec(`git add ${targetFilePath}`);
 })();
 ```
 
-平台构建时，从 JSON 读取最近更新时间，参考 Gatsby 文档在 `gatsby-node.js` 添加 Gataby Node Field 即可。
+**⚠️ 注意** 这段代码应该在 `git staged` 时执行，避免代码重新克隆之后所有文件的最近更新时间被覆写的 Bug。JS 添加 git hook 也很简单，参考如下。
+
+安装依赖， `npm i -S husky lint-staged`，package.json 添加配置如下：
+
+```json
+{
+  //...
+  "husky": {
+    "hooks": {
+      // git commit 之前执行 lint-staged
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    // lint-staged 匹配到 mdx/md 文件执行该命令
+    "**/*.{mdx,md}": [
+      "node ./tasks/update-post-timestamps.js"
+    ]
+  }
+}
+```
+
+### Gatsby 节点添加 updatedAt 字段
+
+平台构建时，从 JSON 读取最近更新时间，在 `gatsby-node.js` 添加 Gataby Node Field 即可。
 
 ```js
 const postTimestamps = require('./postTimestamps.json');
@@ -123,13 +152,13 @@ module.exports.onCreateNode = async function onCreateNode({ node, actions }) {
   createNodeField({
     node,
     name: `updatedAt`,
-    // 如果没有找到给一个无效值
+    // 如果没有找到给一个不可能的值，避免冗余的判断
     value:
      timestamp
       ? timestamp.updatedAt
-      : 'Invalid'
+      : '1992-10-15T10:53:18+08:00'
   });
 }
 ```
 
-最后在每次
+至此，自动生成文章最近更新时间的功能完成，希望能帮到遇到类似问题的读者。

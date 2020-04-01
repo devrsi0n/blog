@@ -99,14 +99,14 @@ class Paginator extends Component<IPaginator, {}> {
         <Spacer key={`PaginatorPage_spacer_${page}`} aria-hidden />
       ) : (
         // Otherwise render a PageButton
-        <PageNumberBUtton
+        <PageNumberButton
           key={`PaginatorPage_${page}`}
           to={this.getFullPath(page)}
           style={{ opacity: current === page ? 1 : 0.3 }}
           className="Paginator__pageLink"
         >
           {page}
-        </PageNumberBUtton>
+        </PageNumberButton>
       )
     );
   }
@@ -144,7 +144,7 @@ class Paginator extends Component<IPaginator, {}> {
           {hasPrevious && <PageButton to={previousPath}>上一页</PageButton>}
           {this.getPageLinks}
           <MobileReference aria-hidden="true">
-            <em>{current}</em>&nbsp; / {count}
+            <strong>{current}</strong>&nbsp;/ {count}
           </MobileReference>
           {hasNext && <PageButton to={nextPath}>下一页</PageButton>}
         </Frame>
@@ -183,7 +183,6 @@ const paginationItemMixin = p => css`
 `;
 
 const PageButton = styled(Link)`
-  font-weight: 600;
   font-size: 18px;
   text-decoration: none;
   color: ${p => p.theme.colors.primary};
@@ -196,7 +195,7 @@ const PageButton = styled(Link)`
   }
 `;
 
-const PageNumberBUtton = styled(Link)`
+const PageNumberButton = styled(Link)`
   font-weight: 400;
   font-size: 18px;
   text-decoration: none;

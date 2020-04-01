@@ -46,11 +46,11 @@ export default async (request: NowRequest, response: NowResponse) => {
   try {
     const result = await client.mutate({
       mutation: gql(`
-      mutation {
-        createPV(data: ${data}){
-          _id
+        mutation {
+          createPV(data: ${data}){
+            _id
+          }
         }
-      }
       `),
     });
     response.status(200).send(result);

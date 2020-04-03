@@ -25,9 +25,9 @@ module.exports = {
     title: `Devrsi0n's blog`,
     name: `devrsi0n`,
     siteUrl: `https://devrsi0n.com`,
-    description: `I build software for humans`,
+    description: `I build quality softwares for human`,
     hero: {
-      heading: `I build software for humans.`,
+      heading: `I build quality softwares for human.`,
       maxWidth: 652,
     },
     social: [

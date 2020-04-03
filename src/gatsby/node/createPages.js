@@ -1,7 +1,5 @@
 /* eslint-disable no-console, import/no-extraneous-dependencies, prefer-const, no-shadow */
 
-require('dotenv').config();
-
 const isEnvDev = process.env.NODE_ENV === 'development';
 
 const log = (message, section) =>

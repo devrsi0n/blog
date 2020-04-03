@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Link, navigate } from 'gatsby';
 import { useColorMode } from 'theme-ui';
+import throttle from 'lodash/throttle';
 
 import Section from '@components/Section';
 import Logo from '@components/Logo';
-
+import useIsDarkMode from '@hooks/useIsDark';
 import mediaqueries from '@styles/media';
 import Icons from '@components/Icons';
 import {
@@ -21,12 +22,26 @@ interface NavigationHeaderPropos {
 }
 
 function NavigationHeader({ location }: NavigationHeaderPropos) {
-  const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
-  const [previousPath, setPreviousPath] = useState<string>('/');
+  const [showBackArrow, setShowBackArrow] = useState(false);
+  const [previousPath, setPreviousPath] = useState('/');
   const [showCloseButton, setShowCloseButton] = useState(false);
+  const [detached, seDetached] = useState(false);
+  const [isDark] = useIsDarkMode();
 
   const [colorMode] = useColorMode();
   const fill = colorMode === 'dark' ? '#fff' : '#000';
+
+  useEffect(() => {
+    const listener = throttle(() => {
+      if (window.scrollY > 2) {
+        seDetached(true);
+      } else {
+        seDetached(false);
+      }
+    }, 50);
+    window.addEventListener('scroll', listener);
+    return () => window.removeEventListener('scroll', listener);
+  }, []);
 
   useEffect(() => {
     const { width } = getWindowDimensions();
@@ -45,49 +60,51 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
   }, [location.pathname]);
 
   return (
-    <Section as="header">
-      <NavContainer>
-        <LogoLink
-          to="/"
-          data-a11y="false"
-          title={strNavToHome}
-          aria-label={strNavToHome}
-          back={showBackArrow ? 'true' : 'false'}
-        >
-          {showBackArrow && (
-            <BackArrowIconContainer>
-              <Icons.ChevronLeft fill={fill} />
-            </BackArrowIconContainer>
-          )}
-          <Logo fill={fill} />
-          <Hidden>{strNavToHome}</Hidden>
-        </LogoLink>
-        <NavControls>
-          {showCloseButton ? (
-            <button
-              type="button"
-              onClick={() => navigate(previousPath)}
-              title={strNavToHome}
-              aria-label={strNavToHome}
-            >
-              <Icons.Ex fill={fill} />
-            </button>
-          ) : (
-            <>
-              <SharePageButton />
-              <DarkModeToggle />
-            </>
-          )}
-        </NavControls>
-      </NavContainer>
-    </Section>
+    <RootContainer detached={detached} isDark={isDark}>
+      <NavSection as="header">
+        <NavContainer>
+          <LogoLink
+            to="/"
+            data-a11y="false"
+            title={strNavToHome}
+            aria-label={strNavToHome}
+            back={showBackArrow ? 'true' : 'false'}
+          >
+            {showBackArrow && (
+              <BackArrowIconContainer>
+                <Icons.ChevronLeft fill={fill} />
+              </BackArrowIconContainer>
+            )}
+            <Logo fill={fill} />
+            <Hidden>{strNavToHome}</Hidden>
+          </LogoLink>
+          <NavControls>
+            {showCloseButton ? (
+              <button
+                type="button"
+                onClick={() => navigate(previousPath)}
+                title={strNavToHome}
+                aria-label={strNavToHome}
+              >
+                <Icons.Ex fill={fill} />
+              </button>
+            ) : (
+              <>
+                <SharePageButton />
+                <DarkModeToggle />
+              </>
+            )}
+          </NavControls>
+        </NavContainer>
+      </NavSection>
+    </RootContainer>
   );
 }
 
 export default NavigationHeader;
 
-const strActiveLightMode = '打开白天模式';
-const strActiveDarkMode = '打开黑夜模式';
+const strActiveLightMode = '打开 Light Mode';
+const strActiveDarkMode = '打开 Dark Mode';
 
 function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
@@ -149,6 +166,56 @@ function SharePageButton() {
   );
 }
 
+const RootContainer = styled.div<{ detached: boolean; isDark: boolean }>`
+  position: sticky;
+  top: 0;
+  width: 100%;
+  /* https://brumm.af/shadows */
+  box-shadow: ${p => {
+    let shadow = 'none';
+    if (p.detached) {
+      if (p.isDark) {
+        shadow = `0 2.1px 2px rgba(255, 255, 255, 0.016),
+    0 6.1px 7.8px rgba(255, 255, 255, 0.026),
+    0 22px 51px rgba(255, 255, 255, 0.05)`;
+      } else {
+        shadow = `0 2.1px 2px rgba(0, 0, 0, 0.016),
+    0 6.1px 7.8px rgba(0, 0, 0, 0.026),
+    0 22px 51px rgba(0, 0, 0, 0.05)`;
+      }
+    }
+    return shadow;
+  }};
+  overflow: hidden;
+  z-index: 99;
+
+  &::before {
+    background: ${p => p.theme.colors.blur};
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: saturate(180%) blur(10px);
+    /* filter: blur(10px); */
+  }
+
+  ${mediaqueries.phone`
+    position: relative;
+    top: unset;
+    box-shadow: none;
+
+    &::before {
+      backdrop-filter: none;
+    }
+  `}
+`;
+
+const NavSection = styled(Section)`
+  background: inherit;
+`;
+
 const BackArrowIconContainer = styled.div`
   transition: 0.2s transform var(--ease-out-quad);
   opacity: 0;
@@ -169,17 +236,9 @@ const BackArrowIconContainer = styled.div`
 const NavContainer = styled.nav`
   position: relative;
   z-index: 100;
-  padding-top: 100px;
   display: flex;
   justify-content: space-between;
-
-  ${mediaqueries.desktop_medium`
-    padding-top: 50px;
-  `};
-
-  @media screen and (max-height: 800px) {
-    padding-top: 50px;
-  }
+  height: 80px;
 `;
 
 const LogoLink = styled(Link)<{ back: string }>`

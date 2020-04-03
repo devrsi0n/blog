@@ -18,6 +18,12 @@ export default function useUtteranc(containerId: string) {
     script.setAttribute('async', 'true');
 
     container.appendChild(script);
-    // return () => container.removeChild(script);
+    return () => {
+      try {
+        container.removeChild(script);
+      } catch (error) {
+        // ignore, utteranc auto clean the script
+      }
+    };
   }, [containerId, isDark]);
 }

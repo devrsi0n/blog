@@ -1,6 +1,4 @@
-// import deepTheme from '@theme-ui/preset-deep';
-import prismPreset from '@theme-ui/prism/presets/theme-ui';
-import { lighten } from 'polished';
+import { lighten, alpha } from '@theme-ui/color';
 
 // TODO: refactor
 import * as PrismColors from './prism-colors';
@@ -9,17 +7,23 @@ const accent = {
   light: '#6166DC',
   dark: '#E9DAAC',
 };
+const background = {
+  light: '#fefefe',
+  dark: 'rgba(17, 18, 22, 0.95)',
+};
 
 const colors = {
   text: '#08080B', // body color
-  background: '#fefefe', // body background color
+  background: background.light, // body background color
   primary: '#000', // primary button and link color
   secondary: '#73737D', // secondary color - can be used for hover states
   muted: 'hsl(10, 20%, 94%)', // a gray or subdued color for decorative purposes
   accent: accent.light, // a contrast color for emphasizing UI
-  highlight: lighten(0.3, accent.light),
+  highlight: lighten(accent.light, 0.3),
   purple: 'hsl(250, 60%, 30%)',
   gray: '#999',
+  blur: alpha(background.light, 0.4),
+
   // Set the initial color mode to dark when @media (prefers-color-scheme: dark) matches
   useColorSchemeMediaQuery: true,
 
@@ -45,11 +49,12 @@ const colors = {
       primary: '#fff',
       secondary: '#fff',
       accent: accent.dark,
-      background: 'rgba(17, 18, 22, 0.95)',
+      background: background.dark,
       muted: 'hsl(10, 20%, 94%)',
-      highlight: lighten(0.1, accent.dark),
+      highlight: lighten(accent.dark, 0.1),
       purple: 'hsl(250, 60%, 30%)',
       gray: '#666',
+      blur: alpha(background.dark, 0.4),
 
       prism: PrismColors.dark,
       codeLabel: '#292c34',
@@ -206,7 +211,6 @@ const theme = {
   styles: {
     // ...deepTheme.styles,
     pre: {
-      ...prismPreset,
       inlineCode: {
         background: '',
       },

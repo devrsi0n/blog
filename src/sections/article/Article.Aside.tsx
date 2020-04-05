@@ -9,6 +9,7 @@ import HandleOverlap from './Article.HandleOverlap';
 interface AsideProps {
   children: ReactNode[] | ReactNode;
   contentHeight: number;
+  alignRight?: boolean;
 }
 
 /**
@@ -26,7 +27,7 @@ interface AsideProps {
  *                  |  content  |
  *
  */
-function Aside({ contentHeight, children }: AsideProps) {
+function Aside({ contentHeight, children, alignRight }: AsideProps) {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const [progress, setProgress] = useState<number>(0);
@@ -76,7 +77,7 @@ function Aside({ contentHeight, children }: AsideProps) {
   }, [contentHeight]);
 
   return (
-    <AsideContainer>
+    <AsideContainer alignRight={alignRight}>
       <Align
         show={show}
         imageOffset={imageOffset}
@@ -92,8 +93,9 @@ function Aside({ contentHeight, children }: AsideProps) {
 
 export default Aside;
 
-const AsideContainer = styled.aside`
+const AsideContainer = styled.aside<{ alignRight: boolean }>`
   display: flex;
+  justify-content: ${p => (p.alignRight ? 'flex-end' : 'flex-start')};
   margin: 0 auto;
   max-width: 1140px;
 

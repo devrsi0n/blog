@@ -12,6 +12,23 @@ type PV @collection(name: "pv") {
   createdAt: String!
 }
 
+type Article @collection(name: "article") {
+  url: String! @unique(index: "unique_url")
+  title: String!
+
+  # Action counts
+  like: Int!
+  handclap: Int!
+  share: Int!
+
+  createdAt: String
+  updatedAt: String
+}
+
 type Query {
   allPV: [PV!]! @index(name: "all_pv")
+  pv(url: String!): [PV!]!
+
+  allArticle: [Article!]! @index(name: "all_article")
+  article(url: String!): Article!
 }

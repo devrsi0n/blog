@@ -8,7 +8,7 @@ import NavigationFooter from '@components/Navigation/Navigation.Footer';
 import NavigationHeader from '@components/Navigation/Navigation.Header';
 import { globalStyles } from '@styles/index';
 import ArticlesContextProvider from '@sections/articles/Articles.List.Context';
-import useStats from './useStats';
+import useStats from '@hooks/useStats';
 
 const duration = 0.25;
 
@@ -52,7 +52,7 @@ function Layout({ children, location }: LayoutProps) {
         return;
       }
       const rect = elm.getBoundingClientRect();
-      const offset = rect.top + window.pageYOffset;
+      const offset = rect.top + window.pageYOffset + 65;
       window.scrollTo(0, offset);
     }
   }, [location]);

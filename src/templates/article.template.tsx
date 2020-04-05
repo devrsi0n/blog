@@ -8,6 +8,7 @@ import Progress from '@components/Progress';
 import Section from '@components/Section';
 import Subscription from '@components/Subscription';
 import Anchor from '@components/Anchor';
+import ArticleActions from '@sections/article/Article.Actions';
 
 import mediaqueries from '@styles/media';
 
@@ -39,11 +40,10 @@ const siteQuery = graphql`
 
 function Article({ pageContext, location }) {
   const contentSectionRef = useRef<HTMLElement>(null);
-
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
-
+  useUtteranc('utterancContainer');
   const results = useStaticQuery<ArticleTemplateSiteQuery>(siteQuery);
   const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
@@ -89,8 +89,6 @@ function Article({ pageContext, location }) {
 
   const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`;
 
-  useUtteranc('utterancContainer');
-
   return (
     <>
       <ArticleSEO article={article} authors={authors} location={location} />
@@ -106,6 +104,9 @@ function Article({ pageContext, location }) {
           <ArticleShare />
         </MDXRenderer>
       </ArticleBody>
+      <ArticleAside contentHeight={contentHeight} alignRight>
+        <ArticleActions url={location.href.replace(location.hash, '')} />
+      </ArticleAside>
 
       <div id="utterancContainer" />
 

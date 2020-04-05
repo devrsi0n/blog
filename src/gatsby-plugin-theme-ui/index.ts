@@ -1,4 +1,4 @@
-import { lighten, alpha } from '@theme-ui/color';
+import { lighten } from 'polished';
 
 // TODO: refactor
 import * as PrismColors from './prism-colors';
@@ -19,10 +19,10 @@ const colors = {
   secondary: '#73737D', // secondary color - can be used for hover states
   muted: 'hsl(10, 20%, 94%)', // a gray or subdued color for decorative purposes
   accent: accent.light, // a contrast color for emphasizing UI
-  highlight: lighten(accent.light, 0.3),
+  highlight: lighten(0.3, accent.light),
   purple: 'hsl(250, 60%, 30%)',
   gray: '#999',
-  blur: alpha(background.light, 0.4),
+  blur: 'rgba(254, 254, 254, 0.4)',
 
   // Set the initial color mode to dark when @media (prefers-color-scheme: dark) matches
   useColorSchemeMediaQuery: true,
@@ -51,10 +51,10 @@ const colors = {
       accent: accent.dark,
       background: background.dark,
       muted: 'hsl(10, 20%, 94%)',
-      highlight: lighten(accent.dark, 0.1),
+      highlight: lighten(0.1, accent.dark),
       purple: 'hsl(250, 60%, 30%)',
       gray: '#666',
-      blur: alpha(background.dark, 0.4),
+      blur: 'rgba(17, 18, 22, 0.5)',
 
       prism: PrismColors.dark,
       codeLabel: '#292c34',

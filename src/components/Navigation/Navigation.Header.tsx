@@ -238,7 +238,7 @@ const NavContainer = styled.nav`
   z-index: 100;
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 65px;
 `;
 
 const LogoLink = styled(Link)<{ back: string }>`

@@ -7,8 +7,7 @@ export default function useStatistics(location: Location) {
       const rsp = await query('/api/stats/pv', {
         method: 'POST',
         data: {
-          // Ignore hashlink
-          url: location.href.replace(location.hash, ''),
+          url: location.pathname,
           title: document.title,
         },
       });
@@ -16,5 +15,5 @@ export default function useStatistics(location: Location) {
         throw new Error('Request error');
       }
     })();
-  }, [location.hash, location.href]);
+  }, [location.pathname]);
 }

@@ -105,7 +105,7 @@ function Article({ pageContext, location }) {
         </MDXRenderer>
       </ArticleBody>
       <ArticleAside contentHeight={contentHeight} alignRight>
-        <ArticleActions url={location.href.replace(location.hash, '')} />
+        <ArticleActions url={location.pathname} />
       </ArticleAside>
 
       <div id="utterancContainer" />

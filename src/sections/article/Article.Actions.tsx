@@ -15,7 +15,7 @@ type Params = [['like' | 'handclap' | 'share'], number][];
 export default function ArticleActions({ url }: Props) {
   const fetchActions = () =>
     query(`/api/articles/actions?url=${encodeURIComponent(url)}`);
-  const { status, data } = useQuery(FETCH_KEY, fetchActions);
+  const { status, data } = useQuery(FETCH_KEY + url, fetchActions);
 
   const updateActions = ({ like, handclap, share }) =>
     query(`/api/articles/save-actions`, {

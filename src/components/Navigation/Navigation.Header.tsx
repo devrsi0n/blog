@@ -239,6 +239,8 @@ const NavContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   height: 65px;
+  user-select: none;
+  -webkit-touch-callout: none;
 `;
 
 const LogoLink = styled(Link)<{ back: string }>`

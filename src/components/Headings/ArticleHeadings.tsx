@@ -14,8 +14,7 @@ function IconHashLink() {
 }
 
 const Anchor = styled.a`
-  padding-right: 4px;
-  margin-left: -28px;
+  margin-left: 4px;
   line-height: 1;
 `;
 
@@ -42,9 +41,6 @@ const commonStyle = css`
       height: 18px;
       visibility: visible;
     }
-    a {
-      margin-left: -20px;
-    }
   `};
 `;
 
@@ -55,10 +51,10 @@ interface Heading {
 function H1Heading({ children }: Heading) {
   return (
     <H1 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H1>
   );
 }
@@ -66,10 +62,10 @@ function H1Heading({ children }: Heading) {
 function H2Heading({ children }: Heading) {
   return (
     <H2 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H2>
   );
 }
@@ -77,10 +73,10 @@ function H2Heading({ children }: Heading) {
 function H3Heading({ children }: Heading) {
   return (
     <H3 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H3>
   );
 }
@@ -88,10 +84,10 @@ function H3Heading({ children }: Heading) {
 function H4Heading({ children }: Heading) {
   return (
     <H4 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H4>
   );
 }
@@ -99,10 +95,10 @@ function H4Heading({ children }: Heading) {
 function H5Heading({ children }: Heading) {
   return (
     <H5 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H5>
   );
 }
@@ -110,10 +106,10 @@ function H5Heading({ children }: Heading) {
 function H6Heading({ children }: Heading) {
   return (
     <H6 id={children as string} css={commonStyle}>
+      {children}
       <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
         <IconHashLink />
       </Anchor>
-      {children}
     </H6>
   );
 }

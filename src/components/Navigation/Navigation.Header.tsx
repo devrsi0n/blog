@@ -241,6 +241,10 @@ const NavContainer = styled.nav`
   height: 65px;
   user-select: none;
   -webkit-touch-callout: none;
+
+  ${mediaqueries.phone`
+    height: 120px;
+  `}
 `;
 
 const LogoLink = styled(Link)<{ back: string }>`

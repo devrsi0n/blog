@@ -32,7 +32,12 @@ const languageAlias = {
   sh: 'bash',
 };
 
-function CodePrism({ codeString, language, metastring /* , ...props */ }) {
+function CodePrism({
+  codeString,
+  language,
+  metastring,
+  title /* , ...props */,
+}) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
 
   // Disable live edit as dependencies too large
@@ -53,7 +58,11 @@ function CodePrism({ codeString, language, metastring /* , ...props */ }) {
       {({ className, tokens, getLineProps, getTokenProps }) => {
         return (
           <RootContainer>
-            <pre className={className} style={{ position: 'relative' }}>
+            {title && <Title>{title}</Title>}
+            <pre
+              className={`${className} ${!title ? 'without-title' : ''}`}
+              style={{ position: 'relative' }}
+            >
               <LanguageWrapper>{language}</LanguageWrapper>
               <Copy toCopy={codeString} />
               {tokens.map((line, index) => {
@@ -130,9 +139,35 @@ function Copy({ toCopy }: { toCopy: string }) {
 
 const RootContainer = styled.div`
   overflow: auto;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 744px;
+
+  font-size: 14px;
+  margin: 0 auto 25px auto;
+  background: ${p => p.theme.colors.prism.background};
+
+  ${mediaqueries.tablet`
+    max-width: 526px;
+  `};
+
   ${mediaqueries.phablet`
     overflow-x: scroll;
   `}
+`;
+
+const Title = styled.p`
+  padding: 24px 32px;
+  background: ${p => p.theme.colors.prism.background};
+  border-bottom: 1px solid ${p => p.theme.colors.horizontalRule};
+
+  ${mediaqueries.phablet`
+    overflow: initial;
+  `}
+
+  ${mediaqueries.tablet`
+    padding: 20px 20px;
+  `};
 `;
 
 const LanguageWrapper = styled.div`

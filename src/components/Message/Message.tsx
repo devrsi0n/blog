@@ -38,9 +38,16 @@ export default function Message(props: AnchorProps) {
 
 const StyledMessage = styled(ThemeMessage)`
   ${mediaqueries.phablet`
-
     & > p {
       margin: 0 auto;
+    }
+  `};
+
+  ${mediaqueries.tablet`
+    max-width: 526px;
+
+    & > p {
+      margin: 0;
     }
   `};
 `;

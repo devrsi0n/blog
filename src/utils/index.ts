@@ -40,25 +40,6 @@ export const range = (start: number, len: number, step = 1) =>
 type FnProps = {}[];
 
 /**
- * Debounce a fn by a given number of ms
- *
- * @see {@link https://medium.com/@TCAS3/debounce-deep-dive-javascript-es6-e6f8d983b7a1}
- * @param fn Function you want to debounce
- * @param time Amount in ms to debounce. Defaults to 100ms
- * @returns Your function debounced by given ms
- */
-export const debounce = (fn: () => void, time = 100) => {
-  let timeout: ReturnType<typeof setTimeout>;
-
-  return function(...args: FnProps) {
-    const functionCall = () => fn.apply(this, args);
-
-    clearTimeout(timeout);
-    timeout = setTimeout(functionCall, time);
-  };
-};
-
-/**
  * Extract from the theme a specific breakpoint size
  *
  * @param name Name of the breakpoint we wish to retrieve

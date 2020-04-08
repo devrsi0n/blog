@@ -3,8 +3,8 @@
  * @param fn
  * @param time millisecond
  */
-export default function debounce(fn: Function, time: number) {
-  let timeout: any;
+export default function debounce(fn: Function, time = 100) {
+  let timeout: ReturnType<typeof setTimeout>;
   const paramMap = {};
 
   return function(...args: any[]) {

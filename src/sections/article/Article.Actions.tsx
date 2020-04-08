@@ -32,6 +32,8 @@ export default function ArticleActions({ url }: Props) {
       queryCache.refetchQueries(FETCH_KEY);
     },
   });
+  // Debounce handler with count to resolve
+  // user click multiply actions quickly
   const handleAction = debounce(async (params: Params) => {
     const payload = {
       like: 0,

@@ -12,7 +12,7 @@ import ArticleActions from '@sections/article/Article.Actions';
 
 import mediaqueries from '@styles/media';
 
-import { debounce } from '@utils';
+import debounce from '@utils/debounce';
 import ArticleAside from '@sections/article/Article.Aside';
 import ArticleHero from '@sections/article/Article.Hero';
 import ArticleControls from '@sections/article/Article.Controls';

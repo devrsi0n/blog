@@ -139,16 +139,11 @@ const HeadingsCSS = css`
 
 const PrismCSS = p => css`
   .prism-code {
-    overflow: auto;
-    width: 100%;
-    max-width: 744px;
-    margin: 0 auto;
+    overflow: hidden;
     padding: 46px 32px 32px 32px;
-    font-size: 14px;
-    margin: 15px auto 25px;
-    border-radius: 5px;
+    margin: 0 auto;
     font-family: ${p.theme.fonts.monospace};
-    background: ${p.theme.colors.prism.background};
+
     &:hover {
       overflow: auto;
     }
@@ -204,7 +199,6 @@ const PrismCSS = p => css`
     `};
 
     ${mediaqueries.tablet`
-      max-width: 526px;
       padding: 20px 20px;
       left: 0;
     `};
@@ -214,11 +208,6 @@ const PrismCSS = p => css`
       border-radius: 0;
       margin: 0 auto 25px;
       padding: 30px 20px 25px 20px;
-      overflow: initial;
-      width: unset;
-      max-width: unset;
-      float: left;
-      min-width: 100%;
       overflow: initial;
       position: relative;
     `};

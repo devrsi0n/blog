@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { CSSProperties, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { transparentize } from 'polished';
 
@@ -7,44 +7,44 @@ interface Props {
   count: number;
   children: React.ReactNode;
   color: string;
-  handClick(event: React.MouseEvent<HTMLDivElement>): void;
+  handleClick(event: React.MouseEvent<HTMLDivElement>): void;
+  style?: CSSProperties;
 }
 
 const KEY_PREFIX = 'article_action_';
 
-export default function Action(props: Props) {
+function Action(props: Props) {
   const [count, setCount] = useState(props.count);
-  const [originalCount, setOriginalCount] = useState(props.count);
+  const key = KEY_PREFIX + props.type;
   useEffect(() => {
-    const key = KEY_PREFIX + props.type;
-    const storagedCount = parseInt(localStorage.getItem(key), 10);
-    // Read user first fetch count if refresh
-    if (storagedCount) {
-      setOriginalCount(storagedCount);
-    } else {
-      localStorage.setItem(key, props.count.toString());
+    if (props.count > count) {
+      setCount(props.count);
     }
-  }, [props.type, props.count]);
+  }, [count, props.count]);
 
   return (
     <Row
       bg={props.color}
       onClick={e => {
-        e.stopPropagation();
-
+        const callCount = parseInt(localStorage.getItem(key) || '0', 10);
         // Increase 10 at most
-        if (count < originalCount + 10) {
+        if (process.env.NODE_ENV === 'development' || callCount < 10) {
           setCount(prev => prev + 1);
-          props.handClick(e);
+          localStorage.setItem(key, (callCount + 1).toString());
+          props.handleClick(e);
+        } else {
+          localStorage.setItem(key, '10');
         }
       }}
       role="button"
     >
-      <Wrap>{props.children}</Wrap>
+      <Wrap style={props.style}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>
   );
 }
+
+export default React.memo(Action);
 
 const duration = '0.5s';
 

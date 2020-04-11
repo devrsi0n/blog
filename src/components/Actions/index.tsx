@@ -12,7 +12,7 @@ interface Props {
   handleAction(type: 'like' | 'handclap' | 'share'): void;
 }
 
-export default function Actions({
+function Actions({
   like,
   handclap,
   // share,
@@ -24,15 +24,18 @@ export default function Actions({
         type="like"
         count={like}
         color="rgb(224, 36, 94)"
-        handClick={() => handleAction('like')}
+        handleClick={() => handleAction('like')}
+        style={{
+          padding: 0,
+        }}
       >
-        <Heart width={24} />
+        <Heart width={46} fill="rgb(224, 36, 94)" />
       </Action>
       <Action
         type="handclap"
         count={handclap}
         color="rgb(29, 161, 242)"
-        handClick={() => handleAction('handclap')}
+        handleClick={() => handleAction('handclap')}
       >
         <Handclap width={26} />
       </Action>
@@ -47,6 +50,8 @@ export default function Actions({
     </Section>
   );
 }
+
+export default React.memo(Actions);
 
 const Section = styled.section`
   display: flex;

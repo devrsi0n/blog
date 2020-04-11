@@ -201,7 +201,7 @@ const RootContainer = styled.div<{ detached: boolean; isDark: boolean }>`
     /* filter: blur(10px); */
   }
 
-  ${mediaqueries.phone`
+  ${mediaqueries.phablet`
     position: relative;
     top: unset;
     box-shadow: none;
@@ -242,7 +242,7 @@ const NavContainer = styled.nav`
   user-select: none;
   -webkit-touch-callout: none;
 
-  ${mediaqueries.phone`
+  ${mediaqueries.phablet`
     height: 120px;
   `}
 `;

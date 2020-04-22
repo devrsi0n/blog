@@ -34,7 +34,7 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default React.memo(NotFound);
 
 const GridContainer = styled.div`
   z-index: 1;

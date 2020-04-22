@@ -89,7 +89,7 @@ function HandleOverlap(props: OverlapProps) {
   );
 }
 
-export default HandleOverlap;
+export default React.memo(HandleOverlap);
 
 const OverlapContainer = styled.div<{ isOverlapping: boolean }>`
   user-select: ${p => (p.isOverlapping ? 'none' : 'initial')};

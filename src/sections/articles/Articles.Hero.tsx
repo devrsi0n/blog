@@ -77,7 +77,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   );
 }
 
-export default ArticlesHero;
+export default React.memo(ArticlesHero);
 
 const SubheadingContainer = styled.div`
   display: flex;

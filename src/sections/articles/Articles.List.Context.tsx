@@ -41,4 +41,4 @@ function GridLayoutProvider({ children }: GridLayoutProviderProps) {
   );
 }
 
-export default GridLayoutProvider;
+export default React.memo(GridLayoutProvider);

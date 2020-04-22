@@ -33,7 +33,7 @@ const ArticlesNext = ({ articles }: { articles: IArticle[] }) => {
   );
 };
 
-export default ArticlesNext;
+export default React.memo(ArticlesNext);
 
 const GridItem = ({
   article,

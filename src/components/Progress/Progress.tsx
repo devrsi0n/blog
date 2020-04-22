@@ -147,7 +147,7 @@ function Progress({ contentHeight }: IProgress) {
   );
 }
 
-export default Progress;
+export default React.memo(Progress);
 
 const HeadingHover = styled.div`
   opacity: 0;

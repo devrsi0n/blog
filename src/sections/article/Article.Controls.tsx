@@ -14,7 +14,7 @@ function ArticleControls() {
   );
 }
 
-export default ArticleControls;
+export default React.memo(ArticleControls);
 
 function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();

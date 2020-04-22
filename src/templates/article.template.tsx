@@ -128,7 +128,7 @@ function Article({ pageContext, location }) {
   );
 }
 
-export default Article;
+export default React.memo(Article);
 
 const EditOnGitHub = styled(Section)`
   margin-bottom: 2rem;

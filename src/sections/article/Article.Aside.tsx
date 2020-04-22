@@ -27,7 +27,7 @@ interface AsideProps {
  *                  |  content  |
  *
  */
-function Aside({ contentHeight, children, alignRight }: AsideProps) {
+function Aside({ contentHeight, children, alignRight = false }: AsideProps) {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const [progress, setProgress] = useState<number>(0);
@@ -91,7 +91,7 @@ function Aside({ contentHeight, children, alignRight }: AsideProps) {
   );
 }
 
-export default Aside;
+export default React.memo(Aside);
 
 const AsideContainer = styled.aside<{ alignRight: boolean }>`
   display: flex;

@@ -35,10 +35,7 @@ interface ArticlesListItemProps {
   narrow?: boolean;
 }
 
-export default function ArticlesList({
-  articles,
-  alwaysShowAllDetails,
-}: ArticlesListProps) {
+function ArticlesList({ articles, alwaysShowAllDetails }: ArticlesListProps) {
   const { gridLayout = 'tiles', hasSetGridLayout, getGridLayout } = useContext(
     GridLayoutContext
   );
@@ -85,6 +82,8 @@ export default function ArticlesList({
     </ArticlesListContainer>
   );
 }
+
+export default React.memo(ArticlesList);
 
 const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
   const { gridLayout } = useContext(GridLayoutContext);

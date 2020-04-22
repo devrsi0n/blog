@@ -71,7 +71,7 @@ function MDX({ content, children, ...props }) {
   );
 }
 
-export default MDX;
+export default React.memo(MDX);
 
 const SplitLine = styled.div`
   background: #ccc;

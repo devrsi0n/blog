@@ -27,7 +27,7 @@ function ArticlesPage({ location, pageContext }) {
   );
 }
 
-export default ArticlesPage;
+export default React.memo(ArticlesPage);
 
 const ArticlesGradient = styled.div`
   position: absolute;

@@ -101,7 +101,7 @@ function CodePrism({
   );
 }
 
-export default CodePrism;
+export default React.memo(CodePrism);
 
 function Copy({ toCopy }: { toCopy: string }) {
   const [hasCopied, setHasCopied] = useState<boolean>(false);

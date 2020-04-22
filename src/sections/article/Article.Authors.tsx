@@ -31,7 +31,7 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
   );
 }
 
-export default ArticleAuthors;
+export default React.memo(ArticleAuthors);
 
 /**
  * When generating the author names we're also checking to see how long the

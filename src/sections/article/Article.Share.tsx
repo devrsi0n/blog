@@ -200,7 +200,7 @@ function ArticelShare() {
   );
 }
 
-export default ArticelShare;
+export default React.memo(ArticelShare);
 
 function ReferralLink({ disabled, share, children }) {
   function handleClick(event) {

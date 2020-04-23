@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import throttle from 'lodash/throttle';
-
-import { clamp } from '@utils';
 
 export interface IProgress {
   /**
    * Article content DOM height
    */
   contentHeight: number;
+  progress: number;
 }
 
 interface Heading {
@@ -17,9 +15,8 @@ interface Heading {
   offsetPercentage: number;
 }
 
-function Progress({ contentHeight }: IProgress) {
+function Progress({ contentHeight, progress }: IProgress) {
   const [headings, setHeadings] = useState<Heading[]>([]);
-  const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
     const introduction = {
@@ -45,23 +42,6 @@ function Progress({ contentHeight }: IProgress) {
       })
       .reverse();
     setHeadings([introduction, ...allHeadings]);
-  }, [contentHeight]);
-
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const percentComplete = (window.scrollY / contentHeight) * 100;
-
-      setProgress(clamp(+percentComplete.toFixed(2), -2, 104));
-    }, 20);
-
-    if (contentHeight) {
-      window.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
-      };
-    }
   }, [contentHeight]);
 
   return (

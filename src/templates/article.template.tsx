@@ -12,6 +12,7 @@ import ArticleActions from '@sections/article/Article.Actions';
 
 import mediaqueries from '@styles/media';
 
+import { clamp } from '@utils';
 import debounce from '@utils/debounce';
 import ArticleAside from '@sections/article/Article.Aside';
 import ArticleHero from '@sections/article/Article.Hero';
@@ -43,11 +44,32 @@ function Article({ pageContext, location }) {
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
+  const [progress, setProgress] = useState<number>(0);
   useUtteranc('utterancContainer');
   const results = useStaticQuery<ArticleTemplateSiteQuery>(siteQuery);
   const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
   const { article, authors, mailchimp, next } = pageContext;
+
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      // content top height relative to document body
+      const topDiff =
+        contentSectionRef.current.getBoundingClientRect().top + window.scrollY;
+      const percentComplete =
+        (window.scrollY / (contentHeight + topDiff - window.innerHeight)) * 100;
+
+      setProgress(clamp(+percentComplete.toFixed(2), 0, 105));
+    }, 20);
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [contentHeight]);
 
   useEffect(() => {
     const calculateBodySize = throttle(() => {
@@ -93,8 +115,8 @@ function Article({ pageContext, location }) {
     <>
       <ArticleSEO article={article} authors={authors} location={location} />
       <ArticleHero article={article} authors={authors} />
-      <ArticleAside contentHeight={contentHeight}>
-        <Progress contentHeight={contentHeight} />
+      <ArticleAside progress={progress}>
+        <Progress contentHeight={contentHeight} progress={progress} />
       </ArticleAside>
       <MobileControls>
         <ArticleControls />
@@ -104,7 +126,7 @@ function Article({ pageContext, location }) {
           <ArticleShare />
         </MDXRenderer>
       </ArticleBody>
-      <ArticleAside contentHeight={contentHeight} alignRight>
+      <ArticleAside progress={progress} alignRight>
         <ArticleActions url={location.pathname} />
       </ArticleAside>
 

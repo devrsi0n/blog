@@ -71,7 +71,15 @@ function MDX({ content, children, ...props }) {
   );
 }
 
-export default React.memo(MDX);
+function isEqual(prevProps, nextProps) {
+  // WARN! only compare content, as children always change
+  if (prevProps.content === nextProps.content) {
+    return true;
+  }
+  return false;
+}
+
+export default React.memo(MDX, isEqual);
 
 const SplitLine = styled.div`
   background: #ccc;

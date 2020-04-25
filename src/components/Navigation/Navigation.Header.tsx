@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Link, navigate } from 'gatsby';
 import { useColorMode } from 'theme-ui';
@@ -8,7 +8,7 @@ import Section from '@components/Section';
 import Logo from '@components/Logo';
 import useIsDarkMode from '@hooks/useIsDark';
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconChevronLeft, IconEx, IconLink } from '@components/Icons';
 import {
   copyToClipboard,
   getWindowDimensions,
@@ -26,7 +26,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
   const [previousPath, setPreviousPath] = useState('/');
   const [showCloseButton, setShowCloseButton] = useState(false);
   const [detached, seDetached] = useState(false);
-  const [isDark] = useIsDarkMode();
+  const { isDark } = useIsDarkMode();
 
   const [colorMode] = useColorMode();
   const fill = colorMode === 'dark' ? '#fff' : '#000';
@@ -59,6 +59,8 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
     setPreviousPath(prev);
   }, [location.pathname]);
 
+  const handleClick = useCallback(() => navigate(previousPath), [previousPath]);
+
   return (
     <RootContainer detached={detached} isDark={isDark}>
       <NavSection as="header">
@@ -72,7 +74,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
           >
             {showBackArrow && (
               <BackArrowIconContainer>
-                <Icons.ChevronLeft fill={fill} />
+                <IconChevronLeft fill={fill} />
               </BackArrowIconContainer>
             )}
             <Logo fill={fill} />
@@ -82,11 +84,11 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
             {showCloseButton ? (
               <button
                 type="button"
-                onClick={() => navigate(previousPath)}
+                onClick={handleClick}
                 title={strNavToHome}
                 aria-label={strNavToHome}
               >
-                <Icons.Ex fill={fill} />
+                <IconEx fill={fill} />
               </button>
             ) : (
               <>
@@ -110,12 +112,13 @@ function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
 
-  function toggleColorMode(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    event.preventDefault();
-    setColorMode(isDark ? `default` : `dark`);
-  }
+  const toggleColorMode = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      setColorMode(isDark ? `default` : `dark`);
+    },
+    [isDark, setColorMode]
+  );
 
   return (
     <IconWrapper
@@ -139,7 +142,7 @@ function SharePageButton() {
   const isDark = colorMode === `dark`;
   const fill = isDark ? '#fff' : '#000';
 
-  function copyToClipboardOnClick() {
+  const copyToClipboardOnClick = useCallback(() => {
     if (hasCopied) return;
 
     copyToClipboard(window.location.href);
@@ -148,7 +151,7 @@ function SharePageButton() {
     setTimeout(() => {
       setHasCopied(false);
     }, 1000);
-  }
+  }, [hasCopied]);
 
   return (
     <IconWrapper
@@ -158,7 +161,7 @@ function SharePageButton() {
       aria-label={strCopyUrlToClipboard}
       title={strCopyUrlToClipboard}
     >
-      <Icons.Link fill={fill} />
+      <IconLink fill={fill} />
       <ToolTip isDark={isDark} hasCopied={hasCopied}>
         复制成功
       </ToolTip>

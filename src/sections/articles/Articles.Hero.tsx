@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
 
 import Section from '@components/Section';
 import Bio from '@components/Bio';
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconTiles, IconRows } from '@components/Icons';
 import { IAuthor } from '@types';
 
 import { GridLayoutContext } from './Articles.List.Context';
@@ -38,6 +38,13 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   const tilesIsActive = hasSetGridLayout && gridLayout === 'tiles';
   const featuredAuthor = authors.find(author => author.featured);
 
+  const handleClickTilesButton = useCallback(() => setGridLayout('tiles'), [
+    setGridLayout,
+  ]);
+  const handleClickRowButton = useCallback(() => setGridLayout('rows'), [
+    setGridLayout,
+  ]);
+
   if (!featuredAuthor) {
     throw new Error(`
       No featured Author found.
@@ -54,22 +61,22 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
         <Bio author={featuredAuthor} />
         <GridControlsContainer>
           <GridButton
-            onClick={() => setGridLayout('tiles')}
+            onClick={handleClickTilesButton}
             active={tilesIsActive}
             data-a11y="false"
             title="Show articles in Tile grid"
             aria-label="Show articles in Tile grid"
           >
-            <Icons.Tiles />
+            <IconTiles />
           </GridButton>
           <GridButton
-            onClick={() => setGridLayout('rows')}
+            onClick={handleClickRowButton}
             active={!tilesIsActive}
             data-a11y="false"
             title="Show articles in Row grid"
             aria-label="Show articles in Row grid"
           >
-            <Icons.Rows />
+            <IconRows />
           </GridButton>
         </GridControlsContainer>
       </SubheadingContainer>
@@ -77,7 +84,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   );
 }
 
-export default ArticlesHero;
+export default React.memo(ArticlesHero);
 
 const SubheadingContainer = styled.div`
   display: flex;

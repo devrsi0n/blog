@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
@@ -14,18 +14,19 @@ function ArticleControls() {
   );
 }
 
-export default ArticleControls;
+export default React.memo(ArticleControls);
 
 function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === `dark`;
 
-  function toggleColorMode(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    event.preventDefault();
-    setColorMode(isDark ? `default` : `dark`);
-  }
+  const toggleColorMode = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      setColorMode(isDark ? `default` : `dark`);
+    },
+    [isDark, setColorMode]
+  );
 
   return (
     <IconWrapper
@@ -77,7 +78,7 @@ function SharePageButton() {
   const [colorMode] = useColorMode();
   const isDark = colorMode === `dark`;
 
-  function copyToClipboardOnClick() {
+  const copyToClipboardOnClick = useCallback(() => {
     if (hasCopied) return;
 
     copyToClipboard(window.location.href);
@@ -86,7 +87,7 @@ function SharePageButton() {
     setTimeout(() => {
       setHasCopied(false);
     }, 1000);
-  }
+  }, [hasCopied]);
 
   const Icon = isDark ? ShareDarkModeOffIcon : ShareDarkModeOnIcon;
 

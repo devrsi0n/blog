@@ -31,7 +31,7 @@ function ArticlesPage({ location, pageContext }) {
   );
 }
 
-export default ArticlesPage;
+export default React.memo(ArticlesPage);
 
 const AuthorsGradient = styled.div`
   position: absolute;

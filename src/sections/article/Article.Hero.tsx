@@ -61,7 +61,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
   );
 };
 
-export default ArticleHero;
+export default React.memo(ArticleHero);
 
 function compareDate(updatedAt: string, date: string) {
   const update = new Date(updatedAt);

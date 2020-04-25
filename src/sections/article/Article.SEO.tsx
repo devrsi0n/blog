@@ -90,4 +90,4 @@ function ArticleSEO({
   );
 }
 
-export default ArticleSEO;
+export default React.memo(ArticleSEO);

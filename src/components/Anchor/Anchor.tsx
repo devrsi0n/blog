@@ -1,6 +1,6 @@
 import React, { AnchorHTMLAttributes, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import Icons from '@components/Icons';
+import { IconExternalLink } from '@components/Icons';
 import { useStaticQuery, graphql } from 'gatsby';
 
 const BaseAnchor = styled.a`
@@ -66,7 +66,7 @@ export default function Anchor(props: AnchorProps) {
   return (
     <BaseAnchor rel="noopener noreferrer" {...allProps}>
       <ChildrenWrap>{children}</ChildrenWrap>
-      {showIcon && <Icons.ExternalLink />}
+      {showIcon && <IconExternalLink />}
     </BaseAnchor>
   );
 }

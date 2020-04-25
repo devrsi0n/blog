@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
 import { stringify } from 'query-string';
 
 import toast from '@components/Toast';
-import Icons from '@components/Icons';
+import { IconTwitter, IconWeibo, IconCopy } from '@components/Icons';
 
 import {
   getHighlightedTextPositioning,
@@ -151,7 +151,7 @@ function ArticelShare() {
     }, 0);
   }, [show]);
 
-  function handleCopyClick() {
+  const handleCopyClick = useCallback(() => {
     toast.success({ content: '复制成功' });
     const tempInput = document.createElement('input');
     document.body.appendChild(tempInput);
@@ -159,7 +159,7 @@ function ArticelShare() {
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-  }
+  }, [text]);
 
   /**
    * Setting the ability to tweet. If the user highlights more than the allowed
@@ -187,32 +187,41 @@ function ArticelShare() {
     >
       <MenuText>分享到：</MenuText>
       <ReferralLink disabled={!canTweet} share={share.twitter}>
-        <Icons.Twitter width="18px" height="15px" />
+        <IconTwitter width="18px" height="15px" />
       </ReferralLink>
       <ReferralLink disabled={!canTweet} share={share.weibo}>
-        <Icons.Weibo width="20px" height="20px" />
+        <IconWeibo width="20px" height="20px" />
       </ReferralLink>
       <MenuDivider />
       <MenuButton onClick={handleCopyClick} aria-label="Copy selected text">
-        <Icons.Copy />
+        <IconCopy />
       </MenuButton>
     </MenuFloat>
   );
 }
 
-export default ArticelShare;
+export default React.memo(ArticelShare);
 
-function ReferralLink({ disabled, share, children }) {
-  function handleClick(event) {
-    event.preventDefault();
-    if (disabled) return;
+interface ReferralLinkProps {
+  disabled: boolean;
+  share: string;
+  children: React.ReactNode;
+}
 
-    window.open(
-      share,
-      '',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
-    );
-  }
+function ReferralLink({ disabled, share, children }: ReferralLinkProps) {
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      event.preventDefault();
+      if (disabled) return;
+
+      window.open(
+        share,
+        '',
+        'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
+      );
+    },
+    [disabled, share]
+  );
 
   return (
     <MenuShare

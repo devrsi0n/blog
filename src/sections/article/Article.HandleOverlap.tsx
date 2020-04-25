@@ -2,6 +2,32 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
+// Is the current element within the window's frame? That's all we care about!
+function isVisible(element: HTMLElement): boolean {
+  const rect = element.getBoundingClientRect();
+
+  return rect.top < window.innerHeight && rect.bottom >= 0;
+}
+
+const BUFFER = 80;
+
+/**
+ * This is a nice stackoverflow answer that sums up the overlapping feature. All
+ * we've added is a small BUFFER because we don't want it to disappear as it touches.
+ * We prefer to start the fade out a few pixels before!
+ */
+function collide(fixedElement: HTMLElement, node: HTMLElement): boolean {
+  const rect1 = fixedElement.getBoundingClientRect();
+  const rect2 = node.getBoundingClientRect();
+
+  return !(
+    rect1.top - BUFFER > rect2.bottom ||
+    rect1.right < rect2.left ||
+    rect1.bottom + BUFFER < rect2.top ||
+    rect1.left > rect2.right
+  );
+}
+
 interface OverlapProps {
   children: React.ReactNode;
 }
@@ -20,31 +46,6 @@ interface OverlapProps {
 function HandleOverlap(props: OverlapProps) {
   const asideRef = useRef<HTMLDivElement>(null);
   const [isOverlapping, setIsOverlapping] = useState(false);
-
-  // Is the current element within the window's frame? That's all we care about!
-  function isVisible(element: HTMLElement): boolean {
-    const rect = element.getBoundingClientRect();
-
-    return rect.top < window.innerHeight && rect.bottom >= 0;
-  }
-
-  /**
-   * This is a nice stackoverflow answer that sums up the overlapping feature. All
-   * we've added is a small BUFFER because we don't want it to disappear as it touches.
-   * We prefer to start the fade out a few pixels before!
-   */
-  function collide(fixedElement: HTMLElement, node: HTMLElement): boolean {
-    const BUFFER = 80;
-    const rect1 = fixedElement.getBoundingClientRect();
-    const rect2 = node.getBoundingClientRect();
-
-    return !(
-      rect1.top - BUFFER > rect2.bottom ||
-      rect1.right < rect2.left ||
-      rect1.bottom + BUFFER < rect2.top ||
-      rect1.left > rect2.right
-    );
-  }
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -89,7 +90,7 @@ function HandleOverlap(props: OverlapProps) {
   );
 }
 
-export default HandleOverlap;
+export default React.memo(HandleOverlap);
 
 const OverlapContainer = styled.div<{ isOverlapping: boolean }>`
   user-select: ${p => (p.isOverlapping ? 'none' : 'initial')};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 // import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconCopied, IconCopy } from '@components/Icons';
 import { copyToClipboard } from '@utils';
 
 const RE = /{([\d,-]+)}/;
@@ -101,13 +101,13 @@ function CodePrism({
   );
 }
 
-export default CodePrism;
+export default React.memo(CodePrism);
 
 function Copy({ toCopy }: { toCopy: string }) {
   const [hasCopied, setHasCopied] = useState<boolean>(false);
   const [colorMode] = useColorMode();
 
-  function copyToClipboardOnClick() {
+  const copyToClipboardOnClick = useCallback(() => {
     if (hasCopied) return;
 
     copyToClipboard(toCopy);
@@ -116,7 +116,7 @@ function Copy({ toCopy }: { toCopy: string }) {
     setTimeout(() => {
       setHasCopied(false);
     }, 2000);
-  }
+  }, [hasCopied, toCopy]);
 
   return (
     <CopyButton
@@ -126,11 +126,11 @@ function Copy({ toCopy }: { toCopy: string }) {
     >
       {hasCopied ? (
         <>
-          复制成功 <Icons.Copied fill="#6f7177" />
+          复制成功 <IconCopied fill="#6f7177" />
         </>
       ) : (
         <>
-          复制 <Icons.Copy fill="#6f7177" />
+          复制 <IconCopy fill="#6f7177" />
         </>
       )}
     </CopyButton>

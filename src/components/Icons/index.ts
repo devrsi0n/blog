@@ -1,55 +1,29 @@
-// Social
-import Dribbble from './social/Dribbble.Icon';
-import Facebook from './social/Facebook.Icon';
-import Instagram from './social/Instagram.Icon';
-import Twitter from './social/Twitter.Icon';
-import LinkedIn from './social/LinkedIn.Icon';
-import Medium from './social/Medium.Icon';
-import Github from './social/Github.Icon';
-import Unsplash from './social/Unsplash.Icon';
-import YouTube from './social/YouTube.Icon';
-import Patreon from './social/Patreon.Icon';
-import Paypal from './social/Paypal.Icon';
-import Weibo from './social/Weibo.Icon';
+// Social media brands
+export { default as IconDribbble } from './social/Dribbble.Icon';
+export { default as IconFacebook } from './social/Facebook.Icon';
+export { default as IconInstagram } from './social/Instagram.Icon';
+export { default as IconTwitter } from './social/Twitter.Icon';
+export { default as IconLinkedIn } from './social/LinkedIn.Icon';
+export { default as IconMedium } from './social/Medium.Icon';
+export { default as IconGithub } from './social/Github.Icon';
+export { default as IconUnsplash } from './social/Unsplash.Icon';
+export { default as IconYouTube } from './social/YouTube.Icon';
+export { default as IconPatreon } from './social/Patreon.Icon';
+export { default as IconPaypal } from './social/Paypal.Icon';
+export { default as IconWeibo } from './social/Weibo.Icon';
 
 // UI
-import ChevronLeft from './ui/ChevronLeft.Icon';
-import Copied from './ui/Copied.Icon';
-import Copy from './ui/Copy.Icon';
-import Ex from './ui/Ex.Icon';
-import Link from './ui/Link.Icon';
-import ToggleOpen from './ui/ToggleOpen.Icon';
-import ToggleClose from './ui/ToggleClose.Icon';
-import Rows from './ui/Rows.Icon';
-import Tiles from './ui/Tiles.Icon';
-import Done from './ui/Done.Icon';
-import ExternalLink from './ui/ExternalLink.Icon';
-import HashLink from './ui/HashLink.Icon';
-
-export default {
-  Dribbble,
-  Facebook,
-  Instagram,
-  Twitter,
-  LinkedIn,
-  Medium,
-  Github,
-  Unsplash,
-  YouTube,
-  Patreon,
-  Paypal,
-  Weibo,
-
-  ChevronLeft,
-  Copied,
-  Copy,
-  Ex,
-  Link,
-  ToggleClose,
-  ToggleOpen,
-  Rows,
-  Tiles,
-  Done,
-  ExternalLink,
-  HashLink,
-};
+export { default as IconChevronLeft } from './ui/ChevronLeft.Icon';
+export { default as IconCopied } from './ui/Copied.Icon';
+export { default as IconCopy } from './ui/Copy.Icon';
+export { default as IconEx } from './ui/Ex.Icon';
+export { default as IconLink } from './ui/Link.Icon';
+export { default as IconToggleOpen } from './ui/ToggleOpen.Icon';
+export { default as IconToggleClose } from './ui/ToggleClose.Icon';
+export { default as IconRows } from './ui/Rows.Icon';
+export { default as IconTiles } from './ui/Tiles.Icon';
+export { default as IconDone } from './ui/Done.Icon';
+export { default as IconExternalLink } from './ui/ExternalLink.Icon';
+export { default as IconHashLink } from './ui/HashLink.Icon';
+export { default as IconHeart } from './ui/Heart.Icon';
+export { default as IconHandclap } from './ui/Handclap.Icon';

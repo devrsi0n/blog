@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 import mediaqueries from '@styles/media';
-import { clamp } from '@utils';
 import HandleOverlap from './Article.HandleOverlap';
 
 interface AsideProps {
   children: ReactNode[] | ReactNode;
-  contentHeight: number;
+  progress: number;
   alignRight?: boolean;
 }
 
@@ -27,14 +26,12 @@ interface AsideProps {
  *                  |  content  |
  *
  */
-function Aside({ contentHeight, children, alignRight }: AsideProps) {
+function Aside({ children, progress, alignRight = false }: AsideProps) {
   const progressRef = useRef<HTMLDivElement>(null);
-
-  const [progress, setProgress] = useState<number>(0);
   const [imageOffset, setImageOffset] = useState<number>(0);
   const [shouldFixAside, setShouldFixAside] = useState<boolean>(false);
 
-  const show = imageOffset && progress < 100;
+  const show = imageOffset && progress <= 100;
   const childrenWithProps = React.Children.map(children, child =>
     React.cloneElement(child as any, { show })
   );
@@ -54,10 +51,6 @@ function Aside({ contentHeight, children, alignRight }: AsideProps) {
       const windowHeight =
         window.innerHeight || document.documentElement.clientHeight;
 
-      const percentComplete = (window.scrollY / contentHeight) * 100;
-
-      setProgress(clamp(+percentComplete.toFixed(2), 0, 105));
-
       if (top + window.scrollY < imageOffsetFromTopOfWindow) {
         return setShouldFixAside(false);
       }
@@ -74,7 +67,7 @@ function Aside({ contentHeight, children, alignRight }: AsideProps) {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [contentHeight]);
+  }, []);
 
   return (
     <AsideContainer alignRight={alignRight}>
@@ -91,7 +84,7 @@ function Aside({ contentHeight, children, alignRight }: AsideProps) {
   );
 }
 
-export default Aside;
+export default React.memo(Aside);
 
 const AsideContainer = styled.aside<{ alignRight: boolean }>`
   display: flex;

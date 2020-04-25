@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useCallback } from 'react';
 
 interface GridLayoutProviderProps {
   children: React.ReactNode;
@@ -11,21 +11,21 @@ export const GridLayoutContext = createContext({
   getGridLayout: () => {},
 });
 
-function GridLayoutProvider({ children }: GridLayoutProviderProps) {
-  const initialLayout = 'tiles';
+const INITIAL_LAYOUT = 'tiles';
 
-  const [gridLayout, setGridLayout] = useState<string>(initialLayout);
+function GridLayoutProvider({ children }: GridLayoutProviderProps) {
+  const [gridLayout, setGridLayout] = useState<string>(INITIAL_LAYOUT);
   const [hasSetGridLayout, setHasSetGridLayout] = useState<boolean>(false);
 
-  function setGridLayoutAndSave(tile: string) {
-    localStorage.setItem('gridLayout', tile || initialLayout);
+  const setGridLayoutAndSave = useCallback((tile: string) => {
+    localStorage.setItem('gridLayout', tile || INITIAL_LAYOUT);
     setGridLayout(tile);
-  }
+  }, []);
 
-  function getGridLayoutAndSave() {
-    setGridLayout(localStorage.getItem('gridLayout') || initialLayout);
+  const getGridLayoutAndSave = useCallback(() => {
+    setGridLayout(localStorage.getItem('gridLayout') || INITIAL_LAYOUT);
     setHasSetGridLayout(true);
-  }
+  }, []);
 
   return (
     <GridLayoutContext.Provider

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import React, { CSSProperties, useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { transparentize } from 'polished';
 
@@ -16,28 +16,30 @@ const KEY_PREFIX = 'article_action_';
 function Action(props: Props) {
   const [count, setCount] = useState(props.count);
   const key = KEY_PREFIX + props.type;
+
   useEffect(() => {
     if (props.count > count) {
       setCount(props.count);
     }
   }, [count, props.count]);
 
+  const handleRowClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const callCount = parseInt(localStorage.getItem(key) || '0', 10);
+      // Increase 10 at most
+      if (process.env.NODE_ENV === 'development' || callCount < 10) {
+        setCount(prev => prev + 1);
+        localStorage.setItem(key, (callCount + 1).toString());
+        props.handleClick(e);
+      } else {
+        localStorage.setItem(key, '10');
+      }
+    },
+    [key, props]
+  );
+
   return (
-    <Row
-      bg={props.color}
-      onClick={e => {
-        const callCount = parseInt(localStorage.getItem(key) || '0', 10);
-        // Increase 10 at most
-        if (process.env.NODE_ENV === 'development' || callCount < 10) {
-          setCount(prev => prev + 1);
-          localStorage.setItem(key, (callCount + 1).toString());
-          props.handleClick(e);
-        } else {
-          localStorage.setItem(key, '10');
-        }
-      }}
-      role="button"
-    >
+    <Row bg={props.color} onClick={handleRowClick} role="button">
       <Wrap style={props.style}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>

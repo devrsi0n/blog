@@ -124,13 +124,10 @@ class Paginator extends Component<IPaginator, {}> {
   };
 
   render() {
-    const { count } = this;
-    const { current } = this;
+    const { count, current, previousPath, nextPath } = this;
 
     if (count <= 1) return null;
 
-    const { previousPath } = this;
-    const { nextPath } = this;
     const hasNext = this.current < this.count;
     const hasPrevious = this.current > 1;
 

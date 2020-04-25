@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 // import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
@@ -107,7 +107,7 @@ function Copy({ toCopy }: { toCopy: string }) {
   const [hasCopied, setHasCopied] = useState<boolean>(false);
   const [colorMode] = useColorMode();
 
-  function copyToClipboardOnClick() {
+  const copyToClipboardOnClick = useCallback(() => {
     if (hasCopied) return;
 
     copyToClipboard(toCopy);
@@ -116,7 +116,7 @@ function Copy({ toCopy }: { toCopy: string }) {
     setTimeout(() => {
       setHasCopied(false);
     }, 2000);
-  }
+  }, [hasCopied, toCopy]);
 
   return (
     <CopyButton

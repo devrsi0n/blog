@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
 
@@ -38,6 +38,13 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   const tilesIsActive = hasSetGridLayout && gridLayout === 'tiles';
   const featuredAuthor = authors.find(author => author.featured);
 
+  const handleClickTilesButton = useCallback(() => setGridLayout('tiles'), [
+    setGridLayout,
+  ]);
+  const handleClickRowButton = useCallback(() => setGridLayout('rows'), [
+    setGridLayout,
+  ]);
+
   if (!featuredAuthor) {
     throw new Error(`
       No featured Author found.
@@ -54,7 +61,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
         <Bio author={featuredAuthor} />
         <GridControlsContainer>
           <GridButton
-            onClick={() => setGridLayout('tiles')}
+            onClick={handleClickTilesButton}
             active={tilesIsActive}
             data-a11y="false"
             title="Show articles in Tile grid"
@@ -63,7 +70,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             <Icons.Tiles />
           </GridButton>
           <GridButton
-            onClick={() => setGridLayout('rows')}
+            onClick={handleClickRowButton}
             active={!tilesIsActive}
             data-a11y="false"
             title="Show articles in Row grid"

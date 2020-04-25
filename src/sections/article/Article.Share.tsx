@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
@@ -151,7 +151,7 @@ function ArticelShare() {
     }, 0);
   }, [show]);
 
-  function handleCopyClick() {
+  const handleCopyClick = useCallback(() => {
     toast.success({ content: '复制成功' });
     const tempInput = document.createElement('input');
     document.body.appendChild(tempInput);
@@ -159,7 +159,7 @@ function ArticelShare() {
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-  }
+  }, [text]);
 
   /**
    * Setting the ability to tweet. If the user highlights more than the allowed
@@ -202,17 +202,26 @@ function ArticelShare() {
 
 export default React.memo(ArticelShare);
 
-function ReferralLink({ disabled, share, children }) {
-  function handleClick(event) {
-    event.preventDefault();
-    if (disabled) return;
+interface ReferralLinkProps {
+  disabled: boolean;
+  share: string;
+  children: React.ReactNode;
+}
 
-    window.open(
-      share,
-      '',
-      'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
-    );
-  }
+function ReferralLink({ disabled, share, children }: ReferralLinkProps) {
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      event.preventDefault();
+      if (disabled) return;
+
+      window.open(
+        share,
+        '',
+        'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
+      );
+    },
+    [disabled, share]
+  );
 
   return (
     <MenuShare

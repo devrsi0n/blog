@@ -1,5 +1,5 @@
 import addToMailchimp from 'gatsby-plugin-mailchimp';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import Section from '@components/Section';
 import { H3 } from '@components/Headings';
@@ -12,31 +12,37 @@ const Subscription: React.FunctionComponent<{}> = () => {
   const [error, setError] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    addToMailchimp(email)
-      .then(data => {
-        if (data.result === 'error') {
-          throw data;
-        }
+      addToMailchimp(email)
+        .then(data => {
+          if (data.result === 'error') {
+            throw data;
+          }
 
-        setSubscribed(true);
-        setEmail('');
+          setSubscribed(true);
+          setEmail('');
 
-        setTimeout(() => {
-          setSubscribed(false);
-        }, 6000);
-      })
-      .catch(err => {
-        setError(err.msg);
-      });
-  }
+          setTimeout(() => {
+            setSubscribed(false);
+          }, 6000);
+        })
+        .catch(err => {
+          setError(err.msg);
+        });
+    },
+    [email]
+  );
 
-  function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(event.currentTarget.value);
-    setError('');
-  }
+  const handleEmailChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(event.currentTarget.value);
+      setError('');
+    },
+    []
+  );
 
   return (
     <Section narrow>

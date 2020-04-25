@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { MDXProvider } from '@mdx-js/react';
-
+import { MDXProvider, MDXProviderProps } from '@mdx-js/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
@@ -55,7 +54,12 @@ const components = {
   Message,
 };
 
-function MDX({ content, children, ...props }) {
+export interface MDXProps extends MDXProviderProps {
+  content: string;
+  children: React.ReactNode;
+}
+
+function MDX({ content, children, ...props }: MDXProps) {
   const [colorMode] = useColorMode();
 
   return (
@@ -71,7 +75,7 @@ function MDX({ content, children, ...props }) {
   );
 }
 
-function isEqual(prevProps, nextProps) {
+function isEqual(prevProps: MDXProps, nextProps: MDXProps) {
   // WARN! only compare content, as children always change
   if (prevProps.content === nextProps.content) {
     return true;

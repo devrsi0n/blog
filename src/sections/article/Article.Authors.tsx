@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useColorMode } from 'theme-ui';
@@ -57,8 +57,10 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
   const fill = colorMode === 'dark' ? '#fff' : '#000';
   const listWidth = { width: `${10 + authors.length * 15}px` };
 
+  const handleClick = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+
   return (
-    <CoAuthorsContainer onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
+    <CoAuthorsContainer onClick={handleClick} isOpen={isOpen}>
       <CoAuthorsList style={listWidth}>
         {authors.map((author, index) => (
           <CoAuthorAvatar style={{ left: `${index * 15}px` }} key={author.name}>

@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Section from '@components/Section';
 import Bio from '@components/Bio';
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconTiles, IconRows } from '@components/Icons';
 import { IAuthor } from '@types';
 
 import { GridLayoutContext } from './Articles.List.Context';
@@ -67,7 +67,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             title="Show articles in Tile grid"
             aria-label="Show articles in Tile grid"
           >
-            <Icons.Tiles />
+            <IconTiles />
           </GridButton>
           <GridButton
             onClick={handleClickRowButton}
@@ -76,7 +76,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             title="Show articles in Row grid"
             aria-label="Show articles in Row grid"
           >
-            <Icons.Rows />
+            <IconRows />
           </GridButton>
         </GridControlsContainer>
       </SubheadingContainer>

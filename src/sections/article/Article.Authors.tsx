@@ -6,7 +6,7 @@ import { Link } from 'gatsby';
 
 import Image from '@components/Image';
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconToggleOpen, IconToggleClose } from '@components/Icons';
 import { IAuthor } from '@types';
 
 /**
@@ -70,14 +70,14 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
       </CoAuthorsList>
       <NameContainer>{names}</NameContainer>
       <IconContainer>
-        <Icons.ToggleOpen fill={fill} />
+        <IconToggleOpen fill={fill} />
       </IconContainer>
 
       {isOpen && (
         <OutsideClickHandler onOutsideClick={() => setIsOpen(!isOpen)}>
           <CoAuthorsListOpen>
             <IconOpenContainer>
-              <Icons.ToggleClose fill={fill} />
+              <IconToggleClose fill={fill} />
             </IconOpenContainer>
             {authors.map(author => (
               <CoAuthorsListItemOpen key={author.name}>

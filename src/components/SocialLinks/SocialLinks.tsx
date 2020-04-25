@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconGithub, IconTwitter, IconWeibo } from '@components/Icons';
 
 interface SocialLinksProps {
   links: {
@@ -13,21 +13,21 @@ interface SocialLinksProps {
 }
 
 const icons = {
-  dribbble: Icons.Dribbble,
-  linkedin: Icons.LinkedIn,
-  twitter: Icons.Twitter,
-  facebook: Icons.Facebook,
-  instagram: Icons.Instagram,
-  github: Icons.Github,
-  youtube: Icons.YouTube,
-  medium: Icons.Medium,
-  unsplash: Icons.Unsplash,
-  patreon: Icons.Patreon,
-  paypal: Icons.Paypal,
-  weibo: Icons.Weibo,
+  github: IconGithub,
+  twitter: IconTwitter,
+  weibo: IconWeibo,
+  // dribbble: IconDribbble,
+  // linkedin: IconLinkedIn,
+  // facebook: IconFacebook,
+  // instagram: IconInstagram,
+  // youtube: IconYouTube,
+  // medium: IconMedium,
+  // unsplash: IconUnsplash,
+  // patreon: IconPatreon,
+  // paypal: IconPaypal,
 };
 
-const getHostname = url => {
+const getHostname = (url: string) => {
   return new URL(url.toLowerCase()).hostname.replace('www.', '').split('.')[0];
 };
 

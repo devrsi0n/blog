@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Heart from '@components/Icons/ui/Heart.Icon';
-import Handclap from '@components/Icons/ui/Handclap.Icon';
-// import Share from '@components/Icons/ui/Share.Icon';
+import { IconHeart, IconHandclap } from '@components/Icons';
+// import {IconShare} from '@components/Icons';
 import Action from './Action';
 
 interface Props {
@@ -29,7 +28,7 @@ function Actions({
           padding: 0,
         }}
       >
-        <Heart width={46} fill="rgb(224, 36, 94)" />
+        <IconHeart width={46} fill="rgb(224, 36, 94)" />
       </Action>
       <Action
         type="handclap"
@@ -37,7 +36,7 @@ function Actions({
         color="rgb(29, 161, 242)"
         handleClick={() => handleAction('handclap')}
       >
-        <Handclap width={26} />
+        <IconHandclap width={26} />
       </Action>
       {/* <Action
         type="share"
@@ -45,7 +44,7 @@ function Actions({
         color="rgb(23, 191, 99)"
         handClick={() => handleAction('share')}
       >
-        <Share width={24} />
+        <IconShare width={24} />
       </Action> */}
     </Section>
   );

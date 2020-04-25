@@ -3,14 +3,14 @@ import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
-import Icons from '@components/Icons';
+import { IconHashLink as IconLink } from '@components/Icons';
 import mediaqueries from '@styles/media';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';
 
 function IconHashLink() {
   const [colorMode] = useColorMode();
   const color = colorMode === 'dark' ? 'white' : 'black';
-  return <Icons.HashLink fill={color} />;
+  return <IconLink fill={color} />;
 }
 
 const Anchor = styled.a`

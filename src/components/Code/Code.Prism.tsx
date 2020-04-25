@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconCopied, IconCopy } from '@components/Icons';
 import { copyToClipboard } from '@utils';
 
 const RE = /{([\d,-]+)}/;
@@ -126,11 +126,11 @@ function Copy({ toCopy }: { toCopy: string }) {
     >
       {hasCopied ? (
         <>
-          复制成功 <Icons.Copied fill="#6f7177" />
+          复制成功 <IconCopied fill="#6f7177" />
         </>
       ) : (
         <>
-          复制 <Icons.Copy fill="#6f7177" />
+          复制 <IconCopy fill="#6f7177" />
         </>
       )}
     </CopyButton>

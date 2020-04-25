@@ -5,7 +5,7 @@ import { useColorMode } from 'theme-ui';
 import { stringify } from 'query-string';
 
 import toast from '@components/Toast';
-import Icons from '@components/Icons';
+import { IconTwitter, IconWeibo, IconCopy } from '@components/Icons';
 
 import {
   getHighlightedTextPositioning,
@@ -187,14 +187,14 @@ function ArticelShare() {
     >
       <MenuText>分享到：</MenuText>
       <ReferralLink disabled={!canTweet} share={share.twitter}>
-        <Icons.Twitter width="18px" height="15px" />
+        <IconTwitter width="18px" height="15px" />
       </ReferralLink>
       <ReferralLink disabled={!canTweet} share={share.weibo}>
-        <Icons.Weibo width="20px" height="20px" />
+        <IconWeibo width="20px" height="20px" />
       </ReferralLink>
       <MenuDivider />
       <MenuButton onClick={handleCopyClick} aria-label="Copy selected text">
-        <Icons.Copy />
+        <IconCopy />
       </MenuButton>
     </MenuFloat>
   );

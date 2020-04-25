@@ -8,7 +8,7 @@ import Section from '@components/Section';
 import Logo from '@components/Logo';
 import useIsDarkMode from '@hooks/useIsDark';
 import mediaqueries from '@styles/media';
-import Icons from '@components/Icons';
+import { IconChevronLeft, IconEx, IconLink } from '@components/Icons';
 import {
   copyToClipboard,
   getWindowDimensions,
@@ -74,7 +74,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
           >
             {showBackArrow && (
               <BackArrowIconContainer>
-                <Icons.ChevronLeft fill={fill} />
+                <IconChevronLeft fill={fill} />
               </BackArrowIconContainer>
             )}
             <Logo fill={fill} />
@@ -88,7 +88,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
                 title={strNavToHome}
                 aria-label={strNavToHome}
               >
-                <Icons.Ex fill={fill} />
+                <IconEx fill={fill} />
               </button>
             ) : (
               <>
@@ -161,7 +161,7 @@ function SharePageButton() {
       aria-label={strCopyUrlToClipboard}
       title={strCopyUrlToClipboard}
     >
-      <Icons.Link fill={fill} />
+      <IconLink fill={fill} />
       <ToolTip isDark={isDark} hasCopied={hasCopied}>
         复制成功
       </ToolTip>

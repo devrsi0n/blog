@@ -10,16 +10,10 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v1
-
-      - name: Failed screenshots
-      # after the test run completes
-      # store videos and any screenshots
-      # NOTE: screenshots will be generated only if E2E test failed
-      # thus we store screenshots only on failures
-      # Alternative: create and commit an empty cypress/screenshots folder
-      # to always have something to upload
-      - uses: actions/upload-artifact@v1
-        if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          browser: chrome
+          headless: true
+          start: yarn run develop &
+          config: baseUrl="http://127.0.01:8000/"
+          wait-on: "http://127.0.0.1:8000/"
+          wait-on-timeout: 600

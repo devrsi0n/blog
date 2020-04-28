@@ -16,3 +16,5 @@ lib/
 .env
 
 yarn-error.log
+
+/cypress/integration/examples

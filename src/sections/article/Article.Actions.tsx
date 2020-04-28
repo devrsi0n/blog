@@ -3,6 +3,7 @@ import { useQuery, useMutation, queryCache } from 'react-query';
 import Actions from '@components/Actions';
 import { query } from '@utils/query';
 import debounce from '@utils/debounce';
+import { isNotProd } from '@utils/env';
 
 interface Props {
   url: string;
@@ -53,7 +54,7 @@ function ArticleActions({ url }: Props) {
     share: 0,
     ...data?.data?.article,
   };
-  if (process.env.NODE_ENV === 'development') {
+  if (isNotProd) {
     return (
       <Actions handleAction={handleAction} like={0} handclap={0} share={0} />
     );

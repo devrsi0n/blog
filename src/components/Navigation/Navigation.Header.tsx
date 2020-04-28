@@ -194,6 +194,7 @@ const RootContainer = styled.div<{ detached: boolean; isDark: boolean }>`
 
   &::before {
     background: ${p => p.theme.colors.blur};
+    transition: ${p => p.theme.colorModeTransition};
     content: '';
     position: absolute;
     top: 0;

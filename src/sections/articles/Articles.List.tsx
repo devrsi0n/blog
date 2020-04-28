@@ -60,6 +60,7 @@ function ArticlesList({ articles, alwaysShowAllDetails }: ArticlesListProps) {
 
   return (
     <ArticlesListContainer
+      data-test-id="ArticlesListContainer"
       style={{ opacity: hasSetGridLayout ? 1 : 0 }}
       alwaysShowAllDetails={alwaysShowAllDetails}
     >

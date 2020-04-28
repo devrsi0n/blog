@@ -28,7 +28,11 @@ context('Home page', () => {
     const themeButton = cy.get('nav button').last();
     themeButton.click();
     //rgba(17, 18, 22, 0.95);
-    cy.get('body').should('have.css', 'background-color', 'rgba(17, 18, 22, 0.95)');
+    cy.get('body').should(
+      'have.css',
+      'background-color',
+      'rgba(17, 18, 22, 0.95)'
+    );
   });
 
   it('Hero heading', () => {
@@ -37,24 +41,25 @@ context('Home page', () => {
 
   it('Should navigation to article route', () => {
     cy.url().should('eq', 'http://localhost:8000/');
-    cy.get('[data-test-id="ArticlesListContainer"] a').first().click();
-    await cy.wait(250);
-    cy.url().should('include', '/articles/');
+    cy.get('[data-test-id="ArticlesListContainer"] a')
+      .first()
+      .click();
+    cy.location('href', { timeout: 10000 }).should('include', '/articles/');
   });
 
-  it('Should navigation to next page', async () => {
+  it('Should navigation to next page', () => {
     cy.url().should('eq', 'http://localhost:8000/');
+
     cy.get('[data-test-id="NextPage"]').click();
-    await cy.wait(250);
-    cy.url().should('eq', 'http://localhost:8000/page/2');
-    cy.get('[data-test-id="NextPage"]').click();
-    await cy.wait(250);
-    cy.url().should('eq', 'http://localhost:8000/page/3');
+    cy.location('pathname', { timeout: 10000 }).should(
+      'eq',
+      '/page/2'
+    );
+
     cy.get('[data-test-id="PrevPage"]').click();
-    await cy.wait(250);
-    cy.url().should('eq', 'http://localhost:8000/page/2');
-    cy.get('[data-test-id="PrevPage"]').click();
-    await cy.wait(250);
-    cy.url().should('eq', 'http://localhost:8000/');
+    cy.location('href', { timeout: 10000 }).should(
+      'eq',
+      'http://localhost:8000/'
+    );
   });
 });

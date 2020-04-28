@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const config = require('../../../gatsby-config');
+import { siteMetadata } from '../../../gatsby-config';
 
 const URL = 'http://localhost:8000/';
 
@@ -18,7 +18,7 @@ context('Home page', () => {
     const copyLink = cy.get('nav button').first();
     const tooltip = copyLink.find('span');
     tooltip.should('have.css', 'opacity', '0');
-    tooltip.click().should('have.css', 'opacity', '1');
+    tooltip.click({ force: true }).should('have.css', 'opacity', '1');
   });
 
   it('Navigation header - Theme mode', () => {
@@ -32,6 +32,29 @@ context('Home page', () => {
   });
 
   it('Hero heading', () => {
-    cy.get('h1').should('contain.text', config.siteMetadata.hero.heading);
+    cy.get('h1').should('contain.text', siteMetadata.hero.heading);
+  });
+
+  it('Should navigation to article route', () => {
+    cy.url().should('eq', 'http://localhost:8000/');
+    cy.get('[data-test-id="ArticlesListContainer"] a').first().click();
+    await cy.wait(250);
+    cy.url().should('include', '/articles/');
+  });
+
+  it('Should navigation to next page', async () => {
+    cy.url().should('eq', 'http://localhost:8000/');
+    cy.get('[data-test-id="NextPage"]').click();
+    await cy.wait(250);
+    cy.url().should('eq', 'http://localhost:8000/page/2');
+    cy.get('[data-test-id="NextPage"]').click();
+    await cy.wait(250);
+    cy.url().should('eq', 'http://localhost:8000/page/3');
+    cy.get('[data-test-id="PrevPage"]').click();
+    await cy.wait(250);
+    cy.url().should('eq', 'http://localhost:8000/page/2');
+    cy.get('[data-test-id="PrevPage"]').click();
+    await cy.wait(250);
+    cy.url().should('eq', 'http://localhost:8000/');
   });
 });

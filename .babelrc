@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "babel-preset-gatsby"
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["babel-plugin-istanbul"]
+    }
+  }
+}

@@ -5,6 +5,7 @@ node_modules
 # Build directory
 public/
 lib/
+coverage/
 
 .DS_Store
 .env.*
@@ -12,9 +13,11 @@ lib/
 *.backup.*
 
 .now
-
+.nyc_output
 .env
 
 yarn-error.log
 
-/cypress/integration/examples
+/cypress/integration/examples/
+/cypress/videos/
+/cypress/screenshots/

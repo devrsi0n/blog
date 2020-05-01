@@ -3,6 +3,9 @@
 [devrsi0n.com](https://devrsion.com)
 
 [![](https://data.jsdelivr.com/v1/package/gh/devrsi0n/devrsi0n.github.io/badge)](https://www.jsdelivr.com/package/gh/devrsi0n/devrsi0n.github.io)
+[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+[![GitHub Actions](https://img.shields.io/github/workflow/status/devrsi0n/blog/End-to-end%20tests?label=build&logo=github)](https://github.com/devrsi0n/blog/actions)
+[![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-blue)](https://dashboard.cypress.io/projects/muqva3/runs)
 
 Devrsi0n's blog fork from [gatsby-theme-novela](https://github.com/narative/gatsby-theme-novela/tree/75f241249ddb56bca503e8bf1db13043e22931cc) `v0.7.0`. Home page favicon copied from [icons8.com](https://icons8.com/icons/set/macbook-idea). Home page illustrations copied from [undraw.co](https://undraw.co/illustrations).
 

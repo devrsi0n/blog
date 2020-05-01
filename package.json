@@ -27,7 +27,7 @@
     "cy:run": "cypress run",
     "develop": "gatsby develop",
     "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open",
-    "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run",
+    "test:e2e:ci": "BABEL_ENV=test start-server-and-test develop http://localhost:8000 cy:run",
     "eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
     "codegen": "graphql-codegen --config graphql-codegen.yml",
@@ -114,17 +114,23 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@cypress/code-coverage": "^3.7.0",
     "@graphql-codegen/cli": "^1.13.3",
     "@graphql-codegen/introspection": "^1.13.3",
     "@graphql-codegen/typescript": "^1.13.3",
     "@graphql-codegen/typescript-operations": "^1.13.3",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "babel-plugin-istanbul": "^6.0.0",
+    "babel-preset-gatsby": "^0.4.0",
     "concurrently": "^5.1.0",
     "cypress": "^4.4.1",
     "delay-cli": "^1.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettify-ts-react": "^0.1.8",
     "husky": "^4.2.5",
+    "istanbul-lib-coverage": "^3.0.0",
     "lint-staged": "^10.1.7",
+    "nyc": "^15.0.1",
     "prettier": "~1.19.1",
     "start-server-and-test": "^1.11.0",
     "typescript": "~3.8.3"
@@ -138,6 +144,16 @@
     "ios >= 10.3",
     "ChromeAndroid >= 57"
   ],
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "check-coverage": true,
+    "reporter": "html",
+    "lines": 40,
+    "include": [
+      "src/**/*.{ts,tsx}"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",

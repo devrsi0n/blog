@@ -59,12 +59,12 @@ function CodePrism({
         return (
           <RootContainer>
             {title && <Title>{title}</Title>}
-            <pre
-              className={`${className} ${!title ? 'without-title' : ''}`}
-              style={{ position: 'relative' }}
-            >
-              <LanguageWrapper>{language}</LanguageWrapper>
-              <Copy toCopy={codeString} />
+            <Pre className={`${className} ${!title ? 'without-title' : ''}`}>
+              <LabelWrap>
+                <LanguageWrapper>{language}</LanguageWrapper>
+                <Copy toCopy={codeString} />
+              </LabelWrap>
+
               {tokens.map((line, index) => {
                 const { className: _className } = getLineProps({
                   line,
@@ -93,7 +93,7 @@ function CodePrism({
                   </div>
                 );
               })}
-            </pre>
+            </Pre>
           </RootContainer>
         );
       }}
@@ -156,7 +156,24 @@ const RootContainer = styled.div`
   `}
 `;
 
+const LabelWrap = styled.div`
+  opacity: 0;
+  transition: 0.5s opacity;
+`;
+
+const Pre = styled.pre`
+  position: relative;
+
+  &:hover {
+    ${LabelWrap} {
+      opacity: 1;
+    }
+  }
+`;
+
 const Title = styled.p`
+  font-weight: bold;
+  font-style: italic;
   padding: 24px 32px;
   background: ${p => p.theme.colors.prism.background};
   border-bottom: 1px solid ${p => p.theme.colors.horizontalRule};
@@ -188,8 +205,8 @@ const LanguageWrapper = styled.div`
 
 const CopyButton = styled.button<{ isDark: boolean }>`
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 2px;
+  top: 1px;
   padding: 8px 12px 7px;
   border-radius: 5px;
   color: #6f7177;

@@ -158,7 +158,7 @@ const RootContainer = styled.div`
 
 const LabelWrap = styled.div`
   opacity: 0;
-  transition: 0.5s opacity;
+  transition: 0.3s opacity ease;
 `;
 
 const Pre = styled.pre`

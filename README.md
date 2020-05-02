@@ -1,8 +1,8 @@
 # [Blog](https://devrsion.com)
 
 [![](https://data.jsdelivr.com/v1/package/gh/devrsi0n/devrsi0n.github.io/badge)](https://www.jsdelivr.com/package/gh/devrsi0n/devrsi0n.github.io)
-[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg?style=flat-square)](https://www.cypress.io/)
 [![GitHub Actions](https://img.shields.io/github/workflow/status/devrsi0n/blog/End-to-end%20tests?label=build&logo=github&style=flat-square)](https://github.com/devrsi0n/blog/actions)
+[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg?style=flat-square)](https://www.cypress.io/)
 [![Cypress Dashboard](https://img.shields.io/badge/cypress-dashboard-blue?style=flat-square)](https://dashboard.cypress.io/projects/muqva3/runs)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
@@ -12,11 +12,11 @@ Devrsi0n's blog fork from [gatsby-theme-novela](https://github.com/narative/gats
 
 ```bash
 # Install dependencies
-npm i
+yarn
 # Gatsby local development
-npm start
+yarn dev
 # Gatsby build for deploy
-npm run build
+yarn run build
 # Zeit now severless functions local development
 NOW_DEV=true now dev
 ```
@@ -40,8 +40,10 @@ I made some improvements to make this blog even better.
 - Selected text highlight
 - Weibo share
 - Heading link
+- Like and applause actions, and there is a backend to save data
+- Custom analytics, e.g. article pv(page view)
+  - As Google analytics blocked by many blockers, e.g. ADBlock
 - End to end test by [cypress](https://www.cypress.io/)
-- Like and applause actions
 
 ## 🚧 Working in progress
 

@@ -162,7 +162,11 @@ function SharePageButton() {
       title={strCopyUrlToClipboard}
     >
       <IconLink fill={fill} />
-      <ToolTip isDark={isDark} hasCopied={hasCopied}>
+      <ToolTip
+        isDark={isDark}
+        hasCopied={hasCopied}
+        id="SharePageButtonTooltip"
+      >
         复制成功
       </ToolTip>
     </IconWrapper>

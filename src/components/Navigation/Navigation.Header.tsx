@@ -162,7 +162,11 @@ function SharePageButton() {
       title={strCopyUrlToClipboard}
     >
       <IconLink fill={fill} />
-      <ToolTip isDark={isDark} hasCopied={hasCopied}>
+      <ToolTip
+        isDark={isDark}
+        hasCopied={hasCopied}
+        id="SharePageButtonTooltip"
+      >
         复制成功
       </ToolTip>
     </IconWrapper>
@@ -189,7 +193,7 @@ const RootContainer = styled.div<{ detached: boolean; isDark: boolean }>`
     }
     return shadow;
   }};
-  overflow: hidden;
+  overflow: visible;
   z-index: 99;
 
   &::before {
@@ -290,31 +294,31 @@ const NavControls = styled.div`
   `}
 `;
 
-const ToolTip = styled.span<{ isDark: boolean; hasCopied: boolean }>`
+const ToolTip = styled.div<{ isDark: boolean; hasCopied: boolean }>`
   position: absolute;
   padding: 4px 13px;
   background: ${p => (p.isDark ? '#000' : 'rgba(0,0,0,0.1)')};
   color: ${p => (p.isDark ? '#fff' : '#000')};
   border-radius: 5px;
   font-size: 14px;
-  top: -35px;
+  top: 35px;
   opacity: ${p => (p.hasCopied ? 1 : 0)};
   transform: ${p => (p.hasCopied ? 'translateY(-3px)' : 'none')};
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   white-space: nowrap;
 
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -6px;
+    top: -6px;
     margin: 0 auto;
     width: 0;
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid ${p => (p.isDark ? '#000' : 'rgba(0,0,0,0.1)')};
+    border-bottom: 6px solid ${p => (p.isDark ? '#000' : 'rgba(0,0,0,0.1)')};
   }
 `;
 

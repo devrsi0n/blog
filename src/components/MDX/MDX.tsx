@@ -152,7 +152,7 @@ const HeadingsCSS = css`
 const PrismCSS = p => css`
   .prism-code {
     overflow: hidden;
-    padding: 46px 32px 32px 32px;
+    padding: 46px 32px;
     margin: 0 auto;
     font-family: ${p.theme.fonts.monospace};
 

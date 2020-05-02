@@ -16,7 +16,7 @@ context('Home page', () => {
   it('Navigation header - Copy link', () => {
     cy.get('nav button').should('have.length', 2);
     const copyLink = cy.get('nav button').first();
-    const tooltip = copyLink.find('span');
+    const tooltip = copyLink.find('#SharePageButtonTooltip');
     tooltip.should('have.css', 'opacity', '0');
     tooltip.click({ force: true }).should('have.css', 'opacity', '1');
   });

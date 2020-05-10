@@ -5,6 +5,7 @@ import { useColorMode } from 'theme-ui';
 
 import { IconHashLink as IconLink } from '@components/Icons';
 import mediaqueries from '@styles/media';
+import { useRef, useEffect, useState } from 'react';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';
 
 function IconHashLink() {
@@ -44,74 +45,68 @@ const commonStyle = css`
   `};
 `;
 
-interface Heading {
+export interface HeadingProps {
   children: React.ReactNode;
 }
 
-function H1Heading({ children }: Heading) {
+interface CommonHeadingProps extends HeadingProps {
+  Component:
+    | typeof H1
+    | typeof H2
+    | typeof H3
+    | typeof H4
+    | typeof H5
+    | typeof H6;
+}
+
+function CommonHeading({ children, Component }: CommonHeadingProps) {
+  const ref = useRef<HTMLHeadingElement>(null);
+  const [width, setWidth] = useState(10);
+  useEffect(() => {
+    if (ref.current) {
+      const fontSize = window
+        .getComputedStyle(ref.current)
+        .fontSize.replace('px', '');
+      setWidth(Number(fontSize) * 0.75);
+    }
+  }, [ref]);
   return (
-    <H1 id={children as string} css={commonStyle}>
+    <Component ref={ref} id={children as string} css={commonStyle}>
       {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
+      <Anchor
+        href={`#${children}`}
+        aria-hidden="true"
+        tabIndex={-1}
+        style={{ width }}
+      >
         <IconHashLink />
       </Anchor>
-    </H1>
+    </Component>
   );
 }
 
-function H2Heading({ children }: Heading) {
-  return (
-    <H2 id={children as string} css={commonStyle}>
-      {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
-        <IconHashLink />
-      </Anchor>
-    </H2>
-  );
+function H1Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H1} />;
 }
 
-function H3Heading({ children }: Heading) {
-  return (
-    <H3 id={children as string} css={commonStyle}>
-      {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
-        <IconHashLink />
-      </Anchor>
-    </H3>
-  );
+function H2Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H2} />;
 }
 
-function H4Heading({ children }: Heading) {
-  return (
-    <H4 id={children as string} css={commonStyle}>
-      {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
-        <IconHashLink />
-      </Anchor>
-    </H4>
-  );
+function H3Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H3} />;
 }
 
-function H5Heading({ children }: Heading) {
-  return (
-    <H5 id={children as string} css={commonStyle}>
-      {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
-        <IconHashLink />
-      </Anchor>
-    </H5>
-  );
+function H4Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H4} />;
 }
 
-function H6Heading({ children }: Heading) {
-  return (
-    <H6 id={children as string} css={commonStyle}>
-      {children}
-      <Anchor href={`#${children}`} aria-hidden="true" tabIndex={-1}>
-        <IconHashLink />
-      </Anchor>
-    </H6>
-  );
+function H5Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H5} />;
+}
+
+function H6Heading(props: HeadingProps) {
+  return <CommonHeading {...props} Component={H6} />;
 }
 
 export default {

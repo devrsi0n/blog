@@ -3,8 +3,6 @@ import React from 'react';
 const HashLinkIcon = ({ fill }) => (
   <svg
     fill="none"
-    height="24"
-    width="24"
     viewBox="0 0 24 24"
     stroke={fill}
     strokeWidth="2"

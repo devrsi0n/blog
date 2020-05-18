@@ -1,4 +1,4 @@
-# [Blog](https://devrsion.com)
+# [Blog](https://devrsi0n.com)
 
 [![](https://data.jsdelivr.com/v1/package/gh/devrsi0n/devrsi0n.github.io/badge)](https://www.jsdelivr.com/package/gh/devrsi0n/devrsi0n.github.io)
 [![GitHub Actions](https://img.shields.io/github/workflow/status/devrsi0n/blog/End-to-end%20tests?label=build&logo=github&style=flat-square)](https://github.com/devrsi0n/blog/actions)

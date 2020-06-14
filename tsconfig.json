@@ -1,45 +1,31 @@
 {
   "compilerOptions": {
+    "target": "ES5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "checkJs": true,
-    "downlevelIteration": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "target": "es6",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "pretty": true,
     "skipLibCheck": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "baseUrl": "./src",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@components": ["components/index"],
-      "@icons/*": ["icons/*"],
-      "@icons": ["icons/index"],
-      "@sections/*": ["sections/*"],
-      "@sections": ["sections/index"],
-      "@styles/*": ["styles/*"],
-      "@hooks/*": ["hooks/*"],
-      "@templates/*": ["templates/*"],
-      "@templates": ["templates/index"],
-      "@types/*": ["types/*"],
-      "@types": ["types/index"],
-      "@utils/*": ["utils/*"],
-      "@utils": ["utils/index"]
-    },
-    "outDir": "./lib"
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "downlevelIteration": true,
+    "pretty": true,
+    "jsx": "preserve"
   },
-  "include": ["./**/*.ts", "./**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx", "src/pages/_document.tsx"
+  ],
   "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    "lib",
-    "public",
-    ".cache",
-    "gatsby/**"
+    "node_modules"
   ]
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 
-import { H3 } from '@components/Headings';
-import Image from '@components/Image';
+import { H3 } from '../../components/Headings';
+import Image from '../../components/Image';
 
-import mediaqueries from '@styles/media';
+import mediaqueries from '../../styles/media';
 
-import { IArticle } from '@types';
+import { IArticle } from '../../types';
 
 /**
  * Sits at the bottom of our Article page. Shows the next 2 on desktop and the
@@ -45,11 +45,11 @@ const GridItem = ({
   if (!article) return null;
 
   const hasOverflow = narrow && article.title.length > 35;
-  const imageSource = narrow ? article.hero.narrow : article.hero.regular;
+  const imageSource = narrow ? article.hero : article.hero;
 
   return (
     <ArticleLink
-      to={article.slug}
+      href={article.slug}
       data-a11y="false"
       narrow={narrow ? 'true' : 'false'}
     >

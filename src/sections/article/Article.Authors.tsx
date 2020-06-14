@@ -2,15 +2,15 @@ import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useColorMode } from 'theme-ui';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 
-import Image from '@components/Image';
-import mediaqueries from '@styles/media';
-import { IconToggleOpen, IconToggleClose } from '@components/Icons';
-import { IAuthor } from '@types';
+import Image from '../../components/Image';
+import mediaqueries from '../../styles/media';
+import { IconToggleOpen, IconToggleClose } from '../../components/Icons';
+import { IAuthor } from '../../types';
 
 /**
- * This theme supports multiple authors and therefore we need to ensure
+ * This blog supports multiple authors and therefore we need to ensure
  * we render the right UI when there are varying amount of authors.
  */
 function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
@@ -21,12 +21,14 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
     return <CoAuthors authors={authors} />;
   }
   return (
-    <AuthorLink as={authors[0].authorsPage ? Link : 'div'} to={authors[0].slug}>
-      <AuthorAvatar>
-        <RoundedImage src={authors[0].avatar.small} />
-      </AuthorAvatar>
-      <strong>{authors[0].name}&nbsp;</strong>
-      <HideOnMobile>▴&nbsp;</HideOnMobile>
+    <AuthorLink as={authors[0].authorsPage ? Link : 'div'} href={authors[0].slug}>
+      <div>
+        <AuthorAvatar>
+          <RoundedImage src={authors[0].avatar} />
+        </AuthorAvatar>
+        <strong>{authors[0].name}&nbsp;</strong>
+        <HideOnMobile>▴&nbsp;</HideOnMobile>
+      </div>
     </AuthorLink>
   );
 }
@@ -64,7 +66,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
       <CoAuthorsList style={listWidth}>
         {authors.map((author, index) => (
           <CoAuthorAvatar style={{ left: `${index * 15}px` }} key={author.name}>
-            <RoundedImage src={author.avatar.small} />
+            <RoundedImage src={author.avatar} />
           </CoAuthorAvatar>
         ))}
       </CoAuthorsList>
@@ -83,10 +85,10 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
               <CoAuthorsListItemOpen key={author.name}>
                 <AuthorLink
                   as={author.authorsPage ? Link : 'div'}
-                  to={author.slug}
+                  href={author.slug}
                 >
                   <CoAuthorAvatarOpen>
-                    <RoundedImage src={author.avatar.small} />
+                    <RoundedImage src={author.avatar} />
                   </CoAuthorAvatarOpen>
                   <AuthorNameOpen>{author.name}</AuthorNameOpen>
                 </AuthorLink>

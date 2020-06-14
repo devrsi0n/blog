@@ -1,0 +1,58 @@
+---
+title: electronjs 安装失败问题
+author: Devrsi0n
+date: '2019-10-19'
+hero: /static/2019/electron-install-failed/hero.jpg
+excerpt: 解决 electronjs 安装失败问题
+---
+
+[electronjs](https://electronjs.org/) 是前端流行的跨平台桌面软件开发平台，大名鼎鼎的 [VSCode](https://code.visualstudio.com/) 编辑器就是基于该框架开发。很多新手很容易在第一步就犯难了，鉴于 GFW 的存在，在国内很多网站访问很不理想，在用 npm 安装 electron 过程中需要从 GitHub 下载压缩包，这个过程漫长且很容易中断。解决办法是通过国内镜像网站下载，速度会快很多倍。
+
+[淘宝前端镜像](https://npm.taobao.org/mirrors) 托管了常见的需要单独下载文件的包的镜像，是个不错的选择。
+
+
+## 解决步骤
+
+本质上只需要替换 npm 包默认的下载源成淘宝镜像即可，但需要区分操作系统。
+
+### Windows
+
+**设置临时环境变量**
+
+```shell
+# powser shell, 设置环境变量，注意值要用引号包裹
+$env:ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"
+# powser shell, 查看所有环境变量
+ls env:
+
+# cmd.exe, 设置环境变量
+set ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"
+# cmd.exe, 查看环境变量
+echo %ELECTRON_MIRROR%
+
+
+npm i -S electron
+```
+
+**设置永久环境变量**
+
+注意要用 powershell 执行命令，参数要带上 ”User“， 不然设置的还是临时环境变量。
+
+```shell
+[environment]::SetEnvironmentvariable("ELECTRON_MIRRO", "http://npm.taobao.org/mirrors/electron/", "User")
+[environment]::GetEnvironmentvariable("ELECTRON_MIRRO", "User")
+```
+
+### Linux or macOS
+
+Linux 或者 macOS 这类环境要简单得多，只需要在执行命令前加上 `<key>=<value>` 即可。
+
+```shell
+ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/" npm i -S electron
+```
+
+
+## 结论
+
+- [淘宝前端镜像](https://npm.taobao.org/mirrors) 包含了很多常见前端包的镜像，推荐从这里下载。
+- 设置临时环境变量都是类似操作

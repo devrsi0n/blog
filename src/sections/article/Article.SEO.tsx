@@ -1,39 +1,24 @@
 import React from 'react';
+import SEO from '../../components/SEO';
+import { IArticle, IAuthor } from '../../types';
 
-import SEO from '@components/SEO';
-
-import { graphql, useStaticQuery } from 'gatsby';
-import { IArticle, IAuthor } from '@types';
-import { ArticleSeoSiteQuery } from '../../types/graphql';
-
-const siteQuery = graphql`
-  query articleSeoSite {
-    allSite {
-      edges {
-        node {
-          siteMetadata {
-            name
-            siteUrl
-          }
-        }
-      }
-    }
-  }
-`;
-
-function ArticleSEO({
-  article,
-  authors,
-  location,
-}: {
+interface IArticleSEO {
+  url: string;
   article: IArticle;
   authors: IAuthor[];
   location: Location;
-}) {
-  const results = useStaticQuery<ArticleSeoSiteQuery>(siteQuery);
-  const { name } = results.allSite.edges[0].node.siteMetadata;
-  const { siteUrl } = results.allSite.edges[0].node.siteMetadata;
+  name: string;
+  siteUrl: string;
+}
 
+function ArticleSEO({
+  url,
+  article,
+  authors,
+  location,
+  name,
+  siteUrl,
+}: IArticleSEO) {
   const authorsData = authors.map(author => ({
     '@type': 'Person',
     name: author.name,
@@ -51,7 +36,7 @@ function ArticleSEO({
       "@id": "${siteUrl + location.pathname}"
     },
     "headline": "${article.title}",
-    "image": "${siteUrl + article.hero.seo.src}",
+    "image": "${siteUrl + article.hero}",
     "datePublished": "${article.dateForSEO}",
     "dateModified": "${article.dateForSEO}",
     "author": ${JSON.stringify(authorsData)},
@@ -78,11 +63,11 @@ function ArticleSEO({
 
   return (
     <SEO
+      url={url}
       title={article.title}
       description={article.excerpt}
-      image={article.hero.seo.src}
-      timeToRead={article.timeToRead}
-      published={article.date}
+      image={article.hero}
+      publishedDate={article.date}
       pathname={location.href}
     >
       <script type="application/ld+json">{microdata}</script>

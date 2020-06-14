@@ -1,12 +1,9 @@
 {
-  "presets": [
-    [
-      "babel-preset-gatsby"
-    ]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["babel-plugin-istanbul"]
-    }
-  }
+  "presets": ["next/babel"],
+  "plugins": ["babel-plugin-emotion"],
+  // "env": {
+  //   "test": {
+  //     "plugins": ["babel-plugin-istanbul"]
+  //   }
+  // }
 }

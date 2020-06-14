@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import mediaqueries from '@styles/media';
-import { IArticle } from '@types';
+import mediaqueries from '../../styles/media';
+import { IArticle } from '../../types';
 
-import ArticlesList from '@sections/articles/Articles.List';
+import ArticlesList from '../articles/Articles.List';
 
 interface AuthorArticlesProps {
   articles: IArticle[];

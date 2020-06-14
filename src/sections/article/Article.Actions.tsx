@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery, useMutation, queryCache } from 'react-query';
-import Actions from '@components/Actions';
-import { query } from '@utils/query';
-import debounce from '@utils/debounce';
-import { isNotProd } from '@utils/env';
+import Actions from '../../components/Actions';
+import { query } from '../../utils/query';
+import debounce from '../../utils/debounce';
+import { isNotProd } from '../../utils/env';
 
 interface Props {
   url: string;

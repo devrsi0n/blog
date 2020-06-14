@@ -17,7 +17,9 @@ export default function useUtteranc(containerId: string) {
     script.setAttribute('crossorigin', 'anonymous');
     script.setAttribute('async', 'true');
 
-    container.appendChild(script);
+    setTimeout(() => {
+      container.appendChild(script);
+    }, 3000);
     return () => {
       try {
         container.removeChild(script);

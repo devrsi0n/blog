@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { H1 } from '@components/Headings';
-import Image, { ImagePlaceholder } from '@components/Image';
+import { H1 } from '../../components/Headings';
+import Image from '../../components/Image';
+import ImagePlaceholder from '../../components/Image.Placeholder';
 
-import mediaqueries from '@styles/media';
-import { IArticle, IAuthor } from '@types';
+import mediaqueries from '../../styles/media';
+import { IArticle, IAuthor } from '../../types';
 
 import ArticleAuthors from './Article.Authors';
 
@@ -16,11 +17,8 @@ interface ArticleHeroProps {
 
 const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
   const hasCoAUthors = authors.length > 1;
-  const hasHeroImage =
-    article.hero &&
-    Object.keys(article.hero.full).length !== 0 &&
-    article.hero.full.constructor === Object;
-  const updateAt = article.updatedAt.slice(0, 10);
+  const showUpdateAt = !!article.updatedAt;
+  const updateAt = (article.updatedAt || '').slice(0, 10);
   const createAt = article.date;
   return (
     <Hero>
@@ -29,7 +27,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {compareDate(article.updatedAt, article.date) ? (
+            {showUpdateAt && compareDate(article.updatedAt, article.date) ? (
               <>
                 <span>更新于&nbsp;</span>
                 <time>{updateAt}</time>
@@ -40,16 +38,11 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
                 <time>{createAt}</time>
               </>
             )}
-            {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
       <HeroImage id="ArticleImage__Hero">
-        {hasHeroImage ? (
-          <Image src={article.hero.full} />
-        ) : (
-          <ImagePlaceholder />
-        )}
+        {article.hero ? <Image src={article.hero} /> : <ImagePlaceholder />}
       </HeroImage>
       {article.heroRef && (
         <HeroRef>
@@ -70,7 +63,7 @@ function compareDate(updatedAt: string, date: string) {
 }
 
 const HeroRefTxt = styled.p`
-  color: ${p => p.theme.colors.gray};
+  color: ${(p) => p.theme.colors.gray};
   padding-right: 10px;
 `;
 
@@ -87,7 +80,7 @@ const HeroRef = styled.div`
 `;
 
 const Hero = styled.div`
-  ${p => mediaqueries.phablet`
+  ${(p) => mediaqueries.phablet`
     &::before {
       content: "";
       width: 100%;
@@ -115,7 +108,7 @@ const Hero = styled.div`
 `;
 
 const ArticleMeta = styled.div<{ hasCoAUthors: boolean }>`
-  margin-left: ${p => (p.hasCoAUthors ? '10px' : '0')};
+  margin-left: ${(p) => (p.hasCoAUthors ? '10px' : '0')};
 
   ${mediaqueries.phablet`
     margin-left: 0;
@@ -154,7 +147,7 @@ const Header = styled.header`
 
 const HeroHeading = styled(H1)`
   font-size: 48px;
-  font-family: ${p => p.theme.fonts.serif};
+  font-family: ${(p) => p.theme.fonts.serif};
   margin-bottom: 25px;
   font-weight: bold;
   line-height: 1.32;
@@ -177,13 +170,14 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: ${p => p.theme.colors.grey};
+  color: ${(p) => p.theme.colors.grey};
 
-  ${p => mediaqueries.phablet`
+  ${(p) => mediaqueries.phablet`
     font-size: 14px;
     flex-direction: column;
 
-    ${p.hasCoAUthors &&
+    ${
+      p.hasCoAUthors &&
       `
         &::before {
           content: '';
@@ -196,7 +190,8 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
           opacity: 0.5;
           border-radius: 5px;
         }
-    `}
+    `
+    }
 
 
     strong {

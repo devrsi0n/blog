@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Devrsi0n",
+    "bio": "Devrsi0n's blog",
+    "avatar": "/avatars/devrsi0n.jpg",
+    "featured": true,
+    "slug": "/authors/devrsi0n",
+    "social": [
+      {
+        "url": "https://github.com/devrsi0n"
+      },
+      {
+        "url": "https://weibo.com/qianmofeiyu"
+      },
+      {
+        "url": "https://twitter.com/devrsi0n"
+      }
+    ]
+  }
+]

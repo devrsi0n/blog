@@ -1,11 +1,11 @@
 
 node_modules
-
+/.next/
+/out/
 .cache/
-# Build directory
-public/
-lib/
-coverage/
+# production
+/build/
+/coverage/
 
 .DS_Store
 .env.*

@@ -1,62 +1,50 @@
-import { FluidObject } from 'gatsby-image';
-
-declare global {
-  interface Document {
-    selection?: Selection;
-  }
-}
-
 export interface IPaginator {
   pageCount: number;
   index: number;
   pathPrefix: string;
 }
 
-export interface IAuthor {
-  authorsPage?: boolean;
-  featured?: boolean;
-  name: string;
-  slug: string;
-  bio: string;
-  avatar: {
-    image: FluidObject;
-    small: FluidObject;
-    medium: FluidObject;
-    large: FluidObject;
-    full: FluidObject;
-  };
-  social: {
-    name: string;
-    url: string;
-  }[];
+export interface ISocial {
+  name?: string;
+  url: string;
 }
 
-export interface IArticle {
+export interface IAuthor {
+  name: string;
+  bio: string;
+  avatar: string;
+  featured?: boolean;
+  authorsPage?: boolean;
+  slug: string;
+  social: ISocial[];
+}
+
+export interface IHero {
+  heading: string;
+  maxWidth: number;
+}
+
+export interface IMarkdownMeta {
   title: string;
+  author?: string;
+  authors?: string;
+  date: string;
+  excerpt: string;
+  hero: string;
+  heroRef: string;
+  tags: string;
+}
+
+export interface IArticle extends IMarkdownMeta {
   slug: string;
   authors: IAuthor[];
-  excerpt: string;
   body: string;
   id: string;
-  hero: {
-    full: FluidObject;
-    preview: FluidObject;
-    regular: FluidObject;
-    narrow: FluidObject;
-    seo: FluidObject;
-  };
-  heroRef: string;
-  timeToRead: number;
-  date: string;
   updatedAt: string;
   secret: boolean;
   dateForSEO: string;
-}
-
-interface IArticleQuery {
-  edges: {
-    node: IArticle;
-  }[];
+  filePath: string;
+  importPath: string;
 }
 
 export interface IProgress {

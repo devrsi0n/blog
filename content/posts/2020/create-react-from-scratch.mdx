@@ -261,7 +261,14 @@ function render(element, container) {
 
 <iframe
   src="https://codesandbox.io/embed/adoring-lewin-93gyy?fontsize=14&hidenavigation=1&theme=dark"
-  style="width: 100%;max-width: 800px;; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
   title="redact-1"
   allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
@@ -330,7 +337,7 @@ Redact.render(
 
 用 Fiber 树来描述就是：
 
-<div style="background:#202226;max-width: 680px;margin: 0 auto;">
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
   <img src="/static/2020/create-react-from-scratch/fiber0.png"></img>
 </div>
 
@@ -342,25 +349,25 @@ Redact.render(
 
 为了完成这些目标需要设计的数据结构方便找到下一个任务单元。**所以每个 fiber 直接链接它的第一个子节点(child)，子节点链接它的兄弟节点(sibling)，兄弟节点链接到父节点(parent)。**示意图如下(注意不同节点之间的高亮箭头)：
 
-<div style="background:#202226;max-width: 680px;margin: 0 auto;">
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
   <img src="/static/2020/create-react-from-scratch/fiber1.png"></img>
 </div>
 
 当我们完成了一个 fiber 的单元任务，如果他有一个 `子节点/child` 则这个节点作为 `nextUnitOfWork`。如下图所示，当完成 `div` 单元任务之后，下一个单元任务就是 `h1`。
 
-<div style="background:#202226;max-width: 680px;margin: 0 auto;">
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
   <img src="/static/2020/create-react-from-scratch/fiber2.png"></img>
 </div>
 
 如果一个 fiber 没有 `child`，我们用 `兄弟节点/sibling` 作为下一个任务单元。如下图所示，`p` 节点没有 `child` 而有 `sibling`，所以下一个任务单元是 `a` 节点。
 
-<div style="background:#202226;max-width: 680px;margin: 0 auto;">
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
   <img src="/static/2020/create-react-from-scratch/fiber3.png"></img>
 </div>
 
 如果一个 fiber 既没有 `child` 也没有 `sibling`，则找到父节点的兄弟节点，。如下图所示的 `a` 和 `h2`。
 
-<div style="background:#202226;max-width: 680px;margin: 0 auto;">
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
   <img src="/static/2020/create-react-from-scratch/fiber4.png"></img>
 </div>
 
@@ -814,7 +821,14 @@ function reconcileChildren(wipFiber, elements) {
 
 <iframe
   src="https://codesandbox.io/embed/redact-1-dovfc?fontsize=14&hidenavigation=1&theme=dark"
-  style="width: 100%;max-width: 800px;; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+    style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
   title="redact-2"
   allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
@@ -1016,7 +1030,14 @@ function useState(initial) {
 
 <iframe
   src="https://codesandbox.io/embed/redact-2-rx063?fontsize=14&hidenavigation=1&theme=dark"
-  style="width: 100%;max-width: 800px;; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
   title="redact-3"
   allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"

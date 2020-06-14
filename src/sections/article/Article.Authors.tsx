@@ -21,15 +21,17 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
     return <CoAuthors authors={authors} />;
   }
   return (
-    <AuthorLink as={authors[0].authorsPage ? Link : 'div'} href={authors[0].slug}>
-      <div>
-        <AuthorAvatar>
-          <RoundedImage src={authors[0].avatar} />
-        </AuthorAvatar>
-        <strong>{authors[0].name}&nbsp;</strong>
-        <HideOnMobile>▴&nbsp;</HideOnMobile>
-      </div>
-    </AuthorLink>
+    <Link href={authors[0].slug}>
+      <AuthorLink>
+        <div>
+          <AuthorAvatar>
+            <RoundedImage src={authors[0].avatar} />
+          </AuthorAvatar>
+          <strong>{authors[0].name}&nbsp;</strong>
+          <HideOnMobile>▴&nbsp;</HideOnMobile>
+        </div>
+      </AuthorLink>
+    </Link>
   );
 }
 
@@ -83,15 +85,17 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
             </IconOpenContainer>
             {authors.map(author => (
               <CoAuthorsListItemOpen key={author.name}>
-                <AuthorLink
-                  as={author.authorsPage ? Link : 'div'}
-                  href={author.slug}
-                >
-                  <CoAuthorAvatarOpen>
-                    <RoundedImage src={author.avatar} />
-                  </CoAuthorAvatarOpen>
-                  <AuthorNameOpen>{author.name}</AuthorNameOpen>
-                </AuthorLink>
+                <Link href={author.slug}>
+                  <AuthorLink
+                    
+                  >
+                    <CoAuthorAvatarOpen>
+                      <RoundedImage src={author.avatar} />
+                    </CoAuthorAvatarOpen>
+                    <AuthorNameOpen>{author.name}</AuthorNameOpen>
+                  </AuthorLink>
+        
+                </Link>
               </CoAuthorsListItemOpen>
             ))}
           </CoAuthorsListOpen>
@@ -122,7 +126,7 @@ const RoundedImage = styled(Image)`
   border-radius: 50%;
 `;
 
-const AuthorLink = styled.div`
+const AuthorLink = styled.a`
   display: flex;
   align-items: center;
   color: inherit;

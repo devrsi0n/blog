@@ -58,11 +58,11 @@ const components = {
   Message,
 };
 
-export interface MDXProps extends MDXProviderProps {
+export interface MDXProps{
   children: React.ReactNode;
 }
 
-function MDX({ content, children }: MDXProps) {
+function MDX({ children }: MDXProps) {
   return (
     <MDXProvider components={components}>
       <MDXBody>
@@ -73,15 +73,7 @@ function MDX({ content, children }: MDXProps) {
   );
 }
 
-function isEqual(prevProps: MDXProps, nextProps: MDXProps) {
-  // WARN! only compare content, as children always change
-  if (prevProps.content === nextProps.content) {
-    return true;
-  }
-  return false;
-}
-
-export default React.memo(MDX, isEqual);
+export default React.memo(MDX);
 
 const SplitLine = styled.div`
   background: #ccc;

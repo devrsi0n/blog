@@ -63,7 +63,7 @@ function compareDate(updatedAt: string, date: string) {
 }
 
 const HeroRefTxt = styled.p`
-  color: ${(p) => p.theme.colors.gray};
+  color: ${p => p.theme.colors.gray};
   padding-right: 10px;
 `;
 
@@ -80,7 +80,7 @@ const HeroRef = styled.div`
 `;
 
 const Hero = styled.div`
-  ${(p) => mediaqueries.phablet`
+  ${p => mediaqueries.phablet`
     &::before {
       content: "";
       width: 100%;
@@ -108,7 +108,7 @@ const Hero = styled.div`
 `;
 
 const ArticleMeta = styled.div<{ hasCoAUthors: boolean }>`
-  margin-left: ${(p) => (p.hasCoAUthors ? '10px' : '0')};
+  margin-left: ${p => (p.hasCoAUthors ? '10px' : '0')};
 
   ${mediaqueries.phablet`
     margin-left: 0;
@@ -147,7 +147,7 @@ const Header = styled.header`
 
 const HeroHeading = styled(H1)`
   font-size: 48px;
-  font-family: ${(p) => p.theme.fonts.serif};
+  font-family: ${p => p.theme.fonts.serif};
   margin-bottom: 25px;
   font-weight: bold;
   line-height: 1.32;
@@ -170,14 +170,13 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: ${(p) => p.theme.colors.grey};
+  color: ${p => p.theme.colors.grey};
 
-  ${(p) => mediaqueries.phablet`
+  ${p => mediaqueries.phablet`
     font-size: 14px;
     flex-direction: column;
 
-    ${
-      p.hasCoAUthors &&
+    ${p.hasCoAUthors &&
       `
         &::before {
           content: '';
@@ -190,8 +189,7 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
           opacity: 0.5;
           border-radius: 5px;
         }
-    `
-    }
+    `}
 
 
     strong {

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'theme-ui';
+import { Global } from '@emotion/core';
 import theme from '../theme';
 import Layout from '../components/Layout';
-import { Global } from '@emotion/core';
 import { globalStyles } from '../styles/global';
+import { Logger } from '../utils/logger';
+
+const log = new Logger('pages/_app.tsx');
 
 export default class App extends React.Component<
   AppProps,
@@ -18,12 +21,13 @@ export default class App extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    // 更新 state 使下一次渲染能够显示降级后的 UI
     return { error };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // logErrorToMyService(error, errorInfo);
+    log.error(error);
+    log.error(errorInfo.componentStack);
   }
 
   render() {

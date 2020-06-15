@@ -1,5 +1,3 @@
-const withImages = require('next-images');
-
 const withMDX = require('@next/mdx')({
   extension: /\.(md|mdx)$/,
   options: {
@@ -10,19 +8,16 @@ const withMDX = require('@next/mdx')({
   },
 });
 
-module.exports = withMDX(
-  withImages({
-    esModule: true,
-    inlineImageLimit: 8196,
-    webpack: (config, { isServer }) => {
-      // Fixes npm packages that depend on `fs` module
-      if (!isServer) {
-        config.node = {
-          fs: 'empty',
-        };
-      }
+module.exports = withMDX({
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      // eslint-disable-next-line no-param-reassign
+      config.node = {
+        fs: 'empty',
+      };
+    }
 
-      return config;
-    },
-  })
-);
+    return config;
+  },
+});

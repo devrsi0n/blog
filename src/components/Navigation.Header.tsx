@@ -18,11 +18,11 @@ import {
 
 const strNavToHome = '回到主页';
 
-interface NavigationHeaderPropos {
-  // location: Location;
-}
+// interface NavigationHeaderPropos {
+//   // location: Location;
+// }
 
-function NavigationHeader(props: NavigationHeaderPropos) {
+function NavigationHeader(/* props: NavigationHeaderPropos */) {
   const [showBackArrow, setShowBackArrow] = useState(false);
   const [previousPath, setPreviousPath] = useState('/');
   const [showCloseButton, setShowCloseButton] = useState(false);

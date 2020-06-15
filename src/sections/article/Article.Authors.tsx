@@ -86,15 +86,12 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
             {authors.map(author => (
               <CoAuthorsListItemOpen key={author.name}>
                 <Link href={author.slug}>
-                  <AuthorLink
-                    
-                  >
+                  <AuthorLink>
                     <CoAuthorAvatarOpen>
                       <RoundedImage src={author.avatar} />
                     </CoAuthorAvatarOpen>
                     <AuthorNameOpen>{author.name}</AuthorNameOpen>
                   </AuthorLink>
-        
                 </Link>
               </CoAuthorsListItemOpen>
             ))}

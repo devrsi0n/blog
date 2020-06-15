@@ -42,31 +42,25 @@ function SEO({
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#fff" />
       <link rel="canonical" href={fullURL(pathname)} />
-      {/*<!-- Google / Search Engine Tags -->*/}
+      {/* <!-- Google / Search Engine Tags --> */}
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
       <meta itemProp="image" content={fullURL(image)} />
       <meta name="description" content={description} />
-      {/*<!-- Twitter Meta Tags -->*/}
+      {/* <!-- Twitter Meta Tags --> */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={`@${site.name}`} />
       <meta name="twitter:title" content={title} />
-      <meta
-        name="twitter:description"
-        content={description}
-      />
+      <meta name="twitter:description" content={description} />
       <meta name="twitter:creator" content={`@${site.name}`} />
       <meta name="twitter:image" content={fullURL(image)} />
-      {/*<!-- Facebook Meta Tags -->*/}
-      <meta property={'og:title'} content={title} />
-      <meta property={'og:url'} content={url} />
+      {/* <!-- Facebook Meta Tags --> */}
+      <meta property="og:title" content={title} />
+      <meta property="og:url" content={url} />
       <meta property="og:image" content={fullURL(image)} />
-      <meta
-        property="og:description"
-        content={description}
-      />
+      <meta property="og:description" content={description} />
       <meta property="og:site_name" content={site.name} />
-      <meta name='article:published_time' content={publishedDate} />
+      <meta name="article:published_time" content={publishedDate} />
       <title>{title}</title>
       {children}
     </Head>

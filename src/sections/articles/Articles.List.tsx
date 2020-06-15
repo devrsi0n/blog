@@ -113,9 +113,7 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
             >
               {article.excerpt}
             </Excerpt>
-            <MetaData>
-              {article.date}
-            </MetaData>
+            <MetaData>{article.date}</MetaData>
           </div>
         </Item>
       </ArticleLink>

@@ -19,9 +19,7 @@ function NotFound() {
               <WelcomeHeader>
                 抱歉，你似乎来到了未知的荒原，
                 <Link href="/">
-                  <TextLink isDark={isDark}>
-                    回到首页
-                  </TextLink>
+                  <TextLink isDark={isDark}>回到首页</TextLink>
                 </Link>
                 .
               </WelcomeHeader>

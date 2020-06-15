@@ -9,7 +9,7 @@ import { IAuthor, IHero } from '../../types';
 import { GridLayoutContext } from './Articles.List.Context';
 
 interface IAuthorsHeroProps {
-  authors: IAuthor[]
+  authors: IAuthor[];
   hero: IHero;
 }
 

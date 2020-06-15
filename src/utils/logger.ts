@@ -26,6 +26,7 @@ export class Logger {
   private log(css: string, messages: Message): void {
     if (process.env.NODE_ENV !== 'production' || window.ENABLE_LOG === true) {
       const date = new Date();
+      // eslint-disable-next-line no-console
       console.log(
         `%c[${this.prefix}] ${date.getFullYear()}-${date.getMonth() +
           1}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} %s`,

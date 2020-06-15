@@ -44,7 +44,7 @@ function Layout({ children }: LayoutProps) {
   useEffect(() => {
     // Scroll to hash link element when user navigate to or refresh the page
     if (window.location.hash.length > 1) {
-      const id = location.hash.slice(1);
+      const id = window.location.hash.slice(1);
       const elm = document.getElementById(decodeURIComponent(id));
       if (!elm) {
         return;
@@ -92,7 +92,7 @@ export default Layout;
 
 const Container = styled.div`
   position: relative;
-  background: ${(p) => p.theme.colors.background};
-  transition: ${(p) => p.theme.colorModeTransition};
+  background: ${p => p.theme.colors.background};
+  transition: ${p => p.theme.colorModeTransition};
   min-height: 100vh;
 `;

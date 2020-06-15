@@ -141,9 +141,7 @@ class Paginator extends Component<IPaginator, {}> {
         <Frame>
           {hasPrevious && (
             <Link href={previousPath}>
-              <PageButton data-test-id="PrevPage">
-                上一页
-              </PageButton>
+              <PageButton data-test-id="PrevPage">上一页</PageButton>
             </Link>
           )}
           {this.getPageLinks}
@@ -152,9 +150,7 @@ class Paginator extends Component<IPaginator, {}> {
           </MobileReference>
           {hasNext && (
             <Link href={nextPath}>
-              <PageButton data-test-id="NextPage">
-                下一页
-              </PageButton>
+              <PageButton data-test-id="NextPage">下一页</PageButton>
             </Link>
           )}
         </Frame>
@@ -165,7 +161,7 @@ class Paginator extends Component<IPaginator, {}> {
 
 export default Paginator;
 
-const paginationItemMixin = (p) => css`
+const paginationItemMixin = p => css`
   line-height: 1;
   color: ${p.theme.colors.primary};
   padding: 0;
@@ -195,7 +191,7 @@ const paginationItemMixin = (p) => css`
 const PageButton = styled.a`
   font-size: 18px;
   text-decoration: none;
-  color: ${(p) => p.theme.colors.primary};
+  color: ${p => p.theme.colors.primary};
   ${paginationItemMixin}
 
   &:hover,
@@ -209,7 +205,7 @@ const PageNumberButton = styled.a`
   font-weight: 400;
   font-size: 18px;
   text-decoration: none;
-  color: ${(p) => p.theme.colors.primary};
+  color: ${p => p.theme.colors.primary};
   ${paginationItemMixin}
 
   &:hover,
@@ -230,11 +226,11 @@ const Spacer = styled.span`
 const MobileReference = styled.span`
   font-weight: 400;
   ${paginationItemMixin}
-  color: ${(p) => p.theme.colors.primary};
+  color: ${p => p.theme.colors.primary};
 
   em {
     font-style: normal;
-    color: ${(p) => p.theme.colors.primary};
+    color: ${p => p.theme.colors.primary};
   }
 `;
 

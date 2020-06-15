@@ -3,9 +3,9 @@ import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
+import { useRef, useEffect, useState } from 'react';
 import { IconHashLink as IconLink } from './Icons';
 import mediaqueries from '../styles/media';
-import { useRef, useEffect, useState } from 'react';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';
 
 function IconHashLink() {

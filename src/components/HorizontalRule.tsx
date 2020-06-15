@@ -1,5 +1,5 @@
-import mediaqueries from '../styles/media';
 import styled from '@emotion/styled';
+import mediaqueries from '../styles/media';
 
 const HorizontalRule = styled.hr<{ isDark: boolean }>`
   position: relative;

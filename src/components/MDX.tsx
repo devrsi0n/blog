@@ -58,7 +58,7 @@ const components = {
   Message,
 };
 
-export interface MDXProps{
+export interface MDXProps {
   children: React.ReactNode;
 }
 

@@ -13,7 +13,7 @@ import { IArticle, IAuthor } from '../types';
 import { getAuthors } from '../lib/authors';
 
 const ArticlesPaginator = styled.div<{ show: boolean }>`
-  ${(p) => p.show && `margin-top: 95px;`}
+  ${p => p.show && `margin-top: 95px;`}
 `;
 
 interface IHomeProps {
@@ -41,7 +41,8 @@ export default function Home({ articles, location, authors }: IHomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const articles = await getSortedPostsData();
   const authors = getAuthors();
-  articles.forEach((article) => {
+  articles.forEach(article => {
+    // eslint-disable-next-line no-param-reassign
     article.slug = `/articles/${article.slug}`;
   });
   return {
@@ -61,6 +62,6 @@ const ArticlesGradient = styled.div`
   height: 590px;
   z-index: 0;
   pointer-events: none;
-  background: ${(p) => p.theme.colors.gradient};
-  transition: ${(p) => p.theme.colorModeTransition};
+  background: ${p => p.theme.colors.gradient};
+  transition: ${p => p.theme.colorModeTransition};
 `;

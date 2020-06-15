@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 
 import mediaqueries from '../styles/media';
 
-import logoWhite from './images/logo-white.png';
-import logoBlack from './images/logo-black.png';
-
 const Logo = ({ fill = '#fff' }: { fill?: string }) => {
   const isWhite = fill === '#fff';
-  const imgUrl = isWhite ? logoWhite : logoBlack;
+  const imgUrl = isWhite
+    ? '/static/images/logo-white.png'
+    : '/static/images/logo-black.png';
   return (
     <LogoContainer>
       <img src={imgUrl} alt="logo" width="35px" />

@@ -19,6 +19,6 @@ const StyledImag = styled.img`
  */
 function Image(props: IImage) {
   return <StyledImag {...props} />;
-};
+}
 
 export default Image;

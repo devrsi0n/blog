@@ -1,16 +1,16 @@
 // import addToMailchimp from 'gatsby-plugin-mailchimp';
 import React, { useState, useCallback } from 'react';
 
+import styled from '@emotion/styled';
 import Section from './Section';
 import { H3 } from './Headings';
 
-import styled from '@emotion/styled';
 import mediaqueries from '../styles/media';
 
 const Subscription: React.FunctionComponent<{}> = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [subscribed /* , setSubscribed */] = useState(false);
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +33,9 @@ const Subscription: React.FunctionComponent<{}> = () => {
       //     setError(err.msg);
       //   });
     },
-    [email]
+    [
+      /* email */
+    ]
   );
 
   const handleEmailChange = useCallback(

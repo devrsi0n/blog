@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import * as path from 'path';
+// import * as path from 'path';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
+import { GetStaticProps, GetStaticPaths } from 'next';
 import MDX from '../../components/MDX';
 import Progress from '../../components/Progress';
 import Section from '../../components/Section';
@@ -22,7 +23,6 @@ import ArticlesNext from '../../sections/article/Article.Next';
 import ArticleSEO from '../../sections/article/Article.SEO';
 import ArticleShare from '../../sections/article/Article.Share';
 import useUtteranc from '../../hooks/useUtteranc';
-import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import site, { Site } from '../../../site';
 import { IArticle, IAuthor } from '../../types';
@@ -43,11 +43,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const article = await getPostData(params.id as string);
   const allAuthors = getAuthors();
-  const currentDirectory = path.join(process.cwd(), 'src/pages/articles');
-  console.log('currentDirectory', currentDirectory);
   const { filePath } = article;
   const startIndex = filePath.indexOf('content/posts');
-  const importPath = filePath.slice(startIndex)
+  const importPath = filePath.slice(startIndex);
 
   return {
     props: {
@@ -56,8 +54,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         importPath,
       },
       repoUrl: site.repoUrl,
-      location: getLocation(site.siteUrl + '/articles/' + params.id),
-      authors: allAuthors.filter((author) =>
+      location: getLocation(`${site.siteUrl}/articles/${params.id}`),
+      authors: allAuthors.filter(author =>
         article.authors.includes(author.name)
       ),
     },
@@ -84,10 +82,8 @@ export default function Article({
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
   const [progress, setProgress] = useState<number>(0);
-  console.log('importPath', article.importPath);
+  log.verbose(`article.importPath: ${article.importPath}`);
   const MDXContent = dynamic(() => import(`../../../${article.importPath}`));
-  // const MDXContent = dynamic(() => import(`../../content/posts/2020/${article.slug}.mdx`));
-  console.log('MDXContent', MDXContent);
 
   useUtteranc(UTTERANC_ID);
 
@@ -130,7 +126,7 @@ export default function Article({
         const debouncedCalculation = debounce(calculateBodySize);
         const $images = contentSection.querySelectorAll('img');
 
-        $images.forEach(($img) => {
+        $images.forEach($img => {
           // If the image hasn't finished loading then add a listener
           if (!$img.complete) {
             $img.addEventListener('load', debouncedCalculation, false);
@@ -244,7 +240,7 @@ const FooterNext = styled.h3`
   opacity: 0.25;
   margin-bottom: 100px;
   font-weight: 400;
-  color: ${(p) => p.theme.colors.primary};
+  color: ${p => p.theme.colors.primary};
 
   ${mediaqueries.tablet`
     margin-bottom: 60px;
@@ -253,7 +249,7 @@ const FooterNext = styled.h3`
   &::after {
     content: '';
     position: absolute;
-    background: ${(p) => p.theme.colors.grey};
+    background: ${p => p.theme.colors.grey};
     width: ${(910 / 1140) * 100}%;
     height: 1px;
     right: 0;

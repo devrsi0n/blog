@@ -23,13 +23,11 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
   return (
     <Link href={authors[0].slug}>
       <AuthorLink>
-        <div>
-          <AuthorAvatar>
-            <RoundedImage src={authors[0].avatar} />
-          </AuthorAvatar>
-          <strong>{authors[0].name}&nbsp;</strong>
-          <HideOnMobile>▴&nbsp;</HideOnMobile>
-        </div>
+        <AuthorAvatar>
+          <RoundedImage src={authors[0].avatar} />
+        </AuthorAvatar>
+        <strong>{authors[0].name}&nbsp;</strong>
+        <HideOnMobile>▴&nbsp;</HideOnMobile>
       </AuthorLink>
     </Link>
   );

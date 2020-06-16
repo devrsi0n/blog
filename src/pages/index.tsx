@@ -10,7 +10,7 @@ import ArticlesHero from '../sections/articles/Articles.Hero';
 import ArticlesList from '../sections/articles/Articles.List';
 import { getLocation } from '../lib/location';
 import { IArticle, IAuthor } from '../types';
-import { getAuthors } from '../lib/authors';
+import { getAllAuthors } from '../lib/authors';
 
 const ArticlesPaginator = styled.div<{ show: boolean }>`
   ${p => p.show && `margin-top: 95px;`}
@@ -40,7 +40,7 @@ export default function Home({ articles, location, authors }: IHomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const articles = await getSortedPostsData();
-  const authors = getAuthors();
+  const authors = getAllAuthors();
   articles.forEach(article => {
     // eslint-disable-next-line no-param-reassign
     article.slug = `/articles/${article.slug}`;

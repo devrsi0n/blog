@@ -33,18 +33,22 @@ export interface IMarkdownMeta {
   hero: string;
   heroRef: string;
   tags: string;
+  secret?: boolean;
 }
 
 export interface IArticle extends IMarkdownMeta {
   slug: string;
   authors: IAuthor[];
-  body: string;
   id: string;
   updatedAt: string;
-  secret: boolean;
-  dateForSEO: string;
-  filePath: string;
-  importPath: string;
+  /**
+   * Article absolute file path
+   */
+  absolutePath: string;
+  /**
+   * Path relative to project's root
+   */
+  relativePath: string;
 }
 
 export interface IProgress {

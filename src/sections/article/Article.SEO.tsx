@@ -37,8 +37,8 @@ function ArticleSEO({
     },
     "headline": "${article.title}",
     "image": "${siteUrl + article.hero}",
-    "datePublished": "${article.dateForSEO}",
-    "dateModified": "${article.dateForSEO}",
+    "datePublished": "${article.date}",
+    "dateModified": "${article.updatedAt}",
     "author": ${JSON.stringify(authorsData)},
     "description": "${article.excerpt.replace(/"/g, '\\"')}",
     "publisher": {

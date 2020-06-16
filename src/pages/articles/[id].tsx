@@ -23,11 +23,14 @@ import ArticlesNext from '../../sections/article/Article.Next';
 import ArticleSEO from '../../sections/article/Article.SEO';
 import ArticleShare from '../../sections/article/Article.Share';
 import useUtteranc from '../../hooks/useUtteranc';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import {
+  getAllPostIds,
+  getPostData,
+  getAdjacentArticles,
+} from '../../lib/posts';
 import site, { Site } from '../../../site';
 import { IArticle, IAuthor } from '../../types';
 import { getLocation } from '../../lib/location';
-import { getAuthors } from '../../lib/authors';
 import { Logger } from '../../utils/logger';
 
 const log = new Logger('pages/articles/[id].tsx');
@@ -42,22 +45,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const article = await getPostData(params.id as string);
-  const allAuthors = getAuthors();
-  const { filePath } = article;
-  const startIndex = filePath.indexOf('content/posts');
-  const importPath = filePath.slice(startIndex);
+  console.log('article', article);
+  const adjacentArticles = await getAdjacentArticles(params.id as string);
 
   return {
     props: {
       article: {
         ...article,
-        importPath,
       },
       repoUrl: site.repoUrl,
       location: getLocation(`${site.siteUrl}/articles/${params.id}`),
-      authors: allAuthors.filter(author =>
-        article.authors.includes(author.name)
-      ),
+      adjacentArticles,
     },
   };
 };
@@ -65,31 +63,30 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 interface IArticleProps {
   location: Location;
   article: IArticle;
+  adjacentArticles: IArticle[];
   repoUrl: Site;
-  authors: IAuthor[];
 }
 
 const UTTERANC_ID = 'utterancContainer';
 
 export default function Article({
-  authors,
   location,
   article,
+  adjacentArticles,
   repoUrl,
 }: IArticleProps) {
+  const { authors } = article;
   const contentSectionRef = useRef<HTMLElement>(null);
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
   const [progress, setProgress] = useState<number>(0);
-  log.verbose(`article.importPath: ${article.importPath}`);
-  const MDXContent = dynamic(() => import(`../../../${article.importPath}`));
+  log.verbose(`article.relativePath: ${article.relativePath}`);
+  const MDXContent = dynamic(() => import(`../../../${article.relativePath}`));
 
   useUtteranc(UTTERANC_ID);
 
   // const mailchimp = false;
-  // TODO: Add next articles
-  const next = [];
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -149,7 +146,7 @@ export default function Article({
     return () => window.removeEventListener('resize', calculateBodySize);
   }, [hasCalculated, contentSectionRef, contentHeight]);
 
-  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}`;
+  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.absolutePath}`;
 
   return (
     <>
@@ -186,10 +183,10 @@ export default function Article({
 
       {/* TODO: add subscription */}
       {/* {mailchimp && article.subscription && <Subscription />} */}
-      {next.length > 0 && (
+      {adjacentArticles.length > 0 && (
         <NextArticle narrow>
           <FooterNext>其他文章</FooterNext>
-          <ArticlesNext articles={next} />
+          <ArticlesNext articles={adjacentArticles} />
           <FooterSpacer />
         </NextArticle>
       )}

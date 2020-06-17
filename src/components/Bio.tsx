@@ -1,26 +1,25 @@
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import Image from './Image';
+import { IAuthor } from '../types';
 
 interface BioProps {
-  author: any;
+  author: IAuthor;
 }
 
 function Bio({ author }: BioProps) {
   return (
     <BioContainer>
-      <BioAvatar
-        as={author.authorsPage ? Link : 'div'}
-        href={author.slug}
-        data-a11y="false"
-        aria-label="Author's bio"
-      >
+      {/* TODO: Enable author page */}
+      {/* <Link href={author.slug}> */}
+      <BioAvatar data-a11y="false" aria-label="Author's bio">
         <BioAvatarInner>
           <RoundedImage src={author.avatar} />
         </BioAvatarInner>
       </BioAvatar>
+      {/* </Link> */}
       <BioText dangerouslySetInnerHTML={{ __html: author.bio }} />
     </BioContainer>
   );

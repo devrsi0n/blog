@@ -23,10 +23,11 @@ import { IArticle } from '../../types';
  * mix into the generic list component.
  */
 const ArticlesNext = ({ articles }: { articles: IArticle[] }) => {
-  if (!articles) return null;
-  const numberOfArticles = articles.length;
+  if (!articles) {
+    return null;
+  }
   return (
-    <Grid numberOfArticles={numberOfArticles}>
+    <Grid numberOfArticles={articles.length}>
       <GridItem article={articles[0]} />
       <GridItem article={articles[1]} narrow />
     </Grid>
@@ -48,25 +49,23 @@ const GridItem = ({
   const imageSource = narrow ? article.hero : article.hero;
 
   return (
-    <ArticleLink
-      href={article.slug}
-      data-a11y="false"
-      narrow={narrow ? 'true' : 'false'}
-    >
-      <Item>
-        <ImageContainer>
-          <Image src={imageSource} />
-        </ImageContainer>
-        <Title dark hasOverflow={hasOverflow}>
-          {article.title}
-        </Title>
-        <Excerpt hasOverflow={hasOverflow}>{article.excerpt}</Excerpt>
-        <MetaData>
-          {article.date}
-          {/* · 阅读需要 {article.timeToRead} 分钟 */}
-        </MetaData>
-      </Item>
-    </ArticleLink>
+    <Link href={article.slug}>
+      <ArticleLink data-a11y="false" narrow={narrow}>
+        <Item>
+          <ImageContainer>
+            <Image src={imageSource} />
+          </ImageContainer>
+          <Title dark hasOverflow={hasOverflow}>
+            {article.title}
+          </Title>
+          <Excerpt hasOverflow={hasOverflow}>{article.excerpt}</Excerpt>
+          <MetaData>
+            {article.date}
+            {/* · 阅读需要 {article.timeToRead} 分钟 */}
+          </MetaData>
+        </Item>
+      </ArticleLink>
+    </Link>
   );
 };
 
@@ -208,7 +207,7 @@ const MetaData = styled.div`
   `}
 `;
 
-const ArticleLink = styled(Link)<{ narrow: string }>`
+const ArticleLink = styled.a<{ narrow: boolean }>`
   position: relative;
   display: block;
   width: 100%;
@@ -241,7 +240,7 @@ const ArticleLink = styled(Link)<{ narrow: string }>`
     background: rgba(255, 255, 255, 0.01);
   }
 
-  ${p => p.narrow === 'true' && mediaqueries.tablet`display: none;`}
+  ${p => p.narrow && mediaqueries.tablet`display: none;`}
 
   ${mediaqueries.phablet`
     &:hover ${ImageContainer} {

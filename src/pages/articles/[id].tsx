@@ -29,7 +29,7 @@ import {
   getAdjacentArticles,
 } from '../../lib/posts';
 import site, { Site } from '../../../site';
-import { IArticle, IAuthor } from '../../types';
+import { IArticle } from '../../types';
 import { getLocation } from '../../lib/location';
 import { Logger } from '../../utils/logger';
 
@@ -45,7 +45,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const article = await getPostData(params.id as string);
-  console.log('article', article);
   const adjacentArticles = await getAdjacentArticles(params.id as string);
 
   return {

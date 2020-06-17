@@ -20,6 +20,11 @@ export default class App extends React.Component<
     this.state = { error: false };
   }
 
+  componentDidMount() {
+    /* eslint-disable no-console */
+    console.log(`Build at ${process.env.BUILD_TIMESTAMP}`);
+  }
+
   static getDerivedStateFromError(error: Error) {
     return { error };
   }

@@ -27,10 +27,6 @@ const social = [
 ];
 
 function Footer() {
-  useEffect(() => {
-    /* eslint-disable no-console */
-    console.log(`Build at ${process.env.GATSBY_BUILD_TIMESTAMP}`);
-  }, []);
   return (
     <>
       <FooterGradient />

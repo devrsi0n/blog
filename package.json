@@ -39,7 +39,6 @@
     "@mdx-js/loader": "^1.6.5",
     "@mdx-js/mdx": "~1.6.1",
     "@mdx-js/react": "~1.6.1",
-    "@next/mdx": "^9.4.4",
     "@now/node": "^1.6.1",
     "@theme-ui/color": "^0.3.1",
     "@theme-ui/components": "^0.3.1",

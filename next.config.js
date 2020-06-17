@@ -1,15 +1,7 @@
-const withMDX = require('@next/mdx')({
-  extension: /\.(md|mdx)$/,
-  options: {
-    remarkPlugins: [
-      require('remark-frontmatter'),
-      // require('remark-code-extra')({}),
-    ],
-  },
-});
+const moment = require('moment-timezone');
 
-module.exports = withMDX({
-  webpack: (config, { isServer }) => {
+module.exports = {
+  webpack: (config, { isServer, defaultLoaders }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       // eslint-disable-next-line no-param-reassign
@@ -18,6 +10,25 @@ module.exports = withMDX({
       };
     }
 
+    config.module.rules.push({
+      test: /\.mdx$/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@mdx-js/loader',
+          options: {
+            remarkPlugins: [
+              require('remark-frontmatter'),
+              // require('remark-code-extra')({}),
+            ],
+          },
+        },
+      ],
+    });
+
     return config;
   },
-});
+  env: {
+    BUILD_TIMESTAMP: moment.tz(new Date(), 'Asia/Shanghai').format(),
+  },
+};

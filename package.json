@@ -23,14 +23,10 @@
     "update-last-updated-date": "node ./tasks/update-post-timestamps.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test dev http://localhost:8000 cy:open",
-    "test:e2e:ci": "BABEL_ENV=test start-server-and-test dev http://localhost:8000 cy:run",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 cy:open",
+    "test:e2e:ci": "BABEL_ENV=test start-server-and-test dev http://localhost:3000 cy:run",
     "eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
-    "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}",
-    "codegen": "graphql-codegen --config graphql-codegen.yml",
-    "contentful:export": "contentful space export --config contentful.json --skip-content --skip-roles --skip-webhooks",
-    "contentful:export:model": "contentful space export --config contentful.json",
-    "contentful:import": "contentful space import --config contentful.json"
+    "prettier": "prettier --write ./**/*.{json,html,css,scss,md,yml}"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -62,7 +58,7 @@
     "framer-motion": "^1.11.0",
     "gh-pages": "^2.2.0",
     "globby": "^11.0.1",
-    "graphql": "^15.0.0",
+    "graphql": "^15.1.0",
     "gray-matter": "^4.0.2",
     "instant.page": "^3.0.0",
     "lodash": "^4.17.15",
@@ -93,10 +89,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@cypress/code-coverage": "^3.7.2",
-    "@graphql-codegen/cli": "^1.13.5",
-    "@graphql-codegen/introspection": "^1.13.5",
-    "@graphql-codegen/typescript": "^1.13.5",
-    "@graphql-codegen/typescript-operations": "^1.13.5",
+    "@cypress/webpack-preprocessor": "^5.4.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^5.2.0",
@@ -110,6 +103,7 @@
     "nyc": "^15.0.1",
     "prettier": "~1.19.1",
     "start-server-and-test": "^1.11.0",
+    "ts-loader": "^7.0.5",
     "typescript": "~3.9.2"
   },
   "browserslist": [
@@ -150,5 +144,8 @@
   },
   "engines": {
     "node": "12.x"
+  },
+  "browser": {
+    "child_process": false
   }
 }

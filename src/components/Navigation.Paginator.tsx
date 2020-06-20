@@ -99,9 +99,8 @@ class Paginator extends Component<IPaginator, {}> {
         <Spacer key={`PaginatorPage_spacer_${page}`} aria-hidden />
       ) : (
         // Otherwise render a PageButton
-        <Link href={this.getFullPath(page)}>
+        <Link href={this.getFullPath(page)} key={`PaginatorPage_${page}`}>
           <PageNumberButton
-            key={`PaginatorPage_${page}`}
             style={{ opacity: current === page ? 1 : 0.3 }}
             className="Paginator__pageLink"
           >

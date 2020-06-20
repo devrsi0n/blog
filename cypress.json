@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://127.0.0.1:3000/",
+  "viewportWidth": 1366,
+  "viewportHeight": 768,
+  "projectId": "muqva3",
+  "fixturesFolder": ".cypress/fixtures",
+  "integrationFolder": ".cypress/integration",
+  "pluginsFile": ".cypress/plugins/index.js",
+  "screenshotsFolder": ".cypress/screenshots",
+  "supportFile": ".cypress/support/index.js",
+  "videosFolder": ".cypress/videos"
+}

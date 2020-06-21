@@ -1,5 +1,5 @@
 import React, { ImgHTMLAttributes } from 'react';
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 
 interface IImage extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   src: string;

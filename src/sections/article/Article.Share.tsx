@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
 import { stringify } from 'query-string';
 
+import styled from '../../utils/styled';
 import toastControl from '../../components/ToastControl';
 import { IconTwitter, IconWeibo, IconCopy } from '../../components/Icons';
-
 import {
   getHighlightedTextPositioning,
   getSelectionDimensions,

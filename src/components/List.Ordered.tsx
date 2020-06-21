@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
 
 const OrderedList = styled.ol`

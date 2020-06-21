@@ -1,10 +1,9 @@
 // import addToMailchimp from 'gatsby-plugin-mailchimp';
 import React, { useState, useCallback } from 'react';
 
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 import Section from './Section';
 import { H3 } from './Headings';
-
 import mediaqueries from '../styles/media';
 
 const Subscription: React.FunctionComponent<{}> = () => {

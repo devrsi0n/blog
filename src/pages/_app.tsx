@@ -2,6 +2,7 @@ import React, { ErrorInfo } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'theme-ui';
 import { Global } from '@emotion/core';
+
 import theme from '../theme';
 import Layout from '../components/Layout';
 import { globalStyles } from '../styles/global';

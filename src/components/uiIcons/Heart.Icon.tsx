@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import styled from '@emotion/styled';
+import styled from '../../utils/styled';
 
 interface HeartProps {
   width: number;
@@ -15,12 +15,12 @@ const Heart = ({ width, fill }: HeartProps) => {
   const [checked, setChecked] = useState(false);
   const [clicked, setClicked] = useState(false);
   const handleClick = (
-    e: DetailedHTMLProps<
+    _e: DetailedHTMLProps<
       InputHTMLAttributes<HTMLInputElement>,
       HTMLInputElement
     >
   ) => {
-    // e.stopPropagation();
+    // _e.stopPropagation();
     setChecked(true);
     setClicked(true);
     setTimeout(() => {

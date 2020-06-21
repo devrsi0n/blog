@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
+import styled from '../../utils/styled';
 import mediaqueries from '../../styles/media';
 import { copyToClipboard } from '../../utils';
 

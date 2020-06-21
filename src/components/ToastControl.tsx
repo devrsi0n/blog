@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'theme-ui';
+
 import { IconDone } from './Icons';
 import Toast, { ToastProps } from './Toast';
 import theme from '../theme';

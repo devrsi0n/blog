@@ -1,6 +1,7 @@
 import React, { CSSProperties, useState, useEffect, useCallback } from 'react';
-import styled from '@emotion/styled';
 import { transparentize } from 'polished';
+
+import styled from '../utils/styled';
 
 interface Props {
   type: string;

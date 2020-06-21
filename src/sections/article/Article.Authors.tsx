@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import styled from '@emotion/styled';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useColorMode } from 'theme-ui';
 import Link from 'next/link';
 
+import styled from '../../utils/styled';
 import Image from '../../components/Image';
 import mediaqueries from '../../styles/media';
 import { IconToggleOpen, IconToggleClose } from '../../components/Icons';

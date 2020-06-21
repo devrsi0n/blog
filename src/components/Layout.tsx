@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
 
+import styled from '../utils/styled';
 import NavigationFooter from './Navigation.Footer';
 import NavigationHeader from './Navigation.Header';
 import ArticlesContextProvider from '../sections/articles/Articles.List.Context';

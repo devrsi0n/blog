@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
+import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
 
 const Logo = ({ fill = '#fff' }: { fill?: string }) => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
+
+import styled from '../utils/styled';
 import Section from '../components/Section';
 import { H1 } from '../components/Headings';
 import mediaqueries from '../styles/media';

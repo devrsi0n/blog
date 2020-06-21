@@ -24,7 +24,10 @@ export class Logger {
   }
 
   private log(css: string, messages: Message): void {
-    if (process.env.NODE_ENV !== 'production' || window.ENABLE_LOG === true) {
+    if (
+      process.env.NODE_ENV !== 'production' ||
+      (typeof window !== 'undefined' && window.ENABLE_LOG === true)
+    ) {
       const date = new Date();
       // eslint-disable-next-line no-console
       console.log(

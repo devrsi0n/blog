@@ -15,15 +15,19 @@ declare module '*.css' {
   export = value;
 }
 
-// declare module '@emotion/styled' {
-//   import { CreateStyled } from '@emotion/styled/types/index';
+declare module '@emotion/styled' {
+  import { CreateStyled } from '@emotion/styled/types/index';
 
-//   export * from '@emotion/styled/types/index';
-//   const customStyled: CreateStyled<import('./theme').Theme>;
-//   export default customStyled;
-// }
+  export * from '@emotion/styled/types/index';
+  const customStyled: CreateStyled<import('./src/theme').Theme>;
+  export default customStyled;
+}
 
 declare module 'react' {
+  interface HTMLAttributes<T> {
+    as?: string;
+  }
+
   interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
     itemprop?: string;
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 import { IconHeart, IconHandclap } from './Icons';
 // import {IconShare} from './Icons';
 import Action from './Action';

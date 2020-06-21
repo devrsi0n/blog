@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
+import React from 'react';
+
+import styled from '../utils/styled';
 import Section from './Section';
 import SocialLinks from './SocialLinks';
-
 import mediaqueries from '../styles/media';
 
 // TODO: use props

@@ -1,6 +1,6 @@
 import React from 'react';
 // import Link from 'next/link';
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 
 import Image from './Image';
 import { IAuthor } from '../types';

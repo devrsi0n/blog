@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '../utils/styled';
 
 const Figcaption = styled.figcaption`
   color: ${p => p.theme.colors.grey};

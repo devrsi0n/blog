@@ -1,6 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
-import styled from '@emotion/styled';
 
+import styled from '../../utils/styled';
 import { getSortedPostsData } from '../../lib/posts';
 import site from '../../../site';
 import Section from '../../components/Section';

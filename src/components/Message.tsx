@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Message as ThemeMessage } from '@theme-ui/components';
-import styled from '@emotion/styled';
+
+import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
 
 interface AnchorProps {

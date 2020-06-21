@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { MDXProvider, MDXProviderProps } from '@mdx-js/react';
-import styled from '@emotion/styled';
+import { MDXProvider } from '@mdx-js/react';
 import { css } from '@emotion/core';
 
+import styled from '../utils/styled';
 import Anchor from './Anchor';
 import Blockquote from './Blockquote';
 import CodeInline from './Code.Inline';

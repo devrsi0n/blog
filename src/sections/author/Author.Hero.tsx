@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
+import styled from '../../utils/styled';
 import Image from '../../components/Image';
-
 import mediaqueries from '../../styles/media';
 import SocialLinks from '../../components/SocialLinks';
 import { IAuthor } from '../../types';

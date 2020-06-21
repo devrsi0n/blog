@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
-
 import { useRef, useEffect, useState } from 'react';
+
+import styled from '../utils/styled';
 import { IconHashLink as IconLink } from './Icons';
 import mediaqueries from '../styles/media';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';

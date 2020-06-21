@@ -13,7 +13,7 @@ jobs:
         with:
           browser: chrome
           headless: true
-          start: yarn run develop
+          start: yarn run dev
           wait-on: 'http://127.0.0.1:3000/'
           wait-on-timeout: 600
           record: true

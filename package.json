@@ -20,7 +20,7 @@
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "yarn run eslint",
-    "update-last-updated-date": "node ./tasks/update-post-timestamps.js",
+    "update-last-updated-date": "node ./.tasks/update-post-timestamps.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "test:e2e": "start-server-and-test dev http://localhost:3000 cy:open",
@@ -139,7 +139,7 @@
       "prettier --write"
     ],
     "content/**/*.{mdx,md}": [
-      "node ./tasks/update-post-timestamps.js"
+      "node ./.tasks/update-post-timestamps.js"
     ]
   },
   "engines": {

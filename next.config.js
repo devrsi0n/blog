@@ -1,5 +1,8 @@
 const moment = require('moment-timezone');
 
+const isProd = process.env.NODE_ENV === 'production';
+const version = process.env.BUILD_VERSION;
+
 module.exports = {
   webpack: (config, { isServer, defaultLoaders }) => {
     // Fixes npm packages that depend on `fs` module
@@ -31,4 +34,7 @@ module.exports = {
   env: {
     BUILD_TIMESTAMP: moment.tz(new Date(), 'Asia/Shanghai').format(),
   },
+  assetPrefix: isProd
+    ? `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${version}`
+    : '',
 };

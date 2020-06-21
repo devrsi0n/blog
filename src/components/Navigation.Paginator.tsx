@@ -17,8 +17,6 @@ import { IPaginator } from '../types';
  *
  * We're using a <nav> element here so make sure to put the pagination component
  * INSIDE of a section to make sure the markup stays contextually relevant
- *
- * Receives the gatsby-paginator props
  */
 
 class Paginator extends Component<IPaginator, {}> {

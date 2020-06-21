@@ -38,11 +38,11 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
   }
 
   ghPages.publish(
-    'public',
+    '.next/static',
     {
       repo: `https://${process.env.GH_TOKEN}@github.com/devrsi0n/devrsi0n.github.io.git`,
       branch: 'master',
-      message: 'chore: auto-generated commit',
+      message: `release(${newTagVersion}): auto-generated resources`,
       tag: newTag,
       silent: true,
     },

@@ -38,7 +38,7 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
   }
 
   ghPages.publish(
-    '.next/static',
+    '.next',
     {
       repo: `https://${process.env.GH_TOKEN}@github.com/devrsi0n/devrsi0n.github.io.git`,
       branch: 'master',

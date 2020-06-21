@@ -34,9 +34,9 @@ module.exports = {
   env: {
     BUILD_TIMESTAMP: moment.tz(new Date(), 'Asia/Shanghai').format(),
   },
-  assetPrefix: isProd
-    ? `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${version}/_next`
-    : '',
+  // assetPrefix: isProd
+  //   ? `https://cdn.jsdelivr.net/gh/devrsi0n/devrsi0n.github.io@${version}`
+  //   : '',
   typescript: {
     // TODO: Disable this option
     ignoreBuildErrors: true,

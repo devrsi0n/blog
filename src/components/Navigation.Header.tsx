@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { useColorMode } from 'theme-ui';
 import throttle from 'lodash/throttle';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
 import Section from './Section';
 import Logo from './Logo';
 import useIsDarkMode from '../hooks/useIsDark';

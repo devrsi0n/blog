@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from 'react';
+import styled from '@emotion/styled';
 
-import styled from '../../utils/styled';
 import Section from '../../components/Section';
 import Bio from '../../components/Bio';
 import mediaqueries from '../../styles/media';

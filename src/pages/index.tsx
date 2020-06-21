@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-
 import Page, {
   getStaticProps as getPageStaticProps,
   IPageProps,

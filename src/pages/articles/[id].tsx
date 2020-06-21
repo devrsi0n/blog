@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 // import * as path from 'path';
 import throttle from 'lodash/throttle';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
+import styled from '@emotion/styled';
 
-import styled from '../../utils/styled';
 import MDX from '../../components/MDX';
 import Progress from '../../components/Progress';
 import Section from '../../components/Section';

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import styled from '../../utils/styled';
+import styled from '@emotion/styled';
 
 interface HeartProps {
   width: number;

@@ -1,6 +1,6 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["babel-plugin-emotion"],
+  "plugins": ["babel-plugin-emotion"]
   // "env": {
   //   "test": {
   //     "plugins": ["babel-plugin-istanbul"]

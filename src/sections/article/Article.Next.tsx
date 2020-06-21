@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import Link from 'next/link';
+import styled from '@emotion/styled';
 
-import styled from '../../utils/styled';
 import { H3 } from '../../components/Headings';
 import Image from '../../components/Image';
 import mediaqueries from '../../styles/media';

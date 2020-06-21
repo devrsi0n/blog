@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
-import styled from '../../utils/styled';
 import { H1 } from '../../components/Headings';
 import Image from '../../components/Image';
 import ImagePlaceholder from '../../components/Image.Placeholder';

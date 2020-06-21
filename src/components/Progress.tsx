@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 export interface IProgress {
   /**

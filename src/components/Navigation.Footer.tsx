@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
 import Section from './Section';
 import SocialLinks from './SocialLinks';
 import mediaqueries from '../styles/media';

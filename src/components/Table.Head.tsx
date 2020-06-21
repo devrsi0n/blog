@@ -1,4 +1,4 @@
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 const Head = styled.thead`
   text-align: left;

@@ -1,13 +1,13 @@
-import React, { useState, useCallback } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
+import React, { useCallback, useState } from 'react';
 // import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 // import theme from 'prism-react-renderer/themes/oceanicNext';
 import { useColorMode } from 'theme-ui';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
-import { IconCopied, IconCopy } from './Icons';
 import { copyToClipboard } from '../utils';
+import { IconCopied, IconCopy } from './Icons';
 
 const RE = /{([\d,-]+)}/;
 

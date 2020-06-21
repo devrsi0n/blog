@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 import mediaqueries from '../styles/media';
 import { IconGithub, IconTwitter, IconWeibo } from './Icons';

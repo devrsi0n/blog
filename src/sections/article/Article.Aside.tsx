@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import throttle from 'lodash/throttle';
+import styled from '@emotion/styled';
 
-import styled from '../../utils/styled';
 import mediaqueries from '../../styles/media';
 import HandleOverlap from './Article.HandleOverlap';
 

@@ -1,5 +1,5 @@
 import React, { AnchorHTMLAttributes, useState, useEffect } from 'react';
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 import { IconExternalLink } from './Icons';
 
 const BaseAnchor = styled.a`

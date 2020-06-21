@@ -1,4 +1,5 @@
 import React from 'react';
+
 import useHasMounted from '../hooks/useHasMounted';
 
 interface Props {

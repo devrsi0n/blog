@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 import mediaqueries from '../styles/media';
 
 const commonStyles = p => css`

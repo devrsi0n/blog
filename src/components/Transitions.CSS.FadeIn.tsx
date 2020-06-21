@@ -1,7 +1,7 @@
 import React from 'react';
 import { keyframes } from '@emotion/core';
 
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 interface CSSFadeInProps {
   as?: string;

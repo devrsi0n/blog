@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 type CodeInlineProps = {
   children: React.ReactNode;

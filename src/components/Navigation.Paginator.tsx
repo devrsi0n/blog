@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { css } from '@emotion/core';
 import Head from 'next/head';
 import Link from 'next/link';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
 import { range } from '../utils';
-
 import { IPaginator } from '../types';
 
 /**

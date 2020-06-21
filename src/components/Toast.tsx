@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-import styled from '../utils/styled';
+import styled from '@emotion/styled';
 
 interface AnimationComponentProps {
   children: React.ReactNode;

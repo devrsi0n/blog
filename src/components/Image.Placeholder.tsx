@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
 import mediaqueries from '../styles/media';
 
 const Container = styled.div`

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
+import { ReactNode, useEffect } from 'react';
+import styled from '@emotion/styled';
 
-import styled from '../utils/styled';
+import useHasMounted from '../hooks/useHasMounted';
+import useStats from '../hooks/useStats';
+import ArticlesContextProvider from '../sections/articles/Articles.List.Context';
 import NavigationFooter from './Navigation.Footer';
 import NavigationHeader from './Navigation.Header';
-import ArticlesContextProvider from '../sections/articles/Articles.List.Context';
-import useStats from '../hooks/useStats';
-import useHasMounted from '../hooks/useHasMounted';
 
 const duration = 0.25;
 
@@ -30,7 +30,7 @@ const variants = {
 };
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const siteTitle = 'Next.js Sample Website';

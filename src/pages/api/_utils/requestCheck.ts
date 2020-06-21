@@ -23,7 +23,10 @@ export default function requestCheck(
     return true;
   }
 
-  if (!request.headers.referer.startsWith('https://devrsi0n.com')) {
+  if (
+    request.headers.referer &&
+    !request.headers.referer.startsWith('https://devrsi0n.com')
+  ) {
     response.status(400).send({
       error: REQUEST_ERROR,
     });

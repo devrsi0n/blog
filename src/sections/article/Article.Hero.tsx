@@ -17,7 +17,8 @@ interface ArticleHeroProps {
 
 const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
   const hasCoAUthors = authors.length > 1;
-  const showUpdateAt = !!article.updatedAt;
+  const showUpdateAt =
+    !!article.updatedAt && compareDate(article.updatedAt, article.date);
   const updateAt = (article.updatedAt || '').slice(0, 10);
   const createAt = article.date;
   return (
@@ -27,7 +28,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {showUpdateAt && compareDate(article.updatedAt, article.date) ? (
+            {showUpdateAt ? (
               <>
                 <span>更新于&nbsp;</span>
                 <time>{updateAt}</time>

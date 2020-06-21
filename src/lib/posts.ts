@@ -4,6 +4,8 @@ import globby from 'globby';
 
 import { IMarkdownMeta, IArticle } from '../types';
 import { getAllAuthors } from './authors';
+import { isProd } from '../utils/env';
+import postTimestamps from '../../content/postTimestamps.json';
 
 const postsGlobPattern = "content/posts/**/*.mdx";
 
@@ -40,17 +42,18 @@ export async function getPostData(id: string): Promise<IArticle> {
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
-  const data = (matterResult.data as IMarkdownMeta);
-  const authorStringArray: string[] = (data.authors) ? data.authors.split(',') : [data.author];
+  const meta = (matterResult.data as IMarkdownMeta);
+  const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
   authorStringArray.forEach(a => a.trim());
+  const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
+  const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
 
   return {
-    ...data,
+    ...meta,
     id,
     slug: id,
     authors: getAuthors(authorStringArray),
-    // TODO: fix updatedAt
-    updatedAt: data.date,
+    updatedAt,
     absolutePath: filePath,
     relativePath: getRelativeFilePath(filePath),
   };
@@ -93,15 +96,21 @@ function readAndSortArticles(filePaths: string[]): IArticle[] {
     const fileContents = fs.readFileSync(filePath, "utf8");
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
-    const data = matterResult.data as IMarkdownMeta;
-    const authorStringArray: string[] = (data.authors) ? data.authors.split(',') : [data.author];
+    const meta = matterResult.data as IMarkdownMeta;
+    if (isProd && meta.secret) {
+      continue;
+    }
+
+    const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
     authorStringArray.forEach(a => a.trim());
+    const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
+    const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
 
     allPostsData.push({
       id,
       slug: id,
-      ...data,
-      updatedAt: data.date,
+      ...meta,
+      updatedAt,
       absolutePath: filePath,
       relativePath: getRelativeFilePath(filePath),
       authors: getAuthors(authorStringArray),

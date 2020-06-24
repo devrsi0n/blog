@@ -55,6 +55,7 @@
     "contentful-cli": "^0.36.2",
     "cross-env": "^7.0.2",
     "date-fns": "^2.11.1",
+    "file-loader": "^6.0.0",
     "framer-motion": "^1.11.0",
     "gh-pages": "^2.2.0",
     "globby": "^11.0.1",
@@ -83,7 +84,8 @@
     "theme-ui": "^0.3.1",
     "tiny-glob": "^0.2.6",
     "typeface-merriweather": "0.0.72",
-    "ua-parser-js": "^0.7.21"
+    "ua-parser-js": "^0.7.21",
+    "url-loader": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",

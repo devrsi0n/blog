@@ -38,25 +38,10 @@ export async function getPostData(id: string): Promise<IArticle> {
     absolute: true,
   });
   const filePath = filePaths.filter(filePath => filePath.endsWith(`${id}.mdx`))[0];
-  const fileContents = await fs.promises.readFile(filePath, "utf8");
-
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents);
-  const meta = (matterResult.data as IMarkdownMeta);
-  const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
-  authorStringArray.forEach(a => a.trim());
-  const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
-  const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
-
-  return {
-    ...meta,
-    id,
-    slug: id,
-    authors: getAuthors(authorStringArray),
-    updatedAt,
-    absolutePath: filePath,
-    relativePath: getRelativeFilePath(filePath),
-  };
+  if (!filePath) {
+    throw new Error(`Can't find the article file for id=${id}`);
+  }
+  return readArticle(filePath);
 }
 
 export async function getAdjacentArticles(id: string): Promise<IArticle[]> {
@@ -86,38 +71,38 @@ export async function getAdjacentArticles(id: string): Promise<IArticle[]> {
   }
 }
 
+async function readAndSortArticles(filePaths: string[]): Promise<IArticle[]> {
+  const allPostsData: IArticle[] = await Promise.all(filePaths.map(filePath => readArticle(filePath)));
 
-function readAndSortArticles(filePaths: string[]): IArticle[] {
-  const allPostsData: IArticle[] = [];
-  for (const filePath of filePaths) {
-    const fileName = filePath.slice(filePath.lastIndexOf('/') + 1);
-    const id = fileName.replace(/\.mdx$/, "");
-    // TODO: Use promise
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-    const meta = matterResult.data as IMarkdownMeta;
-    if (isProd && meta.secret) {
-      continue;
-    }
+  return allPostsData.filter(article => !!article).sort((a, b) => (a.date < b.date) ? 1 : -1);
+}
 
-    const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
-    authorStringArray.forEach(a => a.trim());
-    const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
-    const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
-
-    allPostsData.push({
-      id,
-      slug: id,
-      ...meta,
-      updatedAt,
-      absolutePath: filePath,
-      relativePath: getRelativeFilePath(filePath),
-      authors: getAuthors(authorStringArray),
-    });
+async function readArticle(filePath: string): Promise<IArticle> {
+  const fileName = filePath.slice(filePath.lastIndexOf('/') + 1);
+  const id = fileName.replace(/\.mdx$/, "");
+  // TODO: Use promise
+  const fileContents = await fs.promises.readFile(filePath, "utf8");
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+  const meta = matterResult.data as IMarkdownMeta;
+  if (isProd && meta.secret) {
+    return;
   }
 
-  return allPostsData.sort((a, b) => (a.date < b.date) ? 1 : -1);
+  const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
+  authorStringArray.forEach(a => a.trim());
+  const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
+  const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
+
+  return {
+    id,
+    slug: id,
+    ...meta,
+    updatedAt,
+    absolutePath: filePath,
+    relativePath: getRelativeFilePath(filePath),
+    authors: getAuthors(authorStringArray),
+  };
 }
 
 function getRelativeFilePath(absoluteFilePath: string) {

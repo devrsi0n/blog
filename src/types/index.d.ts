@@ -41,13 +41,7 @@ export interface IArticle extends IMarkdownMeta {
   authors: IAuthor[];
   id: string;
   updatedAt: string;
-  /**
-   * Article absolute file path
-   */
-  absolutePath: string;
-  /**
-   * Path relative to project's root
-   */
+  mdxSource: string;
   relativePath: string;
 }
 

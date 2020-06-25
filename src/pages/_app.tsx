@@ -23,7 +23,7 @@ export default class App extends React.Component<
 
   componentDidMount() {
     /* eslint-disable no-console */
-    console.log(`Build at ${process.env.BUILD_TIMESTAMP}`);
+    console.log(`This project was build at ${process.env.BUILD_TIMESTAMP}`);
   }
 
   static getDerivedStateFromError(error: Error) {

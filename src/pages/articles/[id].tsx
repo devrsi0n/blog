@@ -78,8 +78,6 @@ export default function Article({
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
   const [progress, setProgress] = useState<number>(0);
-  log.verbose(`article.relativePath: ${article.relativePath}`);
-  const MDXContent = dynamic(() => import(`../../../${article.relativePath}`));
 
   useUtteranc(UTTERANC_ID);
 
@@ -143,7 +141,7 @@ export default function Article({
     return () => window.removeEventListener('resize', calculateBodySize);
   }, [hasCalculated, contentSectionRef, contentHeight]);
 
-  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.absolutePath}`;
+  const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.relativePath}`;
 
   return (
     <>
@@ -163,8 +161,7 @@ export default function Article({
         <ArticleControls />
       </MobileControls>
       <ArticleBody ref={contentSectionRef}>
-        <MDX>
-          <MDXContent />
+        <MDX mdxSource={article.mdxSource}>
           <ArticleShare />
         </MDX>
       </ArticleBody>

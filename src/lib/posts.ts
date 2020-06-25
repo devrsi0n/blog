@@ -1,11 +1,16 @@
 import * as fs from "fs";
 import matter from "gray-matter";
 import globby from 'globby';
+import renderToString from '@devrsi0n/next-mdx-remote/render-to-string';
+import React from 'react';
+import { ThemeProvider } from 'theme-ui';
 
 import { IMarkdownMeta, IArticle } from '../types';
 import { getAllAuthors } from './authors';
 import { isProd } from '../utils/env';
 import postTimestamps from '../../content/postTimestamps.json';
+import theme from '../theme';
+import { components } from '../components/MDX';
 
 const postsGlobPattern = "content/posts/**/*.mdx";
 
@@ -83,8 +88,8 @@ async function readArticle(filePath: string): Promise<IArticle> {
   // TODO: Use promise
   const fileContents = await fs.promises.readFile(filePath, "utf8");
   // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents);
-  const meta = matterResult.data as IMarkdownMeta;
+  const { data, content } = matter(fileContents);
+  const meta = data as IMarkdownMeta;
   if (isProd && meta.secret) {
     return;
   }
@@ -93,20 +98,22 @@ async function readArticle(filePath: string): Promise<IArticle> {
   authorStringArray.forEach(a => a.trim());
   const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));
   const updatedAt = postTimestamps[updatePostKey] ? postTimestamps[updatePostKey].updatedAt : meta.date;
+  const mdxSource = await renderToString(content, components, {
+    Provider: ({ children }) => React.createElement(ThemeProvider, {
+      theme,
+    },
+    children)
+  });
 
   return {
     id,
     slug: id,
     ...meta,
+    mdxSource,
     updatedAt,
-    absolutePath: filePath,
-    relativePath: getRelativeFilePath(filePath),
+    relativePath: filePath,
     authors: getAuthors(authorStringArray),
   };
-}
-
-function getRelativeFilePath(absoluteFilePath: string) {
-  return absoluteFilePath.slice(absoluteFilePath.indexOf('content/posts'));
 }
 
 function getAuthors(authorStringArray: string[]) {

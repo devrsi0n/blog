@@ -2,6 +2,7 @@ import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+import hydrate from '@devrsi0n/next-mdx-remote/hydrate';
 
 import Anchor from './Anchor';
 import Blockquote from './Blockquote';
@@ -24,7 +25,7 @@ import Figcaption from './Figcaption';
 import mediaqueries from '../styles/media';
 import { toKebabCase } from '../utils';
 
-const components = {
+export const components = {
   p: Paragraph,
   h1: Headings.h2, // h1 reserved article title
   h2: Headings.h2,
@@ -58,13 +59,16 @@ const components = {
 };
 
 export interface MDXProps {
+  mdxSource: string;
   children: React.ReactNode;
 }
 
-function MDX({ children }: MDXProps) {
+function MDX({ children, mdxSource }: MDXProps) {
+  const content = hydrate(mdxSource, components);
   return (
     <MDXProvider components={components}>
       <MDXBody>
+        {content}
         {children}
         <SplitLine />
       </MDXBody>

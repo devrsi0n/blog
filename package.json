@@ -65,6 +65,7 @@
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.28",
     "next": "^9.4.4",
+    "@devrsi0n/next-mdx-remote": "^0.4.1",
     "node-fetch": "^2.6.0",
     "prism-react-renderer": "^1.1.1",
     "query-string": "^6.12.1",

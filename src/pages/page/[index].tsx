@@ -19,17 +19,17 @@ const ArticlesPaginator = styled.div<{ show: boolean }>`
 export interface IPageProps {
   authors: IAuthor[];
   articles: IArticle[];
+  pageCount: number;
   location: Location;
   index: number;
-  totalArticleNum: number;
 }
 
 export default function Page({
   articles,
+  pageCount,
   location,
   authors,
   index,
-  totalArticleNum,
 }: IPageProps) {
   return (
     <>
@@ -37,12 +37,8 @@ export default function Page({
       <ArticlesHero authors={authors} hero={site.hero} />
       <Section narrow>
         <ArticlesList articles={articles} />
-        <ArticlesPaginator show={totalArticleNum > 6}>
-          <Paginator
-            pageCount={totalArticleNum / 6}
-            index={index}
-            pathPrefix="/"
-          />
+        <ArticlesPaginator show={pageCount > 1}>
+          <Paginator pageCount={pageCount} index={index} pathPrefix="/" />
         </ArticlesPaginator>
       </Section>
       <ArticlesGradient />
@@ -85,8 +81,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       index,
-      totalArticleNum: allArticles.length,
       articles,
+      pageCount: Math.ceil(allArticles.length / ARTICLE_MAX_NUM_IN_A_PAGE),
       authors,
       location: getLocation(site.siteUrl),
     },

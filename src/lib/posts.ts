@@ -25,7 +25,12 @@ export async function getAllPostIds(): Promise<{ params: { id: string } }[]> {
   const filePaths = await globby(postsGlobPattern, {
     absolute: false,
   });
-  return filePaths.map((filePath) => {
+  const paramsArray = await Promise.all(filePaths.map(async (filePath) => {
+    const fileContents = await fs.promises.readFile(filePath, "utf8");
+    const { data } = matter(fileContents);
+    if (isProd && data.secret) {
+      return null;
+    }
     const lastSlash = filePath.lastIndexOf('/');
     const lastDot = filePath.lastIndexOf('.');
     return {
@@ -33,7 +38,8 @@ export async function getAllPostIds(): Promise<{ params: { id: string } }[]> {
         id: filePath.slice(lastSlash + 1, lastDot),
       },
     };
-  });
+  }));
+  return paramsArray.filter((params) => !!params);
 }
 
 const allAuthors = getAllAuthors();
@@ -85,15 +91,9 @@ async function readAndSortArticles(filePaths: string[]): Promise<IArticle[]> {
 async function readArticle(filePath: string): Promise<IArticle> {
   const fileName = filePath.slice(filePath.lastIndexOf('/') + 1);
   const id = fileName.replace(/\.mdx$/, "");
-  // TODO: Use promise
   const fileContents = await fs.promises.readFile(filePath, "utf8");
-  // Use gray-matter to parse the post metadata section
   const { data, content } = matter(fileContents);
   const meta = data as IMarkdownMeta;
-  if (isProd && meta.secret) {
-    return;
-  }
-
   const authorStringArray: string[] = (meta.authors) ? meta.authors.split(',') : [meta.author];
   authorStringArray.forEach(a => a.trim());
   const updatePostKey = filePath.slice(filePath.indexOf('content/posts'));

@@ -16,6 +16,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:debug": "NODE_OPTIONS='--inspect-brk' next build",
     "start": "next start",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "analyze": "cross-env ANALYZE=true next build",

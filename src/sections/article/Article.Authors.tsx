@@ -9,6 +9,9 @@ import mediaqueries from '../../styles/media';
 import { IconToggleOpen, IconToggleClose } from '../../components/Icons';
 import { IAuthor } from '../../types';
 
+const disableAuthorLink = true;
+const Wrapper = disableAuthorLink ? 'div' : Link;
+
 /**
  * This blog supports multiple authors and therefore we need to ensure
  * we render the right UI when there are varying amount of authors.
@@ -21,15 +24,15 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
     return <CoAuthors authors={authors} />;
   }
   return (
-    <Link href={authors[0].slug}>
-      <AuthorLink>
+    <Wrapper href={authors[0].slug}>
+      <AuthorLink as={disableAuthorLink ? 'div' : 'a'}>
         <AuthorAvatar>
           <RoundedImage src={authors[0].avatar} />
         </AuthorAvatar>
         <strong>{authors[0].name}&nbsp;</strong>
         <HideOnMobile>▴&nbsp;</HideOnMobile>
       </AuthorLink>
-    </Link>
+    </Wrapper>
   );
 }
 
@@ -58,7 +61,6 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
 
   const fill = colorMode === 'dark' ? '#fff' : '#000';
   const listWidth = { width: `${10 + authors.length * 15}px` };
-
   const handleClick = useCallback(() => setIsOpen(!isOpen), [isOpen]);
 
   return (

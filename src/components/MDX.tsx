@@ -1,5 +1,4 @@
 import React from 'react';
-import { MDXProvider } from '@mdx-js/react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import hydrate from '@devrsi0n/next-mdx-remote/hydrate';
@@ -66,13 +65,13 @@ export interface MDXProps {
 function MDX({ children, mdxSource }: MDXProps) {
   const content = hydrate(mdxSource, components);
   return (
-    <MDXProvider components={components}>
+    <>
       <MDXBody>
         {content}
         {children}
         <SplitLine />
       </MDXBody>
-    </MDXProvider>
+    </>
   );
 }
 

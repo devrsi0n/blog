@@ -1,12 +1,9 @@
 import React, { ErrorInfo } from 'react';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from 'theme-ui';
-import { Global } from '@emotion/core';
 
-import theme from '../theme';
-import Layout from '../components/Layout';
-import { globalStyles } from '../styles/global';
 import { Logger } from '../utils/logger';
+import RootProvider from '../sections/RootProvider';
+import Layout from '../components/Layout';
 
 const log = new Logger('pages/_app.tsx');
 
@@ -51,12 +48,11 @@ export default class App extends React.Component<
 
     const { Component, pageProps } = this.props;
     return (
-      <ThemeProvider theme={theme}>
-        <Global styles={globalStyles} />
+      <RootProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ThemeProvider>
+      </RootProvider>
     );
   }
 }

@@ -1,0 +1,1074 @@
+---
+title: "⚛️ Re: 从零开始的 React 再造之旅"
+author: Devrsi0n
+date: '2020-02-04'
+excerpt: 不依赖任何第三方包，从零开始动手造 React
+hero: /static/2020/create-react-from-scratch/hero.jpeg
+heroRef: <a href="https://zh.ifixit.com/Guide/MacBook+Pro+16-Inch+2019+%E6%8B%86%E8%A7%A3/128106">IFIX</a>
+tags: ['react', 'frontend', 'JavaScript']
+---
+
+通过不依赖任何第三方库的方式，抛弃边界处理、性能优化、安全性等弱相关代码手写一个基础版的 React，供大家学习和理解 React 的核心原理。
+
+![feynman](/static/2020/create-react-from-scratch/feynman.png)
+
+本文实现的是包含现代 React 最新特性 [Hooks](https://reactjs.org/docs/hooks-intro.html) 和 [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) 的版本，传统 class 组件的方式稍有不同，不影响理解核心原理。本文函数、变量等标识符命名都和官方尽量贴近，方便以后深入官方源码。
+
+建议桌面端浏览本文，并且跟着文章手动敲一遍代码加深理解。每完成一个完整功能最后都会有对应的完整代码放在 [CodeSandbox（在线开发环境）](https://codesandbox.io/)，如果对代码有疑问，可以先查看完整代码，打断点调试下。
+
+**目录总览**
+
+- 0: 从一次最简单的 React 渲染说起
+- I: 实现 createElement 函数
+- II: 实现 render 函数
+- III: 并发模式 / Concurrent Mode
+- IV: Fibers 数据结构
+- V: render 和 commit 阶段
+- VI: 更新和删除节点/Reconciliation
+- VII: 函数组件
+- VIII: 函数组件 Hooks
+
+## 0: 从一次最简单的 React 渲染说起
+
+```jsx
+const element = <h1 title="hello">Hello World!</h1>;
+const container = document.getElementById("root");
+ReactDOM.render(element, container);
+```
+
+上面这三行代码是一个再简单不过的 React 应用：在 `root` 根结点上渲染一个 `Hello World!` h1 节点。
+
+第一步的目标是**用原生 DOM 方式替换 React 代码**。
+
+### JSX
+
+熟悉 React 的读者都知道，我们直接在组件渲染的时候返回一段类似 html 模版的结构，这个就是所谓的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。JSX 本质上还是 JS，是语法糖而不是 html 模版（相比 html 模版要学习千奇百怪的语法比如：`{{#if value}}`，JSX 可以直接使用 JS 原生的 `&& || map reduce` 等语法更易学表达能力也更强）。一般需要 [babel](https://babeljs.io/) 配合[@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) 插件（babel 转换过程不是本文重点，感兴趣可以阅读[插件源码](https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-react-jsx/README.md#babelplugin-transform-react-jsx)）转换成调用 `React.createElement`，函数入参如下：
+
+```js
+React.createElement(
+  type,
+  [props],
+  [...children]
+)
+```
+
+例如上面的例子中的 `<h1 title="hello">Hello World!</h1>`，换成 `createElement` 调用就是：
+
+```js
+const element = React.createElement(
+  'h1',
+  { title: 'hello' },
+  'Hello World!'
+);
+```
+
+`React.createElement` 返回一个包含元素（element）信息的对象，即：
+
+```js
+const element = {
+  type: "h1",
+  props: {
+    title: "hello",
+    // createElement 第三个及之后参数移到 props.children
+    children: "Hello World!",
+  },
+};
+```
+
+react 官方实现还包括了很多额外属性，简单起见本文未涉及，参看[官方定义](https://github.com/facebook/react/blob/f4cc45ce962adc9f307690e1d5cfa28a288418eb/packages/react/src/ReactElement.js#L111)。
+
+这个对象描述了 React 创建一个节点（node）所需要的信息，`type` 就是 DOM 节点的名字，比如这里是 `h1`，也可以是函数组件，后面会讲到。`props` 包含所有元素的属性（比如 title）和特殊属性 children，children 可以包含其他元素，从根到叶也就能构成一颗完整的树，也就是描述了整个 UI 界面。
+
+**为了避免含义不清，“元素”特指 “React elements”，“节点”特指 “DOM elements”。**
+
+### ReactDOM.render
+
+下面替换掉 `ReactDOM.render` 调用，这里 React 会把元素更新到 DOM。
+
+```js
+const element = {
+  type: "h1",
+  props: {
+    title: "hello",
+    children: ["Hello World!"],
+  },
+};
+​
+const container = document.getElementById("root");
+​
+const node = document.createElement(element.type);
+node["title"] = element.props.title;
+​
+const text = document.createTextNode("");
+text["nodeValue"] = element.props.children;
+​
+node.appendChild(text);
+container.appendChild(node);
+```
+
+对比元素对象，首先用 `element.type` 创建节点，再把非 children 属性（这里是 title）赋值给节点。
+
+然后创建 children 节点，由于 children 是字符串，故创建 `textNode` 节点，并把字符串赋值给 `nodeValue`，这里之所以用 `createTextNode` 而不是 `innerText`，是为了方便之后统一处理。
+
+再把 children 节点 text 插到元素节点的子节点上，最后把元素节点插到根结点即完成了这次 React 的替换。
+
+<Message>
+
+像上面代码 `element` 这样 JSX 转成的描述 UI 界面的对象就是所谓的 **虚拟 DOM**，相对的 `node` 即 **真实 DOM**。`render/渲染` 过程就是把虚拟 DOM 转换成真实 DOM 的过程。
+
+</Message>
+
+---
+
+## I: 实现 createElement 函数
+
+第一步首先实现 `createElement` 函数，把 JSX 转换成 JS。以下面这个新的渲染为例，`createElement` 就是把 JSX 结构转成元素描述对象。
+
+```jsx
+const element = (
+  <div id="foo">
+    <a>bar</a>
+    <b />
+  </div>
+);
+// 等价转换 👇
+const element = React.createElement(
+  "div",
+  { id: "foo" },
+  React.createElement("a", null, "bar"),
+  React.createElement("b")
+);
+
+const container = document.getElementById("root");
+ReactDOM.render(element, container);
+```
+
+就像之前示例那样，`createElement` 返回一个包含 type 和 props 的元素对象，描述节点信息。
+
+```js
+// 这里用了最新 ECMAScript 剩余参数和展开语法（Rest parameter/Spread syntax），
+// 参考 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+// 注意：这里 children 始终是数组
+function createElement(type, props, ...children) {
+  return {
+    type,
+    props: {
+      ...props,
+      children: children.map(child =>
+        typeof child === "object"
+          ? child
+          : createTextElement(child)
+      ),
+    },
+  }
+}
+​
+function createTextElement(text) {
+  return {
+    type: "TEXT_ELEMENT",
+    props: {
+      nodeValue: text,
+      children: [],
+    },
+  }
+}
+```
+
+children 可能包含字符串或者数字这类基础类型值，给这里值包裹成 `TEXT_ELEMENT` 特殊类型，方便后面统一处理。
+
+<Message>
+
+  注意：React 并不会包裹字符串这类值，如果没有 children 也不会创建空数组，这里简单起见，统一这样处理可以简化我们的代码。
+
+</Message>
+
+我们把本文的框架叫做 `redact`，以区别 `react`。示例 app 如下。
+
+```js
+const element = Redact.createElement(
+  "div",
+  { id: "foo" },
+  Redact.createElement("a", null, "bar"),
+  Redact.createElement("b")
+);
+const container = document.getElementById("root");
+// 后面实现 render 方法
+RedactDOM.render(element, container);
+```
+
+但是我们还是习惯用 JSX 来写组件，这里还能用吗？答案是能的，只需要加一行注释即可。
+
+```js
+/** @jsx Redact.createElement */
+const element = (
+  <div id="foo">
+    <a>bar</a>
+    <b />
+  </div>
+);
+const container = document.getElementById("root");
+RedactDOM.render(element, container);
+```
+
+注意第一行注释 `@jsx` 告诉 babel 用 `Redact.createElement` 替换默认的 `React.createElement`。或者直接修改 `.babelrc` 配置文件的 `pragma` 项，就不用每个 JSX 文件都添加注释了。
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "Redact.createElement",
+      }
+    ]
+  ]
+}
+```
+
+---
+
+## II: 实现 render 函数
+
+实现我们的 render 函数，目前只需要添加节点到 DOM，删除和更新操作后面再加。
+
+```js
+function render(element, container) {
+  // 创建节点
+  const dom =
+    element.type === "TEXT_ELEMENT"
+      ? document.createTextNode("")
+      : document.createElement(element.type);
+​
+  // 赋值属性（props）
+  const isProperty = key => key !== "children";
+  Object.keys(element.props)
+    .filter(isProperty)
+    .forEach(name => {
+      dom[name] = element.props[name]
+    });
+
+  // 递归遍历子节点
+  element.props.children.forEach(child =>
+    render(child, dom)
+  );
+​
+  // 插入父节点
+  container.appendChild(dom);
+}
+```
+
+上面的代码放在了 CodeSandbox（在线开发环境），项目基于 [Create React App](https://create-react-app.dev/docs/getting-started/) 脚手架，试一试改下面的 JSX 代码验证下。
+
+<iframe
+  src="https://codesandbox.io/embed/adoring-lewin-93gyy?fontsize=14&hidenavigation=1&theme=dark"
+  style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
+  title="redact-1"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
+
+---
+
+## III: 并发模式 / Concurrent Mode
+
+在我们深入其他 React 功能之前，先对代码重构，引入 React 最新的并发模式（截止本文发表该功能还未正式发布）。
+
+可能读者会疑惑我们目前连最基本的组件状态更新都还没实现就先实现并发模式，其实目前代码逻辑还十分简单，现在重构，比之后实现所有功能再回头要容易很多，所谓积重难返就是这个道理。
+
+有经验的开发者很容易发现上面的 `render` 代码有一个问题，渲染子节点时递归遍历了整棵树，当页面非常复杂时很容易阻塞主线程，我们都知道每个页面是单线程的（不考虑 worker 线程），主线程阻塞会导致页面不能及时响应高优先级操作，如用户点击事件或者渲染动画，页面给用户 “很卡，难用” 的负面印象，这肯定不是我们想要的。
+
+因此，理想情况下，我们应该把 `render` 拆成更细分的单元，每完成一个单元的工作，允许浏览器打断渲染响应更高优先级的的工作，这个过程即 “并发模式”。
+
+这里我们用 [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) 这个浏览器 API 来实现。这个 API 有点类似 `setTimeout`，不过不是我们告诉浏览器什么时候执行回调函数，而是浏览器在线程空闲（idle）的时侯主动执行回调函数。
+
+React 目前已经[不用这个 API](https://github.com/facebook/react/issues/11171#issuecomment-417349573) 了，而是自己实现调度算法 [调度器/scheduler](https://github.com/facebook/react/tree/master/packages/scheduler)。但它们核心思路是类似的，简化起见用 requestIdleCallback 足矣。
+
+```js
+let nextUnitOfWork = null
+​
+function workLoop(deadline) {
+  let shouldYield = false;
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(
+      nextUnitOfWork
+    );
+    // 回调函数入参 deadline 可以告诉我们在这个渲染周期还剩多少时间可用
+    // 剩余时间小于1毫秒就退出回调，等待浏览器再次空闲
+    shouldYield = deadline.timeRemaining() < 1;
+  }
+  requestIdleCallback(workLoop);
+}
+​
+requestIdleCallback(workLoop);
+​
+// 注意，这个函数执行完本次单元任务之后要返回下一个单元任务
+function performUnitOfWork(nextUnitOfWork) {
+  // TODO
+}
+```
+
+这就是我们简易并发模式的实现，渲染任务拆分为多个任务单元交给 `performUnitOfWork` 执行，具体怎么拆分任务？答案是 “Fibers”。
+
+## IV: Fibers 数据结构
+
+为了方便描述渲染树和单元任务，React 设计了一种数据结构 “fiber 树”。每个元素都是一个 fiber，每个 fiber 就是一个单元任务。
+
+假如我们渲染如下这样一棵树：
+
+```js
+Redact.render(
+  <div>
+    <h1>
+      <p />
+      <a />
+    </h1>
+    <h2 />
+  </div>,
+  container
+)
+```
+
+用 Fiber 树来描述就是：
+
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
+  <img src="/static/2020/create-react-from-scratch/fiber0.png"></img>
+</div>
+
+在 `render` 函数我们创建**根 fiber**，再把它设为 `nextUnitOfWork`。在 workLoop 函数把 `nextUnitOfWork` 给 `performUnitOfWork` 执行，主要包含以下三步：
+
+1. 把元素添加到 DOM
+2. 为元素的后代创建 fiber 节点
+3. 选择下一个单元任务，并返回
+
+为了完成这些目标需要设计的数据结构方便找到下一个任务单元。**所以每个 fiber 直接链接它的第一个子节点(child)，子节点链接它的兄弟节点(sibling)，兄弟节点链接到父节点(parent)。**示意图如下(注意不同节点之间的高亮箭头)：
+
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
+  <img src="/static/2020/create-react-from-scratch/fiber1.png"></img>
+</div>
+
+当我们完成了一个 fiber 的单元任务，如果他有一个 `子节点/child` 则这个节点作为 `nextUnitOfWork`。如下图所示，当完成 `div` 单元任务之后，下一个单元任务就是 `h1`。
+
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
+  <img src="/static/2020/create-react-from-scratch/fiber2.png"></img>
+</div>
+
+如果一个 fiber 没有 `child`，我们用 `兄弟节点/sibling` 作为下一个任务单元。如下图所示，`p` 节点没有 `child` 而有 `sibling`，所以下一个任务单元是 `a` 节点。
+
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
+  <img src="/static/2020/create-react-from-scratch/fiber3.png"></img>
+</div>
+
+如果一个 fiber 既没有 `child` 也没有 `sibling`，则找到父节点的兄弟节点，。如下图所示的 `a` 和 `h2`。
+
+<div style={{background:'#202226',maxWidth: '680px', margin: '0 auto'}}>
+  <img src="/static/2020/create-react-from-scratch/fiber4.png"></img>
+</div>
+
+如果父节点没有兄弟节点，则继续往上找，直到找到一个兄弟节点或者到达 fiber 根结点。到达根结点即意味本次 `render` 任务全部完成。学过算法的同学对这个过程肯定很熟悉，这是典型的深度优先搜索遍历（DFS/depth first search）。
+
+把这个思路用代码表达如下：
+
+*提示：代码前后差异部分已高亮*
+
+```js {2-16,19-24,41-89}
+// 之前 render 的逻辑挪到这个函数
+function createDom(fiber) {
+  const dom =
+    fiber.type == "TEXT_ELEMENT"
+      ? document.createTextNode("")
+      : document.createElement(fiber.type);
+
+  const isProperty = key => key !== "children";
+  Object.keys(fiber.props)
+    .filter(isProperty)
+    .forEach(name => {
+      dom[name] = fiber.props[name];
+    });
+
+  return dom;
+}
+function render(element, container) {
+  // 创建根 fiber，设为下一次的单元任务
+  nextUnitOfWork = {
+    dom: container,
+    props: {
+      children: [element]
+    }
+  };
+}
+
+let nextUnitOfWork = null;
+function workLoop(deadline) {
+  let shouldYield = false;
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+    shouldYield = deadline.timeRemaining() < 1;
+  }
+  requestIdleCallback(workLoop);
+}
+
+// 一旦浏览器空闲，就触发执行单元任务
+requestIdleCallback(workLoop);
+
+function performUnitOfWork(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  // 子节点 DOM 插到父节点之后
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom);
+  }
+
+  // 为每个子元素创建新的 fiber
+  const elements = fiber.props.children;
+  let index = 0;
+  let prevSibling = null;
+
+  while (index < elements.length) {
+    const element = elements[index];
+
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null
+    };
+    // 根据上面的图示，父节点只链接第一个子节点
+    if (index === 0) {
+      fiber.child = newFiber;
+    } else {
+      // 兄节点链接弟节点
+      prevSibling.sibling = newFiber;
+    }
+
+    prevSibling = newFiber;
+    index++;
+  }
+  // 返回下一个任务单元（fiber）
+  // 有子节点直接返回
+  if (fiber.child) {
+    return fiber.child;
+  }
+  // 没有子节点则找兄弟节点，兄弟节点也没有找父节点的兄弟节点，
+  // 循环遍历直至找到为止
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
+  return null;
+}
+```
+
+---
+
+## V: render 和 commit 阶段
+
+我们的代码还有一个问题。
+
+每完成一个任务单元都把节点添加到 DOM 上。请记住，浏览器是可以打断渲染流程的，如果还没渲染完整棵树就把节点添加到 DOM，用户会看到残缺不全的 UI 界面，给人一种很不专业的印象，这肯定不是我们想要的。因此需要重构节点添加到 DOM 这部分代码，整棵树（fiber）渲染完成之后再一次性添加到 DOM，即 React commit 阶段。
+
+具体来说，去掉 `performUnitOfWork` 的 `fiber.parent.dom.appendChild` 代码，换成如下代码。
+
+```js {18-21,24-33,37,43,48,61-63}
+function createDom(fiber) {
+  const dom =
+    fiber.type == "TEXT_ELEMENT"
+      ? document.createTextNode("")
+      : document.createElement(fiber.type);
+​
+  const isProperty = key => key !== "children";
+  Object.keys(fiber.props)
+    .filter(isProperty)
+    .forEach(name => {
+      dom[name] = fiber.props[name];
+    });
+​
+  return dom;
+}
+
+// 新增函数，提交根结点到 DOM
+function commitRoot() {
+  commitWork(wipRoot.child);
+  wipRoot = null;
+}
+​
+// 新增子函数
+function commitWork(fiber) {
+  if (!fiber) {
+    return;
+  }
+  const domParent = fiber.parent.dom;
+  domParent.appendChild(fiber.dom);
+  // 递归子节点和兄弟节点
+  commitWork(fiber.child);
+  commitWork(fiber.sibling);
+}
+
+function render(element, container) {
+  // render 时记录 wipRoot
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  };
+  nextUnitOfWork = wipRoot;
+}
+​
+let nextUnitOfWork = null;
+// 新增变量，跟踪渲染进行中的根 fiber
+let wipRoot = null;
+
+function workLoop(deadline) {
+  let shouldYield = false;
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(
+      nextUnitOfWork
+    );
+    shouldYield = deadline.timeRemaining() < 1;
+  }
+
+  // 当 nextUnitOfWork 为空则表示渲染 fiber 树完成了，
+  // 可以提交到 DOM 了
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
+  }
+  requestIdleCallback(workLoop);
+}
+
+​// 一旦浏览器空闲，就触发执行单元任务
+requestIdleCallback(workLoop);
+
+function performUnitOfWork(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  const elements = fiber.props.children;
+  let index = 0;
+  let prevSibling = null;
+​
+  while (index < elements.length) {
+    const element = elements[index];
+​
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null,
+    };
+
+    if (index === 0) {
+      fiber.child = newFiber;
+    } else {
+      prevSibling.sibling = newFiber;
+    }
+​
+    prevSibling = newFiber;
+    index++;
+  }
+
+  if (fiber.child) {
+    return fiber.child;
+  }
+
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
+}
+```
+
+---
+
+## VI: 更新和删除节点/Reconciliation
+
+目前我们只添加节点到 DOM，还没考虑更新和删除节点的情况。要处理这2种情况，需要对比上次渲染的 fiber 和当前渲染的 fiber 的差异，根据差异决定是更新还是删除节点。React 把这个过程叫 `Reconciliation`。
+
+因此我们需要保存上一次渲染之后的 fiber 树，我们把这棵树叫 `currentRoot`。同时，给每个 fiber 节点添加 `alternate` 属性，指向上一次渲染的 fiber。
+
+代码较多，建议按 `render ⟶ workLoop ⟶ performUnitOfWork ⟶ reconcileChildren ⟶ workLoop ⟶ commitRoot ⟶ commitWork ⟶ updateDom` 顺序阅读。
+
+```js {7,12-61,64,66,75-81,92,94,99,101,126,144,148-194}
+function createDom(fiber) {
+  const dom =
+    fiber.type === "TEXT_ELEMENT"
+      ? document.createTextNode("")
+      : document.createElement(fiber.type);
+
+  updateDom(dom, {}, fiber.props);
+
+  return dom;
+}
+
+const isEvent = key => key.startsWith("on");
+const isProperty = key => key !== "children" && !isEvent(key);
+const isNew = (prev, next) => key => prev[key] !== next[key];
+const isGone = (prev, next) => key => !(key in next);
+
+// 新增函数，更新 DOM 节点属性
+function updateDom(dom, prevProps = {}, nextProps = {}) {
+  // 以 “on” 开头的属性作为事件要特别处理
+  // 移除旧的或者变化了的的事件处理函数
+  Object.keys(prevProps)
+    .filter(isEvent)
+    .filter(key => !(key in nextProps) || isNew(prevProps, nextProps)(key))
+    .forEach(name => {
+      const eventType = name.toLowerCase().substring(2);
+      dom.removeEventListener(eventType, prevProps[name]);
+    });
+
+  // 移除旧的属性
+  Object.keys(prevProps)
+    .filter(isProperty)
+    .filter(isGone(prevProps, nextProps))
+    .forEach(name => {
+      dom[name] = "";
+    });
+
+  // 添加或者更新属性
+  Object.keys(nextProps)
+    .filter(isProperty)
+    .filter(isNew(prevProps, nextProps))
+    .forEach(name => {
+      // React 规定 style 内联样式是驼峰命名的对象，
+      // 根据规范给 style 每个属性单独赋值
+      if (name === "style") {
+        Object.entries(nextProps[name]).forEach(([key, value]) => {
+          dom.style[key] = value;
+        });
+      } else {
+        dom[name] = nextProps[name];
+      }
+    });
+
+  // 添加新的事件处理函数
+  Object.keys(nextProps)
+    .filter(isEvent)
+    .filter(isNew(prevProps, nextProps))
+    .forEach(name => {
+      const eventType = name.toLowerCase().substring(2);
+      dom.addEventListener(eventType, nextProps[name]);
+    });
+}
+
+function commitRoot() {
+  deletions.forEach(commitWork);
+  commitWork(wipRoot.child);
+  currentRoot = wipRoot;
+  wipRoot = null;
+}
+
+function commitWork(fiber) {
+  if (!fiber) {
+    return;
+  }
+  const domParent = fiber.parent.dom;
+  if (fiber.effectTag === "PLACEMENT" && fiber.dom != null) {
+    domParent.appendChild(fiber.dom);
+  } else if (fiber.effectTag === "UPDATE" && fiber.dom != null) {
+    updateDom(fiber.dom, fiber.alternate.props, fiber.props);
+  } else if (fiber.effectTag === "DELETION") {
+    domParent.removeChild(fiber.dom);
+  }
+  commitWork(fiber.child);
+  commitWork(fiber.sibling);
+}
+
+function render(element, container) {
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element]
+    },
+    alternate: currentRoot
+  };
+  deletions = [];
+  nextUnitOfWork = wipRoot;
+}
+
+let nextUnitOfWork = null;
+let currentRoot = null;
+let wipRoot = null;
+let deletions = null;
+
+function workLoop(deadline) {
+  let shouldYield = false;
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+    shouldYield = deadline.timeRemaining() < 1;
+  }
+
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
+  }
+
+  requestIdleCallback(workLoop);
+}
+
+requestIdleCallback(workLoop);
+
+function performUnitOfWork(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  const elements = fiber.props.children;
+  // 原本添加 fiber 的逻辑挪到 reconcileChildren 函数
+  reconcileChildren(fiber, elements);
+
+  if (fiber.child) {
+    return fiber.child;
+  }
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
+}
+
+// 新增函数
+function reconcileChildren(wipFiber, elements) {
+  let index = 0;
+  // 上次渲染完成之后的 fiber 节点
+  let oldFiber = wipFiber.alternate && wipFiber.alternate.child;
+  let prevSibling = null;
+
+  // 扁平化 props.children，处理函数组件的 children
+  elements = elements.flat();
+
+  while (index < elements.length || oldFiber != null) {
+    // 本次需要渲染的子元素
+    const element = elements[index];
+    let newFiber = null;
+
+    // 比较当前和上一次渲染的 type，即 DOM tag 'div'，
+    // 暂不考虑自定义组件
+    const sameType = oldFiber && element && element.type === oldFiber.type;
+
+    // 同类型节点，只需更新节点 props 即可
+    if (sameType) {
+      newFiber = {
+        type: oldFiber.type,
+        props: element.props,
+        dom: oldFiber.dom, // 复用旧节点的 DOM
+        parent: wipFiber,
+        alternate: oldFiber,
+        effectTag: "UPDATE" // 新增属性，在提交/commit 阶段使用
+      };
+    }
+    // 不同类型节点且存在新的元素时，创建新的 DOM 节点
+    if (element && !sameType) {
+      newFiber = {
+        type: element.type,
+        props: element.props,
+        dom: null,
+        parent: wipFiber,
+        alternate: null,
+        effectTag: "PLACEMENT" // PLACEMENT 表示需要添加新的节点
+      };
+    }
+    // 不同类型节点，且存在旧的 fiber 节点时，
+    // 需要移除该节点
+    if (oldFiber && !sameType) {
+      oldFiber.effectTag = "DELETION";
+      // 当最后提交 fiber 树到 DOM 时，我们是从 wipRoot 开始的，
+      // 此时没有上一次的 fiber，所以这里用一个数组来跟踪需要
+      // 删除的节点
+      deletions.push(oldFiber);
+    }
+
+    if (oldFiber) {
+      // 同步更新下一个旧 fiber 节点
+      oldFiber = oldFiber.sibling;
+    }
+
+    if (index === 0) {
+      wipFiber.child = newFiber;
+    } else {
+      prevSibling.sibling = newFiber;
+    }
+
+    prevSibling = newFiber;
+    index++;
+  }
+}
+```
+
+<Message>
+
+  注意：这个过程中 React 还用了 `key` 来检测数组元素变化了位置的情况，避免重复渲染以提高性能。简化起见，本文未实现。
+
+</Message>
+
+下面 CodeSandbox 代码用了个小技巧，重复执行 `render` 实现更新界面的效果，输入几个字试试看效果。
+
+<iframe
+  src="https://codesandbox.io/embed/redact-1-dovfc?fontsize=14&hidenavigation=1&theme=dark"
+    style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
+  title="redact-2"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
+
+---
+
+## VII: 函数组件
+
+目前我们还只考虑了直接渲染 DOM 标签的情况，不支持组件，而组件是 React 是灵魂，下面我们来实现函数组件。
+
+以一个非常简单的组件代码为例。
+
+```jsx
+/** @jsx Redact.createElement */
+function App(props) {
+  return <h1>Hi {props.name}</h1>;
+};
+
+// 等效 JS 代码 👇
+function App(props) {
+  return Redact.createElement(
+    "h1",
+    null,
+    "Hi ",
+    props.name
+  );
+}
+
+const element = <App name="foo" />;
+const container = document.getElementById("root");
+Redact.render(element, container);
+```
+
+函数组件有2个不同点：
+- 函数组件的 fiber 节点没有对应 DOM
+- 函数组件的 children 来自函数执行结果，而不是像标签元素一样直接从 props 获取，因为 children 不只是函数组件使用时包含的子孙节点，还需要组合组件本身的结构
+
+注意以下代码省略了未改动部分。
+
+```js {8-11,19,27-35,40-44,58-70}
+function commitWork(fiber) {
+  if (!fiber) {
+    return;
+  }
+
+  // 当 fiber 是函数组件时节点不存在 DOM，
+  // 故需要遍历父节点以找到最近的有 DOM 的节点
+  let domParentFiber = fiber.parent;
+  while (!domParentFiber.dom) {
+    domParentFiber = domParentFiber.parent;
+  }
+  const domParent = domParentFiber.dom;
+  if (fiber.effectTag === "PLACEMENT" && fiber.dom != null) {
+    domParent.appendChild(fiber.dom);
+  } else if (fiber.effectTag === "UPDATE" && fiber.dom != null) {
+    updateDom(fiber.dom, fiber.alternate.props, fiber.props);
+  } else if (fiber.effectTag === "DELETION") {
+    // 直接移除 DOM 替换成 commitDeletion 函数
+    commitDeletion(fiber, domParent);
+  }
+
+  commitWork(fiber.child);
+  commitWork(fiber.sibling);
+}
+
+// 新增函数，移除 DOM 节点
+function commitDeletion(fiber, domParent) {
+  // 当 child 是函数组件时不存在 DOM，
+  // 故需要递归遍历子节点找到真正的 DOM
+  if (fiber.dom) {
+    domParent.removeChild(fiber.dom);
+  } else {
+    commitDeletion(fiber.child, domParent);
+  }
+}
+
+function performUnitOfWork(fiber) {
+  const isFunctionComponent = fiber.type instanceof Function;
+  // 原本逻辑挪到 updateHostComponent 函数
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
+  }
+  if (fiber.child) {
+    return fiber.child;
+  }
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
+}
+
+// 新增函数，处理函数组件
+function updateFunctionComponent(fiber) {
+  // 执行函数组件得到 children
+  const children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber, children);
+}
+
+// 新增函数，处理原生标签组件
+function updateHostComponent(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+  reconcileChildren(fiber, fiber.props.children);
+}
+```
+
+---
+
+## VIII: 函数组件 Hooks
+
+支持了函数组件，还需要支持组件状态 / state 才能实现刷新界面。
+
+我们的示例也跟着更新，用 hooks 实现经典的 counter，点击计数器加1。
+
+```jsx
+/** @jsx Redact.createElement */
+function Counter() {
+  const [state, setState] = Redact.useState(1)
+  return (
+    <h1 onClick={() => setState(c => c + 1)}>
+      Count: {state}
+    </h1>
+  );
+}
+const element = <Counter />;
+const container = document.getElementById("root");
+Redact.render(element, container);
+```
+
+注意以下代码省略了未变化部分。
+
+```js
+// 新增变量，渲染进行中的 fiber 节点
+let wipFiber = null;
+// 新增变量，当前 hook 的索引，以支持同一个函数组件多次调用 useState
+let hookIndex = null;
+
+function updateFunctionComponent(fiber) {
+  // 更新进行中的 fiber 节点
+  wipFiber = fiber;
+  // 重置 hook 索引
+  hookIndex = 0;
+  // 新增 hooks 数组以支持同一个组件多次调用 useState
+  wipFiber.hooks = [];
+  const children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber, children);
+}
+
+function useState(initial) {
+  // alternate 保存了上一次渲染的 fiber 节点
+  const oldHook =
+    wipFiber.alternate &&
+    wipFiber.alternate.hooks &&
+    wipFiber.alternate.hooks[hookIndex];
+  const hook = {
+    // 第一次渲染使用入参，第二次渲染复用前一次的状态
+    state: oldHook ? oldHook.state : initial,
+    // 保存每次 setState 入参的队列
+    queue: []
+  };
+
+  const actions = oldHook ? oldHook.queue : [];
+  actions.forEach(action => {
+    // 根据调用 setState 顺序从前往后生成最新的 state
+    hook.state = action instanceof Function ? action(hook.state) : action;
+  });
+
+  // setState 函数用于更新 state，入参 action
+  // 是新的 state 值或函数返回新的 state
+  const setState = action => {
+    hook.queue.push(action);
+    // 下面这部分代码和 render 函数很像，
+    // 设置新的 wipRoot 和 nextUnitOfWork
+    // 浏览器空闲时即开始重新渲染。
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot
+    };
+    nextUnitOfWork = wipRoot;
+    deletions = [];
+  };
+
+  // 保存本次 hook
+  wipFiber.hooks.push(hook);
+  hookIndex++;
+  return [hook.state, setState];
+}
+```
+
+完整 CodeSandbox 代码如下，点击 Count 试试：
+
+<iframe
+  src="https://codesandbox.io/embed/redact-2-rx063?fontsize=14&hidenavigation=1&theme=dark"
+  style={{
+    width: '100%',
+    maxWidth: '800px',
+    height:'500px',
+    border:0,
+    borderRadius: '4px',
+    overflow:'hidden',
+  }}
+  title="redact-3"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
+
+---
+
+## 结语
+
+除了帮助读者理解 React 核心工作原理外，本文很多变量都和 React 官方代码保持一致，比如，读者在 React 应用的任何函数组件里断点，再打开调试工作能看到下面这样的调用栈：
+
+- updateFunctionComponent
+- performUnitOfWork
+- workLoop
+
+![call stack](/static/2020/create-react-from-scratch/stack.png)
+
+注意本文是教学性质的，还缺少很多 React 的功能和性能优化。比如：在这些事情上 React 的表现和 Redact 不同。
+
+- Redact 在渲染阶段遍历了整棵树，而 React 用了一些启发性算法，可以直接跳过某些没有变化的子树，以提高性能。（比如 React 数组元素推荐带 key，可以跳过无需更新的节点，参考[官方文档](https://zh-hans.reactjs.org/docs/reconciliation.html#keys)）
+- Redact 在 commit 阶段遍历整棵树， React 用了一个链表保存变化了的 fiber，减少了很多不必要遍历操作。
+- Redact 每次创建新的 fiber 树时都是直接创建 fiber 对象节点，而 React 会复用上一个 fiber 对象，以节省创建对象的性能消耗。
+- Redact 如果在渲染阶段收到新的更新会直接丢弃已渲染的树，再从头开始渲染。而 React 会用时间戳标记每次更新，以决定更新的优先级。
+- 源码还有很多优化等待读者去发现。。。
+
+---
+
+## 参考
+
+征得原作者同意，本文参考了 [build-your-own-react](https://pomb.us/build-your-own-react/) 部分内容，推荐英文水平不错读者直接在桌面端阅读原文以获得最佳阅读体验。
+
+- [build your own react](https://pomb.us/build-your-own-react/)
+- [wtf is jsx](https://jasonformat.com/wtf-is-jsx/)
+- [gooact react in 160 lines of javascript](https://medium.com/@sweetpalma/gooact-react-in-160-lines-of-javascript-44e0742ad60f)

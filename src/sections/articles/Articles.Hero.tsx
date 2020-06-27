@@ -1,40 +1,23 @@
 import React, { useContext, useCallback } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
 
-import Section from '@components/Section';
-import Bio from '@components/Bio';
-import mediaqueries from '@styles/media';
-import { IconTiles, IconRows } from '@components/Icons';
-import { IAuthor } from '@types';
-
+import Section from '../../components/Section';
+import Bio from '../../components/Bio';
+import mediaqueries from '../../styles/media';
+import { IconTiles, IconRows } from '../../components/Icons';
+import { IAuthor, IHero } from '../../types';
 import { GridLayoutContext } from './Articles.List.Context';
-import { AuthorHeroQuery } from '../../types/graphql';
 
-const authorQuery = graphql`
-  query authorHero {
-    site: allSite {
-      edges {
-        node {
-          siteMetadata {
-            hero {
-              heading
-              maxWidth
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+interface IAuthorsHeroProps {
+  authors: IAuthor[];
+  hero: IHero;
+}
 
-function ArticlesHero({ authors }: { authors: IAuthor[] }) {
+function ArticlesHero({ authors, hero }: IAuthorsHeroProps) {
   const { gridLayout = 'tiles', hasSetGridLayout, setGridLayout } = useContext(
     GridLayoutContext
   );
 
-  const results = useStaticQuery<AuthorHeroQuery>(authorQuery);
-  const { hero } = results.site.edges[0].node.siteMetadata;
   const tilesIsActive = hasSetGridLayout && gridLayout === 'tiles';
   const featuredAuthor = authors.find(author => author.featured);
 

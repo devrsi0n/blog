@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 
-import { breakpoints } from '../gatsby-plugin-theme-ui';
+import { breakpoints } from '../theme';
 
 const toEm = (size: number) => `${size / 16}em`;
 

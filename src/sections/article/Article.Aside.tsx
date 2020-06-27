@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
-import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
+import styled from '@emotion/styled';
 
-import mediaqueries from '@styles/media';
+import mediaqueries from '../../styles/media';
 import HandleOverlap from './Article.HandleOverlap';
 
 interface AsideProps {

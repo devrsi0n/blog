@@ -1,0 +1,61 @@
+---
+title: 使用 Electron 时 GitHub Actions 执行失败
+author: Devrsi0n
+date: '2019-11-10'
+hero: /static/2019/github-actions-ci-failed-with-electron/hero.png
+excerpt: '解决 GitHub Action 使用 Electron 问题'
+---
+
+[GitHub Actions](https://github.com/features/actions) 是 GitHub 官方近期推出的免费自动化软件开发流程服务，可用来替代 circleci/travis 这类第三方服务，而且因为榜上微软这个金主，GitHub 的官方服务构建速度和易用度都挺不错的。比如下面著名 iOS 大神 [onevcat](https://weibo.com/onevcat) 使用感受：
+
+![onevcat](/static/2019/github-actions-ci-failed-with-electron/onevcat.png)
+
+GitHub Actions 看着虽好，但在第一次尝试就遇到了问题，测试用例直接跑不起来，相关症状如下。
+
+![failed](/static/2019/github-actions-ci-failed-with-electron/failed.png)
+
+经过深入分析，发现项目的 jest 使用 electron renderer 进程作为测试环境（详情请看[前端单测 jest 最佳运行环境](/articles/jest-environment-electron)），本地测试没问题，但在无显示环境的服务器上 electron 就不能正常工作了。相关 GitHub issue： [It's not working in Gitlab CI Server](https://github.com/facebook-atom/jest-electron-runner/issues/47)。
+
+从 issue 作者的回复看，electron 要在 GitHub Actions 这类无显示服务器环境运行需要提供虚拟显示，一般由 `xvfb` 这个 Linux 包提供。
+
+## 解决办法
+
+解决办法就是安装相应的 Linux 依赖，执行测试用例前开启虚拟现实环境，下面是项目 GitHub Actions 配置，供参考。重点是这3个配置： `- run: sudo apt-get install xvfb`, `xvfb-run --auto-servernum yarn test` 和 `uses: bcomnes/cleanup-xvfb@v1`。前面2个不用说了，最后一个是清除 `xvfb` 开启的进程，免得对环境造成影响，具体使用参考 [Cleanup xvfb](https://github.com/marketplace/actions/cleanup-xvfb) 这个 Action。
+
+```yaml
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    # Setup a virtual display for running electron, @see https://github.com/facebook-atom/jest-electron-runner/issues/47
+    - run: sudo apt-get install xvfb
+    - name: yarn install, build, and test
+      run: |
+        yarn
+        yarn run build
+        xvfb-run --auto-servernum yarn test
+      env:
+        CI: true
+    - name: Cleanup xvfb pidx
+      # Clean up any remaining xvfb processes leftover in a Github Action.
+      uses: bcomnes/cleanup-xvfb@v1
+```
+
+## Extra
+
+可能你用 circleci 也遇到了这个问题，可以参考 [jest-electron-runner](https://github.com/facebook-atom/jest-electron-runner/blob/8b7c595e30230d72f34998997e9e4e0aea877990/.circleci/config.yml#L6) 这里的配置代码。travis 参考 [jest-electron](https://github.com/hustcc/jest-electron#travis) 配置。

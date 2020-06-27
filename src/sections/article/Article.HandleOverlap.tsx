@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
+
+import styled from '@emotion/styled';
 
 // Is the current element within the window's frame? That's all we care about!
 function isVisible(element: HTMLElement): boolean {

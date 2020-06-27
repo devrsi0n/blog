@@ -1,14 +1,12 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { Link } from 'gatsby';
+import Link from 'next/link';
+import styled from '@emotion/styled';
 
-import { H3 } from '@components/Headings';
-import Image from '@components/Image';
-
-import mediaqueries from '@styles/media';
-
-import { IArticle } from '@types';
+import { H3 } from '../../components/Headings';
+import Image from '../../components/Image';
+import mediaqueries from '../../styles/media';
+import { IArticle } from '../../types';
 
 /**
  * Sits at the bottom of our Article page. Shows the next 2 on desktop and the
@@ -23,10 +21,11 @@ import { IArticle } from '@types';
  * mix into the generic list component.
  */
 const ArticlesNext = ({ articles }: { articles: IArticle[] }) => {
-  if (!articles) return null;
-  const numberOfArticles = articles.length;
+  if (!articles) {
+    return null;
+  }
   return (
-    <Grid numberOfArticles={numberOfArticles}>
+    <Grid numberOfArticles={articles.length}>
       <GridItem article={articles[0]} />
       <GridItem article={articles[1]} narrow />
     </Grid>
@@ -45,28 +44,26 @@ const GridItem = ({
   if (!article) return null;
 
   const hasOverflow = narrow && article.title.length > 35;
-  const imageSource = narrow ? article.hero.narrow : article.hero.regular;
+  const imageSource = narrow ? article.hero : article.hero;
 
   return (
-    <ArticleLink
-      to={article.slug}
-      data-a11y="false"
-      narrow={narrow ? 'true' : 'false'}
-    >
-      <Item>
-        <ImageContainer>
-          <Image src={imageSource} />
-        </ImageContainer>
-        <Title dark hasOverflow={hasOverflow}>
-          {article.title}
-        </Title>
-        <Excerpt hasOverflow={hasOverflow}>{article.excerpt}</Excerpt>
-        <MetaData>
-          {article.date}
-          {/* · 阅读需要 {article.timeToRead} 分钟 */}
-        </MetaData>
-      </Item>
-    </ArticleLink>
+    <Link href={article.slug}>
+      <ArticleLink data-a11y="false" narrow={narrow}>
+        <Item>
+          <ImageContainer>
+            <Image src={imageSource} />
+          </ImageContainer>
+          <Title dark hasOverflow={hasOverflow}>
+            {article.title}
+          </Title>
+          <Excerpt hasOverflow={hasOverflow}>{article.excerpt}</Excerpt>
+          <MetaData>
+            {article.date}
+            {/* · 阅读需要 {article.timeToRead} 分钟 */}
+          </MetaData>
+        </Item>
+      </ArticleLink>
+    </Link>
   );
 };
 
@@ -208,7 +205,7 @@ const MetaData = styled.div`
   `}
 `;
 
-const ArticleLink = styled(Link)<{ narrow: string }>`
+const ArticleLink = styled.a<{ narrow: boolean }>`
   position: relative;
   display: block;
   width: 100%;
@@ -241,7 +238,7 @@ const ArticleLink = styled(Link)<{ narrow: string }>`
     background: rgba(255, 255, 255, 0.01);
   }
 
-  ${p => p.narrow === 'true' && mediaqueries.tablet`display: none;`}
+  ${p => p.narrow && mediaqueries.tablet`display: none;`}
 
   ${mediaqueries.phablet`
     &:hover ${ImageContainer} {

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { query } from '@utils/query';
-import { isNotProd } from '@utils/env';
+import { query } from '../utils/query';
+import { isNotProd } from '../utils/env';
 
-export default function useStatistics(location: Location) {
+export default function useStatistics() {
   useEffect(() => {
     if (isNotProd) {
       return;
@@ -12,7 +12,7 @@ export default function useStatistics(location: Location) {
       const rsp = await query('/api/stats/pv', {
         method: 'POST',
         data: {
-          url: location.pathname,
+          url: window.location.pathname,
           title: document.title,
         },
       });
@@ -20,5 +20,5 @@ export default function useStatistics(location: Location) {
         throw new Error('Request error');
       }
     })();
-  }, [location.pathname]);
+  }, []);
 }

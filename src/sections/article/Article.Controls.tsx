@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
+import styled from '@emotion/styled';
 
-import mediaqueries from '@styles/media';
-import { copyToClipboard } from '@utils';
+import mediaqueries from '../../styles/media';
+import { copyToClipboard } from '../../utils';
 
 function ArticleControls() {
   return (

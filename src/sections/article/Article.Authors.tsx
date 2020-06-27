@@ -1,16 +1,19 @@
 import React, { useState, useCallback } from 'react';
-import styled from '@emotion/styled';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useColorMode } from 'theme-ui';
-import { Link } from 'gatsby';
+import Link from 'next/link';
+import styled from '@emotion/styled';
 
-import Image from '@components/Image';
-import mediaqueries from '@styles/media';
-import { IconToggleOpen, IconToggleClose } from '@components/Icons';
-import { IAuthor } from '@types';
+import Image from '../../components/Image';
+import mediaqueries from '../../styles/media';
+import { IconToggleOpen, IconToggleClose } from '../../components/Icons';
+import { IAuthor } from '../../types';
+
+const disableAuthorLink = true;
+const Wrapper = disableAuthorLink ? 'div' : Link;
 
 /**
- * This theme supports multiple authors and therefore we need to ensure
+ * This blog supports multiple authors and therefore we need to ensure
  * we render the right UI when there are varying amount of authors.
  */
 function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
@@ -21,13 +24,15 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
     return <CoAuthors authors={authors} />;
   }
   return (
-    <AuthorLink as={authors[0].authorsPage ? Link : 'div'} to={authors[0].slug}>
-      <AuthorAvatar>
-        <RoundedImage src={authors[0].avatar.small} />
-      </AuthorAvatar>
-      <strong>{authors[0].name}&nbsp;</strong>
-      <HideOnMobile>▴&nbsp;</HideOnMobile>
-    </AuthorLink>
+    <Wrapper href={authors[0].slug}>
+      <AuthorLink as={disableAuthorLink ? 'div' : 'a'}>
+        <AuthorAvatar>
+          <RoundedImage src={authors[0].avatar} />
+        </AuthorAvatar>
+        <strong>{authors[0].name}&nbsp;</strong>
+        <HideOnMobile>▴&nbsp;</HideOnMobile>
+      </AuthorLink>
+    </Wrapper>
   );
 }
 
@@ -56,7 +61,6 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
 
   const fill = colorMode === 'dark' ? '#fff' : '#000';
   const listWidth = { width: `${10 + authors.length * 15}px` };
-
   const handleClick = useCallback(() => setIsOpen(!isOpen), [isOpen]);
 
   return (
@@ -64,7 +68,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
       <CoAuthorsList style={listWidth}>
         {authors.map((author, index) => (
           <CoAuthorAvatar style={{ left: `${index * 15}px` }} key={author.name}>
-            <RoundedImage src={author.avatar.small} />
+            <RoundedImage src={author.avatar} />
           </CoAuthorAvatar>
         ))}
       </CoAuthorsList>
@@ -81,15 +85,14 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
             </IconOpenContainer>
             {authors.map(author => (
               <CoAuthorsListItemOpen key={author.name}>
-                <AuthorLink
-                  as={author.authorsPage ? Link : 'div'}
-                  to={author.slug}
-                >
-                  <CoAuthorAvatarOpen>
-                    <RoundedImage src={author.avatar.small} />
-                  </CoAuthorAvatarOpen>
-                  <AuthorNameOpen>{author.name}</AuthorNameOpen>
-                </AuthorLink>
+                <Link href={author.slug}>
+                  <AuthorLink>
+                    <CoAuthorAvatarOpen>
+                      <RoundedImage src={author.avatar} />
+                    </CoAuthorAvatarOpen>
+                    <AuthorNameOpen>{author.name}</AuthorNameOpen>
+                  </AuthorLink>
+                </Link>
               </CoAuthorsListItemOpen>
             ))}
           </CoAuthorsListOpen>
@@ -120,7 +123,7 @@ const RoundedImage = styled(Image)`
   border-radius: 50%;
 `;
 
-const AuthorLink = styled.div`
+const AuthorLink = styled.a`
   display: flex;
   align-items: center;
   color: inherit;

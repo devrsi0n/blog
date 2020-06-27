@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import Image from '@components/Image';
-
-import mediaqueries from '@styles/media';
-import SocialLinks from '@components/SocialLinks';
-import { IAuthor } from '@types';
+import Image from '../../components/Image';
+import mediaqueries from '../../styles/media';
+import SocialLinks from '../../components/SocialLinks';
+import { IAuthor } from '../../types';
 
 interface AuthorHeroProps {
   author: IAuthor;
@@ -15,7 +14,7 @@ const AuthorHero = ({ author }: AuthorHeroProps) => {
   return (
     <Hero>
       <HeroImage>
-        <RoundedImage src={author.avatar.large} />
+        <RoundedImage src={author.avatar} />
       </HeroImage>
       <Heading>{author.name}</Heading>
       <Subheading>{author.bio}</Subheading>

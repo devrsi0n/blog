@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
-import { fonts } from '../gatsby-plugin-theme-ui';
+import { fonts, Theme } from '../theme';
 
-export const globalStyles = theme => css`
+export const globalStyles = (theme: Theme) => css`
   /**
    * Thanks to Benjamin De Cock
    * https://gist.github.com/bendc/ac03faac0bf2aee25b49e5fd260a727d

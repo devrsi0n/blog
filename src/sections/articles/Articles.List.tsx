@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { Link } from 'gatsby';
+import Link from 'next/link';
+import styled from '@emotion/styled';
 
-import { H2 } from '@components/Headings';
-import Image, { ImagePlaceholder } from '@components/Image';
+import { H2 } from '../../components/Headings';
+import Image from '../../components/Image';
+import ImagePlaceholder from '../../components/Image.Placeholder';
 
-import mediaqueries from '@styles/media';
-import { IArticle } from '@types';
+import mediaqueries from '../../styles/media';
+import { IArticle } from '../../types';
 
 import { GridLayoutContext } from './Articles.List.Context';
 
@@ -91,36 +92,32 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
   if (!article) return null;
 
   const hasOverflow = narrow && article.title.length > 35;
-  const imageSource = narrow ? article.hero.narrow : article.hero.regular;
-  const hasHeroImage =
-    imageSource &&
-    Object.keys(imageSource).length !== 0 &&
-    imageSource.constructor === Object;
+  const imageSource = narrow ? article.hero : article.hero;
+  const hasHeroImage = !!article.hero;
 
   return (
-    <ArticleLink to={article.slug} data-a11y="false">
-      <Item gridLayout={gridLayout}>
-        <ImageContainer narrow={narrow} gridLayout={gridLayout}>
-          {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
-        </ImageContainer>
-        <div>
-          <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
-            {article.secret ? `${article.title} 🚧` : article.title}
-          </Title>
-          <Excerpt
-            narrow={narrow}
-            hasOverflow={hasOverflow}
-            gridLayout={gridLayout}
-          >
-            {article.excerpt}
-          </Excerpt>
-          <MetaData>
-            {article.date}
-            {/* · 阅读需要 {article.timeToRead} 分钟 */}
-          </MetaData>
-        </div>
-      </Item>
-    </ArticleLink>
+    <Link href={article.slug}>
+      <ArticleLink data-a11y="false">
+        <Item gridLayout={gridLayout}>
+          <ImageContainer narrow={narrow} gridLayout={gridLayout}>
+            {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
+          </ImageContainer>
+          <div>
+            <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
+              {article.secret ? `${article.title} 🚧` : article.title}
+            </Title>
+            <Excerpt
+              narrow={narrow}
+              hasOverflow={hasOverflow}
+              gridLayout={gridLayout}
+            >
+              {article.excerpt}
+            </Excerpt>
+            <MetaData>{article.date}</MetaData>
+          </div>
+        </Item>
+      </ArticleLink>
+    </Link>
   );
 };
 
@@ -257,6 +254,7 @@ const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
   margin-bottom: ${p => (p.gridLayout === 'tiles' ? '30px' : 0)};
   transition: transform 0.3s var(--ease-out-quad),
     box-shadow 0.3s var(--ease-out-quad);
+  overflow: hidden;
 
   & > div {
     height: 100%;
@@ -328,7 +326,7 @@ const Excerpt = styled.p<{
   `}
 `;
 
-const MetaData = styled.div`
+const MetaData = styled.time`
   font-weight: 600;
   font-size: 16px;
   color: ${p => p.theme.colors.grey};
@@ -340,7 +338,7 @@ const MetaData = styled.div`
   `}
 `;
 
-const ArticleLink = styled(Link)`
+const ArticleLink = styled.a`
   position: relative;
   display: block;
   width: 100%;

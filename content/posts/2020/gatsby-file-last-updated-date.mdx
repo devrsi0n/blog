@@ -1,0 +1,164 @@
+---
+title: 给 Gataby 文章添加修改日期
+author: Devrsi0n
+date: '2020-03-21'
+excerpt: 自动生成指定文件的最近更新时间戳，添加到 Gatsby Node
+hero: /static/2020/gatsby-file-last-updated-date/hero.jpg
+heroRef: <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@loic?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Djim Loic"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Djim Loic</span></a>
+tags: ['gatsby', 'frontend', 'JavaScript']
+---
+
+用 Gatsby 框架开发博客是一件颇为惬意的事情，可以很轻易的使用 React 社区的很多资源，定制化自由度颇高。最近想要给博客文章添加最近更新时间戳功能，但这个功能 Gatsby 框架和插件并不能直接提供（[issue](https://github.com/gatsbyjs/gatsby/issues/19272)），基于 Git 仓库本地 Markdown 文件的博客都会面临这个问题，下面是我的解决方案，思路也适用于类似的 static site generator.
+
+<Message>
+
+如果你是用的 [contenful](https://www.contentful.com/) 这类 CMS 平台就简单了，可以找下平台 API 文档，一般可以直接调用。
+
+</Message>
+
+## 方案一
+
+给每个文档 md/mdx 添加一个新的字段 - `updatedAt`，每次改完 md 文件手动更新这个字段。
+
+例如：
+```md
+---
+title: 给 Gataby 文件添加修改时间
+author: Devrsi0n
+date: 2020-03-20
+updatedAt: 2020-03-21
+excerpt: 自动生成指定文件的修改时间戳，添加到 Gatsby Node
+hero: /static/2020/gatsby-file-last-updated-date/hero.jpg
+---
+```
+
+这个方案成本较高，增加了写文档的隐形成本，而且也很容易忘记。显然这个方案不够优雅。
+
+## 方案二
+
+给 Gatsby Node 增加 `updatedAt` 字段，每次 GraphQL 查询时自动获取这个字段。现在问题变成了怎么给 Gatsby Node 新增字段，以及怎么获取每个文档的最近更新时间。第一个问题好解决，翻一翻 Gatsby 文档就能轻松找到，第二个问题比较麻烦。
+
+### mtime
+
+首先尝试直接读取文件 `mtime`，这个 Gatsby 文件标准字段，获取文件的最近更新时间。
+
+![graphiql example](/static/2020/gatsby-file-last-updated-date/graphiql.png)
+
+但这个方案有很大的弊端，每次重新 `git clone` 之后所有文件最近更新时间 `mtime` 都变成克隆的时刻，这是 git 的一个 bug，参考[stackoverflow 链接](https://stackoverflow.com/questions/21735435/git-clone-changes-file-modification-time)。如果你可以保证你只在同一个本地仓库写文章，那这个方案或许也能用。
+
+考虑总有意外情况，比如：换电脑，甚至电脑丢了，抑或文章接收其他读者修改的 Pull Request，这个方案也不 OK。
+
+### Git log
+
+既然 git 本身不会把最近更新时间写到文件，那直接从 `git log` 读取指定文件的最近 commit 时间也是个办法。参考命令如下：
+
+```bash
+# the committer time of the last commit
+git log -1 --pretty=format:%cI -- package.json
+# the committer time of the most recent commit
+git log --pretty=format:%cI -- package.json | sort | tail -n 1
+```
+
+但这个方案也有个问题，在 [zeit](https://zeit.co)，[netlify](https://www.netlify.com/) 这类自动构建部署平台，为了提高构建速度，构建过程并不会完整克隆整个仓库，而只拉取最新 commit 代码。
+
+Gatsby 插件 [gatsby-transformer-gitinfo](https://github.com/kraynel/gatsby-transformer-gitinfo) 也是做类似事情，只是并没有解决构建时的问题。
+
+## 最终方案
+
+最终方案是解决平台构建时因不会 `git clone` 导致不能获取文件的最近更新时间。方法很简单，每次 git staged 时把 `md/mdx` 文件最近更新时间写入 JSON 文件，并提交 git，最后 Gatsby 构建时从 JSON 读取最近更新时间。
+
+### 生成文件最近更新时间 JSON
+
+这里没有用 `git log` 提取时间，因为 git staged 时还没有 commit，参考脚本如下（代码位于本仓库 [./tasks/update-post-timestamps.js](https://github.com/Devrsi0n/blog/blob/32176bf5d855b3bbd8b0e0954377269365186327/tasks/update-post-timestamps.js#L12)`）：
+
+```js title=update-post-timestamps.js
+const moment = require('moment-timezone');
+const path = require('path');
+const fs = require('fs').promises;
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
+const postTimestamps = require('../src/gatsby/node/postTimestamps.json');
+
+/**
+ * This function called at git staged
+ */
+(async function() {
+  // Show staged files only
+  const { stdout: gitDiff } = await exec('git diff --staged --name-only');
+  const stagedFiles = gitDiff.matchAll(/content\/[\S]+\/[\S]+.mdx?/gm);
+  if (stagedFiles.length === 0) {
+    // MDX files are not modified
+    return;
+  }
+
+  const statPromises = [];
+  for (const [file] of stagedFiles) {
+    statPromises.push(fs.stat(file).then(stat => ({ stat, file })));
+  }
+  const statList = await Promise.all(statPromises);
+  for (const { stat, file } of statList) {
+    const updatedAt = moment.tz(stat.mtime, 'Asia/Shanghai').format();
+    postTimestamps[file] = {
+      updatedAt,
+    };
+  }
+
+  const targetFilePath = path.resolve(
+    __dirname,
+    '../src/gatsby/node/postTimestamps.json'
+  );
+  await fs.writeFile(targetFilePath, JSON.stringify(postTimestamps, null, 2));
+  await exec(`git add ${targetFilePath}`);
+})();
+```
+
+**⚠️ 注意** 这段代码应该在 `git staged` 时执行，避免代码重新克隆之后所有文件的最近更新时间被覆写的 Bug。JS 添加 git hook 也很简单，参考如下。
+
+安装依赖， `npm i -S husky lint-staged`，package.json 添加配置如下：
+
+```json title=package.json
+{
+  //...
+  "husky": {
+    "hooks": {
+      // git commit 之前执行 lint-staged
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    // lint-staged 匹配到 mdx/md 文件执行该命令
+    "**/*.{mdx,md}": [
+      "node ./tasks/update-post-timestamps.js"
+    ]
+  }
+}
+```
+
+### Gatsby 节点添加 updatedAt 字段
+
+平台构建时，从 JSON 读取最近更新时间，在 `gatsby-node.js` 添加 Gataby Node Field 即可。
+
+```js title=gatsby-node.js
+const postTimestamps = require('./postTimestamps.json');
+
+module.exports.onCreateNode = async function onCreateNode({ node, actions }) {
+  const { createNodeField } = actions;
+
+  if (node.internal.type !== `File`) {
+    return;
+  }
+  const relativePath = path.relative(process.cwd(), node.fileAbsolutePath);
+  const timestamp = postTimestamps[relativePath];
+  createNodeField({
+    node,
+    name: `updatedAt`,
+    // 如果没有找到给一个不可能的值，避免冗余的判断
+    value:
+     timestamp
+      ? timestamp.updatedAt
+      : '1992-10-15T10:53:18+08:00'
+  });
+}
+```
+
+至此，自动生成文章最近更新时间的功能完成，希望能帮到遇到类似问题的读者。

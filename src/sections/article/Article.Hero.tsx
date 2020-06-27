@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { H1 } from '@components/Headings';
-import Image, { ImagePlaceholder } from '@components/Image';
+import { H1 } from '../../components/Headings';
+import Image from '../../components/Image';
+import ImagePlaceholder from '../../components/Image.Placeholder';
 
-import mediaqueries from '@styles/media';
-import { IArticle, IAuthor } from '@types';
+import mediaqueries from '../../styles/media';
+import { IArticle, IAuthor } from '../../types';
 
 import ArticleAuthors from './Article.Authors';
 
@@ -16,11 +17,9 @@ interface ArticleHeroProps {
 
 const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
   const hasCoAUthors = authors.length > 1;
-  const hasHeroImage =
-    article.hero &&
-    Object.keys(article.hero.full).length !== 0 &&
-    article.hero.full.constructor === Object;
-  const updateAt = article.updatedAt.slice(0, 10);
+  const showUpdateAt =
+    !!article.updatedAt && compareDate(article.updatedAt, article.date);
+  const updateAt = (article.updatedAt || '').slice(0, 10);
   const createAt = article.date;
   return (
     <Hero>
@@ -29,7 +28,7 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {compareDate(article.updatedAt, article.date) ? (
+            {showUpdateAt ? (
               <>
                 <span>更新于&nbsp;</span>
                 <time>{updateAt}</time>
@@ -40,16 +39,11 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
                 <time>{createAt}</time>
               </>
             )}
-            {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
       <HeroImage id="ArticleImage__Hero">
-        {hasHeroImage ? (
-          <Image src={article.hero.full} />
-        ) : (
-          <ImagePlaceholder />
-        )}
+        {article.hero ? <Image src={article.hero} /> : <ImagePlaceholder />}
       </HeroImage>
       {article.heroRef && (
         <HeroRef>

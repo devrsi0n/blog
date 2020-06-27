@@ -8,21 +8,5 @@
     "env": {
       "GH_TOKEN": "@gh-token"
     }
-  },
-  "routes": [
-    {
-      "src": "^/(static|icons)/(.*)",
-      "headers": { "cache-control": "public,max-age=31536000,immutable" }
-    },
-    {
-      "src": "^/(.*).(css|js)",
-      "headers": { "cache-control": "public,max-age=31536000,immutable" }
-    },
-    {
-      "src": "^/(.*).(html|json)",
-      "headers": { "cache-control": "public,max-age=0,must-revalidate" }
-    },
-    { "handle": "filesystem" },
-    { "src": "/.*", "status": 404, "dest": "/404" }
-  ]
+  }
 }

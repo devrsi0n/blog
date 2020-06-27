@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
 import { stringify } from 'query-string';
+import styled from '@emotion/styled';
 
-import toast from '@components/Toast';
-import { IconTwitter, IconWeibo, IconCopy } from '@components/Icons';
-
+import toastControl from '../../components/ToastControl';
+import { IconTwitter, IconWeibo, IconCopy } from '../../components/Icons';
 import {
   getHighlightedTextPositioning,
   getSelectionDimensions,
   getSelectionText,
   getWindowDimensions,
   getBreakpointFromTheme,
-} from '@utils';
+} from '../../utils';
 
 function generateShare(shareText: string) {
   if (!shareText) return {};
@@ -152,7 +151,7 @@ function ArticelShare() {
   }, [show]);
 
   const handleCopyClick = useCallback(() => {
-    toast.success({ content: '复制成功' });
+    toastControl.success({ content: '复制成功' });
     const tempInput = document.createElement('input');
     document.body.appendChild(tempInput);
     tempInput.setAttribute('value', text);

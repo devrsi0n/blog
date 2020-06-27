@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import styled from '@emotion/styled';
+import Link from 'next/link';
 import { useColorMode } from 'theme-ui';
-import Section from '@components/Section';
-import { H1 } from '@components/Headings';
-import mediaqueries from '@styles/media';
+import styled from '@emotion/styled';
+
+import Section from '../components/Section';
+import { H1 } from '../components/Headings';
+import mediaqueries from '../styles/media';
 
 function NotFound() {
   const [colorMode] = useColorMode();
@@ -18,9 +19,9 @@ function NotFound() {
               <div />
               <WelcomeHeader>
                 抱歉，你似乎来到了未知的荒原，
-                <TextLink isDark={isDark} to="/">
-                  回到首页
-                </TextLink>
+                <Link href="/">
+                  <TextLink isDark={isDark}>回到首页</TextLink>
+                </Link>
                 .
               </WelcomeHeader>
             </TextContainer>
@@ -58,7 +59,7 @@ const WelcomeHeader = styled(H1)`
   `};
 `;
 
-const TextLink = styled(Link)<{ isDark: boolean }>`
+const TextLink = styled.a<{ isDark: boolean }>`
   color: ${p => (p.isDark ? '#fff' : '#000')};
   transition: ${p => p.theme.colorModeTransition};
   color: ${p => p.theme.colors.accent};

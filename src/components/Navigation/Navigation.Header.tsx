@@ -1,7 +1,8 @@
+/** @jsx jsx */
+import { jsx, useColorMode } from 'theme-ui';
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Link, navigate } from 'gatsby';
-import { useColorMode } from 'theme-ui';
 import throttle from 'lodash/throttle';
 
 import Section from '@components/Section';
@@ -60,7 +61,16 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
   const handleClick = useCallback(() => navigate(previousPath), [previousPath]);
 
   return (
-    <RootContainer detached={detached} isDark={isDark}>
+    <RootContainer
+      detached={detached}
+      isDark={isDark}
+      sx={{
+        '&::before': {
+          background: 'blur',
+          transition: theme => theme.colorModeTransition,
+        },
+      }}
+    >
       <NavSection as="header">
         <NavContainer>
           <LogoLink
@@ -69,6 +79,11 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
             title={strNavToHome}
             aria-label={strNavToHome}
             back={showBackArrow ? 'true' : 'false'}
+            sx={{
+              '&[data-a11y="true"]:focus::after': {
+                borderColor: 'accent',
+              },
+            }}
           >
             {showBackArrow && (
               <BackArrowIconContainer>
@@ -89,10 +104,10 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
                 <IconEx fill={fill} />
               </button>
             ) : (
-              <>
+              <React.Fragment>
                 <ShareButton />
                 <ModeSwitch />
-              </>
+              </React.Fragment>
             )}
           </NavControls>
         </NavContainer>
@@ -127,8 +142,6 @@ const RootContainer = styled.div<{ detached: boolean; isDark: boolean }>`
   z-index: 99;
 
   &::before {
-    background: ${p => p.theme.colors.blur};
-    transition: ${p => p.theme.colorModeTransition};
     content: '';
     position: absolute;
     top: 0;
@@ -202,7 +215,7 @@ const LogoLink = styled(Link)<{ back: string }>`
     top: -30%;
     width: 120%;
     height: 160%;
-    border: 2px solid ${p => p.theme.colors.accent};
+    border: 2px solid;
     background: rgba(255, 255, 255, 0.01);
     border-radius: 5px;
   }

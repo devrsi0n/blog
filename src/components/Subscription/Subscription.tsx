@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import addToMailchimp from 'gatsby-plugin-mailchimp';
 import React, { useState, useCallback } from 'react';
 
@@ -46,17 +48,33 @@ const Subscription: React.FunctionComponent<{}> = () => {
 
   return (
     <Section narrow>
-      <SubscriptionContainer>
+      <SubscriptionContainer
+        sx={{
+          background: 'card',
+        }}
+      >
         <Content>
           <Heading>
             Join our email list and get notified about new content
           </Heading>
-          <Text>
+          <Text
+            sx={{
+              color: 'grey',
+            }}
+          >
             Be the first to receive our latest content with the ability to
             opt-out at anytime. We promise to not spam your inbox or share your
             email with any third parties.
           </Text>
-          <Form onSubmit={handleSubmit} hasError={error}>
+          <Form
+            onSubmit={handleSubmit}
+            hasError={error}
+            sx={{
+              '&::after': {
+                color: error ? 'error' : 'accent',
+              },
+            }}
+          >
             <Input
               placeholder="your@email.com"
               name="email"
@@ -89,7 +107,6 @@ const SubscriptionContainer = styled.div`
   flex-direction: column;
   padding: 64px 0 55px;
   margin: 10px auto 100px;
-  background: ${p => p.theme.colors.card};
   box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.05);
   z-index: 1;
 
@@ -131,7 +148,6 @@ const Heading = styled(H3)`
 
 const Text = styled.p`
   margin: 0 auto 30px;
-  color: ${p => p.theme.colors.grey};
   line-height: 1.75;
 
   ${mediaqueries.tablet`
@@ -148,7 +164,6 @@ const Form = styled.form<{ hasError: string }>`
     position: absolute;
     left: 21px;
     top: 10px;
-    color: ${p => (p.hasError ? p.theme.colors.error : p.theme.colors.accent)};
 
     ${mediaqueries.tablet`
     left: 34px;

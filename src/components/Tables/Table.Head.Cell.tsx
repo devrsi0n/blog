@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import React from 'react';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
 
 const Cell = styled.td`
   padding: 18px 30px;
   font-size: 16px;
-  background: ${p => p.theme.colors.card};
 
   ${mediaqueries.desktop`
     padding: 14px 20px;
@@ -15,4 +17,15 @@ const Cell = styled.td`
   `}
 `;
 
-export default Cell;
+type TableHeadCellProps = React.TdHTMLAttributes<HTMLTableDataCellElement>;
+
+export default function TableHeadCell(props: TableHeadCellProps) {
+  return (
+    <Cell
+      {...props}
+      sx={{
+        background: 'card',
+      }}
+    />
+  );
+}

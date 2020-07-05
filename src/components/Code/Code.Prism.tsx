@@ -1,9 +1,10 @@
+/** @jsx jsx */
+import { jsx, useColorMode } from 'theme-ui';
 import React, { useState, useCallback } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import styled from '@emotion/styled';
 // import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 // import theme from 'prism-react-renderer/themes/oceanicNext';
-import { useColorMode } from 'theme-ui';
 
 import mediaqueries from '@styles/media';
 import { IconCopied, IconCopy } from '@components/Icons';
@@ -57,11 +58,32 @@ function CodePrism({
     <Highlight {...defaultProps} code={codeString} language={lang}>
       {({ className, tokens, getLineProps, getTokenProps }) => {
         return (
-          <RootContainer>
-            {title && <Title>{title}</Title>}
+          <RootContainer
+            sx={{
+              background: theme => theme.colors.prism.background,
+            }}
+          >
+            {title && (
+              <Title
+                sx={{
+                  background: theme => theme.colors.prism.background,
+                  borderBottom: theme =>
+                    `1px solid ${theme.colors.horizontalRule}`,
+                }}
+              >
+                {title}
+              </Title>
+            )}
             <Pre className={`${className} ${!title ? 'without-title' : ''}`}>
               <LabelWrap>
-                <LanguageWrapper>{language}</LanguageWrapper>
+                <LanguageWrapper
+                  sx={{
+                    color: 'codeLabel',
+                    backgroundColor: 'lightAccent',
+                  }}
+                >
+                  {language}
+                </LanguageWrapper>
                 <Copy toCopy={codeString} />
               </LabelWrap>
 
@@ -123,15 +145,20 @@ function Copy({ toCopy }: { toCopy: string }) {
       isDark={colorMode === 'dark'}
       onClick={copyToClipboardOnClick}
       data-a11y="false"
+      sx={{
+        "&[data-a11y='true']:focus::after": {
+          border: theme => `2px solid ${theme.colors.accent}`,
+        },
+      }}
     >
       {hasCopied ? (
-        <>
+        <React.Fragment>
           复制成功 <IconCopied fill="#6f7177" />
-        </>
+        </React.Fragment>
       ) : (
-        <>
+        <React.Fragment>
           复制 <IconCopy fill="#6f7177" />
-        </>
+        </React.Fragment>
       )}
     </CopyButton>
   );
@@ -145,7 +172,6 @@ const RootContainer = styled.div`
 
   font-size: 14px;
   margin: 0 auto 25px auto;
-  background: ${p => p.theme.colors.prism.background};
 
   ${mediaqueries.tablet`
     max-width: 526px;
@@ -175,8 +201,6 @@ const Title = styled.p`
   font-weight: bold;
   font-style: italic;
   padding: 24px 32px;
-  background: ${p => p.theme.colors.prism.background};
-  border-bottom: 1px solid ${p => p.theme.colors.horizontalRule};
 
   ${mediaqueries.phablet`
     overflow: initial;
@@ -194,12 +218,10 @@ const LanguageWrapper = styled.div`
   padding: 5px 10px;
   font-size: 13px;
   text-align: right;
-  color: ${p => p.theme.colors.codeLabel};
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   border-radius: 0 0 5px 5px;
-  background: ${p => p.theme.colors.highlight};
   box-shadow: 0 1px 5px rgba(255, 255, 255, 0.35);
 `;
 
@@ -223,7 +245,6 @@ const CopyButton = styled.button<{ isDark: boolean }>`
     top: -2%;
     width: 104%;
     height: 104%;
-    border: 2px solid ${p => p.theme.colors.accent};
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.01);
   }

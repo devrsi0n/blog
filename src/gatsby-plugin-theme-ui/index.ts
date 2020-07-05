@@ -19,7 +19,7 @@ const colors = {
   secondary: '#73737D', // secondary color - can be used for hover states
   muted: 'hsl(10, 20%, 94%)', // a gray or subdued color for decorative purposes
   accent: accent.light, // a contrast color for emphasizing UI
-  highlight: lighten(0.3, accent.light),
+  lightAccent: lighten(0.3, accent.light),
   purple: 'hsl(250, 60%, 30%)',
   gray: '#999',
   blur: 'rgba(254, 254, 254, 0.4)',
@@ -51,7 +51,7 @@ const colors = {
       accent: accent.dark,
       background: background.dark,
       muted: 'hsl(10, 20%, 94%)',
-      highlight: lighten(0.1, accent.dark),
+      lightAccent: lighten(0.1, accent.dark),
       purple: 'hsl(250, 60%, 30%)',
       gray: '#666',
       blur: 'rgba(17, 18, 22, 0.5)',

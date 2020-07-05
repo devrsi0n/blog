@@ -1,14 +1,11 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
 
 const StyledTable = styled.table`
   position: relative;
   line-height: 1.65;
-  color: ${p => p.theme.colors.grey};
-  font-family: ${p => p.theme.fonts.sansSerif};
-  transition: ${p => p.theme.colorModeTransition};
-  background: ${p => p.theme.colors.card};
   margin: 45px auto 85px;
   width: 100%;
   max-width: 1004px;
@@ -33,7 +30,17 @@ const StyledTable = styled.table`
 function Table({ children }) {
   return (
     <div style={{ overflowX: 'auto', padding: '0 20px' }}>
-      <StyledTable>{children}</StyledTable>
+      <StyledTable
+        sx={{
+          color: 'grey',
+          fontFamily: 'sansSerif',
+          transition: theme => theme.colorModeTransition,
+          backgroundColor: 'card',
+          borderColor: 'horizontalRule',
+        }}
+      >
+        {children}
+      </StyledTable>
     </div>
   );
 }

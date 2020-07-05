@@ -1,9 +1,11 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useRef, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 import { graphql, useStaticQuery } from 'gatsby';
 
-import MDXRenderer from '@components/MDX';
+import MDX from '@components/MDX';
 import Progress from '@components/Progress';
 import Section from '@components/Section';
 import Subscription from '@components/Subscription';
@@ -112,7 +114,7 @@ function Article({ pageContext, location }) {
   const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`;
 
   return (
-    <>
+    <React.Fragment>
       <ArticleSEO article={article} authors={authors} location={location} />
       <ArticleHero article={article} authors={authors} />
       <ArticleAside progress={progress}>
@@ -122,9 +124,9 @@ function Article({ pageContext, location }) {
         <ArticleControls />
       </MobileControls>
       <ArticleBody ref={contentSectionRef}>
-        <MDXRenderer content={article.body}>
+        <MDX content={article.body}>
           <ArticleShare />
-        </MDXRenderer>
+        </MDX>
       </ArticleBody>
       <ArticleAside progress={progress} alignRight>
         <ArticleActions url={location.pathname} />
@@ -141,12 +143,21 @@ function Article({ pageContext, location }) {
       {mailchimp && article.subscription && <Subscription />}
       {next.length > 0 && (
         <NextArticle narrow>
-          <FooterNext>其他文章</FooterNext>
+          <FooterNext
+            sx={{
+              color: 'primary',
+              '&::after': {
+                background: 'grey',
+              },
+            }}
+          >
+            其他文章
+          </FooterNext>
           <ArticlesNext articles={next} />
           <FooterSpacer />
         </NextArticle>
       )}
-    </>
+    </React.Fragment>
   );
 }
 
@@ -195,7 +206,6 @@ const FooterNext = styled.h3`
   opacity: 0.25;
   margin-bottom: 100px;
   font-weight: 400;
-  color: ${p => p.theme.colors.primary};
 
   ${mediaqueries.tablet`
     margin-bottom: 60px;
@@ -204,7 +214,6 @@ const FooterNext = styled.h3`
   &::after {
     content: '';
     position: absolute;
-    background: ${p => p.theme.colors.grey};
     width: ${(910 / 1140) * 100}%;
     height: 1px;
     right: 0;

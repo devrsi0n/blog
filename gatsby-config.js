@@ -309,8 +309,8 @@ module.exports = {
     },
     `gatsby-plugin-catch-links`,
   ].filter(Boolean),
-  proxy: {
-    prefix: '/api',
-    url: 'http://localhost:3000',
-  },
+  // proxy: {
+  //   prefix: '/api',
+  //   url: 'http://localhost:3000',
+  // },
 };

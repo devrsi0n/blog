@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+// import React from 'react';
 import styled from '@emotion/styled';
 
 import mediaqueries from '@styles/media';
@@ -12,7 +14,15 @@ interface AuthorArticlesProps {
 
 const AuthorArticles = ({ articles }: AuthorArticlesProps) => {
   return (
-    <AuthorArticlesContainer>
+    <AuthorArticlesContainer
+      sx={{
+        background: theme => `linear-gradient(
+        180deg,
+        ${theme.colors.card} 0%,
+        rgba(249, 250, 252, 0) 91.01%
+      )`,
+      }}
+    >
       <ArticlesList articles={articles} alwaysShowAllDetails />
     </AuthorArticlesContainer>
   );
@@ -21,11 +31,6 @@ const AuthorArticles = ({ articles }: AuthorArticlesProps) => {
 export default AuthorArticles;
 
 const AuthorArticlesContainer = styled.div`
-  background: linear-gradient(
-    180deg,
-    ${p => p.theme.colors.card} 0%,
-    rgba(249, 250, 252, 0) 91.01%
-  );
   border-radius: 8px;
   padding: 88px 98px;
   position: relative;

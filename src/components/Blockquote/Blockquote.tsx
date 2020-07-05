@@ -1,11 +1,12 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
+import { ReactNode } from 'react';
 
 const Blockquote = styled.blockquote`
   transition: ${p => p.theme.colorModeTransition};
   margin: 15px auto 50px;
-  color: ${p => p.theme.colors.text};
-  font-family: ${p => p.theme.fonts.serif};
   font-style: italic;
 
   ${mediaqueries.tablet`
@@ -13,7 +14,6 @@ const Blockquote = styled.blockquote`
   `};
 
   & > p {
-    font-family: ${p => p.theme.fonts.serif};
     max-width: 880px !important;
     padding-right: 100px;
     padding-bottom: 0;
@@ -35,4 +35,21 @@ const Blockquote = styled.blockquote`
   }
 `;
 
-export default Blockquote;
+interface BlockquoteCompProps {
+  children: ReactNode;
+}
+
+export default function BlockquoteComp(props: BlockquoteCompProps) {
+  return (
+    <Blockquote
+      {...props}
+      sx={{
+        color: 'text',
+        fontFamily: 'serif',
+        '& > p': {
+          fontFamily: 'serif',
+        },
+      }}
+    />
+  );
+}

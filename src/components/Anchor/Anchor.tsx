@@ -1,24 +1,19 @@
-import React, { AnchorHTMLAttributes, useState, useEffect } from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import { AnchorHTMLAttributes, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { IconExternalLink } from '@components/Icons';
 import { useStaticQuery, graphql } from 'gatsby';
 
 const BaseAnchor = styled.a`
   transition: background-size 0.5s;
-  color: ${p => p.theme.colors.accent};
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 90%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-
   display: inline-flex;
   align-items: baseline;
-
-  &:visited {
-    color: ${p => p.theme.colors.accent};
-    opacity: 0.85;
-  }
 
   &:hover,
   &:focus {
@@ -64,7 +59,17 @@ export default function Anchor(props: AnchorProps) {
 
   const allProps = { ...(target && { target }), ...otherProps, href: newHref };
   return (
-    <BaseAnchor rel="noopener noreferrer" {...allProps}>
+    <BaseAnchor
+      rel="noopener noreferrer"
+      {...allProps}
+      sx={{
+        color: 'accent',
+        '&:visited': {
+          color: 'accent',
+          opacity: 0.85,
+        },
+      }}
+    >
       <ChildrenWrap>{children}</ChildrenWrap>
       {showIcon && <IconExternalLink />}
     </BaseAnchor>

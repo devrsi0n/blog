@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import React from 'react';
 import styled from '@emotion/styled';
 
 const Head = styled.thead`
@@ -6,9 +9,19 @@ const Head = styled.thead`
   position: relative;
   line-height: 1.756;
   font-weight: bold;
-  color: ${p => p.theme.colors.primary};
-  font-family: ${p => p.theme.fonts.sansSerif};
-  transition: ${p => p.theme.colorModeTransition};
 `;
 
-export default Head;
+type TableHeadProps = React.HTMLAttributes<HTMLTableSectionElement>;
+
+export default function TableHead(props: TableHeadProps) {
+  return (
+    <Head
+      {...props}
+      sx={{
+        color: 'primary',
+        fontFamily: 'sansSerif',
+        transition: theme => theme.colorModeTransition,
+      }}
+    />
+  );
+}

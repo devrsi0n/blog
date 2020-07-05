@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -13,7 +15,7 @@ function ArticlesPage({ location, pageContext }) {
   const articles = pageContext.group;
 
   return (
-    <>
+    <React.Fragment>
       <SEO
         pathname={location.pathname}
         title={author.name}
@@ -26,8 +28,13 @@ function ArticlesPage({ location, pageContext }) {
           <Paginator {...pageContext} />
         </AuthorPaginator>
       </Section>
-      <AuthorsGradient />
-    </>
+      <AuthorsGradient
+        sx={{
+          background: 'gradient',
+          transition: theme => theme.colorModeTransition,
+        }}
+      />
+    </React.Fragment>
   );
 }
 
@@ -41,8 +48,6 @@ const AuthorsGradient = styled.div`
   height: 590px;
   z-index: 0;
   pointer-events: none;
-  background: ${p => p.theme.colors.gradient};
-  transition: ${p => p.theme.colorModeTransition};
 `;
 
 const AuthorPaginator = styled.div`

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { MDXProvider, MDXProviderProps } from '@mdx-js/react';
+import { MDXRenderer, MDXRendererProps } from 'gatsby-plugin-mdx';
+import { MDXProvider } from '@mdx-js/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { useColorMode } from 'theme-ui';
@@ -54,9 +54,9 @@ const components = {
   Message,
 };
 
-export interface MDXProps extends MDXProviderProps {
+export interface MDXProps extends MDXRendererProps {
   content: string;
-  children: React.ReactNode;
+  children: any;
 }
 
 function MDX({ content, children, ...props }: MDXProps) {

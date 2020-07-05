@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 
@@ -17,12 +18,22 @@ function Bio({ author }: BioProps) {
         to={author.slug}
         data-a11y="false"
         aria-label="Author's bio"
+        sx={{
+          "&[data-a11y='true']:focus::after": {
+            borderColor: 'grey',
+          },
+        }}
       >
         <BioAvatarInner>
           <RoundedImage src={author.avatar.medium} />
         </BioAvatarInner>
       </BioAvatar>
-      <BioText dangerouslySetInnerHTML={{ __html: author.bio }} />
+      <BioText
+        dangerouslySetInnerHTML={{ __html: author.bio }}
+        sx={{
+          color: 'grey',
+        }}
+      />
     </BioContainer>
   );
 }
@@ -64,7 +75,7 @@ const BioAvatar = styled.div`
     top: -5px;
     width: 50px;
     height: 50px;
-    border: 2px solid ${p => p.theme.colors.accent};
+    border: 2px solid;
   }
 `;
 
@@ -85,5 +96,4 @@ const BioText = styled.p`
   max-width: 430px;
   font-size: 14px;
   line-height: 1.45;
-  color: ${p => p.theme.colors.grey};
 `;

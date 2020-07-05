@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useContext, useCallback } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
@@ -55,7 +57,15 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   return (
     <Section /* relative */ id="Articles__Hero">
       <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
-        <HeroHeading dangerouslySetInnerHTML={{ __html: hero.heading }} />
+        <HeroHeading
+          dangerouslySetInnerHTML={{ __html: hero.heading }}
+          sx={{
+            color: 'primary',
+            a: {
+              color: 'accent',
+            },
+          }}
+        />
       </HeadingContainer>
       <SubheadingContainer>
         <Bio author={featuredAuthor} />
@@ -66,6 +76,19 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             data-a11y="false"
             title="Show articles in Tile grid"
             aria-label="Show articles in Tile grid"
+            sx={{
+              '&:hover': {
+                background: 'hover',
+              },
+              "&[data-a11y='true']:focus::after": {
+                borderColor: 'accent',
+              },
+              svg: {
+                path: {
+                  fill: theme => theme.colors.primary,
+                },
+              },
+            }}
           >
             <IconTiles />
           </GridButton>
@@ -131,11 +154,6 @@ const HeroHeading = styled.h1`
   font-weight: 600;
   font-size: 52px;
   line-height: 1.25;
-  color: ${p => p.theme.colors.primary};
-
-  a {
-    color: ${p => p.theme.colors.accent};
-  }
 
   ${mediaqueries.desktop`
     font-size: 38px
@@ -161,10 +179,6 @@ const GridButton = styled.button<{ active: boolean }>`
     margin-right: 30px;
   }
 
-  &:hover {
-    background: ${p => p.theme.colors.hover};
-  }
-
   &[data-a11y='true']:focus::after {
     content: '';
     position: absolute;
@@ -172,7 +186,6 @@ const GridButton = styled.button<{ active: boolean }>`
     top: -10%;
     width: 120%;
     height: 120%;
-    border: 2px solid ${p => p.theme.colors.accent};
     background: rgba(255, 255, 255, 0.01);
     border-radius: 50%;
   }
@@ -180,9 +193,5 @@ const GridButton = styled.button<{ active: boolean }>`
   svg {
     opacity: ${p => (p.active ? 1 : 0.25)};
     transition: opacity 0.2s;
-
-    path {
-      fill: ${p => p.theme.colors.primary};
-    }
   }
 `;

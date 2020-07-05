@@ -1,12 +1,11 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
 
-const Paragraph = styled.p`
+const P = styled.p`
   line-height: 1.756;
   font-size: 18px;
-  color: ${p => p.theme.colors.text};
-  font-family: ${p => p.theme.fonts.sansSerif};
-  transition: ${p => p.theme.colorModeTransition};
   margin: 18px auto 18px;
   width: 100%;
   max-width: 680px;
@@ -29,4 +28,17 @@ const Paragraph = styled.p`
   `};
 `;
 
-export default Paragraph;
+type IParagraphProps = React.ParamHTMLAttributes<HTMLParagraphElement>;
+
+export default function Paragraph(props: IParagraphProps) {
+  return (
+    <P
+      {...props}
+      sx={{
+        color: 'text',
+        fontFamily: 'sansSerif',
+        transition: theme => theme.colorModeTransition,
+      }}
+    />
+  );
+}

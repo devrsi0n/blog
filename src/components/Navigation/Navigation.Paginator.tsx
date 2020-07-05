@@ -139,7 +139,13 @@ class Paginator extends Component<IPaginator, {}> {
         </Helmet>
         <Frame>
           {hasPrevious && (
-            <PageButton to={previousPath} data-test-id="PrevPage">
+            <PageButton
+              to={previousPath}
+              data-test-id="PrevPage"
+              sx={{
+                color: 'primary',
+              }}
+            >
               上一页
             </PageButton>
           )}
@@ -148,7 +154,13 @@ class Paginator extends Component<IPaginator, {}> {
             <strong>{current}</strong>&nbsp;/ {count}
           </MobileReference>
           {hasNext && (
-            <PageButton to={nextPath} data-test-id="NextPage">
+            <PageButton
+              to={nextPath}
+              data-test-id="NextPage"
+              sx={{
+                color: 'primary',
+              }}
+            >
               下一页
             </PageButton>
           )}
@@ -190,7 +202,6 @@ const paginationItemMixin = p => css`
 const PageButton = styled(Link)`
   font-size: 18px;
   text-decoration: none;
-  color: ${p => p.theme.colors.primary};
   ${paginationItemMixin}
 
   &:hover,

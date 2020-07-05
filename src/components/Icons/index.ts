@@ -27,3 +27,5 @@ export { default as IconExternalLink } from './ui/ExternalLink.Icon';
 export { default as IconHashLink } from './ui/HashLink.Icon';
 export { default as IconHeart } from './ui/Heart.Icon';
 export { default as IconHandclap } from './ui/Handclap.Icon';
+export { default as Arrow } from './ui/Arrow.Icon';
+export { default as IconNotFound } from './ui/404.Icon';

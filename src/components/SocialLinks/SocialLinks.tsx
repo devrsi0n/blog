@@ -52,6 +52,11 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
             data-a11y="false"
             aria-label={`Link to ${option.url}`}
             href={option.url}
+            sx={{
+              "&[data-a11y='true']:focus::after": {
+                borderColor: 'accent',
+              },
+            }}
           >
             <Icon fill={fill} />
             <Hidden>Link to ${option.url}</Hidden>
@@ -96,7 +101,7 @@ const SocialIconContainer = styled.a`
     top: -20%;
     width: 200%;
     height: 160%;
-    border: 2px solid ${p => p.theme.colors.accent};
+    border: 2px solid;
     background: rgba(255, 255, 255, 0.01);
     border-radius: 5px;
   }

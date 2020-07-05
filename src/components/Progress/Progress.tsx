@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { Arrow } from '../Icons';
 
 export interface IProgress {
   /**
@@ -78,6 +81,9 @@ function Progress({ contentHeight, progress }: IProgress) {
           return (
             <Frame key={heading.text}>
               <Chapter
+                sx={{
+                  backgroundColor: theme => theme.colors.progress.bg,
+                }}
                 onClick={() =>
                   window.scrollTo({
                     top: heading.offset,
@@ -85,7 +91,12 @@ function Progress({ contentHeight, progress }: IProgress) {
                   })
                 }
               >
-                <ChapterProgress style={individualOffset} />
+                <ChapterProgress
+                  style={individualOffset}
+                  sx={{
+                    backgroundColor: theme => theme.colors.text,
+                  }}
+                />
               </Chapter>
               <HeadingHover>
                 <Heading
@@ -96,9 +107,19 @@ function Progress({ contentHeight, progress }: IProgress) {
                       behavior: 'smooth',
                     })
                   }
+                  sx={{
+                    color: 'text',
+                  }}
                 >
                   <Truncate>
-                    <HeadingBackground isActive={isActive}>
+                    <HeadingBackground
+                      isActive={isActive}
+                      sx={{
+                        '&::before': {
+                          backgroundColor: 'background',
+                        },
+                      }}
+                    >
                       {heading.text}
                     </HeadingBackground>
                   </Truncate>
@@ -175,7 +196,6 @@ const Chapter = styled.div`
   position: relative;
   height: 100%;
   margin-bottom: 5px;
-  background-color: ${p => p.theme.colors.progress.bg};
   overflow: hidden;
 `;
 
@@ -183,7 +203,6 @@ const ChapterProgress = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: ${p => p.theme.colors.text};
   top: 0;
 `;
 
@@ -205,7 +224,6 @@ const HeadingBackground = styled.span<{ isActive: boolean }>`
     max-width: 198px;
     height: 130%;
     border-radius: 5px;
-    background: ${p => p.theme.colors.background};
     opacity: ${p => (p.isActive ? 0.4 : 1)};
     left: -7.5%;
     top: -15%;
@@ -223,8 +241,6 @@ const Heading = styled.h6<{ isActive: boolean }>`
   padding-left: 18px;
   top: 0;
   bottom: 0;
-
-  color: ${p => p.theme.colors.text};
   opacity: ${p => (p.isActive ? '1 !important' : 0.25)};
   font-weight: 400;
   transition: opacity 0.3s;
@@ -261,15 +277,3 @@ const ProgressBar = styled.div`
   outline: none;
   user-select: none;
 `;
-
-const Arrow = () => (
-  <svg
-    width="9"
-    height="12"
-    viewBox="0 0 9 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M4.85355 0.646446C4.65829 0.451184 4.34171 0.451184 4.14645 0.646446L0.964467 3.82843C0.769204 4.02369 0.769204 4.34027 0.964467 4.53553C1.15973 4.7308 1.47631 4.7308 1.67157 4.53553L4.5 1.70711L7.32843 4.53553C7.52369 4.7308 7.84027 4.7308 8.03553 4.53553C8.2308 4.34027 8.2308 4.02369 8.03553 3.82843L4.85355 0.646446ZM5 12L5 1L4 1L4 12L5 12Z" />
-  </svg>
-);

@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -25,20 +27,31 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
   return (
     <Hero>
       <Header>
-        <HeroHeading>{article.title}</HeroHeading>
-        <HeroSubtitle hasCoAUthors={hasCoAUthors}>
+        <HeroHeading
+          sx={{
+            fontFamily: 'serif',
+          }}
+        >
+          {article.title}
+        </HeroHeading>
+        <HeroSubtitle
+          hasCoAUthors={hasCoAUthors}
+          sx={{
+            color: 'grey',
+          }}
+        >
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
             {compareDate(article.updatedAt, article.date) ? (
-              <>
+              <React.Fragment>
                 <span>更新于&nbsp;</span>
                 <time>{updateAt}</time>
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 <span>发表于&nbsp;</span>
                 <time>{createAt}</time>
-              </>
+              </React.Fragment>
             )}
             {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </ArticleMeta>
@@ -53,7 +66,13 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
       </HeroImage>
       {article.heroRef && (
         <HeroRef>
-          <HeroRefTxt>封面来自 </HeroRefTxt>
+          <HeroRefTxt
+            sx={{
+              color: 'gray',
+            }}
+          >
+            封面来自{' '}
+          </HeroRefTxt>
           <div dangerouslySetInnerHTML={{ __html: article.heroRef }} />
         </HeroRef>
       )}
@@ -70,7 +89,6 @@ function compareDate(updatedAt: string, date: string) {
 }
 
 const HeroRefTxt = styled.p`
-  color: ${p => p.theme.colors.gray};
   padding-right: 10px;
 `;
 
@@ -154,7 +172,6 @@ const Header = styled.header`
 
 const HeroHeading = styled(H1)`
   font-size: 48px;
-  font-family: ${p => p.theme.fonts.serif};
   margin-bottom: 25px;
   font-weight: bold;
   line-height: 1.32;
@@ -177,7 +194,6 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: ${p => p.theme.colors.grey};
 
   ${p => mediaqueries.phablet`
     font-size: 14px;

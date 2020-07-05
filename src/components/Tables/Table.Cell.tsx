@@ -1,11 +1,13 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+import React from 'react';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
 
 const Cell = styled.td`
-  border-top: 1px solid ${p => p.theme.colors.horizontalRule};
+  border-top: 1px solid;
   padding: 15px 30px;
   font-size: 16px;
-  background: ${p => p.theme.colors.card};
 
   ${mediaqueries.desktop`
     padding: 14px 20px;
@@ -16,4 +18,16 @@ const Cell = styled.td`
   `}
 `;
 
-export default Cell;
+type TableCellProps = React.TdHTMLAttributes<HTMLTableDataCellElement>;
+
+export default function TableCell(props: TableCellProps) {
+  return (
+    <Cell
+      {...props}
+      sx={{
+        borderTopColor: 'horizontalRule',
+        background: 'card',
+      }}
+    />
+  );
+}

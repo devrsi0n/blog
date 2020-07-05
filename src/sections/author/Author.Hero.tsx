@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
+// import React from 'react';
 import styled from '@emotion/styled';
 
 import Image from '@components/Image';
@@ -14,11 +16,29 @@ interface AuthorHeroProps {
 const AuthorHero = ({ author }: AuthorHeroProps) => {
   return (
     <Hero>
-      <HeroImage>
+      <HeroImage
+        sx={{
+          borderColor: 'background',
+        }}
+      >
         <RoundedImage src={author.avatar.large} />
       </HeroImage>
-      <Heading>{author.name}</Heading>
-      <Subheading>{author.bio}</Subheading>
+      <Heading
+        sx={{
+          fontFamily: 'sansSerif',
+          color: 'primary',
+        }}
+      >
+        {author.name}
+      </Heading>
+      <Subheading
+        sx={{
+          color: 'grey',
+          fontFamily: 'sansSerif',
+        }}
+      >
+        {author.bio}
+      </Subheading>
       <Social>
         <SocialLinks links={author.social} />
       </Social>
@@ -50,7 +70,6 @@ const HeroImage = styled.div`
   margin-bottom: 35px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid ${p => p.theme.colors.background};
   box-shadow: 0px 15.619px 31.2381px rgba(0, 0, 0, 0.15);
 
   ${mediaqueries.tablet`
@@ -67,8 +86,6 @@ const HeroImage = styled.div`
 
 const Heading = styled.h1`
   font-size: 38px;
-  font-family: ${p => p.theme.fonts.sansSerif};
-  color: ${p => p.theme.colors.primary};
   margin-bottom: 15px;
   font-weight: 600;
 
@@ -82,9 +99,7 @@ const Heading = styled.h1`
 const Subheading = styled.p`
   margin: 0 auto;
   max-width: 450px;
-  color: ${p => p.theme.colors.grey};
   font-size: 18px;
-  font-family: ${p => p.theme.fonts.sansSerif};
   line-height: 1.4;
   text-align: center;
 

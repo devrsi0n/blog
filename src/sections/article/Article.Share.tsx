@@ -1,7 +1,8 @@
+/** @jsx jsx */
+import { jsx, useColorMode } from 'theme-ui';
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
-import { useColorMode } from 'theme-ui';
 import { stringify } from 'query-string';
 
 import toast from '@components/Toast';
@@ -176,6 +177,9 @@ function ArticelShare() {
 
   return (
     <MenuFloat
+      sx={{
+        color: 'grey',
+      }}
       style={{
         position: 'absolute',
         left: `${x}px`,
@@ -265,7 +269,6 @@ const MenuFloat = styled.div<{ isDark: boolean }>`
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
   padding: 7px 11px 7px 19px;
-  color: ${p => p.theme.colors.grey};
   background: ${p => (p.isDark ? '#fafafa' : '#000')};
   border-radius: 5px;
   font-size: 18px;

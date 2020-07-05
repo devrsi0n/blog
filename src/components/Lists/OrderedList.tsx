@@ -1,16 +1,16 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
+import { ReactNode } from 'react';
 
-const OrderedList = styled.ol`
+const Ol = styled.ol`
   list-style: none;
   counter-reset: list;
-  color: ${p => p.theme.colors.text};
   position: relative;
   padding: 15px 0 30px 30px;
   margin: 0 auto;
-  transition: ${p => p.theme.colorModeTransition};
   font-size: 18px;
-
   width: 100%;
   max-width: 680px;
 
@@ -54,10 +54,6 @@ const OrderedList = styled.ol`
     width: 3rem;
     display: inline-block;
     position: absolute;
-    color: ${p => p.theme.colors.text};
-  }
-
-  li::before {
     counter-increment: list;
     content: counter(list) '.';
     font-weight: 600;
@@ -72,4 +68,21 @@ const OrderedList = styled.ol`
   }
 `;
 
-export default OrderedList;
+interface IOrderedListProps {
+  children: ReactNode;
+}
+
+export default function OrderedList(props: IOrderedListProps): JSX.Element {
+  return (
+    <Ol
+      {...props}
+      sx={{
+        color: 'text',
+        transition: theme => theme.colorModeTransition,
+        'li::before': {
+          color: 'text',
+        },
+      }}
+    />
+  );
+}

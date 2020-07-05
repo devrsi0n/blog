@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React from 'react';
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -51,11 +53,24 @@ function Footer() {
     return years[0] === years[1] ? `${years[0]}` : `${years[0]} – ${years[1]}`;
   })();
   return (
-    <>
-      <FooterGradient />
+    <React.Fragment>
+      <FooterGradient
+        sx={{
+          background: 'gradient',
+          transition: theme => theme.colorModeTransition,
+        }}
+      />
       <Section narrow>
-        <HoritzontalRule />
-        <FooterContainer>
+        <HoritzontalRule
+          sx={{
+            borderBottomColor: 'horizontalRule',
+          }}
+        />
+        <FooterContainer
+          sx={{
+            color: 'grey',
+          }}
+        >
           <FooterText>
             © {copyrightDate} {name}
           </FooterText>
@@ -64,7 +79,7 @@ function Footer() {
           </div>
         </FooterContainer>
       </Section>
-    </>
+    </React.Fragment>
   );
 }
 
@@ -76,7 +91,6 @@ const FooterContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 80px;
-  color: ${p => p.theme.colors.grey};
 
   ${mediaqueries.tablet`
     flex-direction: column;
@@ -91,7 +105,7 @@ const FooterContainer = styled.div`
 const HoritzontalRule = styled.div`
   position: relative;
   margin: 140px auto 50px;
-  border-bottom: 1px solid ${p => p.theme.colors.horizontalRule};
+  border-bottom: 1px solid;
 
   ${mediaqueries.tablet`
     margin: 60px auto;
@@ -120,6 +134,4 @@ const FooterGradient = styled.div`
   height: 590px;
   z-index: 0;
   pointer-events: none;
-  background: ${p => p.theme.colors.gradient};
-  transition: ${p => p.theme.colorModeTransition};
 `;

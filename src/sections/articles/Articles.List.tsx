@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -98,23 +100,48 @@ const ListItem = ({ article, narrow }: ArticlesListItemProps) => {
     imageSource.constructor === Object;
 
   return (
-    <ArticleLink to={article.slug} data-a11y="false">
+    <ArticleLink
+      to={article.slug}
+      data-a11y="false"
+      sx={{
+        '&:hover h2,&:focus h2': {
+          color: 'accent',
+        },
+        "&[data-a11y='true']:focus::after": {
+          borderColor: 'accent',
+        },
+      }}
+    >
       <Item gridLayout={gridLayout}>
         <ImageContainer narrow={narrow} gridLayout={gridLayout}>
           {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
         </ImageContainer>
         <div>
-          <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
+          <Title
+            dark
+            hasOverflow={hasOverflow}
+            gridLayout={gridLayout}
+            sx={{
+              fontFamily: 'serif',
+            }}
+          >
             {article.secret ? `${article.title} 🚧` : article.title}
           </Title>
           <Excerpt
             narrow={narrow}
             hasOverflow={hasOverflow}
             gridLayout={gridLayout}
+            sx={{
+              color: 'grey',
+            }}
           >
             {article.excerpt}
           </Excerpt>
-          <MetaData>
+          <MetaData
+            sx={{
+              color: 'grey',
+            }}
+          >
             {article.date}
             {/* · 阅读需要 {article.timeToRead} 分钟 */}
           </MetaData>
@@ -278,7 +305,6 @@ const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
 
 const Title = styled(H2)`
   font-size: 21px;
-  font-family: ${p => p.theme.fonts.serif};
   margin-bottom: ${p =>
     p.hasOverflow && p.gridLayout === 'tiles' ? '35px' : '10px'};
   transition: color 0.3s ease-in-out;
@@ -308,7 +334,6 @@ const Excerpt = styled.p<{
   ${limitToTwoLines};
   font-size: 16px;
   margin-bottom: 10px;
-  color: ${p => p.theme.colors.grey};
   display: ${p => (p.hasOverflow && p.gridLayout === 'tiles' ? 'none' : 'box')};
   max-width: ${p => (p.narrow ? '415px' : '515px')};
 
@@ -331,7 +356,6 @@ const Excerpt = styled.p<{
 const MetaData = styled.div`
   font-weight: 600;
   font-size: 16px;
-  color: ${p => p.theme.colors.grey};
   opacity: 0.33;
 
   ${mediaqueries.phablet`
@@ -358,11 +382,6 @@ const ArticleLink = styled(Link)`
       0 30px 50px -30px rgba(0, 0, 0, 0.3);
   }
 
-  &:hover h2,
-  &:focus h2 {
-    color: ${p => p.theme.colors.accent};
-  }
-
   &[data-a11y='true']:focus::after {
     content: '';
     position: absolute;
@@ -370,7 +389,6 @@ const ArticleLink = styled(Link)`
     top: -2%;
     width: 103%;
     height: 104%;
-    border: 3px solid ${p => p.theme.colors.accent};
     background: rgba(255, 255, 255, 0.01);
     border-radius: 5px;
   }

@@ -11,7 +11,7 @@ interface HeartProps {
  * Inspired by https://codepen.io/robeen/pen/PbvJjy
  * TODO: add fullfill progress
  */
-const Heart = ({ width, fill }: HeartProps) => {
+const Heart = ({ width, fill = '' }: HeartProps) => {
   const [checked, setChecked] = useState(false);
   const [clicked, setClicked] = useState(false);
   const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {

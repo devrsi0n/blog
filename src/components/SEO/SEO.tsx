@@ -29,7 +29,7 @@ interface HelmetProps {
   pathname: string;
   image?: string;
   url?: string;
-  canonical?: string;
+  // canonical?: string;
   published?: string;
   timeToRead?: number;
 }

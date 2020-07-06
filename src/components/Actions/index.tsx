@@ -7,7 +7,7 @@ import Action from './Action';
 interface Props {
   like: number;
   handclap: number;
-  share: number;
+  // share: number;
   handleAction(type: 'like' | 'handclap' | 'share'): void;
 }
 

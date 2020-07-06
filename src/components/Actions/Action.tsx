@@ -40,7 +40,7 @@ function Action(props: Props) {
 
   return (
     <Row bg={props.color} onClick={handleRowClick} role="button">
-      <Wrap style={props.style}>{props.children}</Wrap>
+      <Wrap style={props.style || {}}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>
   );

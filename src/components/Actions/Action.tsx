@@ -39,7 +39,7 @@ function Action(props: Props) {
   );
 
   return (
-    <Row bg={props.color} onClick={handleRowClick} role="button">
+    <Row color={props.color} onClick={handleRowClick} role="button">
       <Wrap style={props.style || {}}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>
@@ -63,7 +63,7 @@ const Count = styled.span`
   transition: color ${duration};
 `;
 
-const Row = styled.div<{ bg: string }>`
+const Row = styled.div<{ color: string }>`
   fill: rgb(101, 119, 134);
   position: relative;
   transition: fill ${duration};
@@ -72,12 +72,12 @@ const Row = styled.div<{ bg: string }>`
 
   &:hover {
     cursor: pointer;
-    fill: ${p => p.bg};
+    fill: ${p => p.color};
     ${Wrap} {
-      background: ${p => transparentize(0.9, p.bg)};
+      background: ${p => transparentize(0.9, p.color)};
     }
     ${Count} {
-      color: ${p => p.bg};
+      color: ${p => p.color};
     }
   }
 `;

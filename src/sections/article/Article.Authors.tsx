@@ -21,17 +21,22 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
   if (hasCoAuthors) {
     return <CoAuthors authors={authors} />;
   }
+  const useLink = !!authors[0].authorsPage;
   return (
     <AuthorLink
-      as={authors[0].authorsPage ? Link : 'div'}
-      to={authors[0].slug}
+      {...(useLink && {
+        as: Link,
+        to: authors[0].slug,
+      })}
       sx={{
         strong: {
           transition: theme => theme.colorModeTransition,
         },
-        '&:hover strong': {
-          color: 'primary',
-        },
+        ...(useLink && {
+          '&:hover strong': {
+            color: 'primary',
+          },
+        }),
       }}
     >
       <AuthorAvatar
@@ -42,7 +47,7 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
         <RoundedImage src={authors[0].avatar.small} />
       </AuthorAvatar>
       <strong>{authors[0].name}&nbsp;</strong>
-      <HideOnMobile>▴&nbsp;</HideOnMobile>
+      <HideOnMobile>•&nbsp;</HideOnMobile>
     </AuthorLink>
   );
 }

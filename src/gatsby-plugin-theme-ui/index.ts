@@ -1,114 +1,5 @@
-import { lighten } from 'polished';
-
-// TODO: refactor
-import * as PrismColors from './prism-colors';
-
-const accent = {
-  light: '#6166DC',
-  dark: '#E9DAAC',
-};
-const background = {
-  light: '#fefefe',
-  dark: 'rgba(17, 18, 22, 0.95)',
-};
-
-const colors = {
-  text: '#08080B', // body color
-  background: background.light, // body background color
-  primary: '#000', // primary button and link color
-  secondary: '#73737D', // secondary color - can be used for hover states
-  muted: 'hsl(10, 20%, 94%)', // a gray or subdued color for decorative purposes
-  accent: accent.light, // a contrast color for emphasizing UI
-  lightAccent: lighten(0.3, accent.light),
-  purple: 'hsl(250, 60%, 30%)',
-  gray: '#999',
-  blur: 'rgba(254, 254, 254, 0.4)',
-
-  // Set the initial color mode to dark when @media (prefers-color-scheme: dark) matches
-  useColorSchemeMediaQuery: true,
-
-  prism: PrismColors.light,
-  codeLabel: '#08080B',
-  grey: '#73737D',
-  hover: 'rgba(0, 0, 0, 0.07)',
-  gradient: 'linear-gradient(180deg, rgba(217, 219, 224, 0) 0%, #D9DBE0 100%)',
-  track: 'rgba(8, 8, 11, 0.3)',
-  progress: {
-    complete: '#000',
-    bg: '#B5B8B9',
-  },
-  card: '#fff',
-  error: '#EE565B',
-  success: '#46B17B',
-  errorBackground: 'rgba(238, 86, 91, 0.1)',
-  horizontalRule: 'rgba(8, 8, 11, 0.15)',
-  inputBackground: 'rgba(0, 0, 0, 0.05)',
-  modes: {
-    dark: {
-      text: '#fff',
-      primary: '#fff',
-      secondary: '#fff',
-      accent: accent.dark,
-      background: background.dark,
-      muted: 'hsl(10, 20%, 94%)',
-      lightAccent: lighten(0.1, accent.dark),
-      purple: 'hsl(250, 60%, 30%)',
-      gray: '#666',
-      blur: 'rgba(17, 18, 22, 0.5)',
-
-      prism: PrismColors.dark,
-      codeLabel: '#292c34',
-      grey: '#73737D',
-      hover: 'rgba(255, 255, 255, 0.07)',
-      gradient:
-        'linear-gradient(180deg, #111216 0%, rgba(66, 81, 98, 0.36) 100%)',
-      track: 'rgba(255, 255, 255, 0.3)',
-      progress: {
-        complete: '#fff',
-        bg: '#73737D',
-      },
-      card: '#1D2128',
-      error: '#EE565B',
-      success: '#46B17B',
-      errorBackground: 'rgba(238, 86, 91, 0.1)',
-      horizontalRule: 'rgba(255, 255, 255, 0.15)',
-      inputBackground: 'rgba(255, 255, 255, 0.07)',
-    },
-  },
-};
-
-const chineseSanSerifFonts = [
-  '"PingFang SC"', // 苹方, <mac>
-  '"Hiragino Sans GB"', // 冬青黑体, <mac>
-  '"Microsoft YaHei"', // 微软雅黑, win
-  '"Heiti SC"', // 黑体-简, win
-  '"WenQuanYi Micro Hei"', // 文泉驿微米黑，<Linux>
-];
-const chineseSerifFonts = [
-  '"Noto Serif CJK SC"',
-  '"Source Han Serif SC"',
-  '"Source Han Serif CN"', // 思源宋体
-  '"Songti SC"', // 华文宋体, mac
-  '"SimSun"', // 中易宋体, win
-  '"STSong"', // 华文宋体
-  '"AR PL Sungti"', // 文鼎简报宋, linux
-];
-
-// const serif = `"Merriweather", Georgia, ${chineseSerifFonts}, serif`;
-const serif = `Georgia, ${chineseSerifFonts}, serif`;
-const sansSerif = `"SF Pro Display", "-apple-system", "BlinkMacSystemFont", "San Francisco", "Helvetica Neue", "Helvetica", "Ubuntu", "Roboto", "Noto", "Segoe UI", "Arial", ${chineseSanSerifFonts.join(
-  ' ,'
-)}, sans-serif`;
-const monospace = `"Dank Mono", "Noto Sans Mono", "Menlo", "Roboto Mono", "Consolas", "Operator Mono", "Monaco", "source-code-pro", "Courier New", ${sansSerif}, monospace`;
-
-export const fonts = {
-  serif,
-  sansSerif,
-
-  body: sansSerif,
-  heading: serif,
-  monospace,
-};
+import { colors } from './colors';
+import { monospace, fonts } from './fonts';
 
 export const breakpoints = [
   ['phone_small', 320] as const,
@@ -196,9 +87,19 @@ const theme = {
 
   // box-shadow, text-shadow
   shadows: {
-    default: '0 .5rem 1rem rgba(0, 0, 0, .15)',
-    sm: '0 .125rem .25rem rgba(0, 0, 0, .075)',
-    lg: '0 1rem 3rem rgba(0, 0, 0, .175)',
+    // https://developer.microsoft.com/en-us/fluentui#/styles/web/elevation
+    // Card
+    depth4:
+      '0 1.6px 3.6px 0 var(--theme-ui-colors-shadow1, rgba(0,0,0,.132)), 0 0.3px 0.9px 0 var(--theme-ui-colors-shadow2, rgba(0,0,0,.108))',
+    // dropdown, menu
+    depth8:
+      '0 3.2px 7.2px 0 var(--theme-ui-colors-shadow1, rgba(0,0,0,.132)), 0 0.6px 1.8px 0 var(--theme-ui-colors-shadow2, rgba(0,0,0,.108))',
+    // Hover card, tooltip
+    depth16:
+      '0 6.4px 14.4px 0 var(--theme-ui-colors-shadow1, rgba(0,0,0,.132)), 0 1.2px 3.6px 0 var(--theme-ui-colors-shadow2, rgba(0,0,0,.108))',
+    // Dialog, panel
+    depth64:
+      '0 25.6px 57.6px 0 var(--theme-ui-colors-shadow3, rgba(0,0,0,.22)), 0 4.8px 14.4px 0 var(--theme-ui-colors-shadow4, rgba(0,0,0,.18))',
   },
 
   // z-index

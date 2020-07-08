@@ -56,7 +56,12 @@ function ArticleActions({ url }: Props) {
   };
   if (isNotProd) {
     return (
-      <Actions handleAction={handleAction} like={0} handclap={0} share={0} />
+      <Actions
+        handleAction={handleAction}
+        like={0}
+        handclap={0}
+        /* share={0} */
+      />
     );
   }
 
@@ -72,7 +77,7 @@ function ArticleActions({ url }: Props) {
       handleAction={handleAction}
       like={count.like}
       handclap={count.handclap}
-      share={count.share}
+      // share={count.share}
     />
   );
 }

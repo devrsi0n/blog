@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
 
 import mediaqueries from '@styles/media';
-import HandleOverlap from './Article.HandleOverlap';
+import ArticleHandleOverlap from './ArticleHandleOverlap';
 
 interface AsideProps {
   children: ReactNode[] | ReactNode;
@@ -26,7 +26,7 @@ interface AsideProps {
  *                  |  content  |
  *
  */
-function Aside({ children, progress, alignRight = false }: AsideProps) {
+function ArticleAside({ children, progress, alignRight = false }: AsideProps) {
   const progressRef = useRef<HTMLDivElement>(null);
   const [imageOffset, setImageOffset] = useState<number>(0);
   const [shouldFixAside, setShouldFixAside] = useState<boolean>(false);
@@ -77,14 +77,14 @@ function Aside({ children, progress, alignRight = false }: AsideProps) {
         shouldFixAside={shouldFixAside}
       >
         <div ref={progressRef}>
-          <HandleOverlap>{childrenWithProps}</HandleOverlap>
+          <ArticleHandleOverlap>{childrenWithProps}</ArticleHandleOverlap>
         </div>
       </Align>
     </AsideContainer>
   );
 }
 
-export default React.memo(Aside);
+export default React.memo(ArticleAside);
 
 const AsideContainer = styled.aside<{ alignRight: boolean }>`
   display: flex;

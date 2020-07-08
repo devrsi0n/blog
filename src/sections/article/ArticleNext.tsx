@@ -24,7 +24,7 @@ import { IArticle } from '@types';
  * as the next one suggested article, which requires special styling we didn't want to
  * mix into the generic list component.
  */
-const ArticlesNext = ({ articles }: { articles: IArticle[] }) => {
+const ArticleNext = ({ articles }: { articles: IArticle[] }) => {
   if (!articles) return null;
   const numberOfArticles = articles.length;
   return (
@@ -35,7 +35,7 @@ const ArticlesNext = ({ articles }: { articles: IArticle[] }) => {
   );
 };
 
-export default React.memo(ArticlesNext);
+export default React.memo(ArticleNext);
 
 const GridItem = ({
   article,

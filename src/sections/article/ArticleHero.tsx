@@ -9,7 +9,7 @@ import Image, { ImagePlaceholder } from '@components/Image';
 import mediaqueries from '@styles/media';
 import { IArticle, IAuthor } from '@types';
 
-import ArticleAuthors from './Article.Authors';
+import ArticleAuthors from './ArticleAuthors';
 
 interface ArticleHeroProps {
   article: IArticle;

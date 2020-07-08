@@ -10,17 +10,17 @@ import Progress from '@components/Progress';
 import Section from '@components/Section';
 import Subscription from '@components/Subscription';
 import Anchor from '@components/Anchor';
-import ArticleActions from '@sections/article/Article.Actions';
+import ArticleActions from '@sections/article/ArticleActions';
 
 import mediaqueries from '@styles/media';
 
 import { clamp } from '@utils';
 import debounce from '@utils/debounce';
-import ArticleAside from '@sections/article/Article.Aside';
-import ArticleHero from '@sections/article/Article.Hero';
-import ArticleControls from '@sections/article/Article.Controls';
-import ArticlesNext from '@sections/article/Article.Next';
-import ArticleSEO from '@sections/article/Article.SEO';
+import ArticleAside from '@sections/article/ArticleAside';
+import ArticleHero from '@sections/article/ArticleHero';
+import ArticleControls from '@sections/article/ArticleControls';
+import ArticleNext from '@sections/article/ArticleNext';
+import ArticleSEO from '@sections/article/ArticleSEO';
 import ArticleShare from '@sections/article/Article.Share';
 import useUtteranc from '@hooks/useUtteranc';
 import { ArticleTemplateSiteQuery } from '../types/graphql';
@@ -153,7 +153,7 @@ function Article({ pageContext, location }) {
           >
             其他文章
           </FooterNext>
-          <ArticlesNext articles={next} />
+          <ArticleNext articles={next} />
           <FooterSpacer />
         </NextArticle>
       )}

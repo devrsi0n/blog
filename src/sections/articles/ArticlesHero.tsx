@@ -10,7 +10,7 @@ import mediaqueries from '@styles/media';
 import { IconTiles, IconRows } from '@components/Icons';
 import { IAuthor } from '@types';
 
-import { GridLayoutContext } from './Articles.List.Context';
+import { GridLayoutContext } from './ArticlesListContext';
 import { AuthorHeroQuery } from '../../types/graphql';
 
 const authorQuery = graphql`

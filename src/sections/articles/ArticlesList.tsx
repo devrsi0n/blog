@@ -11,7 +11,7 @@ import Image, { ImagePlaceholder } from '@components/Image';
 import mediaqueries from '@styles/media';
 import { IArticle } from '@types';
 
-import { GridLayoutContext } from './Articles.List.Context';
+import { GridLayoutContext } from './ArticlesListContext';
 
 /**
  * Tiles

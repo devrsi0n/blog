@@ -7,24 +7,28 @@ import Section from '@components/Section';
 import SEO from '@components/SEO';
 import Paginator from '@components/Navigation/Navigation.Paginator';
 
-import ArticlesHero from '@sections/articles/Articles.Hero';
-import ArticlesList from '@sections/articles/Articles.List';
+import AuthorHero from '@sections/author/AuthorHero';
+import AuthorArticles from '@sections/author/AuthorArticles';
 
 function ArticlesPage({ location, pageContext }) {
+  const { author } = pageContext.additionalContext;
   const articles = pageContext.group;
-  const { authors } = pageContext.additionalContext;
 
   return (
     <React.Fragment>
-      <SEO pathname={location.pathname} />
-      <ArticlesHero authors={authors} />
+      <SEO
+        pathname={location.pathname}
+        title={author.name}
+        description={author.bio}
+      />
       <Section narrow>
-        <ArticlesList articles={articles} />
-        <ArticlesPaginator show={pageContext.pageCount > 1}>
+        <AuthorHero author={author} />
+        <AuthorArticles articles={articles} />
+        <AuthorPaginator>
           <Paginator {...pageContext} />
-        </ArticlesPaginator>
+        </AuthorPaginator>
       </Section>
-      <ArticlesGradient
+      <AuthorsGradient
         sx={{
           background: 'gradient',
           transition: theme => theme.colorModeTransition,
@@ -36,7 +40,7 @@ function ArticlesPage({ location, pageContext }) {
 
 export default React.memo(ArticlesPage);
 
-const ArticlesGradient = styled.div`
+const AuthorsGradient = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -46,6 +50,6 @@ const ArticlesGradient = styled.div`
   pointer-events: none;
 `;
 
-const ArticlesPaginator = styled.div<{ show: boolean }>`
-  ${p => p.show && `margin-top: 95px;`}
+const AuthorPaginator = styled.div`
+  text-align: center;
 `;

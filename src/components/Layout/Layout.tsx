@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NavigationFooter from '@components/Navigation/Navigation.Footer';
 import NavigationHeader from '@components/Navigation/Navigation.Header';
 import { globalStyles } from '@styles/index';
-import ArticlesContextProvider from '@sections/articles/Articles.List.Context';
+import ArticlesContextProvider from '@sections/articles/ArticlesListContext';
 import useStats from '@hooks/useStats';
 
 const duration = 0.25;

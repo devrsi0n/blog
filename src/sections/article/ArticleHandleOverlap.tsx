@@ -43,7 +43,7 @@ interface OverlapProps {
  * we want to hide the top element.
  */
 
-function HandleOverlap(props: OverlapProps) {
+function ArticleHandleOverlap(props: OverlapProps) {
   const asideRef = useRef<HTMLDivElement>(null);
   const [isOverlapping, setIsOverlapping] = useState(false);
 
@@ -90,7 +90,7 @@ function HandleOverlap(props: OverlapProps) {
   );
 }
 
-export default React.memo(HandleOverlap);
+export default React.memo(ArticleHandleOverlap);
 
 const OverlapContainer = styled.div<{ isOverlapping: boolean }>`
   user-select: ${p => (p.isOverlapping ? 'none' : 'initial')};

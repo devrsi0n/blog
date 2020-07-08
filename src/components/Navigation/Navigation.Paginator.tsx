@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { Component } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -104,6 +106,9 @@ class Paginator extends Component<IPaginator, {}> {
           to={this.getFullPath(page)}
           style={{ opacity: current === page ? 1 : 0.3 }}
           className="Paginator__pageLink"
+          sx={{
+            color: 'primary',
+          }}
         >
           {page}
         </PageNumberButton>
@@ -132,7 +137,7 @@ class Paginator extends Component<IPaginator, {}> {
     const hasPrevious = this.current > 1;
 
     return (
-      <>
+      <React.Fragment>
         <Helmet>
           {hasPrevious && <link rel="prev" href={previousPath} />}
           {hasNext && <link rel="next" href={nextPath} />}
@@ -150,7 +155,15 @@ class Paginator extends Component<IPaginator, {}> {
             </PageButton>
           )}
           {this.getPageLinks}
-          <MobileReference aria-hidden="true">
+          <MobileReference
+            aria-hidden="true"
+            sx={{
+              color: 'primary',
+              em: {
+                color: 'primary',
+              },
+            }}
+          >
             <strong>{current}</strong>&nbsp;/ {count}
           </MobileReference>
           {hasNext && (
@@ -165,7 +178,7 @@ class Paginator extends Component<IPaginator, {}> {
             </PageButton>
           )}
         </Frame>
-      </>
+      </React.Fragment>
     );
   }
 }
@@ -215,7 +228,6 @@ const PageNumberButton = styled(Link)`
   font-weight: 400;
   font-size: 18px;
   text-decoration: none;
-  color: ${p => p.theme.colors.primary};
   ${paginationItemMixin}
 
   &:hover,
@@ -236,11 +248,9 @@ const Spacer = styled.span`
 const MobileReference = styled.span`
   font-weight: 400;
   ${paginationItemMixin}
-  color: ${p => p.theme.colors.primary};
 
   em {
     font-style: normal;
-    color: ${p => p.theme.colors.primary};
   }
 `;
 

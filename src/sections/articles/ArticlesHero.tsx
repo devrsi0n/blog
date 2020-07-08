@@ -30,6 +30,20 @@ const authorQuery = graphql`
   }
 `;
 
+const GridButtonSX = {
+  '&:hover': {
+    backgroundColor: 'hover',
+  },
+  "&[data-a11y='true']:focus::after": {
+    borderColor: 'accent',
+  },
+  svg: {
+    path: {
+      fill: 'primary',
+    },
+  },
+};
+
 function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   const { gridLayout = 'tiles', hasSetGridLayout, setGridLayout } = useContext(
     GridLayoutContext
@@ -55,7 +69,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
   }
 
   return (
-    <Section /* relative */ id="Articles__Hero">
+    <Section id="Articles__Hero">
       <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
         <HeroHeading
           dangerouslySetInnerHTML={{ __html: hero.heading }}
@@ -76,19 +90,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             data-a11y="false"
             title="Show articles in Tile grid"
             aria-label="Show articles in Tile grid"
-            sx={{
-              '&:hover': {
-                background: 'hover',
-              },
-              "&[data-a11y='true']:focus::after": {
-                borderColor: 'accent',
-              },
-              svg: {
-                path: {
-                  fill: theme => theme.colors.primary,
-                },
-              },
-            }}
+            sx={GridButtonSX}
           >
             <IconTiles />
           </GridButton>
@@ -98,6 +100,7 @@ function ArticlesHero({ authors }: { authors: IAuthor[] }) {
             data-a11y="false"
             title="Show articles in Row grid"
             aria-label="Show articles in Row grid"
+            sx={GridButtonSX}
           >
             <IconRows />
           </GridButton>

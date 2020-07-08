@@ -26,7 +26,7 @@ export default function TableCell(props: TableCellProps) {
       {...props}
       sx={{
         borderTopColor: 'horizontalRule',
-        background: 'card',
+        backgroundColor: 'card',
       }}
     />
   );

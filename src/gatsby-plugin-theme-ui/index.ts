@@ -109,14 +109,7 @@ const theme = {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   breakpoints: breakpoints.map(b => `${b[1]}px`),
   // Styles for MDX
-  styles: {
-    // ...deepTheme.styles,
-    pre: {
-      inlineCode: {
-        background: '',
-      },
-    },
-  },
+  styles: {},
 
   // TODO: refactor
   tags: {

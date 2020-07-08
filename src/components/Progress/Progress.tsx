@@ -53,6 +53,11 @@ function Progress({ contentHeight, progress }: IProgress) {
         onClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+        sx={{
+          'svg path': {
+            fill: 'progress.complete',
+          },
+        }}
       >
         <Arrow />
       </Introduction>
@@ -261,9 +266,6 @@ const Introduction = styled.div`
   left: -4px;
   &:hover {
     cursor: pointer;
-  }
-  svg path {
-    fill: ${p => p.theme.colors.progress.complete};
   }
 `;
 

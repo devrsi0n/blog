@@ -66,7 +66,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
       isDark={isDark}
       sx={{
         '&::before': {
-          background: 'blur',
+          backgroundColor: 'blur',
           transition: theme => theme.colorModeTransition,
         },
       }}

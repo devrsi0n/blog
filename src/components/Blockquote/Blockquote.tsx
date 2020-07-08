@@ -2,10 +2,8 @@
 import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
-import { ReactNode } from 'react';
 
 const Blockquote = styled.blockquote`
-  transition: ${p => p.theme.colorModeTransition};
   margin: 15px auto 50px;
   font-style: italic;
 
@@ -35,9 +33,7 @@ const Blockquote = styled.blockquote`
   }
 `;
 
-interface BlockquoteCompProps {
-  children: ReactNode;
-}
+type BlockquoteCompProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 export default function BlockquoteComp(props: BlockquoteCompProps) {
   return (
@@ -46,6 +42,7 @@ export default function BlockquoteComp(props: BlockquoteCompProps) {
       sx={{
         color: 'text',
         fontFamily: 'serif',
+        transition: theme => theme.colorModeTransition,
         '& > p': {
           fontFamily: 'serif',
         },

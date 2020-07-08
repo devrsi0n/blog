@@ -41,7 +41,7 @@ function ArticleAuthors({ authors }: { authors: Array<IAuthor> }) {
     >
       <AuthorAvatar
         sx={{
-          background: 'gray',
+          backgroundColor: 'gray',
         }}
       >
         <RoundedImage src={authors[0].avatar.small} />
@@ -87,7 +87,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
       sx={{
         color: 'grey',
         '&::before': {
-          background: 'card',
+          backgroundColor: 'card',
         },
       }}
     >
@@ -97,7 +97,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
             style={{ left: `${index * 15}px` }}
             key={author.name}
             sx={{
-              background: 'grey',
+              backgroundColor: 'grey',
               boxShadow: theme => `0 0 0 2px ${theme.colors.background}`,
             }}
           >
@@ -114,7 +114,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
         <OutsideClickHandler onOutsideClick={() => setIsOpen(!isOpen)}>
           <CoAuthorsListOpen
             sx={{
-              background: 'card',
+              backgroundColor: 'card',
             }}
           >
             <IconOpenContainer>
@@ -136,7 +136,7 @@ function CoAuthors({ authors }: { authors: IAuthor[] }) {
                 >
                   <CoAuthorAvatarOpen
                     sx={{
-                      background: 'grey',
+                      backgroundColor: 'grey',
                     }}
                   >
                     <RoundedImage src={author.avatar.small} />

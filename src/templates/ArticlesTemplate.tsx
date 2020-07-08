@@ -26,7 +26,7 @@ function ArticlesPage({ location, pageContext }) {
       </Section>
       <ArticlesGradient
         sx={{
-          background: 'gradient',
+          backgroundColor: 'gradient',
           transition: theme => theme.colorModeTransition,
         }}
       />

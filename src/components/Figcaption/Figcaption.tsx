@@ -1,12 +1,22 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 
-const Figcaption = styled.figcaption`
-  color: ${p => p.theme.colors.grey};
+const Fig = styled.figcaption`
   font-size: 14px;
-  /* text-align: center; */
   width: 100%;
-  max-width: 744px;
   margin: 0 auto;
 `;
 
-export default Figcaption;
+type FigurationProps = React.HTMLAttributes<HTMLParagraphElement>;
+
+export default function Figcaption(props: FigurationProps) {
+  return (
+    <Fig
+      {...props}
+      sx={{
+        color: 'grey',
+      }}
+    />
+  );
+}

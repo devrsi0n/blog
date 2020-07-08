@@ -77,6 +77,16 @@ module.exports = {
         gatsbyRemarkPlugins: [
           // `gatsby-remark-embed-video`,
           {
+            resolve: `gatsby-remark-prettier`,
+            options: {
+              usePrettierrc: false,
+              prettierOptions: {
+                singleQuote: true,
+                trailingComma: 'es5',
+              },
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 10000,

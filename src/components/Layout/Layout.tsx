@@ -1,7 +1,8 @@
+/** @jsx jsx */
+import { jsx, useColorMode } from 'theme-ui';
 import React, { useEffect } from 'react';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
-import { useColorMode } from 'theme-ui';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import NavigationFooter from '@components/Navigation/Navigation.Footer';
@@ -65,7 +66,12 @@ function Layout({ children, location }: LayoutProps) {
 
   return (
     <ArticlesContextProvider>
-      <Container>
+      <Container
+        sx={{
+          backgroundColor: 'background',
+          transition: theme => theme.colorModeTransition,
+        }}
+      >
         <Global styles={globalStyles} />
         <NavigationHeader location={location} />
         <AnimatePresence exitBeforeEnter initial={false}>
@@ -89,7 +95,5 @@ export default Layout;
 
 const Container = styled.div`
   position: relative;
-  background: ${p => p.theme.colors.background};
-  transition: ${p => p.theme.colorModeTransition};
   min-height: 100vh;
 `;

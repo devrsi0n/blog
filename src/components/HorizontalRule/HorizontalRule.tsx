@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 
 const HorizontalRule = styled.hr<{ isDark: boolean }>`
   position: relative;
-  width: 100%;
-  max-width: 680px;
   margin: 50px auto;
   border: 0;
   height: 14.36px;
@@ -15,18 +13,6 @@ const HorizontalRule = styled.hr<{ isDark: boolean }>`
   background-repeat: repeat-x;
   box-sizing: border-box;
   background-position: center;
-
-  ${mediaqueries.desktop`
-    max-width: 507px;
-  `}
-
-  ${mediaqueries.tablet`
-    max-width: 486px;
-  `};
-
-  ${mediaqueries.phablet`
-    padding: 0 20px;
-  `};
 
   ${mediaqueries.tablet`
     width: calc(100vw - 40px);

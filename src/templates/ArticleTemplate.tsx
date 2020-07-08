@@ -147,7 +147,7 @@ function Article({ pageContext, location }) {
             sx={{
               color: 'primary',
               '&::after': {
-                background: 'grey',
+                backgroundColor: 'grey',
               },
             }}
           >
@@ -183,6 +183,8 @@ const ArticleBody = styled.article`
   padding: 160px 0 35px;
   padding-left: 68px;
   transition: background 0.2s linear;
+  display: flex;
+  justify-content: center;
 
   ${mediaqueries.desktop`
     padding-left: 53px;

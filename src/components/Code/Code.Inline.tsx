@@ -10,7 +10,7 @@ export default function CodeInline(props: CodeInlineProps) {
   return (
     <Code
       sx={{
-        background: theme => theme.colors.prism.background,
+        backgroundColor: theme => theme.colors.prism.background,
       }}
     >
       {props.children}

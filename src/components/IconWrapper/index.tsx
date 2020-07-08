@@ -1,8 +1,9 @@
-// import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import styled from '@emotion/styled';
 import mediaqueries from '@styles/media';
 
-export default styled.button<{ isDark: boolean }>`
+const Wrapper = styled.button`
   opacity: 0.5;
   position: relative;
   border-radius: 5px;
@@ -25,7 +26,6 @@ export default styled.button<{ isDark: boolean }>`
     top: -30%;
     width: 100%;
     height: 160%;
-    border: 2px solid ${p => p.theme.colors.accent};
     background: rgba(255, 255, 255, 0.01);
     border-radius: 5px;
   }
@@ -40,3 +40,19 @@ export default styled.button<{ isDark: boolean }>`
     }
   `}
 `;
+
+type IconWrapperProps = React.HTMLAttributes<HTMLButtonElement>;
+
+export default function IconWrapper(props: IconWrapperProps) {
+  return (
+    <Wrapper
+      {...props}
+      sx={{
+        "&[data-a11y='true']:focus::after": {
+          border: '2px solid',
+          borderColor: 'accent',
+        },
+      }}
+    />
+  );
+}

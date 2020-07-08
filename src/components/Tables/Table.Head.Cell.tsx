@@ -24,7 +24,7 @@ export default function TableHeadCell(props: TableHeadCellProps) {
     <Cell
       {...props}
       sx={{
-        background: 'card',
+        backgroundColor: 'card',
       }}
     />
   );

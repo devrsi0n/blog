@@ -11,21 +11,6 @@ const Ol = styled.ol`
   padding: 15px 0 30px 30px;
   margin: 0 auto;
   font-size: 18px;
-  width: 100%;
-  max-width: 680px;
-
-  ${mediaqueries.desktop`
-    max-width: 507px;
-  `}
-
-  ${mediaqueries.tablet`
-    max-width: 486px;
-    padding-left: 0px;
-  `};
-
-  ${mediaqueries.phablet`
-    padding-left: 20px;
-  `};
 
   li {
     position: relative;

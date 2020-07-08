@@ -30,7 +30,7 @@ function ArticlesPage({ location, pageContext }) {
       </Section>
       <AuthorsGradient
         sx={{
-          background: 'gradient',
+          backgroundColor: 'gradient',
           transition: theme => theme.colorModeTransition,
         }}
       />

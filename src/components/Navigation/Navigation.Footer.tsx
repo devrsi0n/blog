@@ -56,7 +56,7 @@ function Footer() {
     <React.Fragment>
       <FooterGradient
         sx={{
-          background: 'gradient',
+          backgroundColor: 'gradient',
           transition: theme => theme.colorModeTransition,
         }}
       />

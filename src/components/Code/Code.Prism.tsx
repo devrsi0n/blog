@@ -60,13 +60,13 @@ function CodePrism({
         return (
           <RootContainer
             sx={{
-              background: theme => theme.colors.prism.background,
+              backgroundColor: theme => theme.colors.prism.background,
             }}
           >
             {title && (
               <Title
                 sx={{
-                  background: theme => theme.colors.prism.background,
+                  backgroundColor: theme => theme.colors.prism.background,
                   borderBottom: theme =>
                     `1px solid ${theme.colors.horizontalRule}`,
                 }}
@@ -168,14 +168,8 @@ const RootContainer = styled.div`
   overflow: auto;
   border-radius: 5px;
   width: 100%;
-  max-width: 744px;
-
   font-size: 14px;
   margin: 0 auto 25px auto;
-
-  ${mediaqueries.tablet`
-    max-width: 526px;
-  `};
 
   ${mediaqueries.phablet`
     overflow-x: scroll;
@@ -189,6 +183,7 @@ const LabelWrap = styled.div`
 
 const Pre = styled.pre`
   position: relative;
+  white-space: pre-wrap;
 
   &:hover {
     ${LabelWrap} {
@@ -253,46 +248,3 @@ const CopyButton = styled.button<{ isDark: boolean }>`
     display: none;
   `}
 `;
-
-// const Container = styled.div<{}, Theme>`
-//   overflow: scroll;
-//   width: 100%;
-//   max-width: 750px;
-//   margin: 0 auto;
-//   font-size: 13px;
-//   margin: 15px auto 50px;
-//   border-radius: 5px;
-//   font-family: ${p => p.theme.fonts.monospace} !important;
-
-//   textarea,
-//   pre {
-//     padding: 32px !important;
-//     font-family: ${p => p.theme.fonts.monospace} !important;
-//   }
-
-//   ${mediaqueries.desktop`
-//       left: -26px;
-//     `};
-
-//   ${mediaqueries.tablet`
-//     max-width: 526px;
-//     left: 0;
-
-//     textarea,
-//     pre {
-//       padding: 20px !important;
-//     }
-//   `};
-
-//   ${mediaqueries.phablet`
-//     border-radius: 0;
-//     margin: 0 auto 25px;
-//     overflow: initial;
-//     width: unset;
-//     max-width: unset;
-//     float: left;
-//     min-width: 100%;
-//     overflow: initial;
-//     position: relative;
-//   `};
-// `;

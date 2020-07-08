@@ -66,7 +66,7 @@ const GridItem = ({
       <Item
         sx={{
           '@media (max-width: 540px)': {
-            background: 'card',
+            backgroundColor: 'card',
           },
         }}
       >

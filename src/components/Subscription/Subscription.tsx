@@ -50,7 +50,7 @@ const Subscription: React.FunctionComponent<{}> = () => {
     <Section narrow>
       <SubscriptionContainer
         sx={{
-          background: 'card',
+          backgroundColor: 'card',
         }}
       >
         <Content>
@@ -81,17 +81,44 @@ const Subscription: React.FunctionComponent<{}> = () => {
               type="email"
               value={email}
               onChange={handleEmailChange}
-              hasError={error}
+              sx={{
+                color: 'primary',
+                backgroundColor: error ? 'errorBackground' : 'inputBackground',
+                '::placeholder': {
+                  color: 'track',
+                },
+              }}
             />
             <Button
               type="submit"
-              hasError={error}
-              subscribed={subscribed}
               disabled={subscribed}
+              sx={{
+                border: '1px solid',
+                borderColor: error ? 'error' : 'accent',
+                color: error ? 'error' : 'accent',
+                backgroundColor: subscribed ? 'accent' : 'transparent',
+                '&:hover': {
+                  backgroundColor: error ? 'error' : 'accent',
+                  color: 'background',
+                },
+                'svg *': {
+                  fill: 'background',
+                },
+              }}
             >
               {subscribed ? <CheckMarkIcon /> : 'Subscribe'}
             </Button>
-            {error && <Error dangerouslySetInnerHTML={{ __html: error }} />}
+            {error && (
+              <Error
+                dangerouslySetInnerHTML={{ __html: error }}
+                sx={{
+                  color: 'error',
+                  a: {
+                    color: 'error',
+                  },
+                }}
+              />
+            )}
           </Form>
         </Content>
       </SubscriptionContainer>
@@ -172,29 +199,15 @@ const Form = styled.form<{ hasError: string }>`
   }
 `;
 
-const Input = styled.input<{ hasError: string }>`
+const Input = styled.input`
   position: relative;
-  background: ${p =>
-    p.hasError
-      ? p.theme.colors.errorBackground
-      : p.theme.colors.inputBackground};
   border-radius: 35px;
   border: none;
   padding: 13px 21px 13px 35px;
   width: 471px;
-  color: ${p => p.theme.colors.primary};
 
   ::placeholder {
-    color: ${p => p.theme.colors.track};
     opacity: 1;
-  }
-
-  :-ms-input-placeholder {
-    color: ${p => p.theme.colors.track};
-  }
-
-  ::-ms-input-placeholder {
-    color: ${p => p.theme.colors.track};
   }
 
   ${mediaqueries.tablet`
@@ -205,7 +218,7 @@ const Input = styled.input<{ hasError: string }>`
   `}
 `;
 
-const Button = styled.button<{ hasError: string; subscribed: boolean }>`
+const Button = styled.button`
   position: absolute;
   left: 306px;
   top: 3px;
@@ -214,28 +227,14 @@ const Button = styled.button<{ hasError: string; subscribed: boolean }>`
   justify-content: center;
   width: 161px;
   height: 38px;
-  border: 1px solid
-    ${p => (p.hasError ? p.theme.colors.error : p.theme.colors.accent)};
-  color: ${p => (p.hasError ? p.theme.colors.error : p.theme.colors.accent)};
-  background: ${p => (p.subscribed ? p.theme.colors.accent : 'transparent')};
   font-weight: 600;
   border-radius: 35px;
   letter-spacing: 0.42px;
   transition: border-color 0.2s var(--ease-in-out-quad),
     background 0.2s var(--ease-in-out-quad), color 0.2s var(--ease-in-out-quad);
 
-  &:hover {
-    background: ${p =>
-      p.hasError ? p.theme.colors.error : p.theme.colors.accent};
-    color: ${p => p.theme.colors.background};
-  }
-
   &[disabled] {
     cursor: not-allowed;
-  }
-
-  svg * {
-    fill: ${p => p.theme.colors.background};
   }
 
   ${p => mediaqueries.tablet`
@@ -259,11 +258,9 @@ const Error = styled.div`
   position: absolute;
   left: 35px;
   bottom: -20px;
-  color: ${p => p.theme.colors.error};
   font-size: 12px;
 
   a {
-    color: ${p => p.theme.colors.error};
     text-decoration: underline;
   }
 

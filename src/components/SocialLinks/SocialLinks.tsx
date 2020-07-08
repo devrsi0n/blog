@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -35,7 +37,7 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
   if (!links) return null;
 
   return (
-    <>
+    <React.Fragment>
       {links.map(option => {
         const name = option.name || getHostname(option.url);
         const Icon = icons[name];
@@ -56,6 +58,13 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
               "&[data-a11y='true']:focus::after": {
                 borderColor: 'accent',
               },
+              '&:hover': {
+                svg: {
+                  '*': {
+                    fill: 'primary',
+                  },
+                },
+              },
             }}
           >
             <Icon fill={fill} />
@@ -63,7 +72,7 @@ function SocialLinks({ links, fill = '#73737D' }: SocialLinksProps) {
           </SocialIconContainer>
         );
       })}
-    </>
+    </React.Fragment>
   );
 }
 
@@ -77,9 +86,6 @@ const SocialIconContainer = styled.a`
 
   &:hover {
     svg {
-      &:hover * {
-        fill: ${p => p.theme.colors.primary};
-      }
       * {
         transition: fill 0.25s var(--ease-in-out-quad);
       }

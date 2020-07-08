@@ -9,7 +9,6 @@ const StyledTable = styled.table`
   margin: 45px auto 85px;
   width: 100%;
   max-width: 1004px;
-  border: 1px solid ${p => p.theme.colors.horizontalRule};
   border-radius: 5px;
   overflow: hidden;
   border-collapse: separate;
@@ -36,6 +35,7 @@ function Table({ children }) {
           fontFamily: 'sansSerif',
           transition: theme => theme.colorModeTransition,
           backgroundColor: 'card',
+          border: '1px solid',
           borderColor: 'horizontalRule',
         }}
       >

@@ -1,6 +1,6 @@
-import Cell from './Table.Cell';
-import Head from './Table.Head';
-import HeadCell from './Table.Head.Cell';
+import Cell from './TableCell';
+import Head from './TableHead';
+import HeadCell from './TableHeadCell';
 import Table from './Table';
 
 export default {

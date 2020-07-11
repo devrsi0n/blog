@@ -1,6 +1,6 @@
-import Pre from './Code.Pre';
-import Prism from './Code.Prism';
-import Inline from './Code.Inline';
+import Pre from './CodePre';
+import Prism from './CodePrism';
+import Inline from './CodeInline';
 
 export default {
   Pre,

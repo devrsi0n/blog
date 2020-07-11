@@ -5,8 +5,8 @@ import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import NavigationFooter from '@components/Navigation/Navigation.Footer';
-import NavigationHeader from '@components/Navigation/Navigation.Header';
+import NavigationFooter from '@components/Navigation/NavigationFooter';
+import NavigationHeader from '@components/Navigation/NavigationHeader';
 import { globalStyles } from '@styles/index';
 import ArticlesContextProvider from '@sections/articles/ArticlesListContext';
 import useStats from '@hooks/useStats';

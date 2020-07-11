@@ -21,7 +21,7 @@ import ArticleHero from '@sections/article/ArticleHero';
 import ArticleControls from '@sections/article/ArticleControls';
 import ArticleNext from '@sections/article/ArticleNext';
 import ArticleSEO from '@sections/article/ArticleSEO';
-import ArticleShare from '@sections/article/Article.Share';
+import ArticleShare from '@sections/article/ArticleShare';
 import useUtteranc from '@hooks/useUtteranc';
 import { ArticleTemplateSiteQuery } from '../types/graphql';
 

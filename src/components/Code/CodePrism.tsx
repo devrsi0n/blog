@@ -183,7 +183,6 @@ const LabelWrap = styled.div`
 
 const Pre = styled.pre`
   position: relative;
-  white-space: pre-wrap;
 
   &:hover {
     ${LabelWrap} {

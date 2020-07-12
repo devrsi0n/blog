@@ -1,17 +1,16 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useColorMode } from 'theme-ui';
+import { useThemeUI } from 'theme-ui';
 
 import { IconHashLink as IconLink } from '@components/Icons';
 import mediaqueries from '@styles/media';
-import { useRef, useEffect, useState } from 'react';
 import { H1, H2, H3, H4, H5, H6 } from './Headings';
 
 function IconHashLink() {
-  const [colorMode] = useColorMode();
-  const color = colorMode === 'dark' ? 'white' : 'black';
-  return <IconLink fill={color} />;
+  const { theme } = useThemeUI();
+  return <IconLink fill={theme.colors.accent} />;
 }
 
 const Anchor = styled.a`
@@ -67,7 +66,7 @@ function CommonHeading({ children, Component }: CommonHeadingProps) {
       const fontSize = window
         .getComputedStyle(ref.current)
         .fontSize.replace('px', '');
-      setWidth(Number(fontSize) * 0.75);
+      setWidth(Math.floor(Number(fontSize) * 0.7));
     }
   }, [ref]);
   return (

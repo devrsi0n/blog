@@ -38,10 +38,7 @@ function Actions({
         color={theme.colors.handclap as string}
         handleClick={() => handleAction('handclap')}
       >
-        <IconHandclap
-          width={26}
-          fill={handclap > 0 ? (theme.colors.handclap as string) : undefined}
-        />
+        <IconHandclap width={26} fill={theme.colors.handclap as string} />
       </Action>
       {/* <Action
         type="share"

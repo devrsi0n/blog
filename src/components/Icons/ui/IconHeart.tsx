@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
@@ -24,7 +26,15 @@ const Heart = ({ width, fill = '' }: HeartProps) => {
   };
 
   return (
-    <Container>
+    <Container
+      sx={{
+        ':hover': {
+          '#heart': {
+            stroke: fill,
+          },
+        },
+      }}
+    >
       <input
         type="checkbox"
         id="checkbox"

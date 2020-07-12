@@ -16,6 +16,7 @@ const KEY_PREFIX = 'article_action_';
 function Action(props: Props) {
   const [count, setCount] = useState(props.count);
   const key = KEY_PREFIX + props.type;
+  const { handleClick } = props;
 
   useEffect(() => {
     if (props.count > count) {
@@ -30,12 +31,12 @@ function Action(props: Props) {
       if (process.env.NODE_ENV === 'development' || callCount < 10) {
         setCount(prev => prev + 1);
         localStorage.setItem(key, (callCount + 1).toString());
-        props.handleClick(e);
+        handleClick(e);
       } else {
         localStorage.setItem(key, '10');
       }
     },
-    [key, props]
+    [key, handleClick]
   );
 
   return (

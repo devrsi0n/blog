@@ -57,7 +57,12 @@ const ArticleHero = ({ article, authors }: ArticleHeroProps) => {
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
-      <HeroImage id="ArticleImage__Hero">
+      <HeroImage
+        id="ArticleImage__Hero"
+        sx={{
+          boxShadow: 'image',
+        }}
+      >
         {hasHeroImage ? (
           <Image src={article.hero.full} />
         ) : (
@@ -230,8 +235,6 @@ const HeroImage = styled.div`
   max-width: 944px;
   overflow: hidden;
   margin: 0 auto;
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.2),
-    0 18px 36px -18px rgba(0, 0, 0, 0.22);
 
   ${mediaqueries.tablet`
     max-width: 100%;

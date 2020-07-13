@@ -127,7 +127,6 @@ const Container = styled.div`
   #checkbox:checked + label svg {
     #heart {
       transform: scale(0.2);
-      /* fill: #e2264d; */
       animation: animateHeart 0.3s linear forwards 0.25s;
     }
     #main-circ {

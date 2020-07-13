@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { CSSProperties, useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { transparentize } from 'polished';
@@ -40,7 +42,14 @@ function Action(props: Props) {
   );
 
   return (
-    <Row color={props.color} onClick={handleRowClick} role="button">
+    <Row
+      color={props.color}
+      onClick={handleRowClick}
+      role="button"
+      sx={{
+        fill: 'grey',
+      }}
+    >
       <Wrap style={props.style || {}}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>
@@ -65,7 +74,6 @@ const Count = styled.span`
 `;
 
 const Row = styled.div<{ color: string }>`
-  fill: rgb(101, 119, 134);
   position: relative;
   transition: fill ${duration};
   user-select: none;

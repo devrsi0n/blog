@@ -28,7 +28,7 @@ function Progress({ contentHeight, progress }: IProgress) {
       offsetPercentage: 0,
     };
     const articleHeadings = Array.from(
-      document.querySelectorAll('h2')
+      document.querySelectorAll<HTMLHeadingElement>('#Article h2')
     ).reverse();
     const allHeadings = articleHeadings
       .map(heading => {

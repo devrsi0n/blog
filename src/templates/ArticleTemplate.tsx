@@ -123,7 +123,7 @@ function Article({ pageContext, location }) {
       <MobileControls>
         <ArticleControls />
       </MobileControls>
-      <ArticleBody ref={contentSectionRef}>
+      <ArticleBody ref={contentSectionRef} id="Article">
         <MDX content={article.body}>
           <ArticleShare />
         </MDX>

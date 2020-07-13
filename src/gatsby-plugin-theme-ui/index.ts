@@ -1,15 +1,20 @@
 import { colors } from './colors';
 import { monospace, fonts } from './fonts';
 
-export const breakpoints = [
-  ['phone_small', 320] as const,
-  ['phone', 376] as const,
-  ['phablet', 540] as const,
-  ['tablet', 1024] as const,
-  ['desktop', 1070] as const,
-  ['desktop_medium', 1280] as const,
-  ['desktop_large', 1440] as const,
-] as const;
+export const breakpointMap = {
+  phone_small: 320,
+  phone: 376,
+  phablet: 540,
+  tablet: 1024,
+  desktop: 1070,
+  desktop_medium: 1280,
+  desktop_large: 1440,
+} as const;
+
+export const breakpoints = Object.entries(breakpointMap).map(([key, value]) => [
+  key,
+  value,
+]);
 
 const colorModeTransition =
   'background 0.25s var(--ease-in-out-quad), color 0.25s var(--ease-in-out-quad)';
@@ -100,6 +105,8 @@ const theme = {
     // Dialog, panel
     depth64:
       '0 25.6px 57.6px 0 var(--theme-ui-colors-shadow3, rgba(0,0,0,.22)), 0 4.8px 14.4px 0 var(--theme-ui-colors-shadow4, rgba(0,0,0,.18))',
+    image:
+      '0 30px 60px -10px rgba(0, 0, 0, 0.2), 0 18px 36px -18px rgba(0, 0, 0, 0.22)',
   },
 
   // z-index

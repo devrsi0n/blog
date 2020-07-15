@@ -9,7 +9,7 @@ const Ul = styled.ul`
   counter-reset: list;
   position: relative;
   padding: 15px 0 30px 30px;
-  margin: 0 auto;
+  margin: 0;
   font-size: 18px;
 
   li {

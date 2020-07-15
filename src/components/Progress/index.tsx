@@ -1,8 +1,14 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, SxStyleProp } from 'theme-ui';
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Arrow } from '../Icons';
+
+const arrowSX: SxStyleProp = {
+  'svg path': {
+    fill: 'progress.complete',
+  },
+};
 
 export interface IProgress {
   /**
@@ -22,11 +28,6 @@ function Progress({ contentHeight, progress }: IProgress) {
   const [headings, setHeadings] = useState<Heading[]>([]);
 
   useEffect(() => {
-    const introduction = {
-      text: '引言',
-      offset: 1000,
-      offsetPercentage: 0,
-    };
     const articleHeadings = Array.from(
       document.querySelectorAll<HTMLHeadingElement>('#Article h2')
     ).reverse();
@@ -44,7 +45,7 @@ function Progress({ contentHeight, progress }: IProgress) {
         };
       })
       .reverse();
-    setHeadings([introduction, ...allHeadings]);
+    setHeadings(allHeadings);
   }, [contentHeight]);
 
   return (
@@ -108,7 +109,8 @@ function Progress({ contentHeight, progress }: IProgress) {
                   isActive={isActive}
                   onClick={() =>
                     window.scrollTo({
-                      top: heading.offset,
+                      // Leave some space for page heading
+                      top: heading.offset - 100,
                       behavior: 'smooth',
                     })
                   }
@@ -146,6 +148,7 @@ function Progress({ contentHeight, progress }: IProgress) {
             behavior: 'smooth',
           });
         }}
+        sx={arrowSX}
       >
         <Arrow />
       </Introduction>

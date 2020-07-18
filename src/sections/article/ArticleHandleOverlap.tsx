@@ -81,7 +81,7 @@ function ArticleHandleOverlap(props: OverlapProps) {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [asideRef]);
+  }, []);
 
   return (
     <OverlapContainer isOverlapping={isOverlapping} ref={asideRef}>
@@ -96,5 +96,5 @@ const OverlapContainer = styled.div<{ isOverlapping: boolean }>`
   user-select: ${p => (p.isOverlapping ? 'none' : 'initial')};
   pointer-events: ${p => (p.isOverlapping ? 'none' : 'initial')};
   opacity: ${p => (p.isOverlapping ? 0 : 1)};
-  transition: ${p => (p.isOverlapping ? 'opacity 0.25s' : 'opacity 0.25s')};
+  transition: opacity 0.25s;
 `;

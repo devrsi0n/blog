@@ -66,7 +66,6 @@ function CodePrism({
             {title && (
               <Title
                 sx={{
-                  backgroundColor: theme => theme.colors.prism.background,
                   borderBottom: theme =>
                     `1px solid ${theme.colors.horizontalRule}`,
                 }}
@@ -193,7 +192,6 @@ const Pre = styled.pre`
 
 const Title = styled.p`
   font-weight: bold;
-  font-style: italic;
   padding: 24px 32px;
 
   ${mediaqueries.phablet`
@@ -208,7 +206,6 @@ const Title = styled.p`
 const LanguageWrapper = styled.div`
   position: absolute;
   top: 0;
-  /* left: 20px; */
   padding: 5px 10px;
   font-size: 13px;
   text-align: right;

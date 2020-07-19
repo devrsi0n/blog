@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Handclap = ({ width = 33, fill }) => {
+const IconHandclap = ({ width = 33, fill }) => {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(true);
@@ -11,7 +11,7 @@ const Handclap = ({ width = 33, fill }) => {
       height={width}
       viewBox="0 0 33 33"
       xmlns="http://www.w3.org/2000/svg"
-      fill={clicked && fill}
+      fill={clicked ? fill : undefined}
       onClick={handleClick}
     >
       <path
@@ -22,4 +22,4 @@ const Handclap = ({ width = 33, fill }) => {
   );
 };
 
-export default Handclap;
+export default IconHandclap;

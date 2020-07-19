@@ -10,8 +10,9 @@ import Logo from '@components/Logo';
 import useIsDarkMode from '@hooks/useIsDark';
 import mediaqueries from '@styles/media';
 import { IconChevronLeft, IconEx } from '@components/Icons';
-import { getWindowDimensions, getBreakpointFromTheme } from '@utils';
+import { getWindowDimensions } from '@utils';
 import ShareButton from '@components/ShareButton';
+import { breakpointMap } from '../../gatsby-plugin-theme-ui';
 import ModeSwitch from '../ModeSwitch';
 
 const strNavToHome = '回到主页';
@@ -44,7 +45,7 @@ function NavigationHeader({ location }: NavigationHeaderPropos) {
 
   useEffect(() => {
     const { width } = getWindowDimensions();
-    const phablet = getBreakpointFromTheme('phablet');
+    const { phablet } = breakpointMap;
 
     const prev = localStorage.getItem('previousPath');
     const previousPathWasHomepage =

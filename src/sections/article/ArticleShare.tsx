@@ -8,13 +8,7 @@ import { stringify } from 'query-string';
 import toast from '@components/Toast';
 import { IconTwitter, IconWeibo, IconCopy } from '@components/Icons';
 
-import {
-  getHighlightedTextPositioning,
-  getSelectionDimensions,
-  getSelectionText,
-  getWindowDimensions,
-  getBreakpointFromTheme,
-} from '@utils';
+import { getSelectionDimensions, getSelectionText } from '@utils';
 
 function generateShare(shareText: string) {
   if (!shareText) return {};
@@ -58,8 +52,6 @@ function ArticelShare() {
   const isDark = colorMode === 'dark';
 
   useEffect(() => {
-    const events: string[] = ['keydown', 'keyup', 'mouseup', 'resize'];
-
     function handleMenuFloatSettings() {
       /**
        * Why is there a setTimeout here?
@@ -69,11 +61,10 @@ function ArticelShare() {
        */
       setTimeout(() => {
         const article = document.querySelector('article');
-        const paragraphOffset = (document.querySelector(
-          'article p'
-        ) as HTMLParagraphElement)?.offsetLeft;
 
-        if (!article || !paragraphOffset) return;
+        if (!article) {
+          return;
+        }
 
         // We want to not show the menu float in code blocks
         const codeBlocks = Array.from(
@@ -83,43 +74,15 @@ function ArticelShare() {
           window.getSelection().containsNode(block, true)
         );
 
-        if (isHighlightedInCodeBlock) return;
-
-        const articleBox = article.getBoundingClientRect() as DOMRect;
-
-        const { width, height } = getSelectionDimensions();
-        const { x: _x, y: _y } = getHighlightedTextPositioning();
-        const { width: windowWidth } = getWindowDimensions();
-        const tablet = getBreakpointFromTheme('tablet');
-        const desktop = getBreakpointFromTheme('desktop');
-
-        /**
-         * Because the article is offset to the side to compensate for the progress bar
-         * we need to calculate the offset of the menu share in the same way.
-         */
-        let paddingOffset = 0;
-
-        if (windowWidth > tablet) {
-          paddingOffset = 53;
+        if (isHighlightedInCodeBlock) {
+          return;
         }
 
-        if (windowWidth > desktop) {
-          paddingOffset = 68;
-        }
+        const { width, x: _x, y: _y } = getSelectionDimensions();
 
-        /**
-         * Get the X and Y offsets of the editors Left and Top positions
-         * If the height is great than 20 (the user has highlighted more than 2 rows of text)
-         * then start the position from the left most edge so we can center the bar in
-         * the middle of the text area
-         */
-        const offset: { x: number; y: number } = {
-          x: height > 29 ? paragraphOffset + paddingOffset : _x,
-          y: _y - articleBox.y - 160,
-        };
         setPosition({
-          x: offset.x + width / 2 - MENU_WIDTH / 2 - paddingOffset,
-          y: offset.y - MENU_HEIGHT - 5,
+          x: _x - MENU_WIDTH / 2 + width / 2,
+          y: _y - MENU_HEIGHT - 10,
           show: width > 1,
         });
 
@@ -127,16 +90,10 @@ function ArticelShare() {
       }, 0);
     }
 
-    // attach all events
-    events.forEach(event =>
-      window.addEventListener(event, handleMenuFloatSettings)
-    );
+    window.addEventListener('mouseup', handleMenuFloatSettings);
 
     return () => {
-      // remove all events after mount
-      events.forEach(event =>
-        window.removeEventListener(event, handleMenuFloatSettings)
-      );
+      window.removeEventListener('mouseup', handleMenuFloatSettings);
     };
   }, [show]);
 
@@ -265,7 +222,7 @@ const popUpwards = keyframes`
 const MenuFloat = styled.div<{ isDark: boolean }>`
   position: absolute;
   align-items: center;
-  z-index: 1;
+  z-index: 9;
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
   padding: 7px 11px 7px 19px;

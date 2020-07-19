@@ -179,24 +179,10 @@ const MobileControls = styled.div`
 `;
 
 const ArticleBody = styled.article`
-  position: relative;
-  padding: 160px 0 35px;
-  padding-left: 68px;
+  padding: 160px 0;
   transition: background 0.2s linear;
   display: flex;
   justify-content: center;
-
-  ${mediaqueries.desktop`
-    padding-left: 53px;
-  `}
-
-  ${mediaqueries.tablet`
-    padding: 70px 0 80px;
-  `}
-
-  ${mediaqueries.phablet`
-    padding: 60px 0;
-  `}
 `;
 
 const NextArticle = styled(Section)`

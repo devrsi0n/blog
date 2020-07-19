@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 
-import { breakpoints } from '../gatsby-plugin-theme-ui';
+import { breakpointMap } from '../gatsby-plugin-theme-ui';
 
 /**
  * Clamp a number between min and max
@@ -36,22 +36,6 @@ export const range = (start: number, len: number, step = 1) =>
         .fill(undefined)
         .map((_, i) => +(start + i * step).toFixed(4))
     : [];
-
-type FnProps = {}[];
-
-/**
- * Extract from the theme a specific breakpoint size
- *
- * @param name Name of the breakpoint we wish to retrieve
- *                      All options can be found in styles/theme
- *
- * @example
- *    getBreakpointFromTheme('tablet') 768
- */
-export function getBreakpointFromTheme(name: string) {
-  const foundBreakpoint = breakpoints.find(([label]) => label === name);
-  return foundBreakpoint && foundBreakpoint[1];
-}
 
 export function getWindowDimensions(): { height: number; width: number } {
   if (typeof window !== 'undefined') {
@@ -139,69 +123,6 @@ export function startAnimation(callback: () => void) {
   });
 }
 
-/**
- * Returns the X and Y coordinates of a selected piece of Text.
- * This will always return the top left corner of the selection.
- */
-export const getHighlightedTextPositioning = () => {
-  const doc: Document = window.document;
-  let sel: Selection = doc.selection;
-  let selRange: Range;
-  let rects: ClientRectList;
-  let rect: ClientRect;
-
-  let x = 0;
-  let y = 0;
-
-  if (sel) {
-    if (sel.type !== 'Control') {
-      selRange = (sel as any).createRange();
-      selRange.collapse(true);
-      x = (selRange as any).boundingLeft;
-      y = (selRange as any).boundingTop;
-    }
-  } else if (window.getSelection) {
-    sel = window.getSelection();
-    if (sel.rangeCount) {
-      selRange = sel.getRangeAt(0).cloneRange();
-
-      if (selRange.getClientRects) {
-        selRange.collapse(true);
-        rects = selRange.getClientRects();
-
-        if (rects.length > 0) {
-          [rect] = rects;
-          x = rect.left;
-          y = rect.top;
-        }
-      }
-
-      // Fall back to inserting a temporary element
-      if (x === 0 && y === 0) {
-        const span = doc.createElement('span');
-        if (span.getClientRects) {
-          // Ensure span has dimensions and position by
-          // adding a zero-width space character
-          span.appendChild(doc.createTextNode('\u200b'));
-          selRange.insertNode(span);
-          [rect] = span.getClientRects();
-          if (rect) {
-            x = rect.left;
-            y = rect.top;
-          }
-          const spanParent = span.parentNode;
-          spanParent.removeChild(span);
-
-          // Glue any broken text nodes back together
-          spanParent.normalize();
-        }
-      }
-    }
-  }
-
-  return { x, y };
-};
-
 function isOrContains(node: Node & ParentNode, container: Node) {
   while (node) {
     if (node === container) {
@@ -262,26 +183,54 @@ export const getSelectionDimensions = () => {
 
   let width = 0;
   let height = 0;
+  let x = 0;
+  let y = 0;
 
   if (sel) {
     if (sel.type !== 'Control') {
       selRange = (sel as any).createRange();
+      selRange.collapse(true);
       width = selRange.boundingWidth;
       height = selRange.boundingHeight;
+      x = (selRange as any).boundingLeft;
+      y = (selRange as any).boundingTop;
     }
   } else if (window.getSelection) {
     sel = window.getSelection();
     if (sel.rangeCount) {
       selRange = sel.getRangeAt(0).cloneRange();
       if (selRange.getBoundingClientRect) {
-        const rect = selRange.getBoundingClientRect();
-        width = rect.right - rect.left;
-        height = rect.bottom - rect.top;
+        const rect: DOMRect = selRange.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        x = rect.x;
+        y = rect.y;
+      }
+    }
+
+    // Fall back to inserting a temporary element
+    if (x === 0 && y === 0) {
+      const span = doc.createElement('span');
+      if (span.getClientRects) {
+        // Ensure span has dimensions and position by
+        // adding a zero-width space character
+        span.appendChild(doc.createTextNode('\u200b'));
+        selRange.insertNode(span);
+        const [rect] = span.getClientRects();
+        if (rect) {
+          x = rect.left;
+          y = rect.top;
+        }
+        const spanParent = span.parentNode;
+        spanParent.removeChild(span);
+
+        // Glue any broken text nodes back together
+        spanParent.normalize();
       }
     }
   }
 
-  return { width, height };
+  return { width, height, x: x + window.scrollX, y: y + window.scrollY };
 };
 
 export function getSelectionText() {

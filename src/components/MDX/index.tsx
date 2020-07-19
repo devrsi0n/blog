@@ -285,7 +285,6 @@ const ImageCSS = css`
  * the MDXBody.
  */
 const MDXBody = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;

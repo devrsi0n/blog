@@ -69,7 +69,7 @@ Gatsby 插件 [gatsby-transformer-gitinfo](https://github.com/kraynel/gatsby-tra
 
 ### 生成文件最近更新时间 JSON
 
-这里没有用 `git log` 提取时间，因为 git staged 时还没有 commit，参考脚本如下（代码位于本仓库 [./tasks/update-post-timestamps.js](https://github.com/devrsi0n/blog/blob/32176bf5d855b3bbd8b0e0954377269365186327/tasks/update-post-timestamps.js#L12)`）：
+这里没有用 `git log` 提取时间，因为 git staged 时还没有 commit，参考脚本如下（代码位于本仓库 [./tasks/update-post-timestamps.js](https://github.com/devrsi0n/blog/blob/32176bf5d855b3bbd8b0e0954377269365186327/tasks/update-post-timestamps.js#L12)）：
 
 ```js title=update-post-timestamps.js
 const moment = require('moment-timezone');

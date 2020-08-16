@@ -1,4 +1,5 @@
 import React from 'react';
+import { useThemeUI } from 'theme-ui';
 import styled from '@emotion/styled';
 import { IconHeart, IconHandclap } from '@components/Icons';
 // import {IconShare} from '@components/Icons';
@@ -7,7 +8,7 @@ import Action from './Action';
 interface Props {
   like: number;
   handclap: number;
-  share: number;
+  // share: number;
   handleAction(type: 'like' | 'handclap' | 'share'): void;
 }
 
@@ -17,31 +18,32 @@ function Actions({
   // share,
   handleAction,
 }: Props) {
+  const { theme } = useThemeUI();
   return (
     <Section>
       <Action
         type="like"
         count={like}
-        color="rgb(224, 36, 94)"
+        color={theme.colors.like as string}
         handleClick={() => handleAction('like')}
         style={{
           padding: 0,
         }}
       >
-        <IconHeart width={46} fill="rgb(224, 36, 94)" />
+        <IconHeart width={46} fill={theme.colors.like as string} />
       </Action>
       <Action
         type="handclap"
         count={handclap}
-        color="rgb(29, 161, 242)"
+        color={theme.colors.handclap as string}
         handleClick={() => handleAction('handclap')}
       >
-        <IconHandclap width={26} />
+        <IconHandclap width={26} fill={theme.colors.handclap as string} />
       </Action>
       {/* <Action
         type="share"
         count={share}
-        color="rgb(23, 191, 99)"
+        color={theme.colors.share as string}
         handClick={() => handleAction('share')}
       >
         <IconShare width={24} />

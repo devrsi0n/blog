@@ -77,6 +77,16 @@ module.exports = {
         gatsbyRemarkPlugins: [
           // `gatsby-remark-embed-video`,
           {
+            resolve: `gatsby-remark-prettier`,
+            options: {
+              usePrettierrc: false,
+              prettierOptions: {
+                singleQuote: true,
+                trailingComma: 'es5',
+              },
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 10000,
@@ -309,8 +319,8 @@ module.exports = {
     },
     `gatsby-plugin-catch-links`,
   ].filter(Boolean),
-  proxy: {
-    prefix: '/api',
-    url: 'http://localhost:3000',
-  },
+  // proxy: {
+  //   prefix: '/api',
+  //   url: 'http://localhost:3000',
+  // },
 };

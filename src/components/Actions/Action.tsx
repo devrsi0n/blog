@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { CSSProperties, useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { transparentize } from 'polished';
@@ -16,6 +18,7 @@ const KEY_PREFIX = 'article_action_';
 function Action(props: Props) {
   const [count, setCount] = useState(props.count);
   const key = KEY_PREFIX + props.type;
+  const { handleClick } = props;
 
   useEffect(() => {
     if (props.count > count) {
@@ -30,17 +33,24 @@ function Action(props: Props) {
       if (process.env.NODE_ENV === 'development' || callCount < 10) {
         setCount(prev => prev + 1);
         localStorage.setItem(key, (callCount + 1).toString());
-        props.handleClick(e);
+        handleClick(e);
       } else {
         localStorage.setItem(key, '10');
       }
     },
-    [key, props]
+    [key, handleClick]
   );
 
   return (
-    <Row bg={props.color} onClick={handleRowClick} role="button">
-      <Wrap style={props.style}>{props.children}</Wrap>
+    <Row
+      color={props.color}
+      onClick={handleRowClick}
+      role="button"
+      sx={{
+        fill: 'grey',
+      }}
+    >
+      <Wrap style={props.style || {}}>{props.children}</Wrap>
       {count > 0 && <Count>{count}</Count>}
     </Row>
   );
@@ -63,8 +73,7 @@ const Count = styled.span`
   transition: color ${duration};
 `;
 
-const Row = styled.div<{ bg: string }>`
-  fill: rgb(101, 119, 134);
+const Row = styled.div<{ color: string }>`
   position: relative;
   transition: fill ${duration};
   user-select: none;
@@ -72,12 +81,12 @@ const Row = styled.div<{ bg: string }>`
 
   &:hover {
     cursor: pointer;
-    fill: ${p => p.bg};
+    fill: ${p => p.color};
     ${Wrap} {
-      background: ${p => transparentize(0.9, p.bg)};
+      background: ${p => transparentize(0.9, p.color)};
     }
     ${Count} {
-      color: ${p => p.bg};
+      color: ${p => p.color};
     }
   }
 `;

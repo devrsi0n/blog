@@ -170,8 +170,5 @@
     "content/**/*.{mdx,md}": [
       "node ./tasks/update-post-timestamps.js"
     ]
-  },
-  "engines": {
-    "node": "12.x"
   }
 }

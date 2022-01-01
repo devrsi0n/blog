@@ -22,7 +22,7 @@ import ArticleControls from '@sections/article/ArticleControls';
 import ArticleNext from '@sections/article/ArticleNext';
 import ArticleSEO from '@sections/article/ArticleSEO';
 import ArticleShare from '@sections/article/ArticleShare';
-import useUtteranc from '@hooks/useUtteranc';
+import { Helmet } from 'react-helmet';
 import { ArticleTemplateSiteQuery } from '../types/graphql';
 
 const siteQuery = graphql`
@@ -47,7 +47,6 @@ function Article({ pageContext, location }) {
   // Set a minmum content height avoid calculate error
   const [contentHeight, setContentHeight] = useState<number>(100);
   const [progress, setProgress] = useState<number>(0);
-  useUtteranc('utterancContainer');
   const results = useStaticQuery<ArticleTemplateSiteQuery>(siteQuery);
   const { isLocal, repoUrl } = results.allSite.edges[0].node.siteMetadata;
 
@@ -131,9 +130,7 @@ function Article({ pageContext, location }) {
       <ArticleAside progress={progress} alignRight>
         <ArticleActions url={location.pathname} />
       </ArticleAside>
-
-      <div id="utterancContainer" />
-
+      <ChirpyWidget data-chirpy-comment="true" />
       {isLocal && (
         <EditOnGitHub narrow>
           <Anchor href={editOnGitHubUrl}>在 GitHub 上编辑此文</Anchor>
@@ -157,6 +154,13 @@ function Article({ pageContext, location }) {
           <FooterSpacer />
         </NextArticle>
       )}
+      <Helmet>
+        <script
+          defer
+          src="https://chirpy.dev/bootstrap/comment.js"
+          data-chirpy-domain="devrsi0n.com"
+        />
+      </Helmet>
     </React.Fragment>
   );
 }
@@ -183,6 +187,12 @@ const ArticleBody = styled.article`
   transition: background 0.2s linear;
   display: flex;
   justify-content: center;
+`;
+
+const ChirpyWidget = styled.div`
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
 `;
 
 const NextArticle = styled(Section)`

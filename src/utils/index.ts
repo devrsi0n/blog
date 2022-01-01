@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import throttle from 'lodash/throttle';
 
-import { breakpointMap } from '../gatsby-plugin-theme-ui';
-
 /**
  * Clamp a number between min and max
  *

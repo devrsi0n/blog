@@ -21,3 +21,5 @@ yarn-error.log
 /cypress/integration/examples/
 /cypress/videos/
 /cypress/screenshots/
+
+.vercel

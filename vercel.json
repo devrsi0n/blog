@@ -1,14 +1,6 @@
 {
   "version": 2,
   "alias": ["devrsi0n.com"],
-  "env": {
-    "FAUNADB_SECRET": "@faunadb-secret"
-  },
-  "build": {
-    "env": {
-      "GH_TOKEN": "@gh-token"
-    }
-  },
   "routes": [
     {
       "src": "^/(static|icons)/(.*)",

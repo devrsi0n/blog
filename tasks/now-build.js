@@ -21,17 +21,14 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
   const newTag = `v${newTagVersion}`;
 
   try {
-    const clean = await exec('npx gatsby clean');
-    console.log(clean.stdout);
-    console.error(clean.stderr);
-    const build = await exec('npx gatsby build --prefix-paths', {
+    await run('npx gh-pages-clean');
+    await run('npx gatsby clean');
+    await run('npx gatsby build --prefix-paths', {
       env: {
         ...process.env,
         GATSBY_BUILD_VERSION: newTagVersion,
       },
     });
-    console.log(build.stdout);
-    console.error(build.stderr);
   } catch (error) {
     console.error(error);
     process.exit(-1);
@@ -52,3 +49,9 @@ const url = 'https://api.github.com/repos/devrsi0n/devrsi0n.github.io/tags';
     }
   );
 })();
+
+async function run(command, options) {
+  const clean = await exec(command, options);
+  console.log(clean.stdout);
+  console.error(clean.stderr);
+}

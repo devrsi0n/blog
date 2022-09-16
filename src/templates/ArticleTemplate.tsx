@@ -133,7 +133,9 @@ function Article({ pageContext, location }) {
       </ArticleAside>
       <ChirpyWidget
         data-chirpy-comment="true"
-        data-chirpy-theme={colorMode || 'system'}
+        data-chirpy-theme={
+          colorMode === 'default' ? 'light' : 'dark' || 'system'
+        }
       />
       {isLocal && (
         <EditOnGitHub narrow>

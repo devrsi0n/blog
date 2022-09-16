@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, useColorMode, useThemeUI } from 'theme-ui';
 import React, { useRef, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import throttle from 'lodash/throttle';
@@ -111,6 +111,7 @@ function Article({ pageContext, location }) {
   }, [hasCalculated, contentSectionRef, contentHeight]);
 
   const editOnGitHubUrl = `${repoUrl}/edit/master/content/posts${article.filePath}/index.mdx`;
+  const [colorMode] = useColorMode();
 
   return (
     <React.Fragment>
@@ -130,7 +131,10 @@ function Article({ pageContext, location }) {
       <ArticleAside progress={progress} alignRight>
         <ArticleActions url={location.pathname} />
       </ArticleAside>
-      <ChirpyWidget data-chirpy-comment="true" />
+      <ChirpyWidget
+        data-chirpy-comment="true"
+        data-chirpy-theme={colorMode || 'system'}
+      />
       {isLocal && (
         <EditOnGitHub narrow>
           <Anchor href={editOnGitHubUrl}>在 GitHub 上编辑此文</Anchor>

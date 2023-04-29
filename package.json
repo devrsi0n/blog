@@ -109,7 +109,7 @@
     "theme-ui": "^0.3.1",
     "tiny-glob": "^0.2.6",
     "typeface-merriweather": "0.0.72",
-    "ua-parser-js": "^0.7.21"
+    "ua-parser-js": "^0.7.33"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",

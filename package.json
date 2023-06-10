@@ -60,7 +60,7 @@
     "contentful-cli": "^0.36.2",
     "cross-env": "^7.0.2",
     "framer-motion": "^1.11.1",
-    "gatsby": "^2.23.20",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^2.4.12",
     "gatsby-paginate": "^1.1.1",
     "gatsby-plugin-catch-links": "^2.3.10",
